@@ -22,7 +22,7 @@ from typing import Any, Awaitable, Callable, Generic, Iterable, Sequence, TypeVa
 import aiosqlite
 
 
-FOUNDATION_SCHEMA_VERSION = 1
+FOUNDATION_SCHEMA_VERSION = 2
 _MIGRATION_TABLE = "studio_schema_migration"
 _IDENTIFIER_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 _in_write_transaction: contextvars.ContextVar[bool] = contextvars.ContextVar(
@@ -82,6 +82,79 @@ DEFAULT_MIGRATIONS: tuple[Migration, ...] = (
     Migration(
         version=1,
         name="studio_persistence_foundation",
+    ),
+    Migration(
+        version=2,
+        name="studio_version_provenance_repository",
+        statements=(
+            """
+            CREATE TABLE studio_semantic_version (
+                logical_id TEXT NOT NULL,
+                version_id TEXT NOT NULL,
+                payload_json TEXT NOT NULL,
+                content_hash TEXT NOT NULL,
+                provenance_json TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                predecessor_version_id TEXT,
+                PRIMARY KEY (logical_id, version_id),
+                FOREIGN KEY (logical_id, predecessor_version_id)
+                    REFERENCES studio_semantic_version(logical_id, version_id)
+            )
+            """,
+            """
+            CREATE TABLE studio_supersession (
+                logical_id TEXT NOT NULL,
+                predecessor_version_id TEXT NOT NULL,
+                successor_version_id TEXT NOT NULL,
+                reason TEXT NOT NULL,
+                provenance_json TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                PRIMARY KEY (
+                    logical_id,
+                    predecessor_version_id,
+                    successor_version_id
+                ),
+                FOREIGN KEY (logical_id, predecessor_version_id)
+                    REFERENCES studio_semantic_version(logical_id, version_id),
+                FOREIGN KEY (logical_id, successor_version_id)
+                    REFERENCES studio_semantic_version(logical_id, version_id)
+            )
+            """,
+            """
+            CREATE TABLE studio_current_pointer (
+                logical_id TEXT PRIMARY KEY,
+                version_id TEXT NOT NULL,
+                lifecycle_status TEXT NOT NULL CHECK (
+                    lifecycle_status IN (
+                        'DRAFT',
+                        'REVIEW',
+                        'APPROVED',
+                        'LOCKED',
+                        'SUPERSEDED',
+                        'INVALIDATED'
+                    )
+                ),
+                revision INTEGER NOT NULL DEFAULT 0 CHECK (revision >= 0),
+                updated_at TEXT NOT NULL,
+                FOREIGN KEY (logical_id, version_id)
+                    REFERENCES studio_semantic_version(logical_id, version_id)
+            )
+            """,
+            """
+            CREATE TRIGGER studio_semantic_version_no_update
+            BEFORE UPDATE ON studio_semantic_version
+            BEGIN
+                SELECT RAISE(ABORT, 'studio semantic versions are immutable');
+            END
+            """,
+            """
+            CREATE TRIGGER studio_semantic_version_no_delete
+            BEFORE DELETE ON studio_semantic_version
+            BEGIN
+                SELECT RAISE(ABORT, 'studio semantic versions are immutable');
+            END
+            """,
+        ),
     ),
 )
 

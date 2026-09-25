@@ -2,6 +2,7 @@
 
 from .persistence import (
     CASConflict,
+    DEFAULT_MIGRATIONS,
     FOUNDATION_SCHEMA_VERSION,
     Migration,
     NetworkInTransactionError,
@@ -27,9 +28,23 @@ from .primitives import (
     VersionId,
     VersionRef,
 )
+from .versioning import (
+    ContentHashMismatch,
+    CurrentPointerNotFound,
+    CurrentVersionPointer,
+    StoredSemanticVersion,
+    SupersessionRecord,
+    VersionNotFound,
+    VersionRepository,
+    VersionRepositoryError,
+)
 
 __all__ = [
     "CASConflict",
+    "ContentHashMismatch",
+    "CurrentPointerNotFound",
+    "CurrentVersionPointer",
+    "DEFAULT_MIGRATIONS",
     "FOUNDATION_SCHEMA_VERSION",
     "FindingSeverity",
     "GateVerdict",
@@ -45,8 +60,13 @@ __all__ = [
     "SQLiteReadRepository",
     "SQLiteWriteOwner",
     "SQLiteWriteTransaction",
+    "StoredSemanticVersion",
+    "SupersessionRecord",
     "VersionId",
+    "VersionNotFound",
     "VersionRef",
+    "VersionRepository",
+    "VersionRepositoryError",
     "WriteOwnerAlreadyRunning",
     "WriteOwnerNotRunning",
     "WriteQueueFull",

@@ -408,3 +408,44 @@ IMP-003 local verification:
 
 NEXT DEPENDENCY-READY TASK:
 - [ ] IMP-004 - Version / Provenance Repository Primitives.
+
+
+---
+
+## IMP-004 - Version / Provenance Repository Primitives
+
+- [>] CLAIMED on chatgpt/IMP-004-version-provenance-repository.
+- [ ] Add Studio schema migration V2 for version/provenance repository.
+- [ ] Add immutable semantic version records.
+- [ ] Add successor + supersession history.
+- [ ] Add mutable current pointer/status separation.
+- [ ] Add pointer/status CAS update.
+- [ ] Add provenance persistence/readback.
+- [ ] Add restart/readback tests.
+- [ ] Run targeted tests.
+- [ ] Run full unit regression.
+- [ ] Capture evidence + frozen SHA verification.
+- [ ] Commit / push / PR / review / merge / MAIN VERIFIED.
+
+
+IMP-004 local verification:
+- [x] Add Studio schema migration V2.
+- [x] Add immutable semantic version records.
+- [x] Add successor + supersession history.
+- [x] Add mutable current pointer/status separation.
+- [x] Add pointer/status CAS update.
+- [x] Add provenance persistence/readback.
+- [x] Add restart/readback tests.
+- [x] Targeted Studio tests: 39/39 PASS.
+- [x] IMP-004 versioning tests: 8/8 PASS.
+- [x] Full Windows unit suite: 428 PASS / 3 exact known POSIX-path failures.
+- [x] Unaffected regression: 428 PASS / 3 deselected.
+- [x] Frozen Master guard PASS; SHA unchanged.
+- [x] Evidence captured.
+- [ ] Commit.
+- [ ] Push.
+- [ ] Open PR.
+- [ ] Ubuntu CI Python 3.10/3.13.
+- [ ] Exact-head review.
+- [ ] Merge main.
+- [ ] Verify main and mark MAIN VERIFIED.
