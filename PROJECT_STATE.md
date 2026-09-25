@@ -663,3 +663,25 @@ branch = chatgpt/IMP-003-one-writer-persistence
 - evidence = evidence/tests/IMP-003_ONE_WRITER_PERSISTENCE_EVIDENCE.md
 
 NEXT_EXACT_ACTION = "COMMIT IMP-003 AND RUN REMOTE PR/CI LIFECYCLE"
+
+
+---
+
+## IMP-003 MAIN VERIFIED - 2026-09-25
+
+task = IMP-003 ONE-WRITER PERSISTENCE / MIGRATION FOUNDATION
+status = MAIN VERIFIED
+verified_repository = nguyenkhactang922-bot/flowkit
+verified_main_sha = 661fdba57520cf25106d644cd143e82936b0451c
+frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+- PR #6 exact-head = 1610b7194ef63d21a57586bae69d99ac6ff667ed
+- PR workflow run 36122183881 = SUCCESS
+- exact-head review = PASS
+- main merge = 661fdba57520cf25106d644cd143e82936b0451c
+- local main guard = PASS
+- local main targeted IMP-003 = 12/12 PASS
+- main push workflow run 36122334589 = SUCCESS
+- Python 3.10/3.13 full unit CI = SUCCESS
+
+NEXT_EXACT_ACTION = "CLAIM IMP-004 VERSION / PROVENANCE REPOSITORY PRIMITIVES"

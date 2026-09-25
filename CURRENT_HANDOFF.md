@@ -493,3 +493,24 @@ Evidence:
 - diff check = PASS
 
 NEXT_EXACT_ACTION = "COMMIT IMP-003 → PUSH → PR → UBUNTU CI → REVIEW → MERGE → MAIN VERIFIED"
+
+
+---
+
+## IMP-003 MAIN VERIFIED - 2026-09-25
+
+IMP-003 = MAIN VERIFIED
+
+Verified writable main:
+- repo = nguyenkhactang922-bot/flowkit
+- main SHA = 661fdba57520cf25106d644cd143e82936b0451c
+- PR #6 exact-head CI = SUCCESS
+- PR #6 exact-head review = PASS
+- main push workflow run 36122334589 = SUCCESS
+- Windows main frozen guard = PASS
+- Windows main targeted IMP-003 = 12/12 PASS
+
+Evidence:
+- evidence/tests/IMP-003_ONE_WRITER_PERSISTENCE_EVIDENCE.md
+
+NEXT_EXACT_ACTION = "CLAIM IMP-004 VERSION / PROVENANCE REPOSITORY PRIMITIVES"

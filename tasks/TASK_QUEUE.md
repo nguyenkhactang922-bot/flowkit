@@ -388,3 +388,23 @@ IMP-003 local verification:
 - [ ] Exact-head review.
 - [ ] Merge main.
 - [ ] Verify main and mark MAIN VERIFIED.
+
+
+---
+
+## IMP-003 Final Verification - 2026-09-25
+
+- [x] Canonical one-writer persistence foundation implemented.
+- [x] Targeted Studio tests: 31/31 PASS.
+- [x] IMP-003 persistence tests: 12/12 PASS.
+- [x] Windows unaffected regression: 420 PASS / 3 known POSIX-path cases deselected.
+- [x] Frozen Master guard PASS.
+- [x] PR #6 exact-head reviewed.
+- [x] PR #6 Ubuntu CI Python 3.10/3.13 PASS.
+- [x] PR #6 merged.
+- [x] Local main targeted verification PASS.
+- [x] Main push workflow run 36122334589 PASS.
+- [x] IMP-003 = MAIN VERIFIED at 661fdba57520cf25106d644cd143e82936b0451c.
+
+NEXT DEPENDENCY-READY TASK:
+- [ ] IMP-004 - Version / Provenance Repository Primitives.
