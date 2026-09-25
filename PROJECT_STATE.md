@@ -583,7 +583,7 @@ task = IMP-002 CANONICAL CONTRACT PRIMITIVES
 status = LOCAL VERIFIED / REMOTE CI GATE PENDING
 branch = chatgpt/IMP-002-canonical-contract-primitives
 
-- targeted tests = 18/18 PASS
+- targeted tests = 19/19 PASS
 - Windows full unit suite = 407 PASS / 3 known platform-only failures
 - unaffected local regression = 407 PASS / 3 deselected
 - frozen Master guard = PASS

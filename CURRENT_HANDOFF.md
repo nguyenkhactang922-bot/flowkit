@@ -418,7 +418,7 @@ BASE = 373f34058c500220a90e18677350310ba61f5317
 
 Evidence:
 - evidence/tests/IMP-002_CANONICAL_CONTRACT_PRIMITIVES_EVIDENCE.md
-- targeted Python 3.13 = 18/18 PASS
+- targeted Python 3.13 = 19/19 PASS
 - full Windows unit regression = 407 PASS / 3 exact known POSIX-path failures
 - unaffected regression excluding those exact cases = 407 PASS / 3 deselected
 - frozen Master guard = PASS

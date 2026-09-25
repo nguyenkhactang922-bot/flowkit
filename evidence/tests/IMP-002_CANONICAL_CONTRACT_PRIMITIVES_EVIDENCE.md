@@ -58,7 +58,7 @@ Commands:
 - targeted `tests/unit/test_studio_primitives.py`.
 
 Result:
-- targeted tests: **18/18 PASS**;
+- targeted tests: **19/19 PASS**;
 - frozen Master guard: **PASS**;
 - canonical frozen SHA: unchanged.
 

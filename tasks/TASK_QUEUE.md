@@ -315,7 +315,7 @@ IMP-002 local verification:
 - [x] Implement lifecycle/gate/finding-severity value objects.
 - [x] Implement immutable semantic record metadata.
 - [x] Add serialization/equality/validation/provider-neutrality tests.
-- [x] Targeted tests: 18/18 PASS.
+- [x] Targeted tests: 19/19 PASS.
 - [x] Full Windows unit suite observed: 407 PASS / 3 exact known POSIX-path failures.
 - [x] Unaffected regression: 407 PASS / 3 deselected.
 - [x] Frozen Master guard PASS; SHA unchanged.
