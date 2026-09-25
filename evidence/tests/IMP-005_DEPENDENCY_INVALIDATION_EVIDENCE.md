@@ -101,3 +101,47 @@ Clean unaffected regression excluding exactly those three cases:
 **IMP-005 = LOCAL VERIFIED**
 
 Remote PR/Ubuntu CI/exact-head review/merge/main verification remain pending.
+
+
+## Remote / Main verification
+
+Fork PR:
+- nguyenkhactang922-bot/flowkit#10
+
+Exact PR head:
+- af74ea8896ac6df7e328283614df3ef23b0141f8
+
+PR CI:
+- workflow run 36166026866
+- conclusion: SUCCESS
+- Python 3.10 frozen guard + full unit suite: SUCCESS
+- Python 3.13 frozen guard + full unit suite: SUCCESS
+
+Exact-head review:
+- no blocking findings;
+- DependencyGraph retained edge authority;
+- InvalidationRecord retained consequence-only authority;
+- immutable cause/source/affected/edge evidence enforced;
+- deterministic dedupe + selective reachability verified;
+- one-way CAS lifecycle + durable transition history verified;
+- frozen Master bytes unchanged.
+
+Merge:
+- main merge commit: 8e07bb1066b0d0b75b5050c005a443ea71b5ee10
+
+Local main verification:
+- local HEAD = fork/main = 8e07bb1066b0d0b75b5050c005a443ea71b5ee10
+- frozen guard: PASS
+- targeted IMP-005 tests: 8/8 PASS
+
+Fork-main push CI:
+- workflow run 36166182569
+- conclusion: SUCCESS
+- Python 3.10 frozen guard + full unit suite: SUCCESS
+- Python 3.13 frozen guard + full unit suite: SUCCESS
+
+## Final verdict
+
+IMP-005 = MAIN VERIFIED on nguyenkhactang922-bot/flowkit:main at 8e07bb1066b0d0b75b5050c005a443ea71b5ee10.
+
+NEXT_EXACT_ACTION = CLAIM IMP-006 — OBSERVABILITY / ERROR / EVIDENCE CORE

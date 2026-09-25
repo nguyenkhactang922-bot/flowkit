@@ -621,3 +621,24 @@ Evidence:
 - diff check = PASS
 
 NEXT_EXACT_ACTION = "COMMIT IMP-005 → PUSH → PR → UBUNTU CI → REVIEW → MERGE → MAIN VERIFIED"
+
+
+---
+
+## IMP-005 MAIN VERIFIED - 2026-09-25
+
+IMP-005 = MAIN VERIFIED
+
+Verified writable main:
+- repo = nguyenkhactang922-bot/flowkit
+- main SHA = 8e07bb1066b0d0b75b5050c005a443ea71b5ee10
+- PR #10 exact-head CI = SUCCESS
+- PR #10 exact-head review = PASS
+- main push workflow run 36166182569 = SUCCESS
+- Windows main frozen guard = PASS
+- Windows main targeted IMP-005 = 8/8 PASS
+
+Evidence:
+- evidence/tests/IMP-005_DEPENDENCY_INVALIDATION_EVIDENCE.md
+
+NEXT_EXACT_ACTION = "CLAIM IMP-006 OBSERVABILITY / ERROR / EVIDENCE CORE"
