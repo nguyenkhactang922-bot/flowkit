@@ -469,3 +469,46 @@ IMP-004 local verification:
 
 NEXT DEPENDENCY-READY TASK:
 - [ ] IMP-005 - DependencyGraph + Durable InvalidationRecord.
+
+
+---
+
+## IMP-005 - DependencyGraph + Durable InvalidationRecord
+
+- [>] CLAIMED on chatgpt/IMP-005-dependency-invalidation.
+- [ ] Add Studio schema migration V3.
+- [ ] Add typed dependency edge repository.
+- [ ] Add direct/transitive forward/reverse reachability.
+- [ ] Add durable InvalidationRecord repository.
+- [ ] Add deterministic dedupe/idempotency.
+- [ ] Add unresolved → resolved CAS lifecycle.
+- [ ] Add restart replay of unresolved invalidations.
+- [ ] Add selectivity/preserved-unrelated tests.
+- [ ] Run targeted tests.
+- [ ] Run full unit regression.
+- [ ] Capture evidence + frozen SHA verification.
+- [ ] Commit / push / PR / review / merge / MAIN VERIFIED.
+
+
+IMP-005 local verification:
+- [x] Add Studio schema migration V3.
+- [x] Add typed exact-version dependency edge repository.
+- [x] Add forward/reverse reachability.
+- [x] Add selective descendant invalidation.
+- [x] Add durable InvalidationRecord.
+- [x] Add deterministic dedupe/idempotency.
+- [x] Add unresolved → resolved CAS lifecycle.
+- [x] Add durable transition history.
+- [x] Add restart replay.
+- [x] Targeted IMP-003/004/005: 28/28 PASS.
+- [x] Full Windows unit suite: 436 PASS / 3 exact known POSIX-path failures.
+- [x] Unaffected regression: 436 PASS / 3 deselected.
+- [x] Frozen Master guard PASS; SHA unchanged.
+- [x] Evidence captured.
+- [ ] Commit.
+- [ ] Push.
+- [ ] Open PR.
+- [ ] Ubuntu CI Python 3.10/3.13.
+- [ ] Exact-head review.
+- [ ] Merge main.
+- [ ] Verify main and mark MAIN VERIFIED.

@@ -754,3 +754,53 @@ frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c7
 - Python 3.10/3.13 full unit CI = SUCCESS
 
 NEXT_EXACT_ACTION = "CLAIM IMP-005 DEPENDENCYGRAPH + DURABLE INVALIDATIONRECORD"
+
+
+---
+
+## Active Implementation Task - 2026-09-25
+
+task = IMP-005 DEPENDENCYGRAPH + DURABLE INVALIDATIONRECORD
+branch = chatgpt/IMP-005-dependency-invalidation
+base_head = d88af1be0d812c20038cd970b663d99c821f1467
+depends = IMP-004 MAIN VERIFIED
+status = CLAIMED / AUTHORITY READ / CODE NEXT
+
+Acceptance:
+- DependencyGraph owns typed edge truth
+- exact source/consumer version refs
+- deterministic direct/transitive reachability
+- unrelated descendants preserved
+- InvalidationRecord does not invent edges
+- immutable cause/source/affected/edge evidence
+- deterministic active dedupe
+- unresolved → resolved lifecycle via CAS
+- restart/readback unresolved replay
+- frozen Master unchanged
+
+
+---
+
+## IMP-005 Local Verification - 2026-09-25
+
+task = IMP-005 DEPENDENCYGRAPH + DURABLE INVALIDATIONRECORD
+status = LOCAL VERIFIED / REMOTE CI GATE PENDING
+branch = chatgpt/IMP-005-dependency-invalidation
+
+- exact-version edge truth = VERIFIED
+- forward/reverse reachability = VERIFIED
+- selective descendant invalidation = VERIFIED
+- unrelated descendants preserved = VERIFIED
+- deterministic dedupe/idempotency = VERIFIED
+- immutable cause/source/affected/edge evidence = VERIFIED
+- unresolved → resolved CAS lifecycle = VERIFIED
+- transition history = VERIFIED
+- restart unresolved replay = VERIFIED
+- schema V2 → V3 migration = VERIFIED
+- targeted cluster = 28/28 PASS
+- Windows full unit suite = 436 PASS / 3 known platform-only failures
+- unaffected local regression = 436 PASS / 3 deselected
+- frozen Master guard = PASS
+- evidence = evidence/tests/IMP-005_DEPENDENCY_INVALIDATION_EVIDENCE.md
+
+NEXT_EXACT_ACTION = "COMMIT IMP-005 AND RUN REMOTE PR/CI LIFECYCLE"

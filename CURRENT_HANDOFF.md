@@ -577,3 +577,47 @@ Evidence:
 - evidence/tests/IMP-004_VERSION_PROVENANCE_REPOSITORY_EVIDENCE.md
 
 NEXT_EXACT_ACTION = "CLAIM IMP-005 DEPENDENCYGRAPH + DURABLE INVALIDATIONRECORD"
+
+
+---
+
+## IMP-005 Claim - 2026-09-25
+
+ACTIVE_TASK = IMP-005 DEPENDENCYGRAPH + DURABLE INVALIDATIONRECORD
+BRANCH = chatgpt/IMP-005-dependency-invalidation
+BASE_HEAD = d88af1be0d812c20038cd970b663d99c821f1467
+DEPENDS = IMP-004 MAIN VERIFIED
+
+Scope:
+- typed exact-version dependency edge repository
+- forward + reverse reachability
+- selective descendant invalidation
+- durable InvalidationRecord
+- deterministic dedupe/idempotency
+- unresolved → resolved lifecycle with CAS
+- immutable cause/source/affected/edge evidence
+- restart replay of unresolved invalidations
+- Studio schema migration V3
+
+NEXT_EXACT_ACTION = "IMPLEMENT IMP-005 DEPENDENCYGRAPH + INVALIDATIONRECORD + TESTS"
+
+
+---
+
+## IMP-005 Local Verification - 2026-09-25
+
+IMP-005 = LOCAL VERIFIED
+BRANCH = chatgpt/IMP-005-dependency-invalidation
+BASE = d88af1be0d812c20038cd970b663d99c821f1467
+
+Evidence:
+- evidence/tests/IMP-005_DEPENDENCY_INVALIDATION_EVIDENCE.md
+- failed-stage rerun = 1/1 PASS
+- targeted IMP-003/004/005 = 28/28 PASS
+- full Windows unit suite = 436 PASS / 3 exact known POSIX-path failures
+- unaffected regression = 436 PASS / 3 deselected
+- frozen Master guard = PASS
+- frozen SHA unchanged
+- diff check = PASS
+
+NEXT_EXACT_ACTION = "COMMIT IMP-005 → PUSH → PR → UBUNTU CI → REVIEW → MERGE → MAIN VERIFIED"
