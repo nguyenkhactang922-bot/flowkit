@@ -1,4 +1,4 @@
-"""Provider-neutral canonical Studio contracts and persistence foundation."""
+"""Provider-neutral canonical Studio contracts, evidence, and persistence."""
 
 from .invalidation import (
     DependencyEdge,
@@ -14,6 +14,26 @@ from .invalidation import (
     InvalidationTransition,
     derive_dependency_edge_id,
     derive_invalidation_dedupe_key,
+)
+from .observability import (
+    CorrelationId,
+    ErrorClass,
+    EvidenceEvent,
+    EvidenceEventConflict,
+    EvidenceEventKind,
+    EvidenceEventRepository,
+    EvidenceReference,
+    ObservabilityError,
+    RetryDisposition,
+    StudioErrorRecord,
+    correlation_scope,
+    current_correlation_id,
+    new_correlation_id,
+    new_error_id,
+    new_event_id,
+    redact_secrets,
+    redact_text,
+    utc_now,
 )
 from .persistence import (
     CASConflict,
@@ -57,6 +77,7 @@ from .versioning import (
 __all__ = [
     "CASConflict",
     "ContentHashMismatch",
+    "CorrelationId",
     "CurrentPointerNotFound",
     "CurrentVersionPointer",
     "DEFAULT_MIGRATIONS",
@@ -65,6 +86,12 @@ __all__ = [
     "DependencyGraphRepository",
     "DependencyInvalidationError",
     "DependencyReachability",
+    "ErrorClass",
+    "EvidenceEvent",
+    "EvidenceEventConflict",
+    "EvidenceEventKind",
+    "EvidenceEventRepository",
+    "EvidenceReference",
     "FOUNDATION_SCHEMA_VERSION",
     "FindingSeverity",
     "GateVerdict",
@@ -78,8 +105,10 @@ __all__ = [
     "LogicalId",
     "Migration",
     "NetworkInTransactionError",
+    "ObservabilityError",
     "PersistenceError",
     "Provenance",
+    "RetryDisposition",
     "SchemaCompatibilityError",
     "SemanticRecordMetadata",
     "SourceVersionBinding",
@@ -87,6 +116,7 @@ __all__ = [
     "SQLiteWriteOwner",
     "SQLiteWriteTransaction",
     "StoredSemanticVersion",
+    "StudioErrorRecord",
     "SupersessionRecord",
     "VersionId",
     "VersionNotFound",
@@ -97,7 +127,15 @@ __all__ = [
     "WriteOwnerNotRunning",
     "WriteQueueFull",
     "assert_network_allowed",
+    "correlation_scope",
+    "current_correlation_id",
     "derive_dependency_edge_id",
     "derive_invalidation_dedupe_key",
     "ensure_schema_compatibility",
+    "new_correlation_id",
+    "new_error_id",
+    "new_event_id",
+    "redact_secrets",
+    "redact_text",
+    "utc_now",
 ]

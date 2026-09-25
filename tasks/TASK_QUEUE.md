@@ -552,3 +552,46 @@ NEXT DEPENDENCY-READY TASK:
 
 NEXT DEPENDENCY-READY TASK:
 - [ ] IMP-006 - Observability / Error / Evidence Core.
+
+
+---
+
+## IMP-006 - Observability / Error / Evidence Core
+
+- [>] CLAIMED on chatgpt/IMP-006-observability-error-evidence.
+- [ ] Read exact frozen authority for observability/error/evidence.
+- [ ] Audit current logging/error/event surfaces for reuse.
+- [ ] Implement typed correlation/evidence/error primitives.
+- [ ] Implement deterministic secret redaction.
+- [ ] Implement structured decision/failure evidence events.
+- [ ] Prove event-vs-current-state separation.
+- [ ] Add targeted tests.
+- [ ] Run full unit regression.
+- [ ] Capture evidence + frozen SHA verification.
+- [ ] Commit / push / PR / review / merge / MAIN VERIFIED.
+
+
+IMP-006 local verification:
+- [x] Read frozen observability/error/evidence authority.
+- [x] Audit current logging/error/event surfaces.
+- [x] Add typed correlation identity + propagation.
+- [x] Add exact ErrorClass taxonomy + retry disposition.
+- [x] Add provider ambiguity reconciliation invariant.
+- [x] Add EvidenceReference + structured DECISION/FAILURE events.
+- [x] Add deterministic recursive secret redaction.
+- [x] Add append-only evidence event repository.
+- [x] Add Studio schema migration V4.
+- [x] Prove event-vs-current-state separation.
+- [x] Targeted IMP-006: 10/10 PASS.
+- [x] Studio V1→V4 cluster: 57/57 PASS.
+- [x] Full Windows unit suite: 446 PASS / 3 exact known POSIX-path failures.
+- [x] Unaffected regression: 446 PASS / 3 deselected.
+- [x] Frozen Master guard PASS; SHA unchanged.
+- [x] Evidence captured.
+- [ ] Commit.
+- [ ] Push.
+- [ ] Open PR.
+- [ ] Ubuntu CI Python 3.10/3.13.
+- [ ] Exact-head review.
+- [ ] Merge main.
+- [ ] Verify main and mark MAIN VERIFIED.

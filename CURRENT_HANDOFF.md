@@ -642,3 +642,48 @@ Evidence:
 - evidence/tests/IMP-005_DEPENDENCY_INVALIDATION_EVIDENCE.md
 
 NEXT_EXACT_ACTION = "CLAIM IMP-006 OBSERVABILITY / ERROR / EVIDENCE CORE"
+
+
+---
+
+## IMP-006 Claim - 2026-09-26
+
+ACTIVE_TASK = IMP-006 OBSERVABILITY / ERROR / EVIDENCE CORE
+BRANCH = chatgpt/IMP-006-observability-error-evidence
+BASE_HEAD = 77c828f04c1a40027dbf7f0172121d9582e1c8d8
+DEPENDS = IMP-004 MAIN VERIFIED
+
+Scope:
+- provider-neutral correlation identity
+- structured decision/failure evidence events
+- typed error taxonomy primitives
+- deterministic secret/token redaction
+- explicit evidence references
+- event/evidence separation from canonical current-state authority
+- exact source/version + provenance bindings
+- schema migration only if durable evidence storage is required by the frozen authority
+
+NEXT_EXACT_ACTION = "READ IMP-006 AUTHORITY + CURRENT LOGGING/ERROR SURFACES → IMPLEMENT TESTED CORE"
+
+
+---
+
+## IMP-006 Local Verification - 2026-09-26
+
+IMP-006 = LOCAL VERIFIED
+BRANCH = chatgpt/IMP-006-observability-error-evidence
+BASE = 77c828f04c1a40027dbf7f0172121d9582e1c8d8
+
+Evidence:
+- evidence/tests/IMP-006_OBSERVABILITY_ERROR_EVIDENCE_CORE_EVIDENCE.md
+- targeted IMP-006 = 10/10 PASS
+- Studio V1→V4 cluster = 57/57 PASS
+- full Windows unit suite = 446 PASS / 3 exact known POSIX-path failures
+- unaffected regression = 446 PASS / 3 deselected
+- frozen Master guard = PASS
+- frozen SHA unchanged
+- diff check = PASS
+- event-vs-current-state separation = VERIFIED
+- secret redaction = VERIFIED
+
+NEXT_EXACT_ACTION = "COMMIT IMP-006 → PUSH → PR → UBUNTU CI → REVIEW → MERGE → MAIN VERIFIED"
