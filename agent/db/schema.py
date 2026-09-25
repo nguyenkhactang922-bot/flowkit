@@ -165,6 +165,7 @@ async def init_db():
     """Initialize database with schema and run migrations."""
     async with aiosqlite.connect(str(DB_PATH)) as db:
         await db.execute("PRAGMA journal_mode=WAL")
+        await db.execute("PRAGMA synchronous=FULL")
         await db.execute("PRAGMA foreign_keys=ON")
         await db.executescript(SCHEMA)
         # Migration: add slug column to character table + backfill
@@ -313,6 +314,7 @@ async def get_db() -> aiosqlite.Connection:
         _db_connection = await aiosqlite.connect(str(DB_PATH))
         _db_connection.row_factory = aiosqlite.Row
         await _db_connection.execute("PRAGMA journal_mode=WAL")
+        await _db_connection.execute("PRAGMA synchronous=FULL")
         await _db_connection.execute("PRAGMA foreign_keys=ON")
         # Force WAL checkpoint so this connection sees all committed writes
         # from previous processes (e.g. after hot-reload)

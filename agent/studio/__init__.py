@@ -1,5 +1,21 @@
-"""Provider-neutral canonical Studio contracts."""
+"""Provider-neutral canonical Studio contracts and persistence foundation."""
 
+from .persistence import (
+    CASConflict,
+    FOUNDATION_SCHEMA_VERSION,
+    Migration,
+    NetworkInTransactionError,
+    PersistenceError,
+    SchemaCompatibilityError,
+    SQLiteReadRepository,
+    SQLiteWriteOwner,
+    SQLiteWriteTransaction,
+    WriteOwnerAlreadyRunning,
+    WriteOwnerNotRunning,
+    WriteQueueFull,
+    assert_network_allowed,
+    ensure_schema_compatibility,
+)
 from .primitives import (
     FindingSeverity,
     GateVerdict,
@@ -13,13 +29,27 @@ from .primitives import (
 )
 
 __all__ = [
+    "CASConflict",
+    "FOUNDATION_SCHEMA_VERSION",
     "FindingSeverity",
     "GateVerdict",
     "LifecycleState",
     "LogicalId",
+    "Migration",
+    "NetworkInTransactionError",
+    "PersistenceError",
     "Provenance",
+    "SchemaCompatibilityError",
     "SemanticRecordMetadata",
     "SourceVersionBinding",
+    "SQLiteReadRepository",
+    "SQLiteWriteOwner",
+    "SQLiteWriteTransaction",
     "VersionId",
     "VersionRef",
+    "WriteOwnerAlreadyRunning",
+    "WriteOwnerNotRunning",
+    "WriteQueueFull",
+    "assert_network_allowed",
+    "ensure_schema_compatibility",
 ]

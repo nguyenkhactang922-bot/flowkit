@@ -346,3 +346,45 @@ IMP-002 local verification:
 
 NEXT DEPENDENCY-READY TASK:
 - [ ] IMP-003 - One-Writer Persistence / Migration Foundation.
+
+
+---
+
+## IMP-003 - One-Writer Persistence / Migration Foundation
+
+- [>] CLAIMED on chatgpt/IMP-003-one-writer-persistence.
+- [ ] Add canonical SQLite write-owner foundation.
+- [ ] Add bounded write queue.
+- [ ] Add transaction + no-network guard.
+- [ ] Add CAS/revision helper.
+- [ ] Add migration table/version compatibility gate.
+- [ ] Enforce WAL/FULL/foreign_keys pragmas.
+- [ ] Add separate read path.
+- [ ] Add serialized-write/CAS/pressure/migration/FK/PRAGMA tests.
+- [ ] Run targeted tests.
+- [ ] Run full unit regression.
+- [ ] Capture evidence + frozen SHA verification.
+- [ ] Commit / push / PR / review / merge / MAIN VERIFIED.
+
+
+IMP-003 local verification:
+- [x] Add canonical SQLite write-owner foundation.
+- [x] Add bounded write queue.
+- [x] Add transaction + no-network guard.
+- [x] Add CAS/revision helper.
+- [x] Add migration table/version compatibility gate.
+- [x] Enforce WAL/FULL/foreign_keys pragmas.
+- [x] Add separate query-only read path.
+- [x] Targeted Studio tests: 31/31 PASS.
+- [x] IMP-003 persistence tests: 12/12 PASS.
+- [x] Full Windows unit suite: 420 PASS / 3 exact known POSIX-path failures.
+- [x] Unaffected regression: 420 PASS / 3 deselected.
+- [x] Frozen Master guard PASS; SHA unchanged.
+- [x] Evidence captured.
+- [ ] Commit.
+- [ ] Push.
+- [ ] Open PR.
+- [ ] Ubuntu CI Python 3.10/3.13.
+- [ ] Exact-head review.
+- [ ] Merge main.
+- [ ] Verify main and mark MAIN VERIFIED.
