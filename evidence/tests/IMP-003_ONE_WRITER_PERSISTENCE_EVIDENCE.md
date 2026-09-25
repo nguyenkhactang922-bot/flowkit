@@ -93,3 +93,44 @@ Unrelated staging:
 **IMP-003 = LOCAL VERIFIED**
 
 Remote PR/Ubuntu CI/review/merge/main verification remain pending.
+
+
+## Remote / Main verification
+
+Fork PR:
+- nguyenkhactang922-bot/flowkit#6
+
+Exact PR head:
+- 1610b7194ef63d21a57586bae69d99ac6ff667ed
+
+PR CI:
+- workflow run 36122183881
+- conclusion: SUCCESS
+- Python 3.10 frozen guard + full unit suite: SUCCESS
+- Python 3.13 frozen guard + full unit suite: SUCCESS
+
+Exact-head review:
+- no blocking findings;
+- frozen Master unchanged;
+- no feature/runtime changes outside Studio persistence foundation and legacy SQLite PRAGMA hardening;
+- one-writer, bounded queue, CAS, migration gate, query-only reads and no-network guard verified.
+
+Merge:
+- main merge commit: 661fdba57520cf25106d644cd143e82936b0451c
+
+Local main verification:
+- local HEAD = fork/main = 661fdba57520cf25106d644cd143e82936b0451c
+- frozen guard: PASS
+- IMP-003 targeted persistence tests: 12/12 PASS
+
+Fork-main push CI:
+- workflow run 36122334589
+- conclusion: SUCCESS
+- Python 3.10 frozen guard + full unit suite: SUCCESS
+- Python 3.13 frozen guard + full unit suite: SUCCESS
+
+## Final verdict
+
+IMP-003 = MAIN VERIFIED on nguyenkhactang922-bot/flowkit:main at 661fdba57520cf25106d644cd143e82936b0451c.
+
+NEXT_EXACT_ACTION = CLAIM IMP-004 — VERSION / PROVENANCE REPOSITORY PRIMITIVES
