@@ -181,6 +181,7 @@ def test_semantic_record_rejects_cross_identity_or_self_predecessor():
 
 def test_lifecycle_gate_and_finding_values_are_explicit_strings():
     assert LifecycleState.APPROVED.value == "APPROVED"
+    assert GateVerdict.OPEN.value == "OPEN"
     assert GateVerdict.NEEDS_HUMAN_REVIEW.value == "NEEDS_HUMAN_REVIEW"
     assert FindingSeverity.BLOCKER.value == "BLOCKER"
 
@@ -219,3 +220,22 @@ def test_canonical_primitive_schemas_have_no_provider_fields():
                 stack.extend(node)
 
     assert field_names.isdisjoint(forbidden)
+
+
+def test_canonical_primitives_reject_provider_transport_fields():
+    with pytest.raises(ValidationError):
+        VersionRef(
+            logical_id=LogicalId("shot:0042"),
+            version_id=VersionId("v7"),
+            provider="google-flow",
+        )
+
+    with pytest.raises(ValidationError):
+        Provenance(
+            source_versions=(_source(),),
+            source_refs=(),
+            actor_ref="studio:engine",
+            reason="derive",
+            recorded_at=NOW,
+            provider_id="remote-provider",
+        )

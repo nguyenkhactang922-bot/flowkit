@@ -112,6 +112,7 @@ class LifecycleState(str, Enum):
 class GateVerdict(str, Enum):
     """Provider-neutral QA/gate verdict values used by canonical result contracts."""
 
+    OPEN = "OPEN"
     PASS = "PASS"
     WARN = "WARN"
     FAIL = "FAIL"
