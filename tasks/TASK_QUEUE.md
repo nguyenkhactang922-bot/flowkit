@@ -327,3 +327,22 @@ IMP-002 local verification:
 - [ ] Exact-head review.
 - [ ] Merge main.
 - [ ] Verify main and mark MAIN VERIFIED.
+
+
+---
+
+## IMP-002 Final Verification - 2026-09-25
+
+- [x] Canonical provider-neutral primitives implemented.
+- [x] Targeted exact-head tests: 19/19 PASS.
+- [x] Windows unaffected regression: 407 PASS / 3 known POSIX-path cases deselected.
+- [x] Frozen Master guard PASS.
+- [x] PR #4 exact-head reviewed.
+- [x] PR #4 Ubuntu CI Python 3.10/3.13 PASS.
+- [x] PR #4 merged.
+- [x] Local main targeted verification PASS.
+- [x] Main push workflow run 36117340581 PASS.
+- [x] IMP-002 = MAIN VERIFIED at 49a5352fc29c096802ba1d088c5c9739c6be48c3.
+
+NEXT DEPENDENCY-READY TASK:
+- [ ] IMP-003 - One-Writer Persistence / Migration Foundation.

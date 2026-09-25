@@ -593,3 +593,25 @@ branch = chatgpt/IMP-002-canonical-contract-primitives
 - evidence = evidence/tests/IMP-002_CANONICAL_CONTRACT_PRIMITIVES_EVIDENCE.md
 
 NEXT_EXACT_ACTION = "COMMIT IMP-002 AND RUN REMOTE PR/CI LIFECYCLE"
+
+
+---
+
+## IMP-002 MAIN VERIFIED - 2026-09-25
+
+task = IMP-002 CANONICAL CONTRACT PRIMITIVES
+status = MAIN VERIFIED
+verified_repository = nguyenkhactang922-bot/flowkit
+verified_main_sha = 49a5352fc29c096802ba1d088c5c9739c6be48c3
+frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+- PR #4 exact-head = 5d73a7ed6c5174f4c3370199a13e50a2e31ec1ce
+- PR workflow run 36117186461 = SUCCESS
+- exact-head review = PASS after missing OPEN gate value repair
+- main merge = 49a5352fc29c096802ba1d088c5c9739c6be48c3
+- local main guard = PASS
+- local main targeted IMP-002 = 19/19 PASS
+- main push workflow run 36117340581 = SUCCESS
+- Python 3.10/3.13 full unit CI = SUCCESS
+
+NEXT_EXACT_ACTION = "CLAIM IMP-003 ONE-WRITER PERSISTENCE / MIGRATION FOUNDATION"

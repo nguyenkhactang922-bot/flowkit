@@ -100,3 +100,45 @@ Expected changed paths:
 **IMP-002 = LOCAL VERIFIED**
 
 Remote PR/Ubuntu CI/review/merge/main verification remain pending.
+
+
+## Remote / Main verification
+
+Fork PR:
+- nguyenkhactang922-bot/flowkit#4
+
+Final exact PR head:
+- 5d73a7ed6c5174f4c3370199a13e50a2e31ec1ce
+
+PR CI:
+- workflow run 36117186461
+- conclusion: SUCCESS
+- Python 3.10 frozen guard + full unit suite: SUCCESS
+- Python 3.13 frozen guard + full unit suite: SUCCESS
+
+Exact-head review:
+- no blocking findings;
+- review identified missing OPEN release-gate value before final head;
+- repaired on branch before merge;
+- provider/runtime token scan of agent/studio/: clean;
+- no runtime source outside agent/studio/ changed.
+
+Merge:
+- main merge commit: 49a5352fc29c096802ba1d088c5c9739c6be48c3
+
+Local main verification:
+- local HEAD = fork/main = 49a5352fc29c096802ba1d088c5c9739c6be48c3
+- frozen guard: PASS
+- targeted IMP-002 tests: 19/19 PASS
+
+Fork-main push CI:
+- workflow run 36117340581
+- conclusion: SUCCESS
+- Python 3.10 frozen guard + full unit suite: SUCCESS
+- Python 3.13 frozen guard + full unit suite: SUCCESS
+
+## Final verdict
+
+IMP-002 = MAIN VERIFIED on nguyenkhactang922-bot/flowkit:main at 49a5352fc29c096802ba1d088c5c9739c6be48c3.
+
+NEXT_EXACT_ACTION = CLAIM IMP-003 — ONE-WRITER PERSISTENCE / MIGRATION FOUNDATION
