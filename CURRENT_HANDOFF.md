@@ -514,3 +514,45 @@ Evidence:
 - evidence/tests/IMP-003_ONE_WRITER_PERSISTENCE_EVIDENCE.md
 
 NEXT_EXACT_ACTION = "CLAIM IMP-004 VERSION / PROVENANCE REPOSITORY PRIMITIVES"
+
+
+---
+
+## IMP-004 Claim - 2026-09-25
+
+ACTIVE_TASK = IMP-004 VERSION / PROVENANCE REPOSITORY PRIMITIVES
+BRANCH = chatgpt/IMP-004-version-provenance-repository
+BASE_HEAD = 0e284bed36aa6335d561b0cbe4a7ee304356933a
+DEPENDS = IMP-003 MAIN VERIFIED
+
+Scope:
+- immutable semantic-version repository
+- provenance persistence
+- successor/supersession history
+- mutable current pointer + lifecycle status
+- optimistic pointer CAS
+- restart/readback
+- migration V2 on existing Studio schema ledger
+
+NEXT_EXACT_ACTION = "IMPLEMENT IMP-004 VERSION / PROVENANCE REPOSITORY + TESTS"
+
+
+---
+
+## IMP-004 Local Verification - 2026-09-25
+
+IMP-004 = LOCAL VERIFIED
+BRANCH = chatgpt/IMP-004-version-provenance-repository
+BASE = 0e284bed36aa6335d561b0cbe4a7ee304356933a
+
+Evidence:
+- evidence/tests/IMP-004_VERSION_PROVENANCE_REPOSITORY_EVIDENCE.md
+- targeted Studio tests = 39/39 PASS
+- IMP-004 versioning tests = 8/8 PASS
+- full Windows unit suite = 428 PASS / 3 exact known POSIX-path failures
+- unaffected regression = 428 PASS / 3 deselected
+- frozen Master guard = PASS
+- frozen SHA unchanged
+- diff check = PASS
+
+NEXT_EXACT_ACTION = "COMMIT IMP-004 → PUSH → PR → UBUNTU CI → REVIEW → MERGE → MAIN VERIFIED"

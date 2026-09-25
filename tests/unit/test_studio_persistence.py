@@ -9,6 +9,7 @@ import pytest
 
 from agent.studio.persistence import (
     CASConflict,
+    DEFAULT_MIGRATIONS,
     FOUNDATION_SCHEMA_VERSION,
     Migration,
     NetworkInTransactionError,
@@ -331,7 +332,10 @@ async def test_migration_table_is_idempotent_and_versioned(tmp_path):
             )
         ).fetchall()
 
-    assert rows == [(1, "studio_persistence_foundation")]
+    assert rows == [
+        (migration.version, migration.name)
+        for migration in DEFAULT_MIGRATIONS
+    ]
 
 
 @pytest.mark.asyncio
@@ -341,7 +345,8 @@ async def test_newer_database_schema_is_rejected(tmp_path):
 
     async with aiosqlite.connect(str(db_path)) as db:
         await db.execute(
-            "INSERT INTO studio_schema_migration (version, name) VALUES (2, 'future')"
+            "INSERT INTO studio_schema_migration (version, name) VALUES (?, 'future')",
+            (FOUNDATION_SCHEMA_VERSION + 1,),
         )
         await db.commit()
 

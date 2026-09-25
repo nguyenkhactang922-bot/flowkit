@@ -685,3 +685,50 @@ frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c7
 - Python 3.10/3.13 full unit CI = SUCCESS
 
 NEXT_EXACT_ACTION = "CLAIM IMP-004 VERSION / PROVENANCE REPOSITORY PRIMITIVES"
+
+
+---
+
+## Active Implementation Task - 2026-09-25
+
+task = IMP-004 VERSION / PROVENANCE REPOSITORY PRIMITIVES
+branch = chatgpt/IMP-004-version-provenance-repository
+base_head = 0e284bed36aa6335d561b0cbe4a7ee304356933a
+depends = IMP-003 MAIN VERIFIED
+status = CLAIMED / ANALYZE COMPLETE / CODE NEXT
+
+Acceptance:
+- immutable semantic version rows
+- provenance persisted and read back
+- successor creation with explicit predecessor
+- durable supersession history
+- current pointer/status stored separately
+- current pointer update protected by CAS revision
+- stale CAS rejected
+- restart/readback preserved
+- frozen Master unchanged
+
+
+---
+
+## IMP-004 Local Verification - 2026-09-25
+
+task = IMP-004 VERSION / PROVENANCE REPOSITORY PRIMITIVES
+status = LOCAL VERIFIED / REMOTE CI GATE PENDING
+branch = chatgpt/IMP-004-version-provenance-repository
+
+- immutable semantic version rows = VERIFIED
+- provenance persistence/readback = VERIFIED
+- successor + supersession history = VERIFIED
+- current pointer/status separation = VERIFIED
+- current pointer CAS = VERIFIED
+- stale CAS rejection = VERIFIED
+- restart/readback = VERIFIED
+- schema V1 → V2 migration = VERIFIED
+- targeted Studio tests = 39/39 PASS
+- Windows full unit suite = 428 PASS / 3 known platform-only failures
+- unaffected local regression = 428 PASS / 3 deselected
+- frozen Master guard = PASS
+- evidence = evidence/tests/IMP-004_VERSION_PROVENANCE_REPOSITORY_EVIDENCE.md
+
+NEXT_EXACT_ACTION = "COMMIT IMP-004 AND RUN REMOTE PR/CI LIFECYCLE"
