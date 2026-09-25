@@ -22,7 +22,7 @@ from typing import Any, Awaitable, Callable, Generic, Iterable, Sequence, TypeVa
 import aiosqlite
 
 
-FOUNDATION_SCHEMA_VERSION = 2
+FOUNDATION_SCHEMA_VERSION = 3
 _MIGRATION_TABLE = "studio_schema_migration"
 _IDENTIFIER_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 _in_write_transaction: contextvars.ContextVar[bool] = contextvars.ContextVar(
@@ -152,6 +152,188 @@ DEFAULT_MIGRATIONS: tuple[Migration, ...] = (
             BEFORE DELETE ON studio_semantic_version
             BEGIN
                 SELECT RAISE(ABORT, 'studio semantic versions are immutable');
+            END
+            """,
+        ),
+    ),
+    Migration(
+        version=3,
+        name="studio_dependency_invalidation",
+        statements=(
+            """
+            CREATE TABLE studio_dependency_edge (
+                edge_id TEXT PRIMARY KEY,
+                source_object_id TEXT NOT NULL,
+                source_version TEXT NOT NULL,
+                dependent_object_id TEXT NOT NULL,
+                dependent_version TEXT NOT NULL,
+                edge_type TEXT NOT NULL,
+                dependency_reason TEXT NOT NULL,
+                provenance_json TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                UNIQUE (
+                    source_object_id,
+                    source_version,
+                    dependent_object_id,
+                    dependent_version,
+                    edge_type
+                ),
+                FOREIGN KEY (source_object_id, source_version)
+                    REFERENCES studio_semantic_version(logical_id, version_id),
+                FOREIGN KEY (dependent_object_id, dependent_version)
+                    REFERENCES studio_semantic_version(logical_id, version_id)
+            )
+            """,
+            """
+            CREATE INDEX studio_dependency_edge_source_idx
+            ON studio_dependency_edge(source_object_id, source_version)
+            """,
+            """
+            CREATE INDEX studio_dependency_edge_dependent_idx
+            ON studio_dependency_edge(dependent_object_id, dependent_version)
+            """,
+            """
+            CREATE TRIGGER studio_dependency_edge_no_update
+            BEFORE UPDATE ON studio_dependency_edge
+            BEGIN
+                SELECT RAISE(ABORT, 'studio dependency edges are immutable');
+            END
+            """,
+            """
+            CREATE TRIGGER studio_dependency_edge_no_delete
+            BEFORE DELETE ON studio_dependency_edge
+            BEGIN
+                SELECT RAISE(ABORT, 'studio dependency edges are immutable');
+            END
+            """,
+            """
+            CREATE TABLE studio_invalidation_record (
+                invalidation_id TEXT PRIMARY KEY,
+                cause TEXT NOT NULL,
+                source_object_id TEXT NOT NULL,
+                source_version_old TEXT NOT NULL,
+                source_version_new TEXT NOT NULL,
+                affected_object_id TEXT NOT NULL,
+                affected_object_version TEXT NOT NULL,
+                dependency_edge_id TEXT NOT NULL,
+                dependency_edge_type TEXT NOT NULL,
+                dependency_reason TEXT NOT NULL,
+                scope TEXT NOT NULL,
+                status TEXT NOT NULL CHECK (
+                    status IN ('UNRESOLVED', 'RESOLVED')
+                ),
+                revision INTEGER NOT NULL DEFAULT 0 CHECK (revision >= 0),
+                created_at TEXT NOT NULL,
+                provenance_json TEXT NOT NULL,
+                repair_requirement TEXT NOT NULL,
+                resolved_at TEXT,
+                resolution_record_id TEXT,
+                dedupe_key TEXT NOT NULL UNIQUE,
+                FOREIGN KEY (source_object_id, source_version_old)
+                    REFERENCES studio_semantic_version(logical_id, version_id),
+                FOREIGN KEY (source_object_id, source_version_new)
+                    REFERENCES studio_semantic_version(logical_id, version_id),
+                FOREIGN KEY (affected_object_id, affected_object_version)
+                    REFERENCES studio_semantic_version(logical_id, version_id),
+                FOREIGN KEY (dependency_edge_id)
+                    REFERENCES studio_dependency_edge(edge_id),
+                CHECK (
+                    (
+                        status='UNRESOLVED'
+                        AND resolved_at IS NULL
+                        AND resolution_record_id IS NULL
+                    )
+                    OR
+                    (
+                        status='RESOLVED'
+                        AND resolved_at IS NOT NULL
+                        AND resolution_record_id IS NOT NULL
+                    )
+                )
+            )
+            """,
+            """
+            CREATE INDEX studio_invalidation_unresolved_idx
+            ON studio_invalidation_record(status, created_at, invalidation_id)
+            """,
+            """
+            CREATE TRIGGER studio_invalidation_immutable_fields
+            BEFORE UPDATE ON studio_invalidation_record
+            WHEN
+                NEW.invalidation_id IS NOT OLD.invalidation_id
+                OR NEW.cause IS NOT OLD.cause
+                OR NEW.source_object_id IS NOT OLD.source_object_id
+                OR NEW.source_version_old IS NOT OLD.source_version_old
+                OR NEW.source_version_new IS NOT OLD.source_version_new
+                OR NEW.affected_object_id IS NOT OLD.affected_object_id
+                OR NEW.affected_object_version IS NOT OLD.affected_object_version
+                OR NEW.dependency_edge_id IS NOT OLD.dependency_edge_id
+                OR NEW.dependency_edge_type IS NOT OLD.dependency_edge_type
+                OR NEW.dependency_reason IS NOT OLD.dependency_reason
+                OR NEW.scope IS NOT OLD.scope
+                OR NEW.created_at IS NOT OLD.created_at
+                OR NEW.provenance_json IS NOT OLD.provenance_json
+                OR NEW.repair_requirement IS NOT OLD.repair_requirement
+                OR NEW.dedupe_key IS NOT OLD.dedupe_key
+            BEGIN
+                SELECT RAISE(ABORT, 'invalidation cause/bindings are immutable');
+            END
+            """,
+            """
+            CREATE TRIGGER studio_invalidation_status_transition
+            BEFORE UPDATE ON studio_invalidation_record
+            WHEN (
+                NEW.status IS NOT OLD.status
+                OR NEW.revision IS NOT OLD.revision
+                OR NEW.resolved_at IS NOT OLD.resolved_at
+                OR NEW.resolution_record_id IS NOT OLD.resolution_record_id
+            )
+            AND NOT (
+                OLD.status='UNRESOLVED'
+                AND NEW.status='RESOLVED'
+                AND NEW.revision=OLD.revision+1
+                AND NEW.resolved_at IS NOT NULL
+                AND NEW.resolution_record_id IS NOT NULL
+            )
+            BEGIN
+                SELECT RAISE(ABORT, 'illegal invalidation status transition');
+            END
+            """,
+            """
+            CREATE TRIGGER studio_invalidation_no_delete
+            BEFORE DELETE ON studio_invalidation_record
+            BEGIN
+                SELECT RAISE(ABORT, 'invalidation history is immutable');
+            END
+            """,
+            """
+            CREATE TABLE studio_invalidation_transition (
+                transition_id TEXT PRIMARY KEY,
+                invalidation_id TEXT NOT NULL,
+                from_status TEXT NOT NULL,
+                to_status TEXT NOT NULL,
+                from_revision INTEGER NOT NULL,
+                to_revision INTEGER NOT NULL,
+                resolution_record_id TEXT NOT NULL,
+                provenance_json TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                UNIQUE (invalidation_id, to_revision),
+                FOREIGN KEY (invalidation_id)
+                    REFERENCES studio_invalidation_record(invalidation_id)
+            )
+            """,
+            """
+            CREATE TRIGGER studio_invalidation_transition_no_update
+            BEFORE UPDATE ON studio_invalidation_transition
+            BEGIN
+                SELECT RAISE(ABORT, 'invalidation transition history is immutable');
+            END
+            """,
+            """
+            CREATE TRIGGER studio_invalidation_transition_no_delete
+            BEFORE DELETE ON studio_invalidation_transition
+            BEGIN
+                SELECT RAISE(ABORT, 'invalidation transition history is immutable');
             END
             """,
         ),
@@ -435,7 +617,6 @@ class SQLiteWriteOwner:
         self._db: aiosqlite.Connection | None = None
         self._worker_task: asyncio.Task[None] | None = None
         self._closing = False
-        self._owns_path = False
         self._owns_path = False
 
     @property

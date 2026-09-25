@@ -17,7 +17,7 @@ from agent.studio import (
     VersionId,
     VersionRef,
 )
-from agent.studio.persistence import Migration, ensure_schema_compatibility
+from agent.studio.persistence import DEFAULT_MIGRATIONS, Migration, ensure_schema_compatibility
 from agent.studio.versioning import (
     ContentHashMismatch,
     VersionRepository,
@@ -309,7 +309,11 @@ async def test_schema_v1_upgrades_to_v2_without_losing_migration_history(tmp_pat
         migrations=v1_only,
     ) == 1
 
-    writer = SQLiteWriteOwner(db_path)
+    writer = SQLiteWriteOwner(
+        db_path,
+        supported_schema_version=2,
+        migrations=DEFAULT_MIGRATIONS[:2],
+    )
     await writer.start()
     try:
         async with aiosqlite.connect(str(db_path)) as db:
