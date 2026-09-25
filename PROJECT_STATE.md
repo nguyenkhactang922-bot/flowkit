@@ -732,3 +732,25 @@ branch = chatgpt/IMP-004-version-provenance-repository
 - evidence = evidence/tests/IMP-004_VERSION_PROVENANCE_REPOSITORY_EVIDENCE.md
 
 NEXT_EXACT_ACTION = "COMMIT IMP-004 AND RUN REMOTE PR/CI LIFECYCLE"
+
+
+---
+
+## IMP-004 MAIN VERIFIED - 2026-09-25
+
+task = IMP-004 VERSION / PROVENANCE REPOSITORY PRIMITIVES
+status = MAIN VERIFIED
+verified_repository = nguyenkhactang922-bot/flowkit
+verified_main_sha = a5299e88195f8feaf94c1ddf9016ea31af01b84f
+frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+- PR #8 exact-head = 22d6b341b459518e29764118d5bff992ab575776
+- PR workflow run 36123423488 = SUCCESS
+- exact-head review = PASS
+- main merge = a5299e88195f8feaf94c1ddf9016ea31af01b84f
+- local main guard = PASS
+- local main targeted IMP-004 = 8/8 PASS
+- main push workflow run 36163372531 = SUCCESS
+- Python 3.10/3.13 full unit CI = SUCCESS
+
+NEXT_EXACT_ACTION = "CLAIM IMP-005 DEPENDENCYGRAPH + DURABLE INVALIDATIONRECORD"

@@ -556,3 +556,24 @@ Evidence:
 - diff check = PASS
 
 NEXT_EXACT_ACTION = "COMMIT IMP-004 → PUSH → PR → UBUNTU CI → REVIEW → MERGE → MAIN VERIFIED"
+
+
+---
+
+## IMP-004 MAIN VERIFIED - 2026-09-25
+
+IMP-004 = MAIN VERIFIED
+
+Verified writable main:
+- repo = nguyenkhactang922-bot/flowkit
+- main SHA = a5299e88195f8feaf94c1ddf9016ea31af01b84f
+- PR #8 exact-head CI = SUCCESS
+- PR #8 exact-head review = PASS
+- main push workflow run 36163372531 = SUCCESS
+- Windows main frozen guard = PASS
+- Windows main targeted IMP-004 = 8/8 PASS
+
+Evidence:
+- evidence/tests/IMP-004_VERSION_PROVENANCE_REPOSITORY_EVIDENCE.md
+
+NEXT_EXACT_ACTION = "CLAIM IMP-005 DEPENDENCYGRAPH + DURABLE INVALIDATIONRECORD"

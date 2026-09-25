@@ -449,3 +449,23 @@ IMP-004 local verification:
 - [ ] Exact-head review.
 - [ ] Merge main.
 - [ ] Verify main and mark MAIN VERIFIED.
+
+
+---
+
+## IMP-004 Final Verification - 2026-09-25
+
+- [x] Version/provenance repository implemented.
+- [x] Targeted Studio tests: 39/39 PASS.
+- [x] IMP-004 versioning tests: 8/8 PASS.
+- [x] Windows unaffected regression: 428 PASS / 3 known POSIX-path cases deselected.
+- [x] Frozen Master guard PASS.
+- [x] PR #8 exact-head reviewed.
+- [x] PR #8 Ubuntu CI Python 3.10/3.13 PASS.
+- [x] PR #8 merged.
+- [x] Local main targeted verification PASS.
+- [x] Main push workflow run 36163372531 PASS.
+- [x] IMP-004 = MAIN VERIFIED at a5299e88195f8feaf94c1ddf9016ea31af01b84f.
+
+NEXT DEPENDENCY-READY TASK:
+- [ ] IMP-005 - DependencyGraph + Durable InvalidationRecord.
