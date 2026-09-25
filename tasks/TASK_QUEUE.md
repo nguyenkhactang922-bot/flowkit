@@ -512,3 +512,43 @@ IMP-005 local verification:
 - [ ] Exact-head review.
 - [ ] Merge main.
 - [ ] Verify main and mark MAIN VERIFIED.
+
+
+---
+
+## IMP-005 Final Verification - 2026-09-25
+
+- [x] DependencyGraph + durable invalidation implemented.
+- [x] Targeted IMP-003/004/005: 28/28 PASS.
+- [x] IMP-005 targeted on main: 8/8 PASS.
+- [x] Windows unaffected regression: 436 PASS / 3 known POSIX-path cases deselected.
+- [x] Frozen Master guard PASS.
+- [x] PR #10 exact-head reviewed.
+- [x] PR #10 Ubuntu CI Python 3.10/3.13 PASS.
+- [x] PR #10 merged.
+- [x] Local main targeted verification PASS.
+- [x] Main push workflow run 36166182569 PASS.
+- [x] IMP-005 = MAIN VERIFIED at 8e07bb1066b0d0b75b5050c005a443ea71b5ee10.
+
+NEXT DEPENDENCY-READY TASK:
+- [ ] IMP-006 - Observability / Error / Evidence Core.
+
+
+---
+
+## IMP-005 Final Verification - 2026-09-25
+
+- [x] DependencyGraph + durable invalidation implemented.
+- [x] Targeted IMP-003/004/005: 28/28 PASS.
+- [x] IMP-005 targeted on main: 8/8 PASS.
+- [x] Windows unaffected regression: 436 PASS / 3 known POSIX-path cases deselected.
+- [x] Frozen Master guard PASS.
+- [x] PR #10 exact-head reviewed.
+- [x] PR #10 Ubuntu CI Python 3.10/3.13 PASS.
+- [x] PR #10 merged.
+- [x] Local main targeted verification PASS.
+- [x] Main push workflow run 36166182569 PASS.
+- [x] IMP-005 = MAIN VERIFIED at 8e07bb1066b0d0b75b5050c005a443ea71b5ee10.
+
+NEXT DEPENDENCY-READY TASK:
+- [ ] IMP-006 - Observability / Error / Evidence Core.

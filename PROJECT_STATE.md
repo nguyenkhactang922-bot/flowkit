@@ -804,3 +804,25 @@ branch = chatgpt/IMP-005-dependency-invalidation
 - evidence = evidence/tests/IMP-005_DEPENDENCY_INVALIDATION_EVIDENCE.md
 
 NEXT_EXACT_ACTION = "COMMIT IMP-005 AND RUN REMOTE PR/CI LIFECYCLE"
+
+
+---
+
+## IMP-005 MAIN VERIFIED - 2026-09-25
+
+task = IMP-005 DEPENDENCYGRAPH + DURABLE INVALIDATIONRECORD
+status = MAIN VERIFIED
+verified_repository = nguyenkhactang922-bot/flowkit
+verified_main_sha = 8e07bb1066b0d0b75b5050c005a443ea71b5ee10
+frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+- PR #10 exact-head = af74ea8896ac6df7e328283614df3ef23b0141f8
+- PR workflow run 36166026866 = SUCCESS
+- exact-head review = PASS
+- main merge = 8e07bb1066b0d0b75b5050c005a443ea71b5ee10
+- local main guard = PASS
+- local main targeted IMP-005 = 8/8 PASS
+- main push workflow run 36166182569 = SUCCESS
+- Python 3.10/3.13 full unit CI = SUCCESS
+
+NEXT_EXACT_ACTION = "CLAIM IMP-006 OBSERVABILITY / ERROR / EVIDENCE CORE"
