@@ -553,3 +553,43 @@ Upstream status:
 - Upstream crisng95/flowkit:main is NOT claimed MAIN VERIFIED.
 
 NEXT_EXACT_ACTION = "CLAIM IMP-002 CANONICAL CONTRACT PRIMITIVES"
+
+---
+
+## Active Implementation Task - 2026-09-25
+
+task = IMP-002 CANONICAL CONTRACT PRIMITIVES
+branch = chatgpt/IMP-002-canonical-contract-primitives
+base_head = 373f34058c500220a90e18677350310ba61f5317
+depends = IMP-001 MAIN VERIFIED
+status = CLAIMED / ANALYZE COMPLETE / CODE NEXT
+
+Acceptance:
+- typed logical ID/version primitives
+- exact source-version bindings
+- provenance validation
+- provider-neutral lifecycle/gate/finding-severity values
+- immutable semantic-record metadata
+- serialization/equality tests
+- invalid ID/version/provenance rejection tests
+- no provider fields in canonical primitive schemas
+- frozen Master remains unchanged
+
+---
+
+## IMP-002 Local Verification - 2026-09-25
+
+task = IMP-002 CANONICAL CONTRACT PRIMITIVES
+status = LOCAL VERIFIED / REMOTE CI GATE PENDING
+branch = chatgpt/IMP-002-canonical-contract-primitives
+
+- targeted tests = 19/19 PASS
+- Windows full unit suite = 407 PASS / 3 known platform-only failures
+- unaffected local regression = 407 PASS / 3 deselected
+- frozen Master guard = PASS
+- frozen Master SHA unchanged
+- provider-neutral schema test = PASS
+- diff check = PASS
+- evidence = evidence/tests/IMP-002_CANONICAL_CONTRACT_PRIMITIVES_EVIDENCE.md
+
+NEXT_EXACT_ACTION = "COMMIT IMP-002 AND RUN REMOTE PR/CI LIFECYCLE"

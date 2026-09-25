@@ -293,3 +293,37 @@ IMP-001 verification:
 
 NEXT DEPENDENCY-READY TASK:
 - [ ] IMP-002 - Canonical Contract Primitives.
+
+---
+
+## IMP-002 - Canonical Contract Primitives
+
+- [>] CLAIMED on chatgpt/IMP-002-canonical-contract-primitives.
+- [ ] Implement provider-neutral agent/studio package.
+- [ ] Implement logical ID/version/source-version/provenance primitives.
+- [ ] Implement lifecycle/gate/finding-severity value objects.
+- [ ] Implement immutable semantic record metadata.
+- [ ] Add serialization/equality/validation/provider-neutrality tests.
+- [ ] Run targeted tests.
+- [ ] Run full unit regression.
+- [ ] Capture evidence + frozen SHA verification.
+- [ ] Commit / push / PR / review / merge / MAIN VERIFIED.
+
+IMP-002 local verification:
+- [x] Implement provider-neutral agent/studio package.
+- [x] Implement logical ID/version/source-version/provenance primitives.
+- [x] Implement lifecycle/gate/finding-severity value objects.
+- [x] Implement immutable semantic record metadata.
+- [x] Add serialization/equality/validation/provider-neutrality tests.
+- [x] Targeted tests: 19/19 PASS.
+- [x] Full Windows unit suite observed: 407 PASS / 3 exact known POSIX-path failures.
+- [x] Unaffected regression: 407 PASS / 3 deselected.
+- [x] Frozen Master guard PASS; SHA unchanged.
+- [x] Evidence captured.
+- [ ] Commit.
+- [ ] Push.
+- [ ] Open PR.
+- [ ] Ubuntu CI Python 3.10/3.13.
+- [ ] Exact-head review.
+- [ ] Merge main.
+- [ ] Verify main and mark MAIN VERIFIED.

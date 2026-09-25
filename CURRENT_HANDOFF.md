@@ -386,3 +386,43 @@ Upstream:
 - upstream main is NOT claimed verified.
 
 NEXT_EXACT_ACTION = "CLAIM IMP-002 CANONICAL CONTRACT PRIMITIVES"
+
+---
+
+## IMP-002 Claim - 2026-09-25
+
+ACTIVE_TASK = IMP-002 CANONICAL CONTRACT PRIMITIVES
+BRANCH = chatgpt/IMP-002-canonical-contract-primitives
+BASE_HEAD = 373f34058c500220a90e18677350310ba61f5317
+DEPENDS = IMP-001 MAIN VERIFIED
+FROZEN_MASTER_SHA = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+Scope:
+- provider-neutral agent/studio package
+- typed logical ID/version refs
+- exact source-version binding
+- provenance
+- lifecycle/gate/finding-severity primitives
+- immutable semantic record metadata
+- focused unit tests
+
+NEXT_EXACT_ACTION = "IMPLEMENT IMP-002 CANONICAL CONTRACT PRIMITIVES + TESTS"
+
+---
+
+## IMP-002 Local Verification - 2026-09-25
+
+IMP-002 = LOCAL VERIFIED
+BRANCH = chatgpt/IMP-002-canonical-contract-primitives
+BASE = 373f34058c500220a90e18677350310ba61f5317
+
+Evidence:
+- evidence/tests/IMP-002_CANONICAL_CONTRACT_PRIMITIVES_EVIDENCE.md
+- targeted Python 3.13 = 19/19 PASS
+- full Windows unit regression = 407 PASS / 3 exact known POSIX-path failures
+- unaffected regression excluding those exact cases = 407 PASS / 3 deselected
+- frozen Master guard = PASS
+- frozen SHA unchanged
+- diff check = PASS
+
+NEXT_EXACT_ACTION = "COMMIT IMP-002 → PUSH → PR → UBUNTU CI → REVIEW → MERGE → MAIN VERIFIED"
