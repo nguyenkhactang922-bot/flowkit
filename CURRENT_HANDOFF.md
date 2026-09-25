@@ -426,3 +426,24 @@ Evidence:
 - diff check = PASS
 
 NEXT_EXACT_ACTION = "COMMIT IMP-002 → PUSH → PR → UBUNTU CI → REVIEW → MERGE → MAIN VERIFIED"
+
+
+---
+
+## IMP-002 MAIN VERIFIED - 2026-09-25
+
+IMP-002 = MAIN VERIFIED
+
+Verified writable main:
+- repo = nguyenkhactang922-bot/flowkit
+- main SHA = 49a5352fc29c096802ba1d088c5c9739c6be48c3
+- PR #4 exact-head CI = SUCCESS
+- PR #4 exact-head review = PASS after one review fix
+- main push workflow run 36117340581 = SUCCESS
+- Windows main frozen guard = PASS
+- Windows main targeted IMP-002 = 19/19 PASS
+
+Evidence:
+- evidence/tests/IMP-002_CANONICAL_CONTRACT_PRIMITIVES_EVIDENCE.md
+
+NEXT_EXACT_ACTION = "CLAIM IMP-003 ONE-WRITER PERSISTENCE / MIGRATION FOUNDATION"
