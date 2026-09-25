@@ -447,3 +447,49 @@ Evidence:
 - evidence/tests/IMP-002_CANONICAL_CONTRACT_PRIMITIVES_EVIDENCE.md
 
 NEXT_EXACT_ACTION = "CLAIM IMP-003 ONE-WRITER PERSISTENCE / MIGRATION FOUNDATION"
+
+
+---
+
+## IMP-003 Claim - 2026-09-25
+
+ACTIVE_TASK = IMP-003 ONE-WRITER PERSISTENCE / MIGRATION FOUNDATION
+BRANCH = chatgpt/IMP-003-one-writer-persistence
+BASE_HEAD = fc808402788772ba08347bfc5442e9731f8cc901
+DEPENDS = IMP-002 MAIN VERIFIED
+
+Scope:
+- reuse current SQLite store
+- WAL + synchronous=FULL + foreign_keys=ON
+- one logical canonical write owner
+- bounded write command queue
+- short transaction command boundary
+- optimistic revision/CAS helper
+- migration table + schema compatibility gate
+- separate read path
+- no-network-inside-transaction guard foundation
+
+Legacy FlowKit CRUD remains compatibility surface in this task; canonical Studio mutation must enter through the new write owner.
+
+NEXT_EXACT_ACTION = "IMPLEMENT IMP-003 PERSISTENCE FOUNDATION + TESTS"
+
+
+---
+
+## IMP-003 Local Verification - 2026-09-25
+
+IMP-003 = LOCAL VERIFIED
+BRANCH = chatgpt/IMP-003-one-writer-persistence
+BASE = fc808402788772ba08347bfc5442e9731f8cc901
+
+Evidence:
+- evidence/tests/IMP-003_ONE_WRITER_PERSISTENCE_EVIDENCE.md
+- targeted Studio tests = 31/31 PASS
+- IMP-003 persistence tests = 12/12 PASS
+- full Windows unit suite = 420 PASS / 3 exact known POSIX-path failures
+- unaffected regression = 420 PASS / 3 deselected
+- frozen Master guard = PASS
+- frozen SHA unchanged
+- diff check = PASS
+
+NEXT_EXACT_ACTION = "COMMIT IMP-003 → PUSH → PR → UBUNTU CI → REVIEW → MERGE → MAIN VERIFIED"

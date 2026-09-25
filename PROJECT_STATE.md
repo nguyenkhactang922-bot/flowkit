@@ -615,3 +615,51 @@ frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c7
 - Python 3.10/3.13 full unit CI = SUCCESS
 
 NEXT_EXACT_ACTION = "CLAIM IMP-003 ONE-WRITER PERSISTENCE / MIGRATION FOUNDATION"
+
+
+---
+
+## Active Implementation Task - 2026-09-25
+
+task = IMP-003 ONE-WRITER PERSISTENCE / MIGRATION FOUNDATION
+branch = chatgpt/IMP-003-one-writer-persistence
+base_head = fc808402788772ba08347bfc5442e9731f8cc901
+depends = IMP-002 MAIN VERIFIED
+status = CLAIMED / ANALYZE COMPLETE / CODE NEXT
+
+Acceptance:
+- SQLite WAL
+- synchronous=FULL
+- foreign_keys=ON
+- bounded one-writer command queue
+- serialized canonical writes
+- optimistic revision/CAS conflict rejection
+- migration table/version compatibility gate
+- separate reads allowed
+- no-network-in-transaction guard
+- frozen Master unchanged
+
+
+---
+
+## IMP-003 Local Verification - 2026-09-25
+
+task = IMP-003 ONE-WRITER PERSISTENCE / MIGRATION FOUNDATION
+status = LOCAL VERIFIED / REMOTE CI GATE PENDING
+branch = chatgpt/IMP-003-one-writer-persistence
+
+- one canonical writer per DB path = VERIFIED
+- bounded write queue = VERIFIED
+- short serialized transactions = VERIFIED
+- WAL/FULL/foreign_keys = VERIFIED
+- CAS stale-revision rejection = VERIFIED
+- migration/version gate = VERIFIED
+- separate query-only reads = VERIFIED
+- no-network transaction guard = VERIFIED
+- targeted Studio tests = 31/31 PASS
+- Windows full unit suite = 420 PASS / 3 known platform-only failures
+- unaffected local regression = 420 PASS / 3 deselected
+- frozen Master guard = PASS
+- evidence = evidence/tests/IMP-003_ONE_WRITER_PERSISTENCE_EVIDENCE.md
+
+NEXT_EXACT_ACTION = "COMMIT IMP-003 AND RUN REMOTE PR/CI LIFECYCLE"
