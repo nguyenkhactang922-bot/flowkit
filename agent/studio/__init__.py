@@ -1,5 +1,24 @@
 """Provider-neutral canonical Studio contracts, evidence, and persistence."""
 
+from .active_profile import (
+    ActiveProductionProfile,
+    ActiveProductionProfileArtifact,
+    ActiveProductionProfileBinding,
+    ActiveProductionProfileDependencyBinder,
+    ActiveProductionProfileError,
+    ActiveProductionProfileInvalidationService,
+    ActiveProductionProfileMismatch,
+    ActiveProductionProfileRepository,
+    EffectivePolicyEntry,
+    EffectivePolicyPathProvenance,
+    ProfileChangeSet,
+    ProfileInvalidationResult,
+    ProfilePathBindingError,
+    build_active_profile_provenance,
+    diff_active_profiles,
+    materialize_active_profile,
+    profile_path_edge_type,
+)
 from .brainpack import (
     BrainPackApplicability,
     BrainPackConflict,
@@ -143,6 +162,23 @@ from .versioning import (
 )
 
 __all__ = [
+    "ActiveProductionProfile",
+    "ActiveProductionProfileArtifact",
+    "ActiveProductionProfileBinding",
+    "ActiveProductionProfileDependencyBinder",
+    "ActiveProductionProfileError",
+    "ActiveProductionProfileInvalidationService",
+    "ActiveProductionProfileMismatch",
+    "ActiveProductionProfileRepository",
+    "EffectivePolicyEntry",
+    "EffectivePolicyPathProvenance",
+    "ProfileChangeSet",
+    "ProfileInvalidationResult",
+    "ProfilePathBindingError",
+    "build_active_profile_provenance",
+    "diff_active_profiles",
+    "materialize_active_profile",
+    "profile_path_edge_type",
     "AuthorityTier",
     "ContenderDisposition",
     "FieldResolutionTrace",

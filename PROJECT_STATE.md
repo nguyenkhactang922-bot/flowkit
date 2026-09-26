@@ -1119,3 +1119,51 @@ frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c7
 - Python 3.10/3.13 full unit CI = SUCCESS
 
 NEXT_EXACT_ACTION = "CLAIM IMP-013 ACTIVEPRODUCTIONPROFILE"
+
+
+---
+
+## Active Implementation Task - 2026-09-26
+
+task = IMP-013 ACTIVEPRODUCTIONPROFILE
+branch = chatgpt/IMP-013-active-production-profile
+base_head = 8942b06a2ebf9b67392a95222fe452ceaea12572
+depends = IMP-012 + IMP-005 MAIN VERIFIED
+status = CLAIMED / AUTHORITY AUDIT NEXT
+
+Acceptance:
+- immutable pinned profile snapshot
+- exact upstream/version bindings
+- effective policy and path provenance preserved
+- no in-place semantic mutation
+- successor version on re-resolution
+- deterministic changed-path delta
+- selective dependency-aware invalidation
+- downstream exact profile-version binding
+- no pack re-resolution downstream
+- frozen Master unchanged
+
+
+---
+
+## IMP-013 Local Verification - 2026-09-26
+
+task = IMP-013 ACTIVEPRODUCTIONPROFILE
+status = LOCAL VERIFIED / REMOTE CI GATE PENDING
+branch = chatgpt/IMP-013-active-production-profile
+
+- immutable pinned ActiveProductionProfile = VERIFIED
+- exact identity/version persistence = VERIFIED
+- exact effective-policy provenance snapshot = VERIFIED
+- deterministic changed-path delta = VERIFIED
+- successor version on re-resolution = VERIFIED
+- selective dependency-aware invalidation = VERIFIED
+- unrelated profile-path branches preserved = VERIFIED
+- forged reachability plan rejected = VERIFIED
+- downstream exact profile binding/no re-resolution = VERIFIED
+- targeted IMP-013 = 10/10 PASS
+- exact-head unaffected regression = 494 PASS / 3 deselected
+- frozen Master guard = PASS
+- evidence = evidence/tests/IMP-013_ACTIVE_PRODUCTION_PROFILE_EVIDENCE.md
+
+NEXT_EXACT_ACTION = "COMMIT IMP-013 AND RUN REMOTE PR/CI LIFECYCLE"

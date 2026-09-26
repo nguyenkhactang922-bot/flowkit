@@ -834,3 +834,48 @@ IMP-012 local verification:
 
 NEXT DEPENDENCY-READY TASK:
 - [ ] IMP-013 - ActiveProductionProfile.
+
+
+---
+
+## IMP-013 - ActiveProductionProfile
+
+- [>] CLAIMED on chatgpt/IMP-013-active-production-profile.
+- [ ] Read exact frozen ActiveProductionProfile authority.
+- [ ] Audit ProfileResolution + DependencyGraph/Invalidation contracts.
+- [ ] Add immutable ActiveProductionProfile contract.
+- [ ] Add exact profile identity/version persistence.
+- [ ] Add per-effective-path provenance snapshot.
+- [ ] Add deterministic changed-path delta.
+- [ ] Add successor version creation on re-resolution.
+- [ ] Add selective dependency-aware invalidation.
+- [ ] Prove downstream exact profile binding and no re-resolution.
+- [ ] Add targeted tests.
+- [ ] Run full unit regression.
+- [ ] Capture evidence + frozen SHA verification.
+- [ ] Commit / push / PR / review / merge / MAIN VERIFIED.
+
+
+IMP-013 local verification:
+- [x] Read exact ActiveProductionProfile authority.
+- [x] Audit ProfileResolution + DependencyGraph/Invalidation contracts.
+- [x] Add immutable ActiveProductionProfile contract.
+- [x] Add exact profile identity/version persistence.
+- [x] Add per-effective-path provenance snapshot.
+- [x] Add deterministic changed-path delta.
+- [x] Add successor version creation on re-resolution.
+- [x] Add selective dependency-aware invalidation.
+- [x] Add forged selective-reachability fail-closed validation.
+- [x] Prove unrelated profile path remains valid.
+- [x] Prove downstream exact profile binding/no re-resolution.
+- [x] Targeted IMP-013: 10/10 PASS.
+- [x] Exact-head unaffected regression: 494 PASS / 3 deselected.
+- [x] Frozen Master guard PASS; SHA unchanged.
+- [x] Evidence captured.
+- [ ] Commit.
+- [ ] Push.
+- [ ] Open PR.
+- [ ] Ubuntu CI Python 3.10/3.13.
+- [ ] Exact-head review.
+- [ ] Merge main.
+- [ ] Verify main and mark MAIN VERIFIED.
