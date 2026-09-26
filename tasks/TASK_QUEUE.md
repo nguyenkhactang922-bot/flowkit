@@ -595,3 +595,27 @@ IMP-006 local verification:
 - [ ] Exact-head review.
 - [ ] Merge main.
 - [ ] Verify main and mark MAIN VERIFIED.
+
+
+---
+
+## IMP-006 Final Verification - 2026-09-26
+
+- [x] Typed correlation/evidence/error core implemented.
+- [x] Exact ErrorClass taxonomy + provider ambiguity semantics verified.
+- [x] Recursive secret redaction verified, including X-API-Key/X-Access-Token repair.
+- [x] Append-only evidence-event persistence verified.
+- [x] Event != current-state authority verified.
+- [x] Targeted IMP-006: 10/10 PASS.
+- [x] Studio V1→V4 cluster: 57/57 PASS.
+- [x] Windows unaffected regression: 446 PASS / 3 known POSIX-path cases deselected.
+- [x] Frozen Master guard PASS.
+- [x] PR #12 exact-head reviewed.
+- [x] PR #12 Ubuntu CI Python 3.10/3.13 PASS.
+- [x] PR #12 merged.
+- [x] Local main targeted verification PASS.
+- [x] Main push workflow run 36211125971 PASS.
+- [x] IMP-006 = MAIN VERIFIED at 9aaa98e757adbb5f30deea502c6a1f5cce9e06e1.
+
+NEXT DEPENDENCY-READY TASK:
+- [ ] IMP-010 - Project / Topic / Domain Resolution.

@@ -134,3 +134,44 @@ Post-repair focused verification:
 - review-fix diff check: **PASS**
 
 Remote CI must run again on the repaired exact head before merge.
+
+
+## Remote / Main verification
+
+Fork PR:
+- nguyenkhactang922-bot/flowkit#12
+
+Final exact PR head:
+- 8d371dec245bec4794b13d21a55e9749041180d8
+
+PR CI:
+- workflow run 36211006621
+- Python 3.10 frozen guard + full unit suite: SUCCESS
+- Python 3.13 frozen guard + full unit suite: SUCCESS
+
+Exact-head review:
+- initial review identified vendor-prefixed secret-key leakage for X-API-Key / X-Access-Token;
+- repair commit 8d371dec245bec4794b13d21a55e9749041180d8 hardened suffix-based secret-key detection;
+- post-repair targeted observability tests: 10/10 PASS;
+- no blocking findings remained;
+- frozen Master bytes unchanged;
+- no runtime source outside agent/studio changed.
+
+Merge:
+- main merge commit: 9aaa98e757adbb5f30deea502c6a1f5cce9e06e1
+
+Local main verification:
+- local HEAD = fork/main = 9aaa98e757adbb5f30deea502c6a1f5cce9e06e1
+- frozen guard: PASS
+- targeted IMP-006: 10/10 PASS
+
+Fork-main push CI:
+- workflow run 36211125971
+- Python 3.10 frozen guard + full unit suite: SUCCESS
+- Python 3.13 frozen guard + full unit suite: SUCCESS
+
+## Final verdict
+
+IMP-006 = MAIN VERIFIED on nguyenkhactang922-bot/flowkit:main at 9aaa98e757adbb5f30deea502c6a1f5cce9e06e1.
+
+NEXT_EXACT_ACTION = CLAIM IMP-010 — PROJECT / TOPIC / DOMAIN RESOLUTION

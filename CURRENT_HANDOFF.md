@@ -687,3 +687,24 @@ Evidence:
 - secret redaction = VERIFIED
 
 NEXT_EXACT_ACTION = "COMMIT IMP-006 → PUSH → PR → UBUNTU CI → REVIEW → MERGE → MAIN VERIFIED"
+
+
+---
+
+## IMP-006 MAIN VERIFIED - 2026-09-26
+
+IMP-006 = MAIN VERIFIED
+
+Verified writable main:
+- repo = nguyenkhactang922-bot/flowkit
+- main SHA = 9aaa98e757adbb5f30deea502c6a1f5cce9e06e1
+- PR #12 exact-head CI = SUCCESS
+- PR #12 exact-head review = PASS after X-API-Key redaction repair
+- main push workflow run 36211125971 = SUCCESS
+- Windows main frozen guard = PASS
+- Windows main targeted IMP-006 = 10/10 PASS
+
+Evidence:
+- evidence/tests/IMP-006_OBSERVABILITY_ERROR_EVIDENCE_CORE_EVIDENCE.md
+
+NEXT_EXACT_ACTION = "CLAIM IMP-010 PROJECT / TOPIC / DOMAIN RESOLUTION"

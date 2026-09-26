@@ -874,3 +874,25 @@ branch = chatgpt/IMP-006-observability-error-evidence
 - evidence = evidence/tests/IMP-006_OBSERVABILITY_ERROR_EVIDENCE_CORE_EVIDENCE.md
 
 NEXT_EXACT_ACTION = "COMMIT IMP-006 AND RUN REMOTE PR/CI LIFECYCLE"
+
+
+---
+
+## IMP-006 MAIN VERIFIED - 2026-09-26
+
+task = IMP-006 OBSERVABILITY / ERROR / EVIDENCE CORE
+status = MAIN VERIFIED
+verified_repository = nguyenkhactang922-bot/flowkit
+verified_main_sha = 9aaa98e757adbb5f30deea502c6a1f5cce9e06e1
+frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+- PR #12 exact-head = 8d371dec245bec4794b13d21a55e9749041180d8
+- PR workflow run 36211006621 = SUCCESS
+- exact-head review = PASS after vendor-prefixed secret-key redaction repair
+- main merge = 9aaa98e757adbb5f30deea502c6a1f5cce9e06e1
+- local main guard = PASS
+- local main targeted IMP-006 = 10/10 PASS
+- main push workflow run 36211125971 = SUCCESS
+- Python 3.10/3.13 full unit CI = SUCCESS
+
+NEXT_EXACT_ACTION = "CLAIM IMP-010 PROJECT / TOPIC / DOMAIN RESOLUTION"
