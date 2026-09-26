@@ -826,3 +826,51 @@ frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c7
 - Python 3.10/3.13 full unit CI = SUCCESS
 
 NEXT_EXACT_ACTION = "CLAIM IMP-006 OBSERVABILITY / ERROR / EVIDENCE CORE"
+
+
+---
+
+## Active Implementation Task - 2026-09-26
+
+task = IMP-006 OBSERVABILITY / ERROR / EVIDENCE CORE
+branch = chatgpt/IMP-006-observability-error-evidence
+base_head = 77c828f04c1a40027dbf7f0172121d9582e1c8d8
+depends = IMP-004 MAIN VERIFIED
+status = CLAIMED / AUTHORITY AUDIT NEXT
+
+Acceptance:
+- typed correlation IDs
+- typed structured decision/failure events
+- secret/token redaction
+- evidence references to exact source/version context
+- error taxonomy integration
+- event/evidence never becomes current-state authority
+- provider-neutral contracts
+- frozen Master unchanged
+
+
+---
+
+## IMP-006 Local Verification - 2026-09-26
+
+task = IMP-006 OBSERVABILITY / ERROR / EVIDENCE CORE
+status = LOCAL VERIFIED / REMOTE CI GATE PENDING
+branch = chatgpt/IMP-006-observability-error-evidence
+
+- typed correlation IDs/context propagation = VERIFIED
+- exact frozen ErrorClass taxonomy = VERIFIED
+- provider ambiguity reconciliation semantics = VERIFIED
+- structured decision/failure events = VERIFIED
+- evidence references + exact source-version bindings = VERIFIED
+- recursive secret redaction = VERIFIED
+- append-only event persistence = VERIFIED
+- event != current-state authority = VERIFIED
+- schema V3 → V4 migration = VERIFIED
+- targeted IMP-006 = 10/10 PASS
+- Studio cluster = 57/57 PASS
+- Windows full unit suite = 446 PASS / 3 known platform-only failures
+- unaffected local regression = 446 PASS / 3 deselected
+- frozen Master guard = PASS
+- evidence = evidence/tests/IMP-006_OBSERVABILITY_ERROR_EVIDENCE_CORE_EVIDENCE.md
+
+NEXT_EXACT_ACTION = "COMMIT IMP-006 AND RUN REMOTE PR/CI LIFECYCLE"

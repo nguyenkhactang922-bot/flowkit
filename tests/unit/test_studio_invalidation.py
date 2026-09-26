@@ -395,7 +395,11 @@ async def test_schema_v2_upgrades_to_v3_and_preserves_migration_history(tmp_path
         migrations=DEFAULT_MIGRATIONS[:2],
     ) == 2
 
-    writer = SQLiteWriteOwner(db_path)
+    writer = SQLiteWriteOwner(
+        db_path,
+        supported_schema_version=3,
+        migrations=DEFAULT_MIGRATIONS[:3],
+    )
     await writer.start()
     try:
         async with aiosqlite.connect(str(db_path)) as db:

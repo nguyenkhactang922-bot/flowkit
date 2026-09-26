@@ -22,7 +22,7 @@ from typing import Any, Awaitable, Callable, Generic, Iterable, Sequence, TypeVa
 import aiosqlite
 
 
-FOUNDATION_SCHEMA_VERSION = 3
+FOUNDATION_SCHEMA_VERSION = 4
 _MIGRATION_TABLE = "studio_schema_migration"
 _IDENTIFIER_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 _in_write_transaction: contextvars.ContextVar[bool] = contextvars.ContextVar(
@@ -334,6 +334,46 @@ DEFAULT_MIGRATIONS: tuple[Migration, ...] = (
             BEFORE DELETE ON studio_invalidation_transition
             BEGIN
                 SELECT RAISE(ABORT, 'invalidation transition history is immutable');
+            END
+            """,
+        ),
+    ),
+    Migration(
+        version=4,
+        name="studio_observability_evidence",
+        statements=(
+            """
+            CREATE TABLE studio_evidence_event (
+                event_id TEXT PRIMARY KEY,
+                correlation_id TEXT NOT NULL,
+                event_kind TEXT NOT NULL CHECK (
+                    event_kind IN ('DECISION', 'FAILURE')
+                ),
+                responsible_boundary TEXT NOT NULL,
+                occurred_at TEXT NOT NULL,
+                authority_scope TEXT NOT NULL CHECK (
+                    authority_scope='EVIDENCE_ONLY'
+                ),
+                payload_json TEXT NOT NULL,
+                provenance_json TEXT NOT NULL
+            )
+            """,
+            """
+            CREATE INDEX studio_evidence_event_correlation_idx
+            ON studio_evidence_event(correlation_id, occurred_at, event_id)
+            """,
+            """
+            CREATE TRIGGER studio_evidence_event_no_update
+            BEFORE UPDATE ON studio_evidence_event
+            BEGIN
+                SELECT RAISE(ABORT, 'evidence events are append-only');
+            END
+            """,
+            """
+            CREATE TRIGGER studio_evidence_event_no_delete
+            BEFORE DELETE ON studio_evidence_event
+            BEGIN
+                SELECT RAISE(ABORT, 'evidence events are append-only');
             END
             """,
         ),
