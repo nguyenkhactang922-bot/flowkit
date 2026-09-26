@@ -732,3 +732,29 @@ IMP-011 local verification:
 - [ ] Exact-head review.
 - [ ] Merge main.
 - [ ] Verify main and mark MAIN VERIFIED.
+
+
+---
+
+## IMP-011 Final Verification - 2026-09-26
+
+- [x] One canonical BrainPack registry implemented.
+- [x] Canonical families + typed Other family implemented.
+- [x] Story specialization stored in same registry.
+- [x] Exact parent refs + cycle rejection verified.
+- [x] Source/license/donor adaptation validation verified.
+- [x] Registry lifecycle DRAFT/VALIDATED/FROZEN/DEPRECATED verified.
+- [x] Lifecycle CAS/history/DB guards verified.
+- [x] Registry != effective resolved project policy verified.
+- [x] Targeted IMP-011: 11/11 PASS.
+- [x] Windows unaffected regression: 469 PASS / 3 known POSIX-path cases deselected.
+- [x] Frozen Master guard PASS.
+- [x] PR #16 exact-head reviewed.
+- [x] PR #16 Ubuntu CI Python 3.10/3.13 PASS.
+- [x] PR #16 merged.
+- [x] Local main targeted verification PASS.
+- [x] Main push workflow run 36227414264 PASS.
+- [x] IMP-011 = MAIN VERIFIED at e9347bf7b7b8d34418e268d3bdd11538345c172d.
+
+NEXT DEPENDENCY-READY TASK:
+- [ ] IMP-012 - Profile Resolver.

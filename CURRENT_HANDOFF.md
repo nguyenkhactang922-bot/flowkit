@@ -825,3 +825,24 @@ Evidence:
 - diff check = PASS
 
 NEXT_EXACT_ACTION = "COMMIT IMP-011 → PUSH → PR → UBUNTU CI → REVIEW → MERGE → MAIN VERIFIED"
+
+
+---
+
+## IMP-011 MAIN VERIFIED - 2026-09-26
+
+IMP-011 = MAIN VERIFIED
+
+Verified writable main:
+- repo = nguyenkhactang922-bot/flowkit
+- main SHA = e9347bf7b7b8d34418e268d3bdd11538345c172d
+- PR #16 exact-head CI = SUCCESS
+- PR #16 exact-head review = PASS
+- main push workflow run 36227414264 = SUCCESS
+- Windows main frozen guard = PASS
+- Windows main targeted IMP-011 = 11/11 PASS
+
+Evidence:
+- evidence/tests/IMP-011_BRAINPACK_REGISTRY_EVIDENCE.md
+
+NEXT_EXACT_ACTION = "CLAIM IMP-012 PROFILE RESOLVER"
