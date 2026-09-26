@@ -807,3 +807,30 @@ IMP-012 local verification:
 - [ ] Exact-head review.
 - [ ] Merge main.
 - [ ] Verify main and mark MAIN VERIFIED.
+
+
+---
+
+## IMP-012 Final Verification - 2026-09-26
+
+- [x] Single canonical Profile Resolver implemented.
+- [x] Exact Project/Topic/Domain/BrainPack version inputs verified.
+- [x] Canonical precedence ladder verified.
+- [x] Equal-rank/hard-hard conflicts fail closed.
+- [x] Allowlisted project/local override gates verified.
+- [x] Immutable ResolutionTrace provenance verified.
+- [x] Deterministic resolver-version-sensitive identity verified.
+- [x] Persistence through immutable VersionRepository verified.
+- [x] No ActiveProductionProfile authority leakage.
+- [x] Targeted IMP-012: 15/15 PASS.
+- [x] Windows unaffected regression: 484 PASS / 3 known POSIX-path cases deselected.
+- [x] Frozen Master guard PASS.
+- [x] PR #18 exact-head reviewed.
+- [x] PR #18 Ubuntu CI Python 3.10/3.13 PASS.
+- [x] PR #18 merged.
+- [x] Local main targeted verification PASS.
+- [x] Main push workflow run 36234468266 PASS.
+- [x] IMP-012 = MAIN VERIFIED at 99e50aa186222d8ecaefc1db479b15d3343af1b2.
+
+NEXT DEPENDENCY-READY TASK:
+- [ ] IMP-013 - ActiveProductionProfile.

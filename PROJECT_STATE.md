@@ -1097,3 +1097,25 @@ branch = chatgpt/IMP-012-profile-resolver
 - evidence = evidence/tests/IMP-012_PROFILE_RESOLVER_EVIDENCE.md
 
 NEXT_EXACT_ACTION = "COMMIT IMP-012 AND RUN REMOTE PR/CI LIFECYCLE"
+
+
+---
+
+## IMP-012 MAIN VERIFIED - 2026-09-26
+
+task = IMP-012 PROFILE RESOLVER
+status = MAIN VERIFIED
+verified_repository = nguyenkhactang922-bot/flowkit
+verified_main_sha = 99e50aa186222d8ecaefc1db479b15d3343af1b2
+frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+- PR #18 exact-head = dcea5c5338284b4bfb90d503cee39364450e70c1
+- PR workflow run 36234288304 = SUCCESS
+- exact-head review = PASS
+- main merge = 99e50aa186222d8ecaefc1db479b15d3343af1b2
+- local main guard = PASS
+- local main targeted IMP-012 = 15/15 PASS
+- main push workflow run 36234468266 = SUCCESS
+- Python 3.10/3.13 full unit CI = SUCCESS
+
+NEXT_EXACT_ACTION = "CLAIM IMP-013 ACTIVEPRODUCTIONPROFILE"
