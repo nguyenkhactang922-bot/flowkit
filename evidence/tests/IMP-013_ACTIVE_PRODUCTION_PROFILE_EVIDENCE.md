@@ -91,3 +91,46 @@ No IMP-013 failure remains.
 **IMP-013 = LOCAL VERIFIED**
 
 Remote push/PR/Ubuntu CI/exact-head review/merge/main verification remain pending.
+
+
+## Remote / Main verification
+
+Fork PR:
+- nguyenkhactang922-bot/flowkit#20
+
+Exact PR head:
+- f73f85ef31c6bbb33708c59d05bf721760381675
+
+PR CI:
+- workflow run 36237614198
+- conclusion: SUCCESS
+- Python 3.10 frozen guard + full unit suite: SUCCESS
+- Python 3.13 frozen guard + full unit suite: SUCCESS
+
+Exact-head review:
+- no blocking findings;
+- frozen Master bytes unchanged;
+- no feature source outside agent/studio changed;
+- profile is immutable exact-version state;
+- downstream binds exact profile version/path only;
+- unrelated profile branches are preserved;
+- forged selective reachability is rejected by full durable path validation.
+
+Merge:
+- main merge commit: 62d4efccbaf940e1b18016d39014ba13ec648e96
+
+Local main verification:
+- local HEAD = fork/main = 62d4efccbaf940e1b18016d39014ba13ec648e96
+- frozen guard: PASS
+- targeted IMP-013 tests: 10/10 PASS
+
+Fork-main push CI:
+- workflow run 36237749060
+- Python 3.10 frozen guard + full unit suite: SUCCESS
+- Python 3.13 frozen guard + full unit suite: SUCCESS
+
+## Final verdict
+
+IMP-013 = MAIN VERIFIED on nguyenkhactang922-bot/flowkit:main at 62d4efccbaf940e1b18016d39014ba13ec648e96.
+
+NEXT_EXACT_ACTION = CLAIM IMP-020 — IDEA / LOGLINE / PREMISE / ANGLE / THEME
