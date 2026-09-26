@@ -128,6 +128,24 @@ from .primitives import (
     VersionId,
     VersionRef,
 )
+from .story_intake import (
+    AngleCandidate,
+    IdeaContract,
+    LoglineContract,
+    PremiseCandidate,
+    StoryFinding,
+    StoryGateResult,
+    StoryIntakeArtifact,
+    StoryIntakeError,
+    StoryIntakeGateBlocked,
+    StoryIntakeIdentityError,
+    StoryIntakeRepository,
+    StoryIntakeStage,
+    StoryIntakeValue,
+    StoryIntakeGateEvaluator,
+    ThemeHypothesis,
+    build_story_intake_provenance,
+)
 from .topic_domain import (
     AmbiguityItem,
     AxisClassification,
@@ -162,6 +180,22 @@ from .versioning import (
 )
 
 __all__ = [
+    "AngleCandidate",
+    "IdeaContract",
+    "LoglineContract",
+    "PremiseCandidate",
+    "StoryFinding",
+    "StoryGateResult",
+    "StoryIntakeArtifact",
+    "StoryIntakeError",
+    "StoryIntakeGateBlocked",
+    "StoryIntakeGateEvaluator",
+    "StoryIntakeIdentityError",
+    "StoryIntakeRepository",
+    "StoryIntakeStage",
+    "StoryIntakeValue",
+    "ThemeHypothesis",
+    "build_story_intake_provenance",
     "ActiveProductionProfile",
     "ActiveProductionProfileArtifact",
     "ActiveProductionProfileBinding",

@@ -1189,3 +1189,54 @@ frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c7
 - Python 3.10/3.13 full unit CI = SUCCESS
 
 NEXT_EXACT_ACTION = "CLAIM IMP-020 IDEA / LOGLINE / PREMISE / ANGLE / THEME"
+
+
+---
+
+## Active Implementation Task - 2026-09-26
+
+task = IMP-020 IDEA / LOGLINE / PREMISE / ANGLE / THEME
+branch = chatgpt/IMP-020-story-intake-core
+base_head = c182a8d61261fceee890d4c48efd57240459df74
+depends = IMP-002 + IMP-004 + IMP-013 MAIN VERIFIED
+status = CLAIMED / AUTHORITY AUDIT NEXT
+
+Acceptance:
+- Idea, Logline, Premise, Angle, Theme are distinct canonical artifacts
+- exact IDs/versions/provenance
+- accepted versions immutable
+- semantic change creates successor
+- blocking premise/logline defects fail closed
+- no project.story shadow authority
+- ActiveProductionProfile exact-version binding where policy applies
+- provider-neutral contracts
+- frozen Master unchanged
+
+
+---
+
+## IMP-020 Local Verification - 2026-09-26
+
+task = IMP-020 IDEA / LOGLINE / PREMISE / ANGLE / THEME
+status = LOCAL VERIFIED / REMOTE CI GATE PENDING
+branch = chatgpt/IMP-020-story-intake-core
+
+- typed Idea = VERIFIED
+- typed Logline = VERIFIED
+- typed Premise = VERIFIED
+- typed Angle = VERIFIED
+- typed Theme = VERIFIED
+- immutable VersionRepository persistence = VERIFIED
+- exact source/version provenance = VERIFIED
+- exact ActiveProductionProfile binding = VERIFIED
+- stage-local blocking gates = VERIFIED
+- stale parent/profile gate = VERIFIED
+- successor history immutability = VERIFIED
+- legacy project.story compatibility-only boundary = VERIFIED
+- targeted IMP-020 = 13/13 PASS
+- Windows full unit suite = 507 PASS / 3 known platform-only failures
+- unaffected regression = 507 PASS / 3 deselected
+- frozen Master guard = PASS
+- evidence = evidence/tests/IMP-020_STORY_INTAKE_EVIDENCE.md
+
+NEXT_EXACT_ACTION = "COMMIT IMP-020 AND RUN REMOTE PR/CI LIFECYCLE"

@@ -991,3 +991,82 @@ Evidence:
 - evidence/tests/IMP-013_ACTIVE_PRODUCTION_PROFILE_EVIDENCE.md
 
 NEXT_EXACT_ACTION = "CLAIM IMP-020 IDEA / LOGLINE / PREMISE / ANGLE / THEME"
+
+
+---
+
+## IMP-020 Claim - 2026-09-26
+
+ACTIVE_TASK = IMP-020 IDEA / LOGLINE / PREMISE / ANGLE / THEME
+BRANCH = chatgpt/IMP-020-story-intake-core
+BASE_HEAD = c182a8d61261fceee890d4c48efd57240459df74
+DEPENDS = IMP-002 + IMP-004 + IMP-013 MAIN VERIFIED
+
+Scope:
+- typed canonical Idea
+- typed canonical Logline
+- typed canonical Premise
+- typed canonical Angle
+- typed canonical Theme
+- immutable version/provenance persistence
+- stage-local blocking gates
+- no silent in-place accepted mutation
+- exact ActiveProductionProfile binding where policy is consumed
+- provider-neutral contracts
+- replace project.story-only authority without deleting legacy compatibility surface
+
+NEXT_EXACT_ACTION = "READ STORY INTAKE AUTHORITY + AUDIT CURRENT PROJECT.STORY SURFACE → IMPLEMENT IMP-020 + TESTS"
+
+
+---
+
+## IMP-020 Local Verification - 2026-09-26
+
+IMP-020 = LOCAL VERIFIED
+BRANCH = chatgpt/IMP-020-story-intake-core
+BASE = c182a8d61261fceee890d4c48efd57240459df74
+
+Evidence:
+- evidence/tests/IMP-020_STORY_INTAKE_EVIDENCE.md
+- failed-stage rerun = 1/1 PASS
+- targeted IMP-020 = 13/13 PASS
+- full Windows unit suite = 507 PASS / 3 exact known POSIX-path failures
+- unaffected regression = 507 PASS / 3 deselected
+- frozen Master guard = PASS
+- frozen SHA unchanged
+- exact ActiveProductionProfile binding = VERIFIED
+- stage-local blocking gates = VERIFIED
+- stale parent/profile rejection = VERIFIED
+- immutable successor/current authority = VERIFIED
+- no project.story shadow canonical authority = VERIFIED
+- provider-neutral contract = VERIFIED
+- diff check = PASS
+
+NEXT_EXACT_ACTION = "COMMIT IMP-020 → PUSH → PR → UBUNTU CI → REVIEW → MERGE → MAIN VERIFIED"
+
+
+---
+
+## IMP-020 Local Verification - 2026-09-26
+
+IMP-020 = LOCAL VERIFIED
+BRANCH = chatgpt/IMP-020-story-intake-core
+BASE = c182a8d61261fceee890d4c48efd57240459df74
+
+Evidence:
+- evidence/tests/IMP-020_STORY_INTAKE_EVIDENCE.md
+- failed-stage rerun = 1/1 PASS
+- targeted IMP-020 = 13/13 PASS
+- full Windows unit suite = 507 PASS / 3 exact known POSIX-path failures
+- unaffected regression = 507 PASS / 3 deselected
+- frozen Master guard = PASS
+- frozen SHA unchanged
+- exact ActiveProductionProfile binding = VERIFIED
+- stage-local blocking gates = VERIFIED
+- stale parent/profile rejection = VERIFIED
+- immutable successor/current authority = VERIFIED
+- no project.story shadow canonical authority = VERIFIED
+- provider-neutral contract = VERIFIED
+- diff check = PASS
+
+NEXT_EXACT_ACTION = "COMMIT IMP-020 → PUSH → PR → UBUNTU CI → REVIEW → MERGE → MAIN VERIFIED"
