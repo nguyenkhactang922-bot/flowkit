@@ -22,7 +22,7 @@ from typing import Any, Awaitable, Callable, Generic, Iterable, Sequence, TypeVa
 import aiosqlite
 
 
-FOUNDATION_SCHEMA_VERSION = 4
+FOUNDATION_SCHEMA_VERSION = 5
 _MIGRATION_TABLE = "studio_schema_migration"
 _IDENTIFIER_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 _in_write_transaction: contextvars.ContextVar[bool] = contextvars.ContextVar(
@@ -378,6 +378,163 @@ DEFAULT_MIGRATIONS: tuple[Migration, ...] = (
             """,
         ),
     ),
+    Migration(
+        version=5,
+        name="studio_brainpack_registry",
+        statements=(
+            """
+            CREATE TABLE studio_brainpack_definition (
+                pack_id TEXT NOT NULL,
+                pack_version TEXT NOT NULL,
+                family TEXT NOT NULL,
+                payload_json TEXT NOT NULL,
+                provenance_json TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                predecessor_version TEXT,
+                content_hash TEXT NOT NULL,
+                PRIMARY KEY (pack_id, pack_version),
+                FOREIGN KEY (pack_id, predecessor_version)
+                    REFERENCES studio_brainpack_definition(pack_id, pack_version)
+            )
+            """,
+            """
+            CREATE TABLE studio_brainpack_parent (
+                pack_id TEXT NOT NULL,
+                pack_version TEXT NOT NULL,
+                ordinal INTEGER NOT NULL CHECK (ordinal >= 0),
+                parent_pack_id TEXT NOT NULL,
+                parent_pack_version TEXT NOT NULL,
+                PRIMARY KEY (pack_id, pack_version, ordinal),
+                UNIQUE (
+                    pack_id,
+                    pack_version,
+                    parent_pack_id,
+                    parent_pack_version
+                ),
+                FOREIGN KEY (pack_id, pack_version)
+                    REFERENCES studio_brainpack_definition(pack_id, pack_version),
+                FOREIGN KEY (parent_pack_id, parent_pack_version)
+                    REFERENCES studio_brainpack_definition(pack_id, pack_version)
+            )
+            """,
+            """
+            CREATE INDEX studio_brainpack_parent_target_idx
+            ON studio_brainpack_parent(parent_pack_id, parent_pack_version)
+            """,
+            """
+            CREATE TABLE studio_brainpack_lifecycle (
+                pack_id TEXT NOT NULL,
+                pack_version TEXT NOT NULL,
+                lifecycle_state TEXT NOT NULL CHECK (
+                    lifecycle_state IN (
+                        'DRAFT',
+                        'VALIDATED',
+                        'FROZEN',
+                        'DEPRECATED'
+                    )
+                ),
+                revision INTEGER NOT NULL DEFAULT 0 CHECK (revision >= 0),
+                updated_at TEXT NOT NULL,
+                PRIMARY KEY (pack_id, pack_version),
+                FOREIGN KEY (pack_id, pack_version)
+                    REFERENCES studio_brainpack_definition(pack_id, pack_version)
+            )
+            """,
+            """
+            CREATE TABLE studio_brainpack_lifecycle_transition (
+                transition_id TEXT PRIMARY KEY,
+                pack_id TEXT NOT NULL,
+                pack_version TEXT NOT NULL,
+                from_state TEXT NOT NULL,
+                to_state TEXT NOT NULL,
+                from_revision INTEGER NOT NULL,
+                to_revision INTEGER NOT NULL,
+                reason TEXT NOT NULL,
+                provenance_json TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                UNIQUE (pack_id, pack_version, to_revision),
+                FOREIGN KEY (pack_id, pack_version)
+                    REFERENCES studio_brainpack_definition(pack_id, pack_version)
+            )
+            """,
+            """
+            CREATE TRIGGER studio_brainpack_definition_no_update
+            BEFORE UPDATE ON studio_brainpack_definition
+            BEGIN
+                SELECT RAISE(ABORT, 'brainpack definitions are immutable');
+            END
+            """,
+            """
+            CREATE TRIGGER studio_brainpack_definition_no_delete
+            BEFORE DELETE ON studio_brainpack_definition
+            BEGIN
+                SELECT RAISE(ABORT, 'brainpack definitions are immutable');
+            END
+            """,
+            """
+            CREATE TRIGGER studio_brainpack_parent_no_update
+            BEFORE UPDATE ON studio_brainpack_parent
+            BEGIN
+                SELECT RAISE(ABORT, 'brainpack parent edges are immutable');
+            END
+            """,
+            """
+            CREATE TRIGGER studio_brainpack_parent_no_delete
+            BEFORE DELETE ON studio_brainpack_parent
+            BEGIN
+                SELECT RAISE(ABORT, 'brainpack parent edges are immutable');
+            END
+            """,
+            """
+            CREATE TRIGGER studio_brainpack_lifecycle_guard
+            BEFORE UPDATE ON studio_brainpack_lifecycle
+            WHEN
+                NEW.pack_id IS NOT OLD.pack_id
+                OR NEW.pack_version IS NOT OLD.pack_version
+                OR NEW.revision != OLD.revision + 1
+                OR NOT (
+                    (
+                        OLD.lifecycle_state='DRAFT'
+                        AND NEW.lifecycle_state IN ('VALIDATED', 'DEPRECATED')
+                    )
+                    OR
+                    (
+                        OLD.lifecycle_state='VALIDATED'
+                        AND NEW.lifecycle_state IN ('FROZEN', 'DEPRECATED')
+                    )
+                    OR
+                    (
+                        OLD.lifecycle_state='FROZEN'
+                        AND NEW.lifecycle_state='DEPRECATED'
+                    )
+                )
+            BEGIN
+                SELECT RAISE(ABORT, 'illegal brainpack lifecycle transition');
+            END
+            """,
+            """
+            CREATE TRIGGER studio_brainpack_lifecycle_no_delete
+            BEFORE DELETE ON studio_brainpack_lifecycle
+            BEGIN
+                SELECT RAISE(ABORT, 'brainpack lifecycle rows are durable');
+            END
+            """,
+            """
+            CREATE TRIGGER studio_brainpack_lifecycle_transition_no_update
+            BEFORE UPDATE ON studio_brainpack_lifecycle_transition
+            BEGIN
+                SELECT RAISE(ABORT, 'brainpack lifecycle history is immutable');
+            END
+            """,
+            """
+            CREATE TRIGGER studio_brainpack_lifecycle_transition_no_delete
+            BEFORE DELETE ON studio_brainpack_lifecycle_transition
+            BEGIN
+                SELECT RAISE(ABORT, 'brainpack lifecycle history is immutable');
+            END
+            """,
+        ),
+    ),
 )
 
 
@@ -573,8 +730,13 @@ class SQLiteWriteTransaction:
         expected_revision: int,
         changes: dict[str, Any],
         revision_column: str = "revision",
+        extra_where: dict[str, Any] | None = None,
     ) -> int:
-        """Update one row only when its mutable revision equals expectation."""
+        """Update one row only when its mutable revision equals expectation.
+
+        extra_where adds validated equality predicates for composite-key or
+        scoped coordination rows without weakening the revision CAS.
+        """
 
         if expected_revision < 0:
             raise ValueError("expected_revision must be >= 0")
@@ -588,22 +750,39 @@ class SQLiteWriteTransaction:
         if revision_column in columns:
             raise ValueError("revision column is owned by CAS and cannot be supplied")
 
+        scoped = extra_where or {}
+        scoped_columns = [
+            _validate_identifier(name, "CAS scope column") for name in scoped
+        ]
+        if pk_column in scoped_columns or revision_column in scoped_columns:
+            raise ValueError(
+                "extra_where cannot repeat primary-key or revision columns"
+            )
+
         set_clause = ", ".join(f"{column}=?" for column in columns)
+        where_parts = [f"{pk_column}=?"]
+        where_parts.extend(f"{column}=?" for column in scoped_columns)
+        where_parts.append(f"{revision_column}=?")
         sql = (
             f"UPDATE {table} SET {set_clause}, "
             f"{revision_column}={revision_column}+1 "
-            f"WHERE {pk_column}=? AND {revision_column}=?"
+            f"WHERE {' AND '.join(where_parts)}"
         )
         values = [changes[column] for column in columns]
-        values.extend([pk_value, expected_revision])
+        values.append(pk_value)
+        values.extend(scoped[column] for column in scoped_columns)
+        values.append(expected_revision)
         cursor = await self._db.execute(sql, values)
         if cursor.rowcount != 1:
+            scope_text = ", ".join(
+                f"{column}={scoped[column]!r}" for column in scoped_columns
+            )
+            detail = f", {scope_text}" if scope_text else ""
             raise CASConflict(
-                f"stale revision for {table}.{pk_column}={pk_value!r}; "
+                f"stale revision for {table}.{pk_column}={pk_value!r}{detail}; "
                 f"expected {expected_revision}"
             )
         return expected_revision + 1
-
 
 class SQLiteReadRepository:
     """Separate query-only read path for canonical Studio persistence."""

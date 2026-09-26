@@ -968,3 +968,58 @@ frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c7
 - Python 3.10/3.13 full unit CI = SUCCESS
 
 NEXT_EXACT_ACTION = "CLAIM IMP-011 BRAINPACK REGISTRY"
+
+
+---
+
+## Active Implementation Task - 2026-09-26
+
+task = IMP-011 BRAINPACK REGISTRY
+branch = chatgpt/IMP-011-brainpack-registry
+base_head = 096ed0109e25390e5ebb2bb1e1eaf146d7c7b5df
+depends = IMP-010 MAIN VERIFIED
+status = CLAIMED / AUTHORITY READ / STORAGE DESIGN NEXT
+
+Acceptance:
+- one registry only
+- immutable pack definitions with pack_id + pack_version
+- canonical pack family classification
+- StoryBrainPack specialization, not parallel registry
+- exact parent pack version refs
+- applicability metadata
+- DRAFT / VALIDATED / FROZEN / DEPRECATED registry lifecycle
+- published versions immutable
+- provenance + license/source evidence required
+- cycle detection for parent inheritance
+- registry never resolves effective project policy
+- frozen Master unchanged
+
+
+---
+
+## IMP-011 Local Verification - 2026-09-26
+
+task = IMP-011 BRAINPACK REGISTRY
+status = LOCAL VERIFIED / REMOTE CI GATE PENDING
+branch = chatgpt/IMP-011-brainpack-registry
+
+- one canonical registry = VERIFIED
+- immutable pack definitions = VERIFIED
+- canonical pack families = VERIFIED
+- Story specialization in same registry = VERIFIED
+- exact parent version refs = VERIFIED
+- logical inheritance cycle rejection = VERIFIED
+- typed applicability/rules = VERIFIED
+- source/license provenance = VERIFIED
+- donor adaptation/validation gate = VERIFIED
+- registry lifecycle DRAFT/VALIDATED/FROZEN/DEPRECATED = VERIFIED
+- lifecycle CAS/history/DB guards = VERIFIED
+- schema V4 → V5 migration = VERIFIED
+- targeted IMP-011 = 11/11 PASS
+- cluster = 33/33 PASS
+- Windows full unit suite = 469 PASS / 3 known platform-only failures
+- unaffected local regression = 469 PASS / 3 deselected
+- frozen Master guard = PASS
+- evidence = evidence/tests/IMP-011_BRAINPACK_REGISTRY_EVIDENCE.md
+
+NEXT_EXACT_ACTION = "COMMIT IMP-011 AND RUN REMOTE PR/CI LIFECYCLE"
