@@ -879,3 +879,28 @@ IMP-013 local verification:
 - [ ] Exact-head review.
 - [ ] Merge main.
 - [ ] Verify main and mark MAIN VERIFIED.
+
+
+---
+
+## IMP-013 Final Verification - 2026-09-26
+
+- [x] Immutable pinned ActiveProductionProfile implemented.
+- [x] Exact identity/version/source provenance verified.
+- [x] Successor versioning verified.
+- [x] Changed-path delta verified.
+- [x] Selective invalidation preserves unrelated branches.
+- [x] Forged selective reachability fails closed.
+- [x] Downstream exact profile binding/no re-resolution verified.
+- [x] Targeted IMP-013: 10/10 PASS.
+- [x] Exact-head unaffected regression: 494 PASS / 3 known POSIX-path cases deselected.
+- [x] Frozen Master guard PASS.
+- [x] PR #20 exact-head reviewed.
+- [x] PR #20 Ubuntu CI Python 3.10/3.13 PASS.
+- [x] PR #20 merged.
+- [x] Local main targeted verification PASS.
+- [x] Main push workflow run 36237749060 PASS.
+- [x] IMP-013 = MAIN VERIFIED at 62d4efccbaf940e1b18016d39014ba13ec648e96.
+
+NEXT DEPENDENCY-READY TASK:
+- [ ] IMP-020 - Idea / Logline / Premise / Angle / Theme.

@@ -970,3 +970,24 @@ Evidence:
 - diff check = PASS
 
 NEXT_EXACT_ACTION = "COMMIT IMP-013 → PUSH → PR → UBUNTU CI → REVIEW → MERGE → MAIN VERIFIED"
+
+
+---
+
+## IMP-013 MAIN VERIFIED - 2026-09-26
+
+IMP-013 = MAIN VERIFIED
+
+Verified writable main:
+- repo = nguyenkhactang922-bot/flowkit
+- main SHA = 62d4efccbaf940e1b18016d39014ba13ec648e96
+- PR #20 exact-head CI = SUCCESS
+- PR #20 exact-head review = PASS
+- main push workflow run 36237749060 = SUCCESS
+- Windows main frozen guard = PASS
+- Windows main targeted IMP-013 = 10/10 PASS
+
+Evidence:
+- evidence/tests/IMP-013_ACTIVE_PRODUCTION_PROFILE_EVIDENCE.md
+
+NEXT_EXACT_ACTION = "CLAIM IMP-020 IDEA / LOGLINE / PREMISE / ANGLE / THEME"
