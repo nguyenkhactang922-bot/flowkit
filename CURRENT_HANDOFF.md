@@ -846,3 +846,54 @@ Evidence:
 - evidence/tests/IMP-011_BRAINPACK_REGISTRY_EVIDENCE.md
 
 NEXT_EXACT_ACTION = "CLAIM IMP-012 PROFILE RESOLVER"
+
+
+---
+
+## IMP-012 Claim - 2026-09-26
+
+ACTIVE_TASK = IMP-012 PROFILE RESOLVER
+BRANCH = chatgpt/IMP-012-profile-resolver
+BASE_HEAD = 5b4edba7ef1a7c9da61cb6acc4de75592440d9f3
+DEPENDS = IMP-011 MAIN VERIFIED + IMP-005 MAIN VERIFIED
+
+Scope:
+- single canonical Profile Resolver authority
+- typed selection/composition/precedence/conflict/override inputs
+- hard > soft precedence
+- locked facts/invariants outrank all lower authority
+- project overrides allowlisted only
+- exact BrainPack version inputs
+- immutable ResolutionTrace output
+- unresolved hard-hard conflict fails closed
+- no downstream independent re-resolution
+- provider-neutral contracts
+- persistence through immutable VersionRepository
+- dependency-aware change trace for IMP-013 invalidation
+
+NEXT_EXACT_ACTION = "READ FULL PROFILE RESOLVER AUTHORITY + INPUT CONTRACTS → IMPLEMENT IMP-012 + TESTS"
+
+
+---
+
+## IMP-012 Local Verification - 2026-09-26
+
+IMP-012 = LOCAL VERIFIED
+BRANCH = chatgpt/IMP-012-profile-resolver
+BASE = 5b4edba7ef1a7c9da61cb6acc4de75592440d9f3
+
+Evidence:
+- evidence/tests/IMP-012_PROFILE_RESOLVER_EVIDENCE.md
+- targeted IMP-012 exact head = 15/15 PASS
+- full Windows unit suite = 484 PASS / 3 exact known POSIX-path failures
+- unaffected regression = 484 PASS / 3 deselected
+- frozen Master guard = PASS
+- frozen SHA unchanged
+- precedence/hard-hard/allowlist gates = VERIFIED
+- deterministic resolver-version-sensitive identity = VERIFIED
+- exact consumed-source provenance = VERIFIED
+- no ActiveProductionProfile authority leakage = VERIFIED
+- provider-neutral contract guard = VERIFIED
+- diff check = PASS
+
+NEXT_EXACT_ACTION = "COMMIT IMP-012 → PUSH → PR → UBUNTU CI → REVIEW → MERGE → MAIN VERIFIED"

@@ -758,3 +758,52 @@ IMP-011 local verification:
 
 NEXT DEPENDENCY-READY TASK:
 - [ ] IMP-012 - Profile Resolver.
+
+
+---
+
+## IMP-012 - Profile Resolver
+
+- [>] CLAIMED on chatgpt/IMP-012-profile-resolver.
+- [ ] Read exact frozen Profile Resolver authority.
+- [ ] Audit Topic/Domain/BrainPack contracts for exact inputs.
+- [ ] Add typed resolver input contract.
+- [ ] Add precedence/conflict/override engine.
+- [ ] Add allowlisted project override gate.
+- [ ] Add immutable ResolutionTrace with per-field provenance.
+- [ ] Add hard-hard conflict fail-closed behavior.
+- [ ] Add deterministic/reproducibility tests.
+- [ ] Prove downstream cannot independently re-resolve packs.
+- [ ] Persist resolver output through immutable VersionRepository.
+- [ ] Run targeted tests.
+- [ ] Run full unit regression.
+- [ ] Capture evidence + frozen SHA verification.
+- [ ] Commit / push / PR / review / merge / MAIN VERIFIED.
+
+
+IMP-012 local verification:
+- [x] Read exact frozen Profile Resolver authority.
+- [x] Audit Topic/Domain/BrainPack exact input contracts.
+- [x] Add typed resolver input contract.
+- [x] Add precedence/conflict/override engine.
+- [x] Add allowlisted project override gate.
+- [x] Add allowlisted local-intent gate.
+- [x] Add immutable ResolutionTrace with per-field provenance.
+- [x] Add hard-hard conflict fail-closed behavior.
+- [x] Add exact pack applicability/inheritance/FROZEN gates.
+- [x] Add deterministic resolver-version-sensitive identity.
+- [x] Bind all consumed exact sources in persistence provenance.
+- [x] Persist resolver output via immutable VersionRepository.
+- [x] Prove IMP-012 does not define ActiveProductionProfile.
+- [x] Targeted IMP-012: 15/15 PASS.
+- [x] Full Windows unit suite: 484 PASS / 3 exact known POSIX-path failures.
+- [x] Unaffected regression: 484 PASS / 3 deselected.
+- [x] Frozen Master guard PASS; SHA unchanged.
+- [x] Evidence captured.
+- [ ] Commit.
+- [ ] Push.
+- [ ] Open PR.
+- [ ] Ubuntu CI Python 3.10/3.13.
+- [ ] Exact-head review.
+- [ ] Merge main.
+- [ ] Verify main and mark MAIN VERIFIED.

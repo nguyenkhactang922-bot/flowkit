@@ -1045,3 +1045,55 @@ frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c7
 - Python 3.10/3.13 full unit CI = SUCCESS
 
 NEXT_EXACT_ACTION = "CLAIM IMP-012 PROFILE RESOLVER"
+
+
+---
+
+## Active Implementation Task - 2026-09-26
+
+task = IMP-012 PROFILE RESOLVER
+branch = chatgpt/IMP-012-profile-resolver
+base_head = 5b4edba7ef1a7c9da61cb6acc4de75592440d9f3
+depends = IMP-011 + IMP-005 MAIN VERIFIED
+status = CLAIMED / AUTHORITY AUDIT NEXT
+
+Acceptance:
+- one Profile Resolver authority
+- exact-version Topic/Domain/BrainPack inputs
+- locked facts > hard constraints > allowed project overrides > inherited pack policy > soft preferences > allowed local intent
+- hard-hard unresolved conflict = FAIL
+- non-allowlisted project override rejected
+- every effective field has source/version/precedence/reason trace
+- deterministic/reproducible output for exact inputs
+- downstream cannot re-resolve pack stack independently
+- no provider/model fields
+- frozen Master unchanged
+
+
+---
+
+## IMP-012 Local Verification - 2026-09-26
+
+task = IMP-012 PROFILE RESOLVER
+status = LOCAL VERIFIED / REMOTE CI GATE PENDING
+branch = chatgpt/IMP-012-profile-resolver
+
+- one Profile Resolver authority = VERIFIED
+- exact Project/Topic/Domain/BrainPack inputs = VERIFIED
+- locked > hard > override > pack > soft > local precedence = VERIFIED
+- hard-hard unresolved conflict = FAIL CLOSED
+- project/local overrides require allowlist = VERIFIED
+- inherited pack composition/override rules = VERIFIED
+- all direct/inherited candidate packs require FROZEN = VERIFIED
+- immutable ResolutionTrace = VERIFIED
+- every field winner/contender has exact source/version/reason = VERIFIED
+- all consumed exact source versions persisted in provenance = VERIFIED
+- deterministic/reproducible result = VERIFIED
+- ActiveProductionProfile remains IMP-013 authority = VERIFIED
+- targeted IMP-012 = 15/15 PASS
+- Windows full unit suite = 484 PASS / 3 known platform-only failures
+- unaffected local regression = 484 PASS / 3 deselected
+- frozen Master guard = PASS
+- evidence = evidence/tests/IMP-012_PROFILE_RESOLVER_EVIDENCE.md
+
+NEXT_EXACT_ACTION = "COMMIT IMP-012 AND RUN REMOTE PR/CI LIFECYCLE"
