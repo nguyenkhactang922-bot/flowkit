@@ -118,3 +118,49 @@ Clean unaffected regression excluding exactly those three known platform cases:
 **IMP-011 = LOCAL VERIFIED**
 
 Remote PR/Ubuntu CI/exact-head review/merge/main verification remain pending.
+
+
+## Remote / Main verification
+
+Fork PR:
+- nguyenkhactang922-bot/flowkit#16
+
+Exact PR head:
+- 74f27ad287aa9f87b5acb93bde6d7faebedf1ace
+
+PR CI:
+- workflow run 36227308533
+- conclusion: SUCCESS
+- Python 3.10 frozen guard + full unit suite: SUCCESS
+- Python 3.13 frozen guard + full unit suite: SUCCESS
+
+Exact-head review:
+- no blocking findings;
+- frozen Master bytes unchanged;
+- no feature source outside agent/studio changed;
+- exactly one BrainPackRegistryRepository;
+- StoryBrainPackDefinition is a specialization in the same registry;
+- definitions/parent edges immutable;
+- registry lifecycle separate and CAS/DB guarded;
+- source/license/donor validation explicit;
+- logical inheritance cycles fail closed;
+- registry does not resolve project-effective policy.
+
+Merge:
+- main merge commit: e9347bf7b7b8d34418e268d3bdd11538345c172d
+
+Local main verification:
+- local HEAD = fork/main = e9347bf7b7b8d34418e268d3bdd11538345c172d
+- frozen guard: PASS
+- targeted IMP-011 tests: 11/11 PASS
+
+Fork-main push CI:
+- workflow run 36227414264
+- Python 3.10 frozen guard + full unit suite: SUCCESS
+- Python 3.13 frozen guard + full unit suite: SUCCESS
+
+## Final verdict
+
+IMP-011 = MAIN VERIFIED on nguyenkhactang922-bot/flowkit:main at e9347bf7b7b8d34418e268d3bdd11538345c172d.
+
+NEXT_EXACT_ACTION = CLAIM IMP-012 — PROFILE RESOLVER

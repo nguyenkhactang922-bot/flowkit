@@ -1023,3 +1023,25 @@ branch = chatgpt/IMP-011-brainpack-registry
 - evidence = evidence/tests/IMP-011_BRAINPACK_REGISTRY_EVIDENCE.md
 
 NEXT_EXACT_ACTION = "COMMIT IMP-011 AND RUN REMOTE PR/CI LIFECYCLE"
+
+
+---
+
+## IMP-011 MAIN VERIFIED - 2026-09-26
+
+task = IMP-011 BRAINPACK REGISTRY
+status = MAIN VERIFIED
+verified_repository = nguyenkhactang922-bot/flowkit
+verified_main_sha = e9347bf7b7b8d34418e268d3bdd11538345c172d
+frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+- PR #16 exact-head = 74f27ad287aa9f87b5acb93bde6d7faebedf1ace
+- PR workflow run 36227308533 = SUCCESS
+- exact-head review = PASS
+- main merge = e9347bf7b7b8d34418e268d3bdd11538345c172d
+- local main guard = PASS
+- local main targeted IMP-011 = 11/11 PASS
+- main push workflow run 36227414264 = SUCCESS
+- Python 3.10/3.13 full unit CI = SUCCESS
+
+NEXT_EXACT_ACTION = "CLAIM IMP-012 PROFILE RESOLVER"
