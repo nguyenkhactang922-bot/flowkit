@@ -896,3 +896,53 @@ frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c7
 - Python 3.10/3.13 full unit CI = SUCCESS
 
 NEXT_EXACT_ACTION = "CLAIM IMP-010 PROJECT / TOPIC / DOMAIN RESOLUTION"
+
+
+---
+
+## Active Implementation Task - 2026-09-26
+
+task = IMP-010 PROJECT / TOPIC / DOMAIN RESOLUTION
+branch = chatgpt/IMP-010-project-topic-domain
+base_head = 1c22e61bbe34538317f8f83df092482b62ec1ede
+depends = IMP-004 + IMP-006 MAIN VERIFIED
+status = CLAIMED / AUTHORITY READ / CODE NEXT
+
+Acceptance:
+- typed ProjectBootstrapInput
+- typed TopicResolution
+- typed Domain/Niche/Genre Resolution
+- exact-version provenance for project input + rule/evaluator/registry metadata
+- ambiguity explicit, never silently collapsed
+- unknown niche explicit; hybrid niches allowed
+- hard project constraints override soft classifier preferences
+- Topic interface cannot accept ActiveProductionProfile/ProfileResolver
+- provider-specific FlowKit fields absent from canonical contracts
+- persistence through immutable VersionRepository
+- frozen Master unchanged
+
+
+---
+
+## IMP-010 Local Verification - 2026-09-26
+
+task = IMP-010 PROJECT / TOPIC / DOMAIN RESOLUTION
+status = LOCAL VERIFIED / REMOTE CI GATE PENDING
+branch = chatgpt/IMP-010-project-topic-domain
+
+- typed ProjectBootstrapInput = VERIFIED
+- typed TopicResolution = VERIFIED
+- typed Domain/Niche/Genre Resolution = VERIFIED
+- exact-version provenance = VERIFIED
+- ambiguity explicit = VERIFIED
+- unknown/hybrid niche semantics = VERIFIED
+- hard constraints > soft classifier preferences = VERIFIED
+- no final ActiveProductionProfile/ProfileResolver dependency = VERIFIED
+- no provider-specific canonical fields = VERIFIED
+- VersionRepository persistence round-trip = VERIFIED
+- targeted IMP-010 = 12/12 PASS
+- Windows full unit suite = 458 PASS / 3 known platform-only failures
+- frozen Master guard = PASS
+- evidence = evidence/tests/IMP-010_PROJECT_TOPIC_DOMAIN_EVIDENCE.md
+
+NEXT_EXACT_ACTION = "COMMIT IMP-010 AND RUN REMOTE PR/CI LIFECYCLE"
