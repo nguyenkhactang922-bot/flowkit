@@ -1070,3 +1070,24 @@ Evidence:
 - diff check = PASS
 
 NEXT_EXACT_ACTION = "COMMIT IMP-020 → PUSH → PR → UBUNTU CI → REVIEW → MERGE → MAIN VERIFIED"
+
+
+---
+
+## IMP-020 MAIN VERIFIED - 2026-09-26
+
+IMP-020 = MAIN VERIFIED
+
+Verified writable main:
+- repo = nguyenkhactang922-bot/flowkit
+- main SHA = 1ea70be1a6a284009f7c399299c4eab027858d21
+- PR #22 exact-head CI = SUCCESS
+- PR #22 exact-head review = PASS
+- main push workflow run 36257937119 = SUCCESS
+- Windows main frozen guard = PASS
+- Windows main targeted IMP-020 = 13/13 PASS
+
+Evidence:
+- evidence/tests/IMP-020_STORY_INTAKE_EVIDENCE.md
+
+NEXT_EXACT_ACTION = "READ TASK QUEUE AND CLAIM NEXT DEPENDENCY-READY STORY TASK"

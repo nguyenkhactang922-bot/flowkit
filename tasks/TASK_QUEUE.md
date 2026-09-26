@@ -945,3 +945,31 @@ IMP-020 local verification:
 - [ ] Exact-head review.
 - [ ] Merge main.
 - [ ] Verify main and mark MAIN VERIFIED.
+
+
+---
+
+## IMP-020 Final Verification - 2026-09-26
+
+- [x] Canonical Idea implemented.
+- [x] Canonical Logline implemented.
+- [x] Canonical Premise implemented.
+- [x] Canonical Angle implemented.
+- [x] Canonical Theme implemented.
+- [x] Exact ActiveProductionProfile/source-version provenance verified.
+- [x] Stage-local blocking gates verified.
+- [x] Stale parent/profile inputs fail closed.
+- [x] Immutable successor/current-authority behavior verified.
+- [x] Legacy project.story compatibility-only boundary verified.
+- [x] Targeted IMP-020: 13/13 PASS.
+- [x] Windows unaffected regression: 507 PASS / 3 known POSIX-path cases deselected.
+- [x] Frozen Master guard PASS.
+- [x] PR #22 exact-head reviewed.
+- [x] PR #22 Ubuntu CI Python 3.10/3.13 PASS.
+- [x] PR #22 merged.
+- [x] Local main targeted verification PASS.
+- [x] Main push workflow run 36257937119 PASS.
+- [x] IMP-020 = MAIN VERIFIED at 1ea70be1a6a284009f7c399299c4eab027858d21.
+
+NEXT DEPENDENCY-READY TASK:
+- [ ] Read TASK_QUEUE / IMPLEMENTATION_TASK_DECOMPOSITION and claim next story task.

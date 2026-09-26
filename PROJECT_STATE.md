@@ -1240,3 +1240,25 @@ branch = chatgpt/IMP-020-story-intake-core
 - evidence = evidence/tests/IMP-020_STORY_INTAKE_EVIDENCE.md
 
 NEXT_EXACT_ACTION = "COMMIT IMP-020 AND RUN REMOTE PR/CI LIFECYCLE"
+
+
+---
+
+## IMP-020 MAIN VERIFIED - 2026-09-26
+
+task = IMP-020 IDEA / LOGLINE / PREMISE / ANGLE / THEME
+status = MAIN VERIFIED
+verified_repository = nguyenkhactang922-bot/flowkit
+verified_main_sha = 1ea70be1a6a284009f7c399299c4eab027858d21
+frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+- PR #22 exact-head = ef423abbbfbd26c3e0e4258e60712138995caf5c
+- PR workflow run 36257856395 = SUCCESS
+- exact-head review = PASS
+- main merge = 1ea70be1a6a284009f7c399299c4eab027858d21
+- local main guard = PASS
+- local main targeted IMP-020 = 13/13 PASS
+- main push workflow run 36257937119 = SUCCESS
+- Python 3.10/3.13 full unit CI = SUCCESS
+
+NEXT_EXACT_ACTION = "READ TASK QUEUE AND CLAIM NEXT DEPENDENCY-READY STORY TASK"

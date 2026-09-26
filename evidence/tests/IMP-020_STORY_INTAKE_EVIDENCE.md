@@ -109,3 +109,47 @@ Clean unaffected regression excluding exactly those three known platform cases:
 **IMP-020 = LOCAL VERIFIED**
 
 Remote PR/Ubuntu CI/exact-head review/merge/main verification remain pending.
+
+
+## Remote / Main verification
+
+Fork PR:
+- nguyenkhactang922-bot/flowkit#22
+
+Exact PR head:
+- ef423abbbfbd26c3e0e4258e60712138995caf5c
+
+PR CI:
+- workflow run 36257856395
+- conclusion: SUCCESS
+- Python 3.10 frozen guard + full unit suite: SUCCESS
+- Python 3.13 frozen guard + full unit suite: SUCCESS
+
+Exact-head review:
+- no blocking findings;
+- frozen Master bytes unchanged;
+- no feature source outside agent/studio changed;
+- exact-version provenance and pinned ActiveProductionProfile preserved;
+- stage-local blockers fail closed;
+- stale parent/profile inputs rejected;
+- successor versions preserve immutable accepted history;
+- legacy project.story remains compatibility-only.
+
+Merge:
+- main merge commit: 1ea70be1a6a284009f7c399299c4eab027858d21
+
+Local main verification:
+- local HEAD = fork/main = 1ea70be1a6a284009f7c399299c4eab027858d21
+- frozen guard: PASS
+- targeted IMP-020 tests: 13/13 PASS
+
+Fork-main push CI:
+- workflow run 36257937119
+- Python 3.10 frozen guard + full unit suite: SUCCESS
+- Python 3.13 frozen guard + full unit suite: SUCCESS
+
+## Final verdict
+
+IMP-020 = MAIN VERIFIED on nguyenkhactang922-bot/flowkit:main at 1ea70be1a6a284009f7c399299c4eab027858d21.
+
+NEXT_EXACT_ACTION = "READ TASK QUEUE AND CLAIM NEXT DEPENDENCY-READY STORY TASK"
