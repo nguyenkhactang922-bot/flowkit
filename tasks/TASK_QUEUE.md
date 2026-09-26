@@ -687,3 +687,48 @@ IMP-010 local verification:
 
 NEXT DEPENDENCY-READY TASK:
 - [ ] IMP-011 - BrainPack Registry.
+
+
+---
+
+## IMP-011 - BrainPack Registry
+
+- [>] CLAIMED on chatgpt/IMP-011-brainpack-registry.
+- [ ] Audit current VersionRepository/lifecycle storage reuse.
+- [ ] Add BrainPack schema + canonical families.
+- [ ] Add Story specialization in same registry.
+- [ ] Add exact-version parent/applicability contracts.
+- [ ] Add registry lifecycle storage.
+- [ ] Add provenance/license/source validation.
+- [ ] Add inheritance cycle detection.
+- [ ] Prove registry definitions != effective resolved policy.
+- [ ] Add targeted tests.
+- [ ] Run full unit regression.
+- [ ] Capture evidence + frozen SHA verification.
+- [ ] Commit / push / PR / review / merge / MAIN VERIFIED.
+
+
+IMP-011 local verification:
+- [x] Audit VersionRepository/lifecycle storage reuse.
+- [x] Add BrainPack schema + canonical families.
+- [x] Add Story specialization in same registry.
+- [x] Add exact-version parent/applicability contracts.
+- [x] Add registry-specific lifecycle storage/history.
+- [x] Add provenance/license/source validation.
+- [x] Add donor adaptation/validation gate.
+- [x] Add inheritance cycle detection.
+- [x] Prove registry definitions != effective resolved policy.
+- [x] Add schema V5 migration.
+- [x] Targeted IMP-011: 11/11 PASS.
+- [x] Targeted cluster: 33/33 PASS.
+- [x] Full Windows unit suite: 469 PASS / 3 exact known POSIX-path failures.
+- [x] Unaffected regression: 469 PASS / 3 deselected.
+- [x] Frozen Master guard PASS; SHA unchanged.
+- [x] Evidence captured.
+- [ ] Commit.
+- [ ] Push.
+- [ ] Open PR.
+- [ ] Ubuntu CI Python 3.10/3.13.
+- [ ] Exact-head review.
+- [ ] Merge main.
+- [ ] Verify main and mark MAIN VERIFIED.

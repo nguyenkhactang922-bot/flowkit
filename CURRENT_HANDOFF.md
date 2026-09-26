@@ -776,3 +776,52 @@ Evidence:
 - evidence/tests/IMP-010_PROJECT_TOPIC_DOMAIN_EVIDENCE.md
 
 NEXT_EXACT_ACTION = "CLAIM IMP-011 BRAINPACK REGISTRY"
+
+
+---
+
+## IMP-011 Claim - 2026-09-26
+
+ACTIVE_TASK = IMP-011 BRAINPACK REGISTRY
+BRANCH = chatgpt/IMP-011-brainpack-registry
+BASE_HEAD = 096ed0109e25390e5ebb2bb1e1eaf146d7c7b5df
+DEPENDS = IMP-010 MAIN VERIFIED
+
+Scope:
+- one canonical BrainPack Registry
+- immutable versioned reusable pack definitions
+- canonical families incl. Story specialization
+- exact-version parent inheritance references
+- applicability contracts
+- registry lifecycle DRAFT / VALIDATED / FROZEN / DEPRECATED
+- provenance/license/source validation
+- registry owns definitions only, never effective resolved project policy
+- no parallel Story registry
+
+NEXT_EXACT_ACTION = "AUDIT VERSION REPOSITORY + DESIGN BRAINPACK LIFECYCLE STORAGE → IMPLEMENT IMP-011 + TESTS"
+
+
+---
+
+## IMP-011 Local Verification - 2026-09-26
+
+IMP-011 = LOCAL VERIFIED
+BRANCH = chatgpt/IMP-011-brainpack-registry
+BASE = 096ed0109e25390e5ebb2bb1e1eaf146d7c7b5df
+
+Evidence:
+- evidence/tests/IMP-011_BRAINPACK_REGISTRY_EVIDENCE.md
+- targeted IMP-011 = 11/11 PASS
+- BrainPack/persistence/observability cluster = 33/33 PASS
+- full Windows unit suite = 469 PASS / 3 exact known POSIX-path failures
+- unaffected regression = 469 PASS / 3 deselected
+- frozen Master guard = PASS
+- frozen SHA unchanged
+- one registry / Story specialization = VERIFIED
+- lifecycle CAS + DB guard = VERIFIED
+- exact-version inheritance/cycle detection = VERIFIED
+- source/license/donor validation = VERIFIED
+- registry != resolved effective project policy = VERIFIED
+- diff check = PASS
+
+NEXT_EXACT_ACTION = "COMMIT IMP-011 → PUSH → PR → UBUNTU CI → REVIEW → MERGE → MAIN VERIFIED"
