@@ -662,3 +662,28 @@ IMP-010 local verification:
 - [ ] Exact-head review.
 - [ ] Merge main.
 - [ ] Verify main and mark MAIN VERIFIED.
+
+
+---
+
+## IMP-010 Final Verification - 2026-09-26
+
+- [x] ProjectBootstrapInput provider-neutral boundary implemented.
+- [x] TopicResolution + service implemented.
+- [x] Domain/Niche/Genre Resolution + service implemented.
+- [x] Exact-version provenance verified.
+- [x] Hard constraints override soft classifier preferences.
+- [x] Explicit ambiguity/unknown/hybrid niche semantics verified.
+- [x] No ActiveProductionProfile/ProfileResolver dependency in Topic contracts.
+- [x] No provider-specific canonical fields.
+- [x] VersionRepository persistence round-trip verified.
+- [x] Targeted IMP-010: 12/12 PASS.
+- [x] PR #14 exact-head reviewed.
+- [x] PR #14 Ubuntu CI Python 3.10/3.13 PASS.
+- [x] PR #14 merged.
+- [x] Local main targeted verification PASS.
+- [x] Main push workflow run 36225238363 PASS.
+- [x] IMP-010 = MAIN VERIFIED at ed5fb0ff0aff746b3991c52f32b282fdec7e444a.
+
+NEXT DEPENDENCY-READY TASK:
+- [ ] IMP-011 - BrainPack Registry.

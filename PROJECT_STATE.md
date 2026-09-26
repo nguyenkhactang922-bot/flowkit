@@ -946,3 +946,25 @@ branch = chatgpt/IMP-010-project-topic-domain
 - evidence = evidence/tests/IMP-010_PROJECT_TOPIC_DOMAIN_EVIDENCE.md
 
 NEXT_EXACT_ACTION = "COMMIT IMP-010 AND RUN REMOTE PR/CI LIFECYCLE"
+
+
+---
+
+## IMP-010 MAIN VERIFIED - 2026-09-26
+
+task = IMP-010 PROJECT / TOPIC / DOMAIN RESOLUTION
+status = MAIN VERIFIED
+verified_repository = nguyenkhactang922-bot/flowkit
+verified_main_sha = ed5fb0ff0aff746b3991c52f32b282fdec7e444a
+frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+- PR #14 exact-head = 6dca6a53bc5733aa9cd93cfd0c13ad15e279543e
+- PR workflow run 36225161135 = SUCCESS
+- exact-head review = PASS
+- main merge = ed5fb0ff0aff746b3991c52f32b282fdec7e444a
+- local main guard = PASS
+- local main targeted IMP-010 = 12/12 PASS
+- main push workflow run 36225238363 = SUCCESS
+- Python 3.10/3.13 full unit CI = SUCCESS
+
+NEXT_EXACT_ACTION = "CLAIM IMP-011 BRAINPACK REGISTRY"

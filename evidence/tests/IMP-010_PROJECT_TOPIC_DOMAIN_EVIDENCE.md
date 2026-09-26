@@ -100,3 +100,47 @@ A separate clean-regression rerun was attempted, but the local bridge/launcher f
 **IMP-010 = LOCAL VERIFIED**
 
 Remote PR / Ubuntu CI / exact-head review / merge / main verification remain pending.
+
+
+## Remote / Main verification
+
+Fork PR:
+- nguyenkhactang922-bot/flowkit#14
+
+Exact PR head:
+- 6dca6a53bc5733aa9cd93cfd0c13ad15e279543e
+
+PR CI:
+- workflow run 36225161135
+- conclusion: SUCCESS
+- Python 3.10 frozen guard + full unit suite: SUCCESS
+- Python 3.13 frozen guard + full unit suite: SUCCESS
+
+Exact-head review:
+- no blocking findings;
+- no ProfileResolver/ActiveProductionProfile dependency in Topic contracts;
+- provider-specific canonical fields absent;
+- hard project constraints outrank soft classifier preferences;
+- ambiguity/unknown/hybrid semantics explicit;
+- exact project/topic/rule/registry version provenance bound;
+- persistence reuses immutable VersionRepository;
+- frozen Master bytes unchanged.
+
+Merge:
+- main merge commit: ed5fb0ff0aff746b3991c52f32b282fdec7e444a
+
+Local main verification:
+- local HEAD = fork/main = ed5fb0ff0aff746b3991c52f32b282fdec7e444a
+- frozen guard: PASS
+- targeted IMP-010 tests: 12/12 PASS
+
+Fork-main push CI:
+- workflow run 36225238363
+- Python 3.10 frozen guard + full unit suite: SUCCESS
+- Python 3.13 frozen guard + full unit suite: SUCCESS
+
+## Final verdict
+
+IMP-010 = MAIN VERIFIED on nguyenkhactang922-bot/flowkit:main at ed5fb0ff0aff746b3991c52f32b282fdec7e444a.
+
+NEXT_EXACT_ACTION = CLAIM IMP-011 — BRAINPACK REGISTRY
