@@ -166,3 +166,50 @@ Final clean unaffected regression excluding exactly those three known cases:
 **IMP-012 = LOCAL VERIFIED**
 
 Remote PR/Ubuntu CI/exact-head review/merge/main verification remain pending.
+
+
+## Remote / Main verification
+
+Fork PR:
+- nguyenkhactang922-bot/flowkit#18
+
+Exact PR head:
+- dcea5c5338284b4bfb90d503cee39364450e70c1
+
+PR CI:
+- workflow run 36234288304
+- conclusion: SUCCESS
+- Python 3.10 frozen guard + full unit suite: SUCCESS
+- Python 3.13 frozen guard + full unit suite: SUCCESS
+
+Exact-head review:
+- no blocking findings;
+- frozen Master bytes unchanged;
+- no feature source outside agent/studio changed;
+- canonical precedence ladder enforced;
+- equal-rank and hard-hard conflicts fail closed;
+- project/local overrides are allowlisted;
+- candidate and inherited BrainPacks must be exact-version FROZEN inputs;
+- ResolutionTrace preserves exact source/version/precedence/reason evidence;
+- resolver identity is deterministic and resolver-version-sensitive;
+- persisted provenance binds selected, rejected, inherited and losing consumed sources;
+- IMP-012 does not define ActiveProductionProfile or downstream re-resolution authority.
+
+Merge:
+- main merge commit: 99e50aa186222d8ecaefc1db479b15d3343af1b2
+
+Local main verification:
+- local HEAD = fork/main = 99e50aa186222d8ecaefc1db479b15d3343af1b2
+- frozen guard: PASS
+- targeted IMP-012 tests: 15/15 PASS
+
+Fork-main push CI:
+- workflow run 36234468266
+- Python 3.10 frozen guard + full unit suite: SUCCESS
+- Python 3.13 frozen guard + full unit suite: SUCCESS
+
+## Final verdict
+
+IMP-012 = MAIN VERIFIED on nguyenkhactang922-bot/flowkit:main at 99e50aa186222d8ecaefc1db479b15d3343af1b2.
+
+NEXT_EXACT_ACTION = CLAIM IMP-013 — ACTIVEPRODUCTIONPROFILE
