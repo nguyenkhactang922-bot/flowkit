@@ -339,7 +339,25 @@ def _normalized_key(value: str) -> str:
 
 def _is_sensitive_key(value: str) -> bool:
     normalized = _normalized_key(value)
-    return normalized in _SENSITIVE_KEYS
+    if normalized in _SENSITIVE_KEYS:
+        return True
+    # Common transport/header prefixes must not bypass redaction merely by
+    # adding a vendor prefix (for example X-API-Key or X-Access-Token).
+    return any(
+        normalized.endswith("_" + suffix)
+        for suffix in (
+            "api_key",
+            "access_token",
+            "refresh_token",
+            "id_token",
+            "client_secret",
+            "authorization",
+            "cookie",
+            "credential",
+            "credentials",
+            "session_id",
+        )
+    )
 
 
 def redact_text(value: str) -> str:

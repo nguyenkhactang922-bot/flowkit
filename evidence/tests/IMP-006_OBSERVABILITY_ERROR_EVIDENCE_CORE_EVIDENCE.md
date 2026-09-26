@@ -116,3 +116,21 @@ Persistable error/event payloads contain `[REDACTED]` and do not contain the raw
 **IMP-006 = LOCAL VERIFIED**
 
 Remote PR/Ubuntu CI/exact-head review/merge/main verification remain pending.
+
+
+## Exact-head review finding and repair
+
+Pre-merge review found one redaction gap:
+- vendor-prefixed sensitive dictionary keys such as `X-API-Key` and `X-Access-Token` normalized to names not covered by the original exact sensitive-key set.
+
+Repair:
+- sensitive-key classification now redacts supported secret suffixes even when a transport/vendor prefix is present;
+- regression fixtures cover `X-API-Key` and `X-Access-Token`;
+- safe sibling fields remain preserved.
+
+Post-repair focused verification:
+- frozen Master guard: **PASS**
+- `tests/unit/test_studio_observability.py`: **10/10 PASS**
+- review-fix diff check: **PASS**
+
+Remote CI must run again on the repaired exact head before merge.

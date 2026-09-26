@@ -126,6 +126,8 @@ def test_recursive_secret_redaction_is_deterministic_and_preserves_safe_fields()
         "Authorization": "Bearer abcdefghijklmnop",
         "nested": {
             "api_key": "secret-api-key",
+            "X-API-Key": "vendor-secret-key",
+            "X-Access-Token": "vendor-access-token",
             "safe": "keep-me",
         },
         "message": "token=abc123 password:topsecret Bearer zyxwvutsrqpon",
@@ -139,8 +141,12 @@ def test_recursive_secret_redaction_is_deterministic_and_preserves_safe_fields()
     assert first == second
     assert first["Authorization"] == "[REDACTED]"
     assert first["nested"]["api_key"] == "[REDACTED]"
+    assert first["nested"]["X-API-Key"] == "[REDACTED]"
+    assert first["nested"]["X-Access-Token"] == "[REDACTED]"
     assert first["nested"]["safe"] == "keep-me"
     assert "secret-api-key" not in serialized
+    assert "vendor-secret-key" not in serialized
+    assert "vendor-access-token" not in serialized
     assert "topsecret" not in serialized
     assert "session-cookie" not in serialized
     assert "inline-secret" not in serialized
