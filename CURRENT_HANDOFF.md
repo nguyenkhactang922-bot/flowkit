@@ -708,3 +708,50 @@ Evidence:
 - evidence/tests/IMP-006_OBSERVABILITY_ERROR_EVIDENCE_CORE_EVIDENCE.md
 
 NEXT_EXACT_ACTION = "CLAIM IMP-010 PROJECT / TOPIC / DOMAIN RESOLUTION"
+
+
+---
+
+## IMP-010 Claim - 2026-09-26
+
+ACTIVE_TASK = IMP-010 PROJECT / TOPIC / DOMAIN RESOLUTION
+BRANCH = chatgpt/IMP-010-project-topic-domain
+BASE_HEAD = 1c22e61bbe34538317f8f83df092482b62ec1ede
+DEPENDS = IMP-004 MAIN VERIFIED + IMP-006 MAIN VERIFIED
+
+Scope:
+- canonical provider-neutral ProjectBootstrapInput boundary
+- typed TopicResolution contract/service
+- typed Domain/Niche/Genre Resolution contract/service
+- exact rule/input version provenance
+- ambiguity made explicit
+- project hard constraints outrank soft classification preferences
+- no ActiveProductionProfile/ProfileResolver dependency in Topic interfaces
+- persistence via existing immutable VersionRepository
+- legacy FlowKit provider/material/project flags remain compatibility-only inputs
+
+NEXT_EXACT_ACTION = "IMPLEMENT IMP-010 CONTRACTS / RESOLVERS / PERSISTENCE ADAPTER + TESTS"
+
+
+---
+
+## IMP-010 Local Verification - 2026-09-26
+
+IMP-010 = LOCAL VERIFIED
+BRANCH = chatgpt/IMP-010-project-topic-domain
+BASE = 1c22e61bbe34538317f8f83df092482b62ec1ede
+
+Evidence:
+- evidence/tests/IMP-010_PROJECT_TOPIC_DOMAIN_EVIDENCE.md
+- targeted IMP-010 = 12/12 PASS
+- full Windows unit suite = 458 PASS / 3 exact known POSIX-path failures
+- frozen Master guard = PASS
+- frozen SHA unchanged
+- profile-cycle prohibition = VERIFIED
+- provider-specific canonical fields absent = VERIFIED
+- exact-version provenance = VERIFIED
+- hard-constraint precedence = VERIFIED
+- ambiguity/unknown/hybrid representation = VERIFIED
+- diff check = PASS
+
+NEXT_EXACT_ACTION = "COMMIT IMP-010 → PUSH → PR → UBUNTU CI → REVIEW → MERGE → MAIN VERIFIED"

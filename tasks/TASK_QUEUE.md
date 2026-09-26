@@ -619,3 +619,46 @@ IMP-006 local verification:
 
 NEXT DEPENDENCY-READY TASK:
 - [ ] IMP-010 - Project / Topic / Domain Resolution.
+
+
+---
+
+## IMP-010 - Project / Topic / Domain Resolution
+
+- [>] CLAIMED on chatgpt/IMP-010-project-topic-domain.
+- [ ] Add ProjectBootstrapInput provider-neutral boundary.
+- [ ] Add TopicResolution typed contract.
+- [ ] Add Domain/Niche/Genre Resolution typed contract.
+- [ ] Add exact-version provenance builders.
+- [ ] Add hard-constraint enforcement.
+- [ ] Add explicit ambiguity/unknown-niche representation.
+- [ ] Add VersionRepository persistence adapter.
+- [ ] Prove no ActiveProductionProfile/ProfileResolver dependency.
+- [ ] Prove provider-specific legacy fields cannot enter canonical contracts.
+- [ ] Add targeted tests.
+- [ ] Run full unit regression.
+- [ ] Capture evidence + frozen SHA verification.
+- [ ] Commit / push / PR / review / merge / MAIN VERIFIED.
+
+
+IMP-010 local verification:
+- [x] Add ProjectBootstrapInput provider-neutral boundary.
+- [x] Add TopicResolution typed contract.
+- [x] Add Domain/Niche/Genre Resolution typed contract.
+- [x] Add exact-version provenance builders.
+- [x] Add hard-constraint enforcement.
+- [x] Add explicit ambiguity/unknown/hybrid representation.
+- [x] Add VersionRepository persistence adapter.
+- [x] Prove no ActiveProductionProfile/ProfileResolver dependency.
+- [x] Prove provider-specific legacy fields cannot enter canonical contracts.
+- [x] Targeted IMP-010: 12/12 PASS.
+- [x] Full Windows unit suite: 458 PASS / 3 exact known POSIX-path failures.
+- [x] Frozen Master guard PASS; SHA unchanged.
+- [x] Evidence captured.
+- [ ] Commit.
+- [ ] Push.
+- [ ] Open PR.
+- [ ] Ubuntu CI Python 3.10/3.13.
+- [ ] Exact-head review.
+- [ ] Merge main.
+- [ ] Verify main and mark MAIN VERIFIED.
