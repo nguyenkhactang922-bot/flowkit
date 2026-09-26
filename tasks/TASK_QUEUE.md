@@ -904,3 +904,44 @@ IMP-013 local verification:
 
 NEXT DEPENDENCY-READY TASK:
 - [ ] IMP-020 - Idea / Logline / Premise / Angle / Theme.
+
+
+---
+
+## IMP-020 - Idea / Logline / Premise / Angle / Theme
+
+- [>] CLAIMED on chatgpt/IMP-020-story-intake-core.
+- [ ] Read exact frozen story-intake authority.
+- [ ] Audit current project.story / story-generation surfaces.
+- [ ] Add typed Idea/Logline/Premise/Angle/Theme contracts.
+- [ ] Add immutable persistence/versioning adapters.
+- [ ] Add stage-local blocking gates.
+- [ ] Bind exact ActiveProductionProfile where policy is consumed.
+- [ ] Prove no project.story shadow canonical authority.
+- [ ] Add targeted tests.
+- [ ] Run full unit regression.
+- [ ] Capture evidence + frozen SHA verification.
+- [ ] Commit / push / PR / review / merge / MAIN VERIFIED.
+
+
+IMP-020 local verification:
+- [x] Read exact frozen story-intake authority.
+- [x] Audit current project.story / story-generation surfaces.
+- [x] Add typed Idea/Logline/Premise/Angle/Theme contracts.
+- [x] Add immutable persistence/versioning adapters.
+- [x] Add stage-local blocking gates.
+- [x] Bind exact ActiveProductionProfile where policy is consumed.
+- [x] Prove no project.story shadow canonical authority.
+- [x] Add targeted tests.
+- [x] Targeted IMP-020: 13/13 PASS.
+- [x] Full Windows unit suite: 507 PASS / 3 exact known POSIX-path failures.
+- [x] Unaffected regression: 507 PASS / 3 deselected.
+- [x] Frozen Master guard PASS; SHA unchanged.
+- [x] Evidence captured.
+- [ ] Commit.
+- [ ] Push.
+- [ ] Open PR.
+- [ ] Ubuntu CI Python 3.10/3.13.
+- [ ] Exact-head review.
+- [ ] Merge main.
+- [ ] Verify main and mark MAIN VERIFIED.
