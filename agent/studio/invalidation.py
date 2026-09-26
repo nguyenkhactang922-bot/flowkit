@@ -472,6 +472,7 @@ class InvalidationRepository:
         provenance: Provenance,
         scope: str,
         repair_or_recompute_requirement: str,
+        reachable: Iterable[DependencyReachability] | None = None,
     ) -> list[InvalidationRecord]:
         cause = _trimmed(cause, "cause")
         scope = _trimmed(scope, "scope")
@@ -485,13 +486,23 @@ class InvalidationRepository:
             raise ValueError("source old/new versions must differ")
 
         # Frozen authority: graph lookup is outside the DB write transaction.
-        reachable = await self.graph.descendants(source_old)
-        if not reachable:
+        # A caller may supply a graph-derived selective reachability plan (for
+        # example, ActiveProductionProfile changed-path invalidation). The DB
+        # write still validates every referenced edge against durable graph truth.
+        if reachable is None:
+            reachable_items = await self.graph.descendants(source_old)
+        else:
+            reachable_items = list(reachable)
+            await self._validate_reachability_plan(
+                source=source_old,
+                reachable_items=reachable_items,
+            )
+        if not reachable_items:
             return []
 
         created_at = _utc_now()
         planned: list[InvalidationRecord] = []
-        for item in reachable:
+        for item in reachable_items:
             affected = item.ref
             dedupe_key = derive_invalidation_dedupe_key(
                 cause=cause,
@@ -614,6 +625,48 @@ class InvalidationRepository:
             raise DependencyInvalidationError(
                 "invalidation references missing version/edge truth"
             ) from exc
+
+    async def _validate_reachability_plan(
+        self,
+        *,
+        source: VersionRef,
+        reachable_items: Iterable[DependencyReachability],
+    ) -> None:
+        """Fail closed unless a supplied plan is a real durable graph path."""
+
+        for item in reachable_items:
+            if item.depth < 1 or item.depth != len(item.path_edge_ids):
+                raise DependencyInvalidationError(
+                    "selective reachability depth/path evidence is inconsistent"
+                )
+            current = source
+            last_edge = None
+            for edge_id in item.path_edge_ids:
+                edge = await self.graph.get_edge(edge_id)
+                if edge is None:
+                    raise DependencyInvalidationError(
+                        f"selective reachability references missing edge: {edge_id}"
+                    )
+                if edge.source_ref != current:
+                    raise DependencyInvalidationError(
+                        "selective reachability path does not start from/continue "
+                        "through the declared source version"
+                    )
+                current = edge.dependent_ref
+                last_edge = edge
+
+            if current != item.ref or last_edge is None:
+                raise DependencyInvalidationError(
+                    "selective reachability path does not end at affected version"
+                )
+            if (
+                last_edge.edge_id != item.via_edge_id
+                or last_edge.edge_type != item.via_edge_type
+                or last_edge.dependency_reason != item.dependency_reason
+            ):
+                raise DependencyInvalidationError(
+                    "selective reachability terminal edge evidence does not match"
+                )
 
     async def get(self, invalidation_id: str) -> InvalidationRecord | None:
         row = await self.reader.fetchone(

@@ -918,3 +918,55 @@ Evidence:
 - evidence/tests/IMP-012_PROFILE_RESOLVER_EVIDENCE.md
 
 NEXT_EXACT_ACTION = "CLAIM IMP-013 ACTIVEPRODUCTIONPROFILE"
+
+
+---
+
+## IMP-013 Claim - 2026-09-26
+
+ACTIVE_TASK = IMP-013 ACTIVEPRODUCTIONPROFILE
+BRANCH = chatgpt/IMP-013-active-production-profile
+BASE_HEAD = 8942b06a2ebf9b67392a95222fe452ceaea12572
+DEPENDS = IMP-012 MAIN VERIFIED + IMP-005 MAIN VERIFIED
+
+Scope:
+- immutable pinned ActiveProductionProfile snapshot
+- exact Project/Topic/Domain/ProfileResolution inputs
+- exact effective policy + per-path provenance snapshot
+- profile identity/version persistence
+- new successor version on semantic re-resolution
+- changed-path delta
+- dependency-aware downstream invalidation for changed paths only
+- downstream binds exact ActiveProductionProfile version
+- no downstream independent pack re-resolution
+
+NEXT_EXACT_ACTION = "READ ACTIVEPRODUCTIONPROFILE AUTHORITY + PROFILE RESOLUTION / DEPENDENCYGRAPH CONTRACTS → IMPLEMENT IMP-013 + TESTS"
+
+
+---
+
+## IMP-013 Local Verification - 2026-09-26
+
+IMP-013 = LOCAL VERIFIED
+BRANCH = chatgpt/IMP-013-active-production-profile
+BASE = 8942b06a2ebf9b67392a95222fe452ceaea12572
+
+Evidence:
+- evidence/tests/IMP-013_ACTIVE_PRODUCTION_PROFILE_EVIDENCE.md
+- targeted IMP-013 = 10/10 PASS
+- forged selective reachability rejection = 1/1 PASS
+- exact-head unaffected regression = 494 PASS / 3 deselected
+- prior unfiltered regression = 493 PASS / 3 exact known POSIX-path failures
+- frozen Master guard = PASS
+- frozen SHA unchanged
+- immutable pinned snapshot = VERIFIED
+- exact source/profile/pack provenance = VERIFIED
+- successor versioning = VERIFIED
+- path-selective invalidation = VERIFIED
+- unrelated branch preservation = VERIFIED
+- forged selective plan fail-closed = VERIFIED
+- downstream exact profile binding = VERIFIED
+- provider-neutral contract = VERIFIED
+- diff check = PASS
+
+NEXT_EXACT_ACTION = "COMMIT IMP-013 → PUSH → PR → UBUNTU CI → REVIEW → MERGE → MAIN VERIFIED"
