@@ -1493,3 +1493,22 @@ status = POST-MERGE REVIEW REPAIR / NEW PR REQUIRED
 - repair is not yet on main
 
 NEXT_EXACT_ACTION = "PUSH REPAIR BRANCH AND OPEN SEPARATE PR"
+
+
+---
+
+## IMP-022 MAIN VERIFIED - 2026-09-29
+
+task = IMP-022 CHARACTER PSYCHOLOGY / RELATIONSHIP / KNOWLEDGE
+status = MAIN VERIFIED
+verified_repository = nguyenkhactang922-bot/flowkit
+verified_main_sha = 3bde9b95f3da641c89c7d140d9e261780ad63191
+frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+- PR #27 feature CI Python 3.10/3.13 = SUCCESS
+- PR #28 hardening CI run 36599061352 = SUCCESS
+- final exact-head review = PASS
+- local final main targeted IMP-022 = 13/13 PASS
+- main push workflow run 36599591595 = SUCCESS
+
+NEXT_EXACT_ACTION = "CLAIM IMP-023 STORYCORE + CAUSAL STORYGRAPH + LOCK"
