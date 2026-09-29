@@ -1459,3 +1459,23 @@ frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c7
 - evidence = evidence/tests/IMP-022_CHARACTER_STATE_EVIDENCE.md
 
 NEXT_EXACT_ACTION = "COMMIT IMP-022 AND RUN REMOTE PR/CI LIFECYCLE"
+
+
+---
+
+## IMP-022 Exact-Head Review Repair - 2026-09-29
+
+task = IMP-022 CHARACTER PSYCHOLOGY / RELATIONSHIP / KNOWLEDGE
+status = LOCAL VERIFIED AFTER REVIEW REPAIR / UPDATED PR CI PENDING
+
+- objective evidence exact-current gate = VERIFIED
+- acquisition/inference exact-current gate = VERIFIED
+- EntityKind.CHARACTER gate for psychology/knowledge = VERIFIED
+- exact-source preflight before semantic persistence = VERIFIED
+- targeted IMP-022 = 11/11 PASS
+- affected regression cluster = 60/60 PASS
+- largest valid unaffected regression = 509 PASS / 3 deselected
+- frozen Master guard = PASS
+- diff check = PASS
+
+NEXT_EXACT_ACTION = "COMMIT REVIEW REPAIR AND UPDATE PR #27"

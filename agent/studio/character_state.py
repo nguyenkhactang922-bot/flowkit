@@ -22,7 +22,7 @@ from typing import TypeAlias
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
-from .entity import EntityVersion
+from .entity import EntityKind, EntityVersion
 from .invalidation import DependencyGraphRepository
 from .primitives import (
     LifecycleState,
@@ -714,6 +714,7 @@ class CharacterStateRepository:
             raise CharacterStateIdentityError(
                 "initial CharacterKnowledgeState must have sequence_ordinal=0"
             )
+        await self._assert_sources_exist(value)
         artifact = self._artifact(
             value=value,
             provenance=provenance,
@@ -749,6 +750,7 @@ class CharacterStateRepository:
             raise CharacterStateIdentityError("character-state predecessor not found")
         self._validate_successor(previous.value, value, predecessor)
 
+        await self._assert_sources_exist(value)
         artifact = self._artifact(
             value=value,
             provenance=provenance,
@@ -844,7 +846,7 @@ class CharacterStateRepository:
                 created_at=artifact.metadata.created_at,
             )
 
-    async def _assert_ready(self, value: CharacterStateValue) -> None:
+    async def _assert_sources_exist(self, value: CharacterStateValue) -> None:
         for binding in value.source_bindings():
             if await self.versions.get_version(binding.source) is None:
                 raise CharacterStateGateBlocked(
@@ -853,8 +855,15 @@ class CharacterStateRepository:
                     f"{binding.source.version_id.root}"
                 )
 
+    async def _assert_ready(self, value: CharacterStateValue) -> None:
+        await self._assert_sources_exist(value)
+
         if isinstance(value, CharacterModelVersion):
-            await self._assert_entity_current(value.character_ref, value.project_id)
+            await self._assert_entity_current(
+                value.character_ref,
+                value.project_id,
+                require_character=True,
+            )
             await self._assert_profile_locked(value.active_profile_ref)
             if value.story_core_ref is None:
                 raise CharacterStateGateBlocked(
@@ -892,7 +901,11 @@ class CharacterStateRepository:
 
         if isinstance(value, RelationshipState):
             for ref in value.participant_refs:
-                await self._assert_entity_current(ref, value.project_id)
+                await self._assert_entity_current(
+                    ref,
+                    value.project_id,
+                    require_character=False,
+                )
             if value.previous_state_ref is not None:
                 await self._assert_current(
                     value.previous_state_ref,
@@ -907,7 +920,11 @@ class CharacterStateRepository:
                 )
             return
 
-        await self._assert_entity_current(value.character_ref, value.project_id)
+        await self._assert_entity_current(
+            value.character_ref,
+            value.project_id,
+            require_character=True,
+        )
         if value.previous_state_ref is not None:
             await self._assert_current(
                 value.previous_state_ref,
@@ -936,6 +953,8 @@ class CharacterStateRepository:
         self,
         ref: VersionRef,
         project_id: LogicalId,
+        *,
+        require_character: bool,
     ) -> None:
         await self._assert_current(
             ref,
@@ -948,6 +967,10 @@ class CharacterStateRepository:
         if project_id not in entity.project_ids:
             raise CharacterStateGateBlocked(
                 "EntityVersion does not belong to character-state project"
+            )
+        if require_character and entity.kind is not EntityKind.CHARACTER:
+            raise CharacterStateGateBlocked(
+                "character psychology/knowledge requires EntityKind.CHARACTER"
             )
 
     async def _assert_profile_locked(self, ref: VersionRef) -> None:

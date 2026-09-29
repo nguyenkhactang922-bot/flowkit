@@ -228,3 +228,36 @@ Provider/visual token scan of the new canonical module found no:
 
 This is not MAIN VERIFIED yet. Commit, push, PR, Ubuntu CI, exact-head review,
 merge and main verification remain required.
+
+
+## Exact-head review finding and repair
+
+Review of initial PR head
+`3d14a9d1a4d47e73a311630f5c23d390a7514854`
+found three hardening gaps before merge:
+
+1. objective evidence refs in KnowledgeItem were proven to exist but were not
+   rechecked as exact-current accepted versions at promotion;
+2. character-specific psychology/knowledge gates validated canonical EntityVersion
+   identity/project linkage but did not explicitly reject non-CHARACTER EntityKind;
+3. missing exact sources were detected only after the semantic version insert,
+   which could leave a recoverable but avoidable DRAFT if dependency-edge
+   materialization then failed.
+
+Repair:
+- objective evidence, acquisition evidence and inference basis are all exact-current
+  gated at promotion;
+- CharacterModelVersion and CharacterKnowledgeState require EntityKind.CHARACTER;
+  RelationshipState remains allowed to relate canonical dramatic entities;
+- all declared source versions are preflighted before semantic version persistence;
+- durable dependency-edge registration remains fail-closed before promotion.
+
+Post-repair verification:
+- targeted IMP-022 = **11/11 PASS**
+- affected regression cluster = **60/60 PASS**
+- largest valid local unaffected regression = **509 PASS / 3 deselected**
+- compile = PASS
+- frozen Master guard = PASS
+- git diff --check = PASS
+
+No blocking review finding remains locally. Updated PR head must rerun Ubuntu CI.

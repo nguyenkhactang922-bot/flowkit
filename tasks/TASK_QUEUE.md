@@ -1164,3 +1164,20 @@ IMP-022 local verification:
 - [ ] Exact-head review.
 - [ ] Merge main.
 - [ ] Verify main and mark MAIN VERIFIED.
+
+
+IMP-022 exact-head review repair:
+- [x] Review initial PR head 3d14a9d1a4d47e73a311630f5c23d390a7514854.
+- [x] Gate objective evidence as exact-current accepted truth.
+- [x] Require EntityKind.CHARACTER for psychology/knowledge.
+- [x] Preflight all exact source versions before semantic persistence.
+- [x] Post-repair targeted IMP-022: 11/11 PASS.
+- [x] Post-repair affected regression: 60/60 PASS.
+- [x] Post-repair unaffected regression: 509 PASS / 3 deselected.
+- [x] Frozen Master guard PASS.
+- [ ] Commit review repair.
+- [ ] Push updated PR #27.
+- [ ] Updated-head Ubuntu CI Python 3.10/3.13.
+- [ ] Final exact-head review.
+- [ ] Merge main.
+- [ ] Verify main and mark MAIN VERIFIED.

@@ -1300,3 +1300,27 @@ Evidence:
 - compile + git diff --check = PASS
 
 NEXT_EXACT_ACTION = "COMMIT IMP-022 → PUSH → PR → UBUNTU CI → EXACT-HEAD REVIEW → MERGE → MAIN VERIFIED"
+
+
+---
+
+## IMP-022 Exact-Head Review Repair - 2026-09-29
+
+Review of initial PR head 3d14a9d1a4d47e73a311630f5c23d390a7514854 found:
+- stale objective evidence was not exact-current gated;
+- psychology/knowledge did not explicitly require EntityKind.CHARACTER;
+- missing sources were preflighted too late.
+
+Repair:
+- exact-current objective/acquisition/inference evidence gates added;
+- character-kind gate added for psychology/knowledge;
+- exact source existence preflight moved before semantic persistence.
+
+Post-repair:
+- targeted IMP-022 = 11/11 PASS
+- affected regression = 60/60 PASS
+- unaffected regression = 509 PASS / 3 deselected
+- frozen Master guard = PASS
+- diff check = PASS
+
+NEXT_EXACT_ACTION = "COMMIT IMP-022 REVIEW REPAIR → PUSH UPDATED PR #27 → UBUNTU CI → FINAL EXACT-HEAD REVIEW → MERGE → MAIN VERIFIED"
