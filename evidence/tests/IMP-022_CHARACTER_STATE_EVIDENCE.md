@@ -228,3 +228,51 @@ Provider/visual token scan of the new canonical module found no:
 
 This is not MAIN VERIFIED yet. Commit, push, PR, Ubuntu CI, exact-head review,
 merge and main verification remain required.
+
+
+## Exact-head review finding and post-merge repair
+
+Review of merged PR #27 exact head
+3d14a9d1a4d47e73a311630f5c23d390a7514854
+found two hardening gaps:
+
+1. character-specific psychology/knowledge gates validated canonical EntityVersion identity/project linkage but did not explicitly reject non-CHARACTER EntityKind;
+2. missing exact sources were detected after semantic version insertion began, which could leave an avoidable DRAFT if dependency-edge materialization then failed.
+
+Independent recheck of the exact PR head confirmed that objective evidence, character acquisition evidence and inference-basis refs were already exact-current gated at promotion. That behavior was retained and was not counted as a new defect.
+
+Repair:
+- CharacterModelVersion and CharacterKnowledgeState require EntityKind.CHARACTER; RelationshipState remains allowed to relate canonical dramatic entities;
+- all declared source versions are preflighted before semantic version persistence;
+- durable dependency-edge registration remains fail-closed before promotion.
+
+Post-repair verification:
+- targeted IMP-022 = 13/13 PASS
+- affected regression cluster = 74/74 PASS
+- largest valid local unaffected regression = 511 PASS / 3 deselected
+- compile = PASS
+- frozen Master guard = PASS
+- git diff --check = PASS
+
+No blocking local review finding remains. Because PR #27 was already merged before this hardening commit, the repair must ship through a separate follow-up PR.
+
+## Post-merge repair test expansion
+
+Before opening the repair PR, two negative tests were added to make the review
+hardening machine-checkable:
+
+- non-CHARACTER EntityKind cannot be promoted as character psychology;
+- missing exact dependency source fails before semantic persistence, and no
+  CharacterState artifact is left behind.
+
+Latest repair-branch verification:
+
+```text
+targeted IMP-022       = 13 passed
+affected regression    = 74 passed
+unaffected regression  = 511 passed, 3 deselected
+frozen Master guard    = PASS
+git diff --check       = PASS
+```
+
+These supersede the earlier post-review counts of 11 / 60 / 509; the expanded affected cluster now proves 74/74 PASS.

@@ -637,6 +637,106 @@ async def test_entity_version_change_materializes_relationship_invalidation(tmp_
 
 
 @pytest.mark.asyncio
+async def test_character_psychology_rejects_non_character_entity_kind(tmp_path):
+    writer = SQLiteWriteOwner(tmp_path / "studio.db")
+    await writer.start()
+    try:
+        versions = VersionRepository(writer)
+        entity_repo = CanonicalEntityRepository(writer)
+        location = await entity_repo.create_initial_from_legacy(
+            snapshot=LegacyEntitySnapshot(
+                id="family-house",
+                name="Family House",
+                entity_type=EntityKind.LOCATION,
+                project_ids=(PROJECT_ID,),
+                description="Canonical location entity, not a dramatic character.",
+            ),
+            version_id=VersionId("entity-v1"),
+            actor_ref="studio:test",
+            reason="seed non-character entity",
+            recorded_at=NOW,
+            correlation_id="run:imp022",
+        )
+        await entity_repo.promote_current(
+            ref=location.artifact.ref,
+            expected_revision=0,
+            status=LifecycleState.APPROVED,
+        )
+        await _seed_generic(
+            versions,
+            PROFILE_REF,
+            status=LifecycleState.LOCKED,
+            payload={"profile": "family-drama"},
+        )
+        await _seed_generic(
+            versions,
+            PREMISE_REF,
+            status=LifecycleState.APPROVED,
+        )
+        await _seed_generic(
+            versions,
+            MATERIAL_REF,
+            status=LifecycleState.APPROVED,
+        )
+        await _seed_generic(
+            versions,
+            STORY_CORE_REF,
+            status=LifecycleState.DRAFT,
+        )
+
+        model = _psychology(
+            location.artifact.ref,
+            story_core_ref=STORY_CORE_REF,
+        )
+        repo = CharacterStateRepository(writer)
+        artifact = await repo.create_initial(
+            value=model,
+            provenance=_provenance(model, "reject non-character entity"),
+            created_at=NOW,
+        )
+
+        with pytest.raises(
+            CharacterStateGateBlocked,
+            match="EntityKind.CHARACTER",
+        ):
+            await repo.promote(ref=artifact.ref, expected_revision=0)
+    finally:
+        await writer.close()
+
+
+@pytest.mark.asyncio
+async def test_missing_exact_source_rejected_before_semantic_persistence(tmp_path):
+    writer = SQLiteWriteOwner(tmp_path / "studio.db")
+    await writer.start()
+    try:
+        _, alice, bob = await _seed_context(writer)
+        missing_event = VersionRef(
+            logical_id=LogicalId("story-event:project:film:missing"),
+            version_id=VersionId("event-v1"),
+        )
+        relationship = _relationship(
+            alice,
+            bob,
+            causes=(missing_event,),
+        )
+        repo = CharacterStateRepository(writer)
+
+        with pytest.raises(CharacterStateGateBlocked, match="missing exact source"):
+            await repo.create_initial(
+                value=relationship,
+                provenance=_provenance(
+                    relationship,
+                    "missing source must fail before persistence",
+                ),
+                created_at=NOW,
+            )
+
+        assert await repo.get(relationship.ref) is None
+    finally:
+        await writer.close()
+
+
+@pytest.mark.asyncio
 async def test_character_state_rejects_entity_from_other_project(tmp_path):
     writer = SQLiteWriteOwner(tmp_path / "studio.db")
     await writer.start()

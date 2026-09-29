@@ -1459,3 +1459,37 @@ frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c7
 - evidence = evidence/tests/IMP-022_CHARACTER_STATE_EVIDENCE.md
 
 NEXT_EXACT_ACTION = "COMMIT IMP-022 AND RUN REMOTE PR/CI LIFECYCLE"
+
+
+---
+
+## IMP-022 Exact-Head Review Repair - 2026-09-29
+
+task = IMP-022 CHARACTER PSYCHOLOGY / RELATIONSHIP / KNOWLEDGE
+status = LOCAL VERIFIED AFTER POST-MERGE REVIEW REPAIR / FOLLOW-UP PR PENDING
+
+- existing objective/acquisition/inference exact-current gates = REVERIFIED
+- EntityKind.CHARACTER gate for psychology/knowledge = VERIFIED
+- exact-source preflight before semantic persistence = VERIFIED
+- targeted IMP-022 = 13/13 PASS
+- affected regression cluster = 74/74 PASS
+- largest valid unaffected regression = 511 PASS / 3 deselected
+- frozen Master guard = PASS
+- compile + diff check = PASS
+
+NEXT_EXACT_ACTION = "PUSH REPAIR BRANCH AND OPEN SEPARATE PR"
+
+---
+
+## IMP-022 Post-Merge Repair Routing - 2026-09-29
+
+task = IMP-022 CHARACTER PSYCHOLOGY / RELATIONSHIP / KNOWLEDGE
+status = POST-MERGE REVIEW REPAIR / NEW PR REQUIRED
+
+- original PR #27 = MERGED at 2b1d0cfee1fd636300792266d5dce7473a420fff
+- original PR #27 CI = SUCCESS
+- main push run 36597573229 = SUCCESS
+- review repair HEAD = 114fd87d2d40ca8fbfd53150653e1b4b38482b53
+- repair is not yet on main
+
+NEXT_EXACT_ACTION = "PUSH REPAIR BRANCH AND OPEN SEPARATE PR"
