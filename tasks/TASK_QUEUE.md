@@ -1197,3 +1197,30 @@ IMP-022 post-merge repair routing:
 - [ ] Final exact-head review.
 - [ ] Merge repair to main.
 - [ ] Verify main and mark IMP-022 MAIN VERIFIED.
+
+
+---
+
+## IMP-022 Final Verification - 2026-09-29
+
+- [x] CharacterModelVersion canonical psychology contract.
+- [x] RelationshipState causal chronology.
+- [x] CharacterKnowledgeState objective-vs-belief/knowledge separation.
+- [x] Exact-version provenance and durable dependency edges.
+- [x] Impossible-knowledge fail-closed.
+- [x] EntityKind.CHARACTER hardening for psychology/knowledge.
+- [x] Missing-source preflight before semantic persistence.
+- [x] Targeted final main IMP-022 = 13/13 PASS.
+- [x] PR #27 Python 3.10/3.13 CI PASS.
+- [x] Post-merge review identified hardening gaps without retrying merged PR.
+- [x] PR #28 exact head = 7be73ce6f455056fd92e8f1b93e82f3aab6d7e01.
+- [x] PR #28 Python 3.10/3.13 CI PASS.
+- [x] Final exact-head review PASS.
+- [x] PR #28 merged.
+- [x] Local final main frozen guard PASS.
+- [x] Local final main targeted IMP-022 = 13/13 PASS.
+- [x] Main push workflow 36599591595 PASS.
+- [x] IMP-022 = MAIN VERIFIED at 3bde9b95f3da641c89c7d140d9e261780ad63191.
+
+NEXT DEPENDENCY-READY TASK:
+- [ ] IMP-023 - StoryCore + CausalStoryGraph + Lock.

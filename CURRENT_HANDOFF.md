@@ -1344,3 +1344,28 @@ Verified:
 Do not retry/update merged PR #27.
 
 NEXT_EXACT_ACTION = "PUSH POST-MERGE IMP-022 REPAIR BRANCH → OPEN NEW PR → CI → FINAL EXACT-HEAD REVIEW → MERGE → MAIN VERIFIED"
+
+
+---
+
+## IMP-022 MAIN VERIFIED - 2026-09-29
+
+IMP-022 = MAIN VERIFIED
+
+Verified writable main:
+- repo = nguyenkhactang922-bot/flowkit
+- final main SHA = 3bde9b95f3da641c89c7d140d9e261780ad63191
+- feature PR #27 head = 3d14a9d1a4d47e73a311630f5c23d390a7514854
+- feature PR #27 CI = SUCCESS
+- hardening PR #28 head = 7be73ce6f455056fd92e8f1b93e82f3aab6d7e01
+- hardening PR #28 CI run 36599061352 = SUCCESS
+- final exact-head review = PASS
+- local main targeted IMP-022 = 13/13 PASS
+- local main frozen Master guard = PASS
+- main push workflow run 36599591595 = SUCCESS
+- frozen Master SHA = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+Evidence:
+- evidence/tests/IMP-022_CHARACTER_STATE_EVIDENCE.md
+
+NEXT_EXACT_ACTION = "CLAIM IMP-023 STORYCORE + CAUSAL STORYGRAPH + LOCK"

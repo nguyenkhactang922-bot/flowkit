@@ -276,3 +276,49 @@ git diff --check       = PASS
 ```
 
 These supersede the earlier post-review counts of 11 / 60 / 509; the expanded affected cluster now proves 74/74 PASS.
+
+
+## Remote / Main verification — final hardened authority
+
+Initial feature PR:
+- PR #27 head = `3d14a9d1a4d47e73a311630f5c23d390a7514854`
+- PR #27 CI run = `36597271419`
+- Python 3.10 / 3.13 = SUCCESS
+- merge = `2b1d0cfee1fd636300792266d5dce7473a420fff`
+
+Post-merge hardening PR:
+- PR #28 head = `7be73ce6f455056fd92e8f1b93e82f3aab6d7e01`
+- PR #28 CI run = `36599061352`
+- Python 3.10 / 3.13 = SUCCESS
+- final exact-head review = PASS
+- merge = `3bde9b95f3da641c89c7d140d9e261780ad63191`
+
+Final exact-head review confirmed:
+- `EntityKind.CHARACTER` enforced for psychology/knowledge authority;
+- missing exact sources fail before semantic persistence;
+- objective/acquisition/inference evidence retains exact-current gates;
+- no provider/visual authority leakage;
+- no shadow Entity or character-state store;
+- shared immutable `VersionRepository` + durable dependency graph retained;
+- frozen Master semantic SHA unchanged.
+
+Local final main verification:
+- local HEAD = fork/main = `3bde9b95f3da641c89c7d140d9e261780ad63191`
+- frozen Master guard = PASS
+- targeted IMP-022 = 13/13 PASS
+
+Fork-main push CI:
+- workflow run = `36599591595`
+- head SHA = `3bde9b95f3da641c89c7d140d9e261780ad63191`
+- Python 3.10 = SUCCESS
+- Python 3.13 = SUCCESS
+- frozen Master baseline = SUCCESS
+- full unit suite = SUCCESS
+
+## Final verdict
+
+**IMP-022 = MAIN VERIFIED** on `nguyenkhactang922-bot/flowkit:main` at:
+
+`3bde9b95f3da641c89c7d140d9e261780ad63191`
+
+NEXT_EXACT_ACTION = "CLAIM IMP-023 STORYCORE + CAUSAL STORYGRAPH + LOCK"
