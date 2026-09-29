@@ -1385,3 +1385,24 @@ Test evidence:
 - evidence = evidence/tests/IMP-040_CANONICAL_ENTITY_VERSIONING_EVIDENCE.md
 
 NEXT_EXACT_ACTION = "COMMIT IMP-040 AND RUN REMOTE PR/CI LIFECYCLE"
+
+
+---
+
+## IMP-040 MAIN VERIFIED - 2026-09-29
+
+task = IMP-040 CANONICAL ENTITY VERSIONING ADAPTER
+status = MAIN VERIFIED
+verified_repository = nguyenkhactang922-bot/flowkit
+verified_main_sha = 01830d2a90f37ab4cac86f360798611940c07065
+frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+- PR #25 exact head = ed33a8bb7e2052c765d669d43008df3483d7b448
+- PR workflow run 36551985402 = SUCCESS
+- exact-head review = PASS
+- main merge = 01830d2a90f37ab4cac86f360798611940c07065
+- local main frozen guard = PASS
+- local main targeted IMP-040 = 7/7 PASS
+- main push workflow run 36552171606 = SUCCESS
+
+NEXT_EXACT_ACTION = "CLAIM IMP-022 CHARACTER PSYCHOLOGY / RELATIONSHIP / KNOWLEDGE"
