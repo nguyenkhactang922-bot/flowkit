@@ -1251,3 +1251,52 @@ Evidence:
 - evidence/tests/IMP-040_CANONICAL_ENTITY_VERSIONING_EVIDENCE.md
 
 NEXT_EXACT_ACTION = "CLAIM IMP-022 CHARACTER PSYCHOLOGY / RELATIONSHIP / KNOWLEDGE"
+
+
+---
+
+## IMP-022 Claim - 2026-09-29
+
+ACTIVE_TASK = IMP-022 CHARACTER PSYCHOLOGY / RELATIONSHIP / KNOWLEDGE
+BRANCH = chatgpt/IMP-022-character-state
+BASE_HEAD = 67cb0462c4e67f1dad3f02078358a35722e0a95c
+DEPENDS = IMP-020 + IMP-021 + IMP-040 MAIN VERIFIED
+
+Scope:
+- typed CharacterModelVersion psychology contract bound to canonical EntityVersion
+- versioned RelationshipState with explicit causal chronology
+- versioned CharacterKnowledgeState with objective truth separated from knowledge/belief/misbelief
+- exact source-version provenance and current-input gates
+- immutable successor/history semantics
+- provider-neutral contracts; no visual/reference/provider authority leakage
+- impossible-knowledge and stale-state fail-closed tests
+
+NEXT_EXACT_ACTION = "IMPLEMENT IMP-022 CONTRACTS + REPOSITORY + CHRONOLOGY/KNOWLEDGE GATES + TESTS"
+
+
+---
+
+## IMP-022 Local Verification - 2026-09-29
+
+IMP-022 = LOCAL VERIFIED
+BRANCH = chatgpt/IMP-022-character-state
+BASE = 67cb0462c4e67f1dad3f02078358a35722e0a95c
+
+Evidence:
+- evidence/tests/IMP-022_CHARACTER_STATE_EVIDENCE.md
+- targeted IMP-022 = 11/11 PASS
+- affected regression cluster = 60/60 PASS
+- largest valid local unaffected regression = 509 PASS / 3 deselected
+- local full suite separately blocked by missing ffmpeg + 3 exact known Windows/POSIX path assertions
+- frozen Master guard = PASS
+- frozen canonical SHA unchanged = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+- CharacterModelVersion / RelationshipState / CharacterKnowledgeState = VERIFIED
+- objective truth vs character belief/knowledge separation = VERIFIED
+- impossible-knowledge fail-closed = VERIFIED
+- relationship/knowledge chronology = VERIFIED
+- stale Entity/evidence gates = VERIFIED
+- durable dependency invalidation = VERIFIED
+- provider/visual authority leakage scan = CLEAN
+- compile + git diff --check = PASS
+
+NEXT_EXACT_ACTION = "COMMIT IMP-022 → PUSH → PR → UBUNTU CI → EXACT-HEAD REVIEW → MERGE → MAIN VERIFIED"
