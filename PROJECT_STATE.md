@@ -1262,3 +1262,73 @@ frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c7
 - Python 3.10/3.13 full unit CI = SUCCESS
 
 NEXT_EXACT_ACTION = "READ TASK QUEUE AND CLAIM NEXT DEPENDENCY-READY STORY TASK"
+
+
+---
+
+## Active Implementation Task - 2026-09-26
+
+task = IMP-021 RESEARCH INTELLIGENCE + STORYMATERIAL
+branch = chatgpt/IMP-021-research-story-material
+base_head = 1e957e900a4d9d5387cdfc8d88a96c7b836d5e7b
+depends = IMP-020 + IMP-006 MAIN VERIFIED
+status = CLAIMED / AUTHORITY AUDIT NEXT
+
+Acceptance:
+- ResearchBrief typed canonical contract
+- EvidenceClaim exact source/version provenance
+- certainty/dispute/contradiction represented explicitly
+- StoryMaterial derived without changing evidence truth
+- unsupported synthesis rejected
+- immutable versions + exact provenance
+- pinned ActiveProductionProfile where consumed
+- provider-neutral contracts
+- frozen Master unchanged
+
+
+---
+
+## IMP-021 Local Verification - 2026-09-29
+
+task = IMP-021 RESEARCH INTELLIGENCE + STORYMATERIAL
+status = LOCAL VERIFIED / REMOTE CI GATE PENDING
+branch = chatgpt/IMP-021-research-story-material
+base_head = 1e957e900a4d9d5387cdfc8d88a96c7b836d5e7b
+frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+- typed ResearchBrief = VERIFIED
+- typed EvidenceClaim with exact source/version provenance = VERIFIED
+- explicit certainty/dispute/contradiction semantics = VERIFIED
+- typed StoryMaterial transformation without factual-authority uplift = VERIFIED
+- unsupported synthesis rejection = VERIFIED
+- stale/non-current claim support rejection = VERIFIED
+- stale/unlocked ActiveProductionProfile rejection = VERIFIED
+- immutable version/successor semantics = VERIFIED
+- targeted IMP-021 = 10/10 PASS
+- full Windows unit suite = 517 PASS / 3 exact known POSIX-path failures
+- unaffected regression = 517 PASS / 3 deselected
+- frozen Master guard = PASS
+- diff check = PASS
+- evidence = evidence/tests/IMP-021_RESEARCH_STORY_MATERIAL_EVIDENCE.md
+
+NEXT_EXACT_ACTION = "COMMIT IMP-021 AND RUN REMOTE PR/CI LIFECYCLE"
+
+
+---
+
+## IMP-021 Exact-Head Review Repair - 2026-09-29
+
+task = IMP-021 RESEARCH INTELLIGENCE + STORYMATERIAL
+status = LOCAL VERIFIED AFTER REVIEW REPAIR / UPDATED PR CI PENDING
+
+- canonical TopicResolution logical identity = VERIFIED
+- canonical DomainResolution logical identity = VERIFIED
+- exact-current accepted Topic/Domain promotion gates = VERIFIED
+- stale/noncanonical Topic/Domain bindings fail closed = VERIFIED
+- targeted IMP-021 = 13/13 PASS
+- full Windows unit suite = 520 PASS / 3 exact known POSIX-path failures
+- unaffected regression = 520 PASS / 3 deselected
+- frozen Master guard = PASS
+- feature scope remains agent/studio + tests + governance/evidence only
+
+NEXT_EXACT_ACTION = "COMMIT REVIEW REPAIR AND UPDATE PR #24"

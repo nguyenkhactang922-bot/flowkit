@@ -1091,3 +1091,78 @@ Evidence:
 - evidence/tests/IMP-020_STORY_INTAKE_EVIDENCE.md
 
 NEXT_EXACT_ACTION = "READ TASK QUEUE AND CLAIM NEXT DEPENDENCY-READY STORY TASK"
+
+
+---
+
+## IMP-021 Claim - 2026-09-26
+
+ACTIVE_TASK = IMP-021 RESEARCH INTELLIGENCE + STORYMATERIAL
+BRANCH = chatgpt/IMP-021-research-story-material
+BASE_HEAD = 1e957e900a4d9d5387cdfc8d88a96c7b836d5e7b
+DEPENDS = IMP-020 + IMP-006 MAIN VERIFIED
+
+Scope:
+- typed ResearchBrief
+- typed EvidenceClaim
+- typed StoryMaterial
+- exact claim-source provenance
+- explicit certainty/dispute/contradiction semantics
+- unsupported synthesis fail-closed
+- transformation from research truth to story material without replacing factual authority
+- immutable version/provenance persistence
+- exact ActiveProductionProfile binding where policy is consumed
+- provider-neutral contracts
+
+NEXT_EXACT_ACTION = "READ RESEARCH / STORYMATERIAL AUTHORITY + AUDIT CURRENT RESEARCH SURFACES → IMPLEMENT IMP-021 + TESTS"
+
+
+---
+
+## IMP-021 Local Verification - 2026-09-29
+
+IMP-021 = LOCAL VERIFIED
+BRANCH = chatgpt/IMP-021-research-story-material
+BASE = 1e957e900a4d9d5387cdfc8d88a96c7b836d5e7b
+
+Evidence:
+- evidence/tests/IMP-021_RESEARCH_STORY_MATERIAL_EVIDENCE.md
+- targeted IMP-021 = 10/10 PASS
+- full Windows unit suite = 517 PASS / 3 exact known POSIX-path failures
+- unaffected regression = 517 PASS / 3 deselected
+- frozen Master guard = PASS
+- frozen canonical SHA unchanged = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+- exact ResearchBrief / EvidenceClaim / StoryMaterial typed boundaries = VERIFIED
+- claim-source provenance = VERIFIED
+- certainty/dispute/contradiction semantics = VERIFIED
+- unsupported synthesis fail-closed = VERIFIED
+- stale claim/profile promotion gates = VERIFIED
+- immutable successor/history behavior = VERIFIED
+- provider-neutral contract = VERIFIED
+- git diff --check = PASS
+
+NEXT_EXACT_ACTION = "COMMIT IMP-021 → PUSH → PR → UBUNTU CI → EXACT-HEAD REVIEW → MERGE → MAIN VERIFIED"
+
+
+---
+
+## IMP-021 Exact-Head Review Repair - 2026-09-29
+
+Review finding:
+- ResearchBrief did not fail closed on noncanonical/stale TopicResolution or DomainResolution bindings.
+- Canonical DomainResolution identity is niche-resolution:<project>, not domain-resolution:<project>.
+
+Repair:
+- exact same-project TopicResolution identity enforced;
+- exact same-project DomainResolution identity enforced;
+- exact current accepted Topic/Domain versions required at promotion;
+- stale Topic/Domain fail closed.
+
+Post-repair evidence:
+- targeted IMP-021 = 13/13 PASS
+- full Windows unit suite = 520 PASS / 3 exact known POSIX-path failures
+- unaffected regression = 520 PASS / 3 deselected
+- frozen Master guard = PASS
+- diff check = PASS
+
+NEXT_EXACT_ACTION = "COMMIT REVIEW REPAIR → PUSH UPDATED PR #24 → UBUNTU CI → EXACT-HEAD REVIEW → MERGE → MAIN VERIFIED"
