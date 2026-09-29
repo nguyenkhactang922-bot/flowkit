@@ -1354,3 +1354,34 @@ frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c7
 - Python 3.10/3.13 full unit CI = SUCCESS
 
 NEXT_EXACT_ACTION = "READ TASK QUEUE / IMPLEMENTATION DEPENDENCY GRAPH AND CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-040 Local Verification - 2026-09-29
+
+task = IMP-040 CANONICAL ENTITY VERSIONING ADAPTER
+status = LOCAL VERIFIED / REMOTE CI GATE PENDING
+branch = chatgpt/IMP-040-canonical-entity-versioning
+base_head = 726f44eb8d3c656630e94d2e69e7740340fd56eb
+depends = IMP-004 MAIN VERIFIED
+frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+Acceptance verified locally:
+- stable canonical entity logical identity = VERIFIED
+- immutable semantic EntityVersion successors = VERIFIED
+- current legacy Character/entity mapping = VERIFIED
+- project linkage retained = VERIFIED
+- reference media/provider-facing prompt excluded from canonical Entity truth = VERIFIED
+- no second canonical Entity store/table = VERIFIED
+- shared VersionRepository persistence/readback = VERIFIED
+- frozen Master unchanged = VERIFIED
+
+Test evidence:
+- targeted IMP-040 = 7/7 PASS
+- related cluster = 35/35 PASS
+- full Windows unit suite = 527 PASS / 3 known platform-only failures
+- unaffected regression = 527 PASS / 3 deselected
+- evidence = evidence/tests/IMP-040_CANONICAL_ENTITY_VERSIONING_EVIDENCE.md
+
+NEXT_EXACT_ACTION = "COMMIT IMP-040 AND RUN REMOTE PR/CI LIFECYCLE"

@@ -1064,3 +1064,35 @@ IMP-021 exact-head review repair:
 
 NEXT DEPENDENCY-READY TASK:
 - [ ] Recompute from frozen implementation dependency graph.
+
+
+---
+
+## IMP-040 - Canonical Entity Versioning Adapter - 2026-09-29
+
+- [x] Claim dependency-ready IMP-040 from frozen DAG.
+- [x] Read frozen §56 Entity authority and legacy Character/entity surfaces.
+- [x] Add canonical EntityVersion contract.
+- [x] Add stable legacy entity -> canonical logical-ID mapping.
+- [x] Add legacy anti-corruption snapshot and compatibility binding.
+- [x] Reuse shared VersionRepository; do not create second canonical Entity store.
+- [x] Preserve project linkage.
+- [x] Keep reference media/provider prompt outside canonical Entity truth.
+- [x] Add successor/current-pointer behavior.
+- [x] Add targeted tests: 7/7 PASS.
+- [x] Related regression cluster: 35/35 PASS.
+- [x] Full Windows unit suite observed: 527 PASS / 3 exact known POSIX-path failures.
+- [x] Unaffected regression: 527 PASS / 3 deselected.
+- [x] Frozen Master guard PASS.
+- [x] git diff --check PASS.
+- [x] Evidence captured.
+- [ ] Commit intentional IMP-040 files.
+- [ ] Push branch.
+- [ ] Open PR.
+- [ ] Ubuntu CI Python 3.10/3.13.
+- [ ] Exact-head review.
+- [ ] Merge fork main.
+- [ ] Verify fork main and mark MAIN VERIFIED.
+
+NEXT_EXACT_ACTION:
+- [ ] Complete IMP-040 remote lifecycle; only then claim IMP-022 critical-path story task.
