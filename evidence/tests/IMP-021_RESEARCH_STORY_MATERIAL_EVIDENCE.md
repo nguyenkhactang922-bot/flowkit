@@ -166,3 +166,56 @@ Post-repair unaffected regression:
 Frozen Master guard remains PASS and `git diff --check` remains PASS.
 
 **Post-review local verdict: IMP-021 = LOCAL VERIFIED**
+
+
+## Remote / Main verification
+
+Fork PR:
+- nguyenkhactang922-bot/flowkit#24
+
+Final exact PR head:
+- 9e39583e8d5b794c30880f69c1d01ecbcf0499ee
+
+Updated-head PR CI:
+- workflow run 36543849753
+- Python 3.10 unit = SUCCESS
+- Python 3.13 unit = SUCCESS
+- frozen Master guard = SUCCESS in CI
+- full unit suite = SUCCESS in CI
+
+Exact-head review:
+- first review found missing canonical/current TopicResolution + DomainResolution enforcement;
+- repair commit 9e39583e8d5b794c30880f69c1d01ecbcf0499ee closed that authority gap;
+- post-repair targeted tests = 13/13 PASS;
+- post-repair Windows unaffected regression = 520 PASS / 3 known POSIX-path cases deselected;
+- canonical ResearchBrief / EvidenceClaim / StoryMaterial identity and exact-version provenance preserved;
+- supported/disputed/unsupported semantics fail closed as designed;
+- StoryMaterial cannot elevate factual authority;
+- provider-specific canonical fields absent;
+- frozen Master canonical SHA unchanged;
+- no blocking findings remained on final exact head.
+
+Merge:
+- PR #24 merge commit = 6370e1174b111a69c08f842224f335db42d160ad
+- mergedAt = 2026-09-29T08:39:00Z
+
+Local main verification:
+- local HEAD = fork/main = 6370e1174b111a69c08f842224f335db42d160ad
+- frozen Master guard = PASS
+- targeted IMP-021 = 13/13 PASS
+
+Fork-main push CI:
+- workflow run 36544062680
+- head SHA = 6370e1174b111a69c08f842224f335db42d160ad
+- Python 3.10 unit = SUCCESS
+- Python 3.13 unit = SUCCESS
+- Verify frozen Master baseline = SUCCESS
+- Run unit tests = SUCCESS
+
+## Final verdict
+
+**IMP-021 = MAIN VERIFIED** on `nguyenkhactang922-bot/flowkit:main` at:
+
+`6370e1174b111a69c08f842224f335db42d160ad`
+
+NEXT_EXACT_ACTION = "READ TASK QUEUE / DEPENDENCY GRAPH AND CLAIM NEXT DEPENDENCY-READY TASK"

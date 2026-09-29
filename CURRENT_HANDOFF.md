@@ -1166,3 +1166,28 @@ Post-repair evidence:
 - diff check = PASS
 
 NEXT_EXACT_ACTION = "COMMIT REVIEW REPAIR → PUSH UPDATED PR #24 → UBUNTU CI → EXACT-HEAD REVIEW → MERGE → MAIN VERIFIED"
+
+
+---
+
+## IMP-021 MAIN VERIFIED - 2026-09-29
+
+IMP-021 = MAIN VERIFIED
+
+Verified writable main:
+- repo = nguyenkhactang922-bot/flowkit
+- main SHA = 6370e1174b111a69c08f842224f335db42d160ad
+- PR #24 final exact head = 9e39583e8d5b794c30880f69c1d01ecbcf0499ee
+- updated-head PR CI run 36543849753 = SUCCESS
+- exact-head review = PASS after canonical Topic/Domain binding repair
+- PR #24 merged
+- local main frozen guard = PASS
+- local main targeted IMP-021 = 13/13 PASS
+- main push workflow run 36544062680 = SUCCESS
+- Python 3.10/3.13 full unit CI = SUCCESS
+- frozen Master SHA = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+Evidence:
+- evidence/tests/IMP-021_RESEARCH_STORY_MATERIAL_EVIDENCE.md
+
+NEXT_EXACT_ACTION = "READ TASK QUEUE / IMPLEMENTATION DEPENDENCY GRAPH AND CLAIM NEXT DEPENDENCY-READY TASK"

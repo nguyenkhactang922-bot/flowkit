@@ -1332,3 +1332,25 @@ status = LOCAL VERIFIED AFTER REVIEW REPAIR / UPDATED PR CI PENDING
 - feature scope remains agent/studio + tests + governance/evidence only
 
 NEXT_EXACT_ACTION = "COMMIT REVIEW REPAIR AND UPDATE PR #24"
+
+
+---
+
+## IMP-021 MAIN VERIFIED - 2026-09-29
+
+task = IMP-021 RESEARCH INTELLIGENCE + STORYMATERIAL
+status = MAIN VERIFIED
+verified_repository = nguyenkhactang922-bot/flowkit
+verified_main_sha = 6370e1174b111a69c08f842224f335db42d160ad
+frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+- PR #24 final exact head = 9e39583e8d5b794c30880f69c1d01ecbcf0499ee
+- updated-head PR workflow run 36543849753 = SUCCESS
+- exact-head review = PASS after exact TopicResolution/DomainResolution authority repair
+- main merge = 6370e1174b111a69c08f842224f335db42d160ad
+- local main frozen guard = PASS
+- local main targeted IMP-021 = 13/13 PASS
+- main push workflow run 36544062680 = SUCCESS
+- Python 3.10/3.13 full unit CI = SUCCESS
+
+NEXT_EXACT_ACTION = "READ TASK QUEUE / IMPLEMENTATION DEPENDENCY GRAPH AND CLAIM NEXT DEPENDENCY-READY TASK"

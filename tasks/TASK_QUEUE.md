@@ -1036,3 +1036,31 @@ IMP-021 exact-head review repair:
 - [ ] Updated-head exact-head review.
 - [ ] Merge main.
 - [ ] Verify main and mark MAIN VERIFIED.
+
+
+---
+
+## IMP-021 Final Verification - 2026-09-29
+
+- [x] Canonical ResearchBrief implemented.
+- [x] Canonical EvidenceClaim implemented with exact source/version provenance.
+- [x] Supported/disputed/unsupported certainty semantics verified.
+- [x] Exact contradiction refs verified.
+- [x] Canonical StoryMaterial transformation preserves evidence truth.
+- [x] Unsupported synthesis fails closed.
+- [x] Canonical/current TopicResolution and DomainResolution gates verified.
+- [x] Exact pinned ActiveProductionProfile gate verified.
+- [x] Immutable successor/history behavior verified.
+- [x] Targeted IMP-021 = 13/13 PASS.
+- [x] Windows unaffected regression = 520 PASS / 3 known POSIX-path cases deselected.
+- [x] Frozen Master guard PASS.
+- [x] PR #24 updated exact head = 9e39583e8d5b794c30880f69c1d01ecbcf0499ee.
+- [x] PR #24 Ubuntu CI Python 3.10/3.13 PASS.
+- [x] Exact-head review PASS after authority repair.
+- [x] PR #24 merged.
+- [x] Local main targeted verification PASS.
+- [x] Main push workflow run 36544062680 PASS.
+- [x] IMP-021 = MAIN VERIFIED at 6370e1174b111a69c08f842224f335db42d160ad.
+
+NEXT DEPENDENCY-READY TASK:
+- [ ] Recompute from frozen implementation dependency graph.
