@@ -973,3 +973,48 @@ IMP-020 local verification:
 
 NEXT DEPENDENCY-READY TASK:
 - [ ] Read TASK_QUEUE / IMPLEMENTATION_TASK_DECOMPOSITION and claim next story task.
+
+
+---
+
+## IMP-021 - Research Intelligence + StoryMaterial
+
+- [>] CLAIMED on chatgpt/IMP-021-research-story-material.
+- [ ] Read exact frozen Research Intelligence / StoryMaterial authority.
+- [ ] Audit current research/factuality/story-material surfaces.
+- [ ] Add typed ResearchBrief contract.
+- [ ] Add typed EvidenceClaim contract with exact provenance.
+- [ ] Add explicit certainty/dispute/contradiction semantics.
+- [ ] Add typed StoryMaterial transformation contract.
+- [ ] Reject unsupported synthesis.
+- [ ] Add immutable persistence/versioning adapters.
+- [ ] Bind exact ActiveProductionProfile where policy is consumed.
+- [ ] Add targeted tests.
+- [ ] Run full unit regression.
+- [ ] Capture evidence + frozen SHA verification.
+- [ ] Commit / push / PR / review / merge / MAIN VERIFIED.
+
+
+IMP-021 local verification:
+- [x] Read exact frozen Research Intelligence / StoryMaterial authority.
+- [x] Audit current research/factuality/story-material surfaces.
+- [x] Add typed ResearchBrief contract.
+- [x] Add typed EvidenceClaim contract with exact provenance.
+- [x] Add explicit certainty/dispute/contradiction semantics.
+- [x] Add typed StoryMaterial transformation contract.
+- [x] Reject unsupported synthesis.
+- [x] Add immutable persistence/versioning adapters.
+- [x] Bind exact ActiveProductionProfile where policy is consumed.
+- [x] Add targeted tests.
+- [x] Targeted IMP-021: 10/10 PASS.
+- [x] Full Windows unit suite: 517 PASS / 3 exact known POSIX-path failures.
+- [x] Unaffected regression: 517 PASS / 3 deselected.
+- [x] Frozen Master guard PASS; canonical SHA unchanged.
+- [x] Evidence captured.
+- [ ] Commit.
+- [ ] Push.
+- [ ] Open PR.
+- [ ] Ubuntu CI Python 3.10/3.13.
+- [ ] Exact-head review.
+- [ ] Merge main.
+- [ ] Verify main and mark MAIN VERIFIED.
