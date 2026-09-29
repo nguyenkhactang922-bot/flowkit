@@ -1312,3 +1312,23 @@ frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c7
 - evidence = evidence/tests/IMP-021_RESEARCH_STORY_MATERIAL_EVIDENCE.md
 
 NEXT_EXACT_ACTION = "COMMIT IMP-021 AND RUN REMOTE PR/CI LIFECYCLE"
+
+
+---
+
+## IMP-021 Exact-Head Review Repair - 2026-09-29
+
+task = IMP-021 RESEARCH INTELLIGENCE + STORYMATERIAL
+status = LOCAL VERIFIED AFTER REVIEW REPAIR / UPDATED PR CI PENDING
+
+- canonical TopicResolution logical identity = VERIFIED
+- canonical DomainResolution logical identity = VERIFIED
+- exact-current accepted Topic/Domain promotion gates = VERIFIED
+- stale/noncanonical Topic/Domain bindings fail closed = VERIFIED
+- targeted IMP-021 = 13/13 PASS
+- full Windows unit suite = 520 PASS / 3 exact known POSIX-path failures
+- unaffected regression = 520 PASS / 3 deselected
+- frozen Master guard = PASS
+- feature scope remains agent/studio + tests + governance/evidence only
+
+NEXT_EXACT_ACTION = "COMMIT REVIEW REPAIR AND UPDATE PR #24"

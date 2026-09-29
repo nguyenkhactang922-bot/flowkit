@@ -94,6 +94,14 @@ def _active_profile_id(project_id: LogicalId) -> LogicalId:
     return LogicalId(f"active-profile:{project_id.root}")
 
 
+def _topic_resolution_id(project_id: LogicalId) -> LogicalId:
+    return LogicalId(f"topic-resolution:{project_id.root}")
+
+
+def _domain_resolution_id(project_id: LogicalId) -> LogicalId:
+    return LogicalId(f"niche-resolution:{project_id.root}")
+
+
 def _research_brief_id(project_id: LogicalId) -> LogicalId:
     return LogicalId(f"research-brief:{project_id.root}")
 
@@ -168,7 +176,15 @@ class ResearchBrief(BaseModel):
         return tuple(result)
 
     @model_validator(mode="after")
-    def validate_profile_project(self) -> "ResearchBrief":
+    def validate_project_bindings(self) -> "ResearchBrief":
+        if self.topic_ref.logical_id != _topic_resolution_id(self.project_id):
+            raise ValueError(
+                "topic_ref must bind canonical TopicResolution for the same project"
+            )
+        if self.domain_ref.logical_id != _domain_resolution_id(self.project_id):
+            raise ValueError(
+                "domain_ref must bind canonical DomainResolution for the same project"
+            )
         if self.active_profile_ref.logical_id != _active_profile_id(self.project_id):
             raise ValueError(
                 "active_profile_ref must bind exact ActiveProductionProfile "
@@ -598,6 +614,14 @@ class ResearchRepository:
                 )
 
         if isinstance(value, ResearchBrief):
+            await self._assert_current_accepted(
+                value.topic_ref,
+                label="TopicResolution",
+            )
+            await self._assert_current_accepted(
+                value.domain_ref,
+                label="DomainResolution",
+            )
             await self._assert_profile_locked(value.active_profile_ref)
             return
 
@@ -651,6 +675,26 @@ class ResearchRepository:
                 raise UnsupportedSynthesis(
                     "unsupported claim cannot produce StoryMaterial"
                 )
+
+    async def _assert_current_accepted(
+        self,
+        ref: VersionRef,
+        *,
+        label: str,
+    ) -> None:
+        try:
+            pointer = await self.versions.get_current(ref.logical_id)
+        except CurrentPointerNotFound as exc:
+            raise ResearchGateBlocked(
+                f"missing {label} current pointer"
+            ) from exc
+        if (
+            pointer is None
+            or pointer.version_id != ref.version_id
+            or pointer.status
+            not in {LifecycleState.APPROVED, LifecycleState.LOCKED}
+        ):
+            raise ResearchGateBlocked(f"stale/unaccepted {label}")
 
     async def _assert_profile_locked(self, ref: VersionRef) -> None:
         try:

@@ -1018,3 +1018,21 @@ IMP-021 local verification:
 - [ ] Exact-head review.
 - [ ] Merge main.
 - [ ] Verify main and mark MAIN VERIFIED.
+
+
+IMP-021 exact-head review repair:
+- [x] Review exact PR head a6b6ec56a63082e4ed74e8db7f1b33f0421a224a.
+- [x] Find authority gap: ResearchBrief did not enforce canonical/current TopicResolution + DomainResolution.
+- [x] Correct DomainResolution logical ID to niche-resolution:<project>.
+- [x] Reject cross-project/noncanonical Topic/Domain refs.
+- [x] Reject stale Topic/Domain versions at promotion.
+- [x] Post-repair targeted IMP-021: 13/13 PASS.
+- [x] Post-repair full Windows unit suite: 520 PASS / 3 exact known POSIX-path failures.
+- [x] Post-repair unaffected regression: 520 PASS / 3 deselected.
+- [x] Frozen Master guard PASS.
+- [ ] Commit review repair.
+- [ ] Push updated PR #24.
+- [ ] Updated-head Ubuntu CI Python 3.10/3.13.
+- [ ] Updated-head exact-head review.
+- [ ] Merge main.
+- [ ] Verify main and mark MAIN VERIFIED.

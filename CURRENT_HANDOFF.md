@@ -1142,3 +1142,27 @@ Evidence:
 - git diff --check = PASS
 
 NEXT_EXACT_ACTION = "COMMIT IMP-021 → PUSH → PR → UBUNTU CI → EXACT-HEAD REVIEW → MERGE → MAIN VERIFIED"
+
+
+---
+
+## IMP-021 Exact-Head Review Repair - 2026-09-29
+
+Review finding:
+- ResearchBrief did not fail closed on noncanonical/stale TopicResolution or DomainResolution bindings.
+- Canonical DomainResolution identity is niche-resolution:<project>, not domain-resolution:<project>.
+
+Repair:
+- exact same-project TopicResolution identity enforced;
+- exact same-project DomainResolution identity enforced;
+- exact current accepted Topic/Domain versions required at promotion;
+- stale Topic/Domain fail closed.
+
+Post-repair evidence:
+- targeted IMP-021 = 13/13 PASS
+- full Windows unit suite = 520 PASS / 3 exact known POSIX-path failures
+- unaffected regression = 520 PASS / 3 deselected
+- frozen Master guard = PASS
+- diff check = PASS
+
+NEXT_EXACT_ACTION = "COMMIT REVIEW REPAIR → PUSH UPDATED PR #24 → UBUNTU CI → EXACT-HEAD REVIEW → MERGE → MAIN VERIFIED"

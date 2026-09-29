@@ -129,3 +129,40 @@ Result:
 **IMP-021 = LOCAL VERIFIED**
 
 Evidence supports the local implementation claim only. Commit/push/PR/Ubuntu CI/exact-head review/merge/main verification remain separate gates.
+
+
+## Exact-head review finding and repair
+
+Pre-merge exact-head review found one authority gap:
+- `ResearchBrief` accepted arbitrary `domain_ref` logical IDs and did not require TopicResolution/DomainResolution to be the exact current accepted versions.
+- the original test fixture used `domain-resolution:...`, while the canonical DomainResolution identity from `topic_domain.py` is `niche-resolution:...`.
+
+Repair:
+- `ResearchBrief` now requires canonical same-project `topic-resolution:<project>` and `niche-resolution:<project>` identities;
+- promotion requires exact current APPROVED/LOCKED TopicResolution and DomainResolution versions;
+- stale Topic/Domain inputs fail closed;
+- tests now cover cross-project/wrong-authority IDs and stale Topic/Domain versions.
+
+Post-repair targeted result:
+
+```text
+13 passed in 1.64s
+```
+
+Post-repair full Windows unit result:
+
+```text
+3 failed, 520 passed
+```
+
+The same three pre-existing Windows/POSIX-path assertions are the only failures.
+
+Post-repair unaffected regression:
+
+```text
+520 passed, 3 deselected in 40.24s
+```
+
+Frozen Master guard remains PASS and `git diff --check` remains PASS.
+
+**Post-review local verdict: IMP-021 = LOCAL VERIFIED**

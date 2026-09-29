@@ -39,7 +39,7 @@ TOPIC_REF = VersionRef(
     version_id=VersionId("t1"),
 )
 DOMAIN_REF = VersionRef(
-    logical_id=LogicalId("domain-resolution:project:film"),
+    logical_id=LogicalId("niche-resolution:project:film"),
     version_id=VersionId("d1"),
 )
 PROFILE_REF = VersionRef(
@@ -88,12 +88,18 @@ async def _seed_exact_inputs(writer: SQLiteWriteOwner) -> VersionRepository:
     return versions
 
 
-def _brief(version: str = "v1", *, profile_ref: VersionRef = PROFILE_REF) -> ResearchBrief:
+def _brief(
+    version: str = "v1",
+    *,
+    profile_ref: VersionRef = PROFILE_REF,
+    topic_ref: VersionRef = TOPIC_REF,
+    domain_ref: VersionRef = DOMAIN_REF,
+) -> ResearchBrief:
     return ResearchBrief(
         project_id=PROJECT_ID,
         version_id=VersionId(version),
-        topic_ref=TOPIC_REF,
-        domain_ref=DOMAIN_REF,
+        topic_ref=topic_ref,
+        domain_ref=domain_ref,
         active_profile_ref=profile_ref,
         factuality_class="grounded-fiction",
         questions=(
@@ -164,6 +170,64 @@ def _provenance(value, reason: str) -> Provenance:
         source_refs=("evidence:imp021",),
         correlation_id="run:imp021",
     )
+
+
+def test_research_brief_requires_canonical_topic_and_domain_identity():
+    wrong_topic = VersionRef(
+        logical_id=LogicalId("topic-resolution:project:other"),
+        version_id=TOPIC_REF.version_id,
+    )
+    with pytest.raises(ValidationError, match="topic_ref must bind canonical"):
+        _brief(topic_ref=wrong_topic)
+
+    wrong_domain = VersionRef(
+        logical_id=LogicalId("niche-resolution:project:other"),
+        version_id=DOMAIN_REF.version_id,
+    )
+    with pytest.raises(ValidationError, match="domain_ref must bind canonical"):
+        _brief(domain_ref=wrong_domain)
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("source_name", ["topic", "domain"])
+async def test_research_brief_rejects_stale_topic_or_domain_at_promotion(
+    tmp_path,
+    source_name,
+):
+    writer = SQLiteWriteOwner(tmp_path / "studio.db")
+    await writer.start()
+    try:
+        versions = await _seed_exact_inputs(writer)
+        repo = ResearchRepository(writer)
+
+        stale_ref = TOPIC_REF if source_name == "topic" else DOMAIN_REF
+        successor = VersionRef(
+            logical_id=stale_ref.logical_id,
+            version_id=VersionId("t2" if source_name == "topic" else "d2"),
+        )
+        await versions.create_successor(
+            metadata=_metadata(successor, predecessor=stale_ref),
+            payload={source_name: "successor"},
+            supersession_reason=f"{source_name} changed",
+        )
+        await versions.update_current(
+            logical_id=successor.logical_id,
+            version_id=successor.version_id,
+            status=LifecycleState.APPROVED,
+            expected_revision=0,
+        )
+
+        brief = _brief()
+        artifact = await repo.create_initial(
+            value=brief,
+            provenance=_provenance(brief, "stale canonical input"),
+            created_at=NOW,
+        )
+        label = "TopicResolution" if source_name == "topic" else "DomainResolution"
+        with pytest.raises(ResearchGateBlocked, match=label):
+            await repo.promote(ref=artifact.value.ref, expected_revision=0)
+    finally:
+        await writer.close()
 
 
 @pytest.mark.asyncio
