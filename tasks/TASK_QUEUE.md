@@ -1036,3 +1036,63 @@ IMP-021 exact-head review repair:
 - [ ] Updated-head exact-head review.
 - [ ] Merge main.
 - [ ] Verify main and mark MAIN VERIFIED.
+
+
+---
+
+## IMP-021 Final Verification - 2026-09-29
+
+- [x] Canonical ResearchBrief implemented.
+- [x] Canonical EvidenceClaim implemented with exact source/version provenance.
+- [x] Supported/disputed/unsupported certainty semantics verified.
+- [x] Exact contradiction refs verified.
+- [x] Canonical StoryMaterial transformation preserves evidence truth.
+- [x] Unsupported synthesis fails closed.
+- [x] Canonical/current TopicResolution and DomainResolution gates verified.
+- [x] Exact pinned ActiveProductionProfile gate verified.
+- [x] Immutable successor/history behavior verified.
+- [x] Targeted IMP-021 = 13/13 PASS.
+- [x] Windows unaffected regression = 520 PASS / 3 known POSIX-path cases deselected.
+- [x] Frozen Master guard PASS.
+- [x] PR #24 updated exact head = 9e39583e8d5b794c30880f69c1d01ecbcf0499ee.
+- [x] PR #24 Ubuntu CI Python 3.10/3.13 PASS.
+- [x] Exact-head review PASS after authority repair.
+- [x] PR #24 merged.
+- [x] Local main targeted verification PASS.
+- [x] Main push workflow run 36544062680 PASS.
+- [x] IMP-021 = MAIN VERIFIED at 6370e1174b111a69c08f842224f335db42d160ad.
+
+NEXT DEPENDENCY-READY TASK:
+- [ ] Recompute from frozen implementation dependency graph.
+
+
+---
+
+## IMP-040 - Canonical Entity Versioning Adapter - 2026-09-29
+
+- [x] Claim dependency-ready IMP-040 from frozen DAG.
+- [x] Read frozen §56 Entity authority and legacy Character/entity surfaces.
+- [x] Add canonical EntityVersion contract.
+- [x] Add stable legacy entity -> canonical logical-ID mapping.
+- [x] Add legacy anti-corruption snapshot and compatibility binding.
+- [x] Reuse shared VersionRepository; do not create second canonical Entity store.
+- [x] Preserve project linkage.
+- [x] Keep reference media/provider prompt outside canonical Entity truth.
+- [x] Add successor/current-pointer behavior.
+- [x] Add targeted tests: 7/7 PASS.
+- [x] Related regression cluster: 35/35 PASS.
+- [x] Full Windows unit suite observed: 527 PASS / 3 exact known POSIX-path failures.
+- [x] Unaffected regression: 527 PASS / 3 deselected.
+- [x] Frozen Master guard PASS.
+- [x] git diff --check PASS.
+- [x] Evidence captured.
+- [ ] Commit intentional IMP-040 files.
+- [ ] Push branch.
+- [ ] Open PR.
+- [ ] Ubuntu CI Python 3.10/3.13.
+- [ ] Exact-head review.
+- [ ] Merge fork main.
+- [ ] Verify fork main and mark MAIN VERIFIED.
+
+NEXT_EXACT_ACTION:
+- [ ] Complete IMP-040 remote lifecycle; only then claim IMP-022 critical-path story task.

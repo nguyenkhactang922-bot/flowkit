@@ -39,6 +39,20 @@ from .brainpack import (
     BrainPackSourceKind,
     StoryBrainPackDefinition,
 )
+from .entity import (
+    CanonicalEntityAdapter,
+    CanonicalEntityRepository,
+    EntityArtifact,
+    EntityContractError,
+    EntityIdentityError,
+    EntityImportResult,
+    EntityKind,
+    EntityVersion,
+    LegacyEntityBinding,
+    LegacyEntitySnapshot,
+    build_legacy_entity_provenance,
+    entity_logical_id,
+)
 from .invalidation import (
     DependencyEdge,
     DependencyEdgeConflict,
@@ -374,4 +388,20 @@ __all__ = [
     "redact_secrets",
     "redact_text",
     "utc_now",
+]
+
+
+__all__ += [
+    "CanonicalEntityAdapter",
+    "CanonicalEntityRepository",
+    "EntityArtifact",
+    "EntityContractError",
+    "EntityIdentityError",
+    "EntityImportResult",
+    "EntityKind",
+    "EntityVersion",
+    "LegacyEntityBinding",
+    "LegacyEntitySnapshot",
+    "build_legacy_entity_provenance",
+    "entity_logical_id",
 ]

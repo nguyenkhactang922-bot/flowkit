@@ -1166,3 +1166,64 @@ Post-repair evidence:
 - diff check = PASS
 
 NEXT_EXACT_ACTION = "COMMIT REVIEW REPAIR → PUSH UPDATED PR #24 → UBUNTU CI → EXACT-HEAD REVIEW → MERGE → MAIN VERIFIED"
+
+
+---
+
+## IMP-021 MAIN VERIFIED - 2026-09-29
+
+IMP-021 = MAIN VERIFIED
+
+Verified writable main:
+- repo = nguyenkhactang922-bot/flowkit
+- main SHA = 6370e1174b111a69c08f842224f335db42d160ad
+- PR #24 final exact head = 9e39583e8d5b794c30880f69c1d01ecbcf0499ee
+- updated-head PR CI run 36543849753 = SUCCESS
+- exact-head review = PASS after canonical Topic/Domain binding repair
+- PR #24 merged
+- local main frozen guard = PASS
+- local main targeted IMP-021 = 13/13 PASS
+- main push workflow run 36544062680 = SUCCESS
+- Python 3.10/3.13 full unit CI = SUCCESS
+- frozen Master SHA = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+Evidence:
+- evidence/tests/IMP-021_RESEARCH_STORY_MATERIAL_EVIDENCE.md
+
+NEXT_EXACT_ACTION = "READ TASK QUEUE / IMPLEMENTATION DEPENDENCY GRAPH AND CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-040 Claim + Local Verification - 2026-09-29
+
+ACTIVE_TASK = IMP-040 CANONICAL ENTITY VERSIONING ADAPTER
+BRANCH = chatgpt/IMP-040-canonical-entity-versioning
+BASE_HEAD = 726f44eb8d3c656630e94d2e69e7740340fd56eb
+DEPENDS = IMP-004 MAIN VERIFIED
+FROZEN_MASTER_SHA = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+Implemented:
+- canonical EntityVersion semantic contract
+- stable legacy entity -> canonical entity logical-ID mapping
+- legacy Character/entity anti-corruption snapshot + compatibility binding
+- shared VersionRepository persistence; no parallel canonical entity table/store
+- semantic successor/current-pointer behavior
+- reference media/provider prompt excluded from Entity truth
+
+Verification:
+- targeted IMP-040 = 7/7 PASS
+- entity/version/invalidation/frozen-guard cluster = 35/35 PASS
+- full Windows unit suite = 527 PASS / 3 exact known POSIX-path failures
+- unaffected Windows regression = 527 PASS / 3 deselected
+- frozen Master guard = PASS
+- frozen semantic SHA unchanged
+- compileall = PASS
+- git diff --check = PASS
+
+Evidence:
+- evidence/tests/IMP-040_CANONICAL_ENTITY_VERSIONING_EVIDENCE.md
+
+IMP-040 = LOCAL VERIFIED / REMOTE CI GATE PENDING
+
+NEXT_EXACT_ACTION = "COMMIT IMP-040 → PUSH → PR → UBUNTU CI → EXACT-HEAD REVIEW → MERGE → MAIN VERIFIED"
