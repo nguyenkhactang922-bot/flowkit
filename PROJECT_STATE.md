@@ -1406,3 +1406,56 @@ frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c7
 - main push workflow run 36552171606 = SUCCESS
 
 NEXT_EXACT_ACTION = "CLAIM IMP-022 CHARACTER PSYCHOLOGY / RELATIONSHIP / KNOWLEDGE"
+
+
+---
+
+## Active Implementation Task - 2026-09-29
+
+task = IMP-022 CHARACTER PSYCHOLOGY / RELATIONSHIP / KNOWLEDGE
+branch = chatgpt/IMP-022-character-state
+base_head = 67cb0462c4e67f1dad3f02078358a35722e0a95c
+depends = IMP-020 + IMP-021 + IMP-040 MAIN VERIFIED
+status = CLAIMED / AUTHORITY AUDIT COMPLETE / IMPLEMENTATION NEXT
+
+Acceptance:
+- CharacterModelVersion uses canonical EntityVersion identity and remains separate from visual/reference truth
+- psychology fields include want/need/fear/formative pressure/mistaken belief/values/secrets/tactics/boundaries/arc hypothesis where applicable
+- RelationshipState has stable participant identity, predecessor chronology and causal change evidence
+- CharacterKnowledgeState separates objective truth, knowledge, belief/suspicion/misbelief and optional audience knowledge
+- impossible knowledge without acquisition/inference evidence is rejected
+- accepted/current parent versions are exact and stale inputs fail closed
+- versions are immutable and semantic change creates successors
+- provider-neutral contracts
+- frozen Master unchanged
+
+
+---
+
+## IMP-022 Local Verification - 2026-09-29
+
+task = IMP-022 CHARACTER PSYCHOLOGY / RELATIONSHIP / KNOWLEDGE
+status = LOCAL VERIFIED / REMOTE CI GATE PENDING
+branch = chatgpt/IMP-022-character-state
+base_head = 67cb0462c4e67f1dad3f02078358a35722e0a95c
+frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+- canonical CharacterModelVersion = VERIFIED
+- canonical RelationshipState = VERIFIED
+- canonical CharacterKnowledgeState = VERIFIED
+- psychology remains separate from visual Entity/Reference truth = VERIFIED
+- pre-core psychology remains DRAFT until exact StoryCore binding = VERIFIED
+- objective truth / acquisition / inference / belief / audience tracks = VERIFIED
+- impossible knowledge fails closed = VERIFIED
+- relationship chronology and causal evidence = VERIFIED
+- knowledge chronology and stale evidence rejection = VERIFIED
+- dependency edges + durable invalidation on EntityVersion change = VERIFIED
+- targeted IMP-022 = 11/11 PASS
+- affected regression cluster = 60/60 PASS
+- largest valid unaffected regression = 509 PASS / 3 deselected
+- local full suite env-blocked by missing ffmpeg plus 3 known Windows/POSIX assertions
+- frozen Master guard = PASS
+- diff check = PASS
+- evidence = evidence/tests/IMP-022_CHARACTER_STATE_EVIDENCE.md
+
+NEXT_EXACT_ACTION = "COMMIT IMP-022 AND RUN REMOTE PR/CI LIFECYCLE"

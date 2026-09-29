@@ -1122,3 +1122,45 @@ NEXT_EXACT_ACTION:
 
 NEXT DEPENDENCY-READY TASK:
 - [ ] IMP-022 - Character Psychology / Relationship / Knowledge.
+
+
+---
+
+## IMP-022 - Character Psychology / Relationship / Knowledge
+
+- [>] CLAIMED on chatgpt/IMP-022-character-state.
+- [x] Read frozen §§18-20 and FR-039/FR-040 authority.
+- [x] Read historical CharacterModelVersion / CharacterKnowledgeState / RelationshipState canonical contracts.
+- [x] Audit current canonical EntityVersion + VersionRepository / invalidation primitives.
+- [ ] Add CharacterModelVersion typed contract and repository.
+- [ ] Add RelationshipState typed contract with chronology/cause rules.
+- [ ] Add CharacterKnowledgeState typed contract with objective-vs-belief separation.
+- [ ] Add exact current-input gates and immutable successor behavior.
+- [ ] Add impossible-knowledge / chronology / stale-input tests.
+- [ ] Run targeted tests.
+- [ ] Run affected regression and full unit regression.
+- [ ] Capture evidence + frozen SHA verification.
+- [ ] Commit / push / PR / CI / exact-head review / merge / MAIN VERIFIED.
+
+
+IMP-022 local verification:
+- [x] Add CharacterModelVersion typed contract and repository.
+- [x] Add RelationshipState typed contract with chronology/cause rules.
+- [x] Add CharacterKnowledgeState typed contract with objective-vs-belief separation.
+- [x] Add exact current-input gates and immutable successor behavior.
+- [x] Register exact source dependencies in durable DependencyGraph.
+- [x] Add impossible-knowledge / chronology / stale-input / invalidation tests.
+- [x] Targeted IMP-022: 11/11 PASS.
+- [x] Affected regression cluster: 60/60 PASS.
+- [x] Largest valid unaffected regression: 509 PASS / 3 deselected.
+- [x] Record full local suite environment blockers: missing ffmpeg + 3 known Windows/POSIX assertions.
+- [x] Frozen Master guard PASS; canonical SHA unchanged.
+- [x] Compile + git diff --check PASS.
+- [x] Evidence captured.
+- [ ] Commit.
+- [ ] Push.
+- [ ] Open PR.
+- [ ] Ubuntu CI Python 3.10/3.13 full suite.
+- [ ] Exact-head review.
+- [ ] Merge main.
+- [ ] Verify main and mark MAIN VERIFIED.
