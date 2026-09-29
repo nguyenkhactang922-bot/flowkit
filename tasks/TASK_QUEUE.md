@@ -1096,3 +1096,29 @@ NEXT DEPENDENCY-READY TASK:
 
 NEXT_EXACT_ACTION:
 - [ ] Complete IMP-040 remote lifecycle; only then claim IMP-022 critical-path story task.
+
+
+---
+
+## IMP-040 Final Verification - 2026-09-29
+
+- [x] Canonical EntityVersion implemented.
+- [x] Stable legacy entity -> canonical logical-ID mapping verified.
+- [x] Legacy anti-corruption snapshot/binding verified.
+- [x] Shared VersionRepository reused; no shadow canonical Entity store.
+- [x] Reference media/provider prompt excluded from Entity semantic truth.
+- [x] Successor/current-pointer semantics verified.
+- [x] Targeted IMP-040 = 7/7 PASS.
+- [x] Related regression cluster = 35/35 PASS.
+- [x] Windows unaffected regression = 527 PASS / 3 known POSIX-path cases deselected.
+- [x] Frozen Master guard PASS.
+- [x] PR #25 exact head = ed33a8bb7e2052c765d669d43008df3483d7b448.
+- [x] PR #25 Ubuntu CI Python 3.10/3.13 PASS.
+- [x] Exact-head review PASS.
+- [x] PR #25 merged.
+- [x] Local main targeted verification PASS.
+- [x] Main push workflow run 36552171606 PASS.
+- [x] IMP-040 = MAIN VERIFIED at 01830d2a90f37ab4cac86f360798611940c07065.
+
+NEXT DEPENDENCY-READY TASK:
+- [ ] IMP-022 - Character Psychology / Relationship / Knowledge.

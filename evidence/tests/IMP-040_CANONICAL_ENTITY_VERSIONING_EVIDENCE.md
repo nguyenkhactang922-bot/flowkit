@@ -126,3 +126,49 @@ PASS
 `IMP-040 = LOCAL VERIFIED`
 
 Remote PR/CI/exact-head review/merge/main verification remain required before `MAIN VERIFIED`.
+
+
+## Remote / Main verification
+
+Fork PR:
+- nguyenkhactang922-bot/flowkit#25
+
+Exact PR head:
+- ed33a8bb7e2052c765d669d43008df3483d7b448
+
+PR CI:
+- workflow run 36551985402
+- Python 3.10 unit = SUCCESS
+- Python 3.13 unit = SUCCESS
+
+Exact-head review:
+- no blocking findings remained;
+- canonical Entity semantic identity remains entity logical ID + immutable semantic version;
+- legacy Character/entity fields remain compatibility inputs only;
+- reference media, URLs and provider-facing prompts do not enter canonical EntityVersion truth;
+- shared VersionRepository remains the only canonical semantic persistence surface;
+- no second canonical entity store/table was introduced;
+- project linkage and successor/current-pointer semantics preserved;
+- frozen Master canonical SHA unchanged.
+
+Merge:
+- PR #25 merge commit = 01830d2a90f37ab4cac86f360798611940c07065
+- mergedAt = 2026-09-29T09:54:18Z
+
+Local main verification:
+- local HEAD = fork/main = 01830d2a90f37ab4cac86f360798611940c07065
+- frozen Master guard = PASS
+- targeted IMP-040 = 7/7 PASS
+
+Fork-main push CI:
+- workflow run 36552171606
+- head SHA = 01830d2a90f37ab4cac86f360798611940c07065
+- conclusion = SUCCESS
+
+## Final verdict
+
+**IMP-040 = MAIN VERIFIED** on `nguyenkhactang922-bot/flowkit:main` at:
+
+`01830d2a90f37ab4cac86f360798611940c07065`
+
+NEXT_EXACT_ACTION = "CLAIM IMP-022 CHARACTER PSYCHOLOGY / RELATIONSHIP / KNOWLEDGE"

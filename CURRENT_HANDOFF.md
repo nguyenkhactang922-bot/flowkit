@@ -1227,3 +1227,27 @@ Evidence:
 IMP-040 = LOCAL VERIFIED / REMOTE CI GATE PENDING
 
 NEXT_EXACT_ACTION = "COMMIT IMP-040 → PUSH → PR → UBUNTU CI → EXACT-HEAD REVIEW → MERGE → MAIN VERIFIED"
+
+
+---
+
+## IMP-040 MAIN VERIFIED - 2026-09-29
+
+IMP-040 = MAIN VERIFIED
+
+Verified writable main:
+- repo = nguyenkhactang922-bot/flowkit
+- main SHA = 01830d2a90f37ab4cac86f360798611940c07065
+- PR #25 exact head = ed33a8bb7e2052c765d669d43008df3483d7b448
+- PR CI run 36551985402 = SUCCESS
+- exact-head review = PASS
+- PR #25 merged
+- local main frozen guard = PASS
+- local main targeted IMP-040 = 7/7 PASS
+- main push workflow run 36552171606 = SUCCESS
+- frozen Master SHA = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+Evidence:
+- evidence/tests/IMP-040_CANONICAL_ENTITY_VERSIONING_EVIDENCE.md
+
+NEXT_EXACT_ACTION = "CLAIM IMP-022 CHARACTER PSYCHOLOGY / RELATIONSHIP / KNOWLEDGE"
