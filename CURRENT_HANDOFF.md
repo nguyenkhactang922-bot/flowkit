@@ -1306,21 +1306,41 @@ NEXT_EXACT_ACTION = "COMMIT IMP-022 → PUSH → PR → UBUNTU CI → EXACT-HEAD
 
 ## IMP-022 Exact-Head Review Repair - 2026-09-29
 
-Review of initial PR head 3d14a9d1a4d47e73a311630f5c23d390a7514854 found:
-- stale objective evidence was not exact-current gated;
-- psychology/knowledge did not explicitly require EntityKind.CHARACTER;
-- missing sources were preflighted too late.
+Review of merged PR #27 exact head 3d14a9d1a4d47e73a311630f5c23d390a7514854 found two post-merge hardening gaps:
+- psychology/knowledge accepted any canonical EntityVersion kind instead of requiring EntityKind.CHARACTER;
+- missing exact sources were detected after semantic persistence began, allowing an avoidable DRAFT before dependency materialization failed.
+
+Independent recheck confirmed the exact PR head already exact-current gated objective/acquisition/inference evidence; that was not a post-merge defect.
 
 Repair:
-- exact-current objective/acquisition/inference evidence gates added;
-- character-kind gate added for psychology/knowledge;
-- exact source existence preflight moved before semantic persistence.
+- EntityKind.CHARACTER gate added for CharacterModelVersion and CharacterKnowledgeState;
+- exact source existence preflight moved before semantic persistence;
+- existing exact-current objective/acquisition/inference evidence gates retained.
 
 Post-repair:
-- targeted IMP-022 = 11/11 PASS
-- affected regression = 60/60 PASS
-- unaffected regression = 509 PASS / 3 deselected
+- targeted IMP-022 = 13/13 PASS
+- affected regression = 74/74 PASS
+- largest valid unaffected regression = 511 PASS / 3 deselected
 - frozen Master guard = PASS
-- diff check = PASS
+- compile + diff check = PASS
 
-NEXT_EXACT_ACTION = "COMMIT IMP-022 REVIEW REPAIR → PUSH UPDATED PR #27 → UBUNTU CI → FINAL EXACT-HEAD REVIEW → MERGE → MAIN VERIFIED"
+NEXT_EXACT_ACTION = "PUSH POST-MERGE IMP-022 REPAIR BRANCH → OPEN NEW PR → CI → FINAL EXACT-HEAD REVIEW → MERGE → MAIN VERIFIED"
+
+---
+
+## IMP-022 Post-Merge Repair Routing - 2026-09-29
+
+Runtime/source-of-truth recheck found PR #27 had already merged before the
+exact-head hardening repair was committed.
+
+Verified:
+- PR #27 head = 3d14a9d1a4d47e73a311630f5c23d390a7514854
+- PR #27 CI Python 3.10/3.13 = SUCCESS
+- PR #27 merge = 2b1d0cfee1fd636300792266d5dce7473a420fff
+- main push workflow 36597573229 = SUCCESS
+- hardening repair is isolated on chatgpt/IMP-022-postmerge-review-repair
+- repair HEAD = 114fd87d2d40ca8fbfd53150653e1b4b38482b53
+
+Do not retry/update merged PR #27.
+
+NEXT_EXACT_ACTION = "PUSH POST-MERGE IMP-022 REPAIR BRANCH → OPEN NEW PR → CI → FINAL EXACT-HEAD REVIEW → MERGE → MAIN VERIFIED"

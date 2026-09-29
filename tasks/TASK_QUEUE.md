@@ -1167,17 +1167,33 @@ IMP-022 local verification:
 
 
 IMP-022 exact-head review repair:
-- [x] Review initial PR head 3d14a9d1a4d47e73a311630f5c23d390a7514854.
-- [x] Gate objective evidence as exact-current accepted truth.
+- [x] Review merged PR #27 exact head 3d14a9d1a4d47e73a311630f5c23d390a7514854.
+- [x] Reverify initial head already exact-current gates objective/acquisition/inference evidence.
 - [x] Require EntityKind.CHARACTER for psychology/knowledge.
 - [x] Preflight all exact source versions before semantic persistence.
-- [x] Post-repair targeted IMP-022: 11/11 PASS.
-- [x] Post-repair affected regression: 60/60 PASS.
-- [x] Post-repair unaffected regression: 509 PASS / 3 deselected.
+- [x] Add non-character EntityKind rejection test.
+- [x] Add missing-source-before-persistence test.
+- [x] Post-repair targeted IMP-022: 13/13 PASS.
+- [x] Post-repair affected regression: 74/74 PASS.
+- [x] Post-repair unaffected regression: 511 PASS / 3 deselected.
 - [x] Frozen Master guard PASS.
-- [ ] Commit review repair.
-- [ ] Push updated PR #27.
-- [ ] Updated-head Ubuntu CI Python 3.10/3.13.
+- [x] Post-merge repair committed on dedicated branch.
+- [ ] Push repair branch.
+- [ ] Open separate repair PR.
+- [ ] Repair PR Ubuntu CI Python 3.10/3.13.
 - [ ] Final exact-head review.
-- [ ] Merge main.
-- [ ] Verify main and mark MAIN VERIFIED.
+- [ ] Merge repair to main.
+- [ ] Verify main and mark IMP-022 MAIN VERIFIED.
+
+IMP-022 post-merge repair routing:
+- [x] Recheck PR #27 before retrying side effects.
+- [x] Detect PR #27 already merged; no duplicate update/retry.
+- [x] Verify original PR #27 CI SUCCESS.
+- [x] Verify original main push workflow 36597573229 SUCCESS.
+- [x] Preserve review hardening in separate branch chatgpt/IMP-022-postmerge-review-repair.
+- [ ] Push repair branch.
+- [ ] Open separate repair PR.
+- [ ] Repair PR Ubuntu CI Python 3.10/3.13.
+- [ ] Final exact-head review.
+- [ ] Merge repair to main.
+- [ ] Verify main and mark IMP-022 MAIN VERIFIED.
