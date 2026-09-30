@@ -148,3 +148,44 @@ Post-repair local evidence:
 
 STATUS = REPAIR LOCAL VERIFIED / NEW COMMIT AND CI REQUIRED
 NEXT_EXACT_ACTION = "COMMIT EXACT-HEAD REVIEW REPAIR -> PUSH TO PR #30 -> VERIFY NEW EXACT HEAD -> CI -> FINAL REVIEW -> MERGE MAIN"
+
+
+---
+
+## Final MAIN verification - 2026-09-30
+
+Feature PR:
+- PR #30 final exact head: `83bcc387bcd7116b8312a54e763f2ce745c52d88`
+- PR CI run: `36670609338`
+- Python 3.10: SUCCESS
+- Python 3.13: SUCCESS
+- frozen Master baseline: SUCCESS in both jobs
+- full unit suite: SUCCESS in both jobs
+- exact-head review: PASS
+
+Merge:
+- PR #30 state: MERGED
+- merge commit / final feature main: `b0a1663ef5155e7a98711cfddfb5bef264962269`
+
+Local main:
+- frozen Master guard: PASS
+- semantic SHA: `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`
+- targeted IMP-023: `17 passed`
+- affected regression: `82 passed`
+- worktree outside governance updates: only pre-existing untracked `_incoming/`
+
+Main push CI:
+- run: `36670754503`
+- event: push
+- head: `b0a1663ef5155e7a98711cfddfb5bef264962269`
+- conclusion: SUCCESS
+- unit (3.10): SUCCESS
+- unit (3.13): SUCCESS
+- frozen Master baseline step: SUCCESS in both jobs
+- unit test step: SUCCESS in both jobs
+
+## Final verdict
+
+**IMP-023 = MAIN VERIFIED** at `b0a1663ef5155e7a98711cfddfb5bef264962269`.
+
+NEXT_EXACT_ACTION = "CLAIM IMP-024 STRUCTUREPROFILE / MACROBEATSHEET / DURATIONBUDGET"

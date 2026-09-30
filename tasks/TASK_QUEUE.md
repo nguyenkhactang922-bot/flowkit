@@ -1294,3 +1294,25 @@ NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD → COMMIT IMP-023"
 - [ ] Verify main / MAIN VERIFIED.
 
 NEXT_EXACT_ACTION = "COMMIT EXACT-HEAD REVIEW REPAIR -> PUSH TO PR #30"
+
+
+---
+
+## IMP-023 MAIN VERIFIED - 2026-09-30
+
+- [x] StoryCore + ConflictModel/StakesModel + CausalStoryGraph + causal validation + lock implemented.
+- [x] Targeted final = 17/17 PASS.
+- [x] Affected regression final = 82/82 PASS.
+- [x] Frozen Master guard PASS.
+- [x] PR #30 final exact-head CI run 36670609338 PASS on 83bcc387bcd7116b8312a54e763f2ce745c52d88.
+- [x] Final exact-head review PASS.
+- [x] PR #30 merged.
+- [x] Main = b0a1663ef5155e7a98711cfddfb5bef264962269.
+- [x] Local main targeted + affected + frozen guard PASS.
+- [x] Main push run 36670754503 PASS for Python 3.10 + 3.13.
+- [x] IMP-023 = MAIN VERIFIED.
+
+NEXT DEPENDENCY-READY TASK:
+- [ ] IMP-024 - StructureProfile / MacroBeatSheet / DurationBudget.
+
+NEXT_EXACT_ACTION = "CLAIM IMP-024 STRUCTUREPROFILE / MACROBEATSHEET / DURATIONBUDGET"
