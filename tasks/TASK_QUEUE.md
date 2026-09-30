@@ -1224,3 +1224,73 @@ IMP-022 post-merge repair routing:
 
 NEXT DEPENDENCY-READY TASK:
 - [ ] IMP-023 - StoryCore + CausalStoryGraph + Lock.
+
+---
+
+## IMP-023 ACTIVE - 2026-09-30
+
+- [x] CLAIM branch chatgpt/IMP-023-storycore-causal-lock from 0bc64459a5cb3a7e084e8e825381d98ba21b7875.
+- [x] Verify worktree: only pre-existing untracked _incoming/.
+- [x] Read Frozen Master StoryCore/Conflict-Stakes/StoryGraph/Lock authority.
+- [x] Read implementation decomposition and existing Version/Dependency/Invalidation patterns.
+- [ ] Implement typed StoryCore + ConflictModel/StakesModel + StoryGraph + causal validation + lock.
+- [ ] Targeted IMP-023 tests.
+- [ ] Affected regression.
+- [ ] Broader regression.
+- [ ] Frozen Master guard.
+- [ ] Evidence + diff check.
+- [ ] Commit → push → PR → CI → exact-head review → merge main → verify main.
+
+NEXT_EXACT_ACTION = "IMPLEMENT IMP-023 CONTRACTS/REPOSITORIES/GATES + TARGETED TESTS"
+
+- [x] Targeted IMP-023 tests = 9/9 PASS (exit 0).
+- [ ] Affected regression.
+- [ ] Broader regression.
+- [ ] Frozen Master guard.
+- [ ] Evidence + diff check.
+- [ ] Commit → push → PR → CI → exact-head review → merge main → verify main.
+
+NEXT_EXACT_ACTION = "RUN IMP-023 AFFECTED REGRESSION"
+
+---
+
+## IMP-023 LOCAL VERIFIED - 2026-09-30
+
+- [x] Implement StoryCore + ConflictModel/StakesModel + CausalStoryGraph + causal validation + lock.
+- [x] Authority hardening review + 3 negative repair tests.
+- [x] Targeted IMP-023 = 12/12 PASS.
+- [x] Affected regression = 77/77 PASS.
+- [x] Largest valid Windows regression = 523 PASS / 3 known POSIX-path cases deselected.
+- [x] Frozen Master guard PASS.
+- [x] Evidence recorded.
+- [ ] Side-effect guard.
+- [ ] Commit.
+- [ ] Push.
+- [ ] Open/reuse PR.
+- [ ] Ubuntu CI Python 3.10/3.13.
+- [ ] Exact-head review.
+- [ ] Merge main.
+- [ ] Verify main / MAIN VERIFIED.
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD → COMMIT IMP-023"
+
+
+---
+
+## IMP-023 PR #30 REVIEW REPAIR - 2026-09-30
+
+- [x] Pre-repair exact-head CI run 36669953970 PASS on 98225f121d71145327ec1fe3fb7a1866b5df87aa.
+- [x] Exact-head review found stale predecessor branching + cross-project lock-manifest schema gaps.
+- [x] Repair implementation complete.
+- [x] Targeted IMP-023 = 17/17 PASS.
+- [x] Affected regression = 82/82 PASS.
+- [x] Largest valid Windows regression = 528 PASS / 3 known POSIX-path cases deselected.
+- [x] Frozen Master guard PASS.
+- [ ] Commit repair.
+- [ ] Push repair to PR #30.
+- [ ] New exact-head Ubuntu CI Python 3.10/3.13.
+- [ ] Final exact-head review PASS.
+- [ ] Merge main.
+- [ ] Verify main / MAIN VERIFIED.
+
+NEXT_EXACT_ACTION = "COMMIT EXACT-HEAD REVIEW REPAIR -> PUSH TO PR #30"
