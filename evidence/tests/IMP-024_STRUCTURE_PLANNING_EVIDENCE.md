@@ -168,3 +168,52 @@ Post-repair local evidence:
 
 STATUS = REVIEW REPAIR LOCAL VERIFIED / NEW COMMIT+CI REQUIRED
 NEXT_EXACT_ACTION = "COMMIT IMP-024 REVIEW REPAIR -> PUSH PR #32 -> NEW EXACT-HEAD CI -> FINAL REVIEW -> MERGE MAIN -> VERIFY MAIN"
+
+
+---
+
+## IMP-024 MAIN VERIFIED — final feature verification
+
+Feature branch:
+- `chatgpt/IMP-024-structure-profile-budget`
+- initial feature commit = `9da1b2cf344b85d20d4c7abdf4544a8e8b843199`
+- exact-head review repair commit = `b610f2a2231b2d214932fc652df8d8329f328060`
+
+Pull request:
+- PR #32 = MERGED
+- final exact head = `b610f2a2231b2d214932fc652df8d8329f328060`
+- exact-head PR CI run = `36685639854`
+- Python 3.10 = SUCCESS
+- Python 3.13 = SUCCESS
+- frozen Master baseline step = SUCCESS in both jobs
+- full unit tests = SUCCESS in both jobs
+- merge commit / verified feature-main SHA = `1f2d13385c80738177263f84c94c66d220f45be9`
+
+Local final main verification:
+- frozen Master guard = PASS
+- frozen semantic SHA = `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`
+- targeted IMP-024 = 16/16 PASS
+- affected regression = 71/71 PASS
+- worktree = only pre-existing untracked `_incoming/`
+
+Main push verification:
+- workflow run = `36685898846`
+- event = push
+- head SHA = `1f2d13385c80738177263f84c94c66d220f45be9`
+- conclusion = SUCCESS
+- unit (3.10) = SUCCESS
+- unit (3.13) = SUCCESS
+- Verify frozen Master baseline = SUCCESS in both jobs
+- Run unit tests = SUCCESS in both jobs
+
+Final exact-head review:
+- project-scope prefix collision repaired;
+- ProjectBootstrapInput / DomainResolution exact-current gates added;
+- DomainResolution -> TopicResolution lineage pinned to ActiveProductionProfile;
+- zero-count range bypass removed;
+- planning hierarchy fixture covers MacroStoryBeat -> Sequence -> Scene -> SceneDramaticBeat -> Shot;
+- final exact-head review after repair = PASS.
+
+IMP-024 = MAIN VERIFIED
+
+NEXT DEPENDENCY-READY TASK = IMP-025 — MacroStoryBeat / SequencePlan / Sequence / SceneBudget / Scene / SceneBreakdown / SceneDramaticBeat.

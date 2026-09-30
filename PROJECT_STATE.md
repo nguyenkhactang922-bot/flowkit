@@ -1761,3 +1761,50 @@ POST_REPAIR_LOCAL:
 
 STATUS = REPAIR LOCAL VERIFIED / COMMIT+PUSH PENDING
 NEXT_EXACT_ACTION = "COMMIT IMP-024 REVIEW REPAIR -> PUSH PR #32 -> NEW CI -> FINAL REVIEW -> MERGE MAIN -> VERIFY MAIN"
+
+
+---
+
+## IMP-024 MAIN VERIFIED - 2026-09-30
+
+ACTIVE_TASK = IMP-024 STRUCTUREPROFILE / MACROBEATSHEET / DURATIONBUDGET
+FINAL_STATUS = MAIN VERIFIED
+
+Feature branch:
+- chatgpt/IMP-024-structure-profile-budget
+- initial feature commit = 9da1b2cf344b85d20d4c7abdf4544a8e8b843199
+- exact-head repair commit = b610f2a2231b2d214932fc652df8d8329f328060
+
+Pull request:
+- PR #32 = MERGED
+- final exact head = b610f2a2231b2d214932fc652df8d8329f328060
+- PR CI run 36685639854 = SUCCESS
+- Python 3.10 / 3.13 = SUCCESS
+- merge commit / verified feature-main SHA = 1f2d13385c80738177263f84c94c66d220f45be9
+
+Local final main verification:
+- frozen Master guard = PASS
+- targeted IMP-024 = 16/16 PASS
+- affected regression = 71/71 PASS
+- worktree = only pre-existing untracked _incoming/
+
+Main push verification:
+- workflow run 36685898846 = SUCCESS
+- exact head = 1f2d13385c80738177263f84c94c66d220f45be9
+- Python 3.10 / 3.13 full unit CI = SUCCESS
+- frozen Master baseline = SUCCESS
+
+DONE CRITERIA:
+- immutable StructureProfile range policy = SATISFIED
+- no universal fixed-count law = SATISFIED
+- exact ActiveProductionProfile / Project / Domain lineage = SATISFIED
+- DurationBudget hierarchy + tolerance = SATISFIED
+- profile minimum ranges fail closed on zero/missing levels = SATISFIED
+- MacroBeatSheet remains projection only = SATISFIED
+- no MacroStoryBeat narrative duplication = SATISFIED
+- exact-current/stale predecessor fail-closed = SATISFIED
+- dependency invalidation = SATISFIED
+- frozen Master unchanged = SATISFIED
+
+GOVERNANCE_SYNC_BRANCH = chatgpt/IMP-024-main-verified-state
+NEXT_EXACT_ACTION = "COMMIT/PUSH/MERGE IMP-024 GOVERNANCE SYNC -> CLAIM IMP-025"

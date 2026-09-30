@@ -1397,3 +1397,32 @@ NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-024"
 - [ ] Verify main / MAIN VERIFIED.
 
 NEXT_EXACT_ACTION = "COMMIT IMP-024 REVIEW REPAIR -> PUSH PR #32"
+
+
+---
+
+## IMP-024 FINAL VERIFICATION - 2026-09-30
+
+- [x] StructureProfile immutable range policy.
+- [x] DurationBudget typed hierarchical runtime allocation.
+- [x] MacroBeatSheet projection-only authority.
+- [x] Project/Domain/Topic exact lineage hardening.
+- [x] Prefix-collision same-project hardening.
+- [x] Missing-level zero-count range bypass removed.
+- [x] Targeted final IMP-024 = 16/16 PASS.
+- [x] Affected regression final = 71/71 PASS.
+- [x] Frozen Master guard PASS.
+- [x] PR #32 final exact-head CI run 36685639854 PASS on b610f2a2231b2d214932fc652df8d8329f328060.
+- [x] Final exact-head review PASS.
+- [x] PR #32 merged.
+- [x] Feature main = 1f2d13385c80738177263f84c94c66d220f45be9.
+- [x] Local main targeted + affected + frozen guard PASS.
+- [x] Main push run 36685898846 PASS for Python 3.10 + 3.13.
+- [x] IMP-024 = MAIN VERIFIED.
+- [ ] Governance state sync commit / PR / merge.
+- [ ] CLAIM IMP-025 after governance sync is on main.
+
+NEXT DEPENDENCY-READY TASK:
+- [ ] IMP-025 - MacroStoryBeat / SequencePlan / Sequence / SceneBudget / Scene / SceneBreakdown / SceneDramaticBeat.
+
+NEXT_EXACT_ACTION = "COMMIT/PUSH/MERGE IMP-024 GOVERNANCE SYNC -> CLAIM IMP-025"
