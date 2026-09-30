@@ -1512,3 +1512,61 @@ frozen_master_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c7
 - main push workflow run 36599591595 = SUCCESS
 
 NEXT_EXACT_ACTION = "CLAIM IMP-023 STORYCORE + CAUSAL STORYGRAPH + LOCK"
+
+---
+
+## IMP-023 Claim / Resume - 2026-09-30
+
+ACTIVE_TASK = IMP-023 STORYCORE + CAUSAL STORYGRAPH + LOCK
+BRANCH = chatgpt/IMP-023-storycore-causal-lock
+BASE_HEAD = 0bc64459a5cb3a7e084e8e825381d98ba21b7875
+DEPENDS = IMP-020, IMP-021, IMP-022, IMP-005 MAIN VERIFIED
+FROZEN_MASTER_SHA = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+STATUS = ACTIVE
+WORKTREE_NOTE = _incoming/ remains untracked and out of task scope
+
+Scope:
+- one stable story_core_id with immutable DRAFT and FROZEN_FOR_STRUCTURE successor versions
+- typed ConflictModel/StakesModel exact-version boundary required by Frozen Master section 21/22
+- typed causal StoryGraph nodes/edges built from exact StoryCore DRAFT
+- causal validation evidence with orphan/gap/illegal-cycle fail-closed checks
+- lock transition gated by exact current inputs + matching passing graph validation
+- dependency registration + selective invalidation on StoryCore revision
+- no provider/prompt authority leakage and no second StoryCore truth
+
+NEXT_EXACT_ACTION = "IMPLEMENT IMP-023 CONTRACTS/REPOSITORIES/GATES + TARGETED TESTS"
+
+---
+
+## IMP-023 Targeted Test Checkpoint - 2026-09-30
+
+STATUS = TARGETED TEST PASS
+BRANCH = chatgpt/IMP-023-storycore-causal-lock
+HEAD = 0bc64459a5cb3a7e084e8e825381d98ba21b7875
+TARGETED_COMMAND = uv run --isolated --no-project --python 3.13 --with-requirements requirements.txt --with-requirements requirements-dev.txt python -m pytest tests/unit/test_studio_story_core.py -q
+TARGETED_RESULT = 9 passed in 3.89s
+TARGETED_EXIT_CODE = 0
+
+NEXT_EXACT_ACTION = "RUN IMP-023 AFFECTED REGRESSION"
+
+---
+
+## IMP-023 Local Verification - 2026-09-30
+
+IMP-023 = LOCAL VERIFIED
+BRANCH = chatgpt/IMP-023-storycore-causal-lock
+BASE_HEAD = 0bc64459a5cb3a7e084e8e825381d98ba21b7875
+
+Evidence:
+- evidence/tests/IMP-023_STORYCORE_CAUSAL_LOCK_EVIDENCE.md
+- targeted IMP-023 = 12/12 PASS
+- affected regression = 77/77 PASS
+- largest valid Windows regression = 523 PASS / 3 known POSIX-path cases deselected
+- test_video_reviewer excluded because FileMCP environment has no ffmpeg on PATH (pre-existing IMP-022 environment blocker)
+- frozen Master guard = PASS
+- frozen semantic SHA unchanged = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+- exact-head self-review found and repaired character/core + conflict/stakes lineage and stale-graph-validation gaps
+- git diff --check = PASS before evidence/state sync
+- _incoming/ remains untracked and outside scope
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD → COMMIT IMP-023 → PUSH → PR → UBUNTU CI → EXACT-HEAD REVIEW → MERGE MAIN → VERIFY MAIN"
