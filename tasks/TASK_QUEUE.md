@@ -1652,3 +1652,30 @@ NEXT_EXACT_ACTION = "RUN IMP-027 AFFECTED REGRESSION"
 - [ ] Verify main / MAIN VERIFIED.
 
 NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-027"
+
+
+---
+
+## IMP-027 FINAL VERIFICATION - 2026-09-30
+
+- [x] CritiqueFinding / RootCauseLocalization / StoryRepairPlan / StoryQualityResult / ScriptLockManifest implemented.
+- [x] Targeted final IMP-027 = 13/13 PASS.
+- [x] Affected regression final = 127/127 PASS.
+- [x] Frozen Master guard PASS.
+- [x] PR #38 exact-head CI run 36708712848 PASS on fb607fdaa6ede42e03be3ff4c8bc188542cf2497.
+- [x] Final exact-head review PASS.
+- [x] PR #38 merged.
+- [x] Feature main = 8399fe76a4c7e7dc08010b6f442ef64a0d09bb4c.
+- [x] Local main targeted + affected + frozen guard PASS.
+- [x] Main push run 36708995131 PASS for Python 3.10 + 3.13.
+- [x] IMP-027 = MAIN VERIFIED.
+- [ ] Governance state sync commit / PR / merge.
+- [ ] CLAIM IMP-028 after governance sync is on main.
+
+NEXT DEPENDENCY-READY TASK:
+- [ ] IMP-028 - NarrativeTrace
+  - Depends: IMP-025, IMP-027, IMP-005
+  - Goal: bidirectional exact-version ancestry
+  - Deliverables: trace repo/index, orphan/cycle detection, why-exists traversal
+
+NEXT_EXACT_ACTION = "COMMIT/PUSH/MERGE IMP-027 GOVERNANCE SYNC -> CLAIM IMP-028"
