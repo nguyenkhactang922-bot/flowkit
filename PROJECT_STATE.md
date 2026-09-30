@@ -1570,3 +1570,29 @@ Evidence:
 - _incoming/ remains untracked and outside scope
 
 NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD → COMMIT IMP-023 → PUSH → PR → UBUNTU CI → EXACT-HEAD REVIEW → MERGE MAIN → VERIFY MAIN"
+
+
+---
+
+## IMP-023 PR #30 Exact-Head Review Repair - 2026-09-30
+
+PR = #30
+PRE_REPAIR_HEAD = 98225f121d71145327ec1fe3fb7a1866b5df87aa
+PRE_REPAIR_CI_RUN = 36669953970
+PRE_REPAIR_CI = Python 3.10 SUCCESS / Python 3.13 SUCCESS
+REVIEW_RESULT = REPAIR REQUIRED
+
+Review finding:
+- revision APIs could branch from a historical non-current predecessor;
+- frozen StoryCore lock manifest did not schema-reject cross-project StoryGraph/validation IDs.
+
+Post-repair local evidence:
+- targeted IMP-023 = 17/17 PASS
+- affected regression = 82/82 PASS
+- largest valid Windows regression = 528 PASS / 3 known POSIX-path cases deselected
+- frozen Master guard = PASS
+- git diff --check = PASS
+- _incoming/ remains untracked and outside scope
+
+STATUS = REPAIR LOCAL VERIFIED / REPAIR COMMIT+PUSH PENDING
+NEXT_EXACT_ACTION = "COMMIT EXACT-HEAD REVIEW REPAIR -> PUSH TO PR #30 -> NEW CI -> FINAL REVIEW -> MERGE MAIN"

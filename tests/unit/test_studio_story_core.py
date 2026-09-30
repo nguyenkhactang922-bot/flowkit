@@ -810,6 +810,228 @@ async def test_stale_story_graph_version_cannot_emit_new_validation_evidence(tmp
 
 
 @pytest.mark.asyncio
+async def test_story_core_revision_rejects_stale_predecessor(tmp_path):
+    writer = SQLiteWriteOwner(tmp_path / "studio.db")
+    await writer.start()
+    try:
+        versions = await _seed_context(writer)
+        repo = StoryCoreRepository(writer)
+        draft_v1 = _core()
+        a1 = await repo.create_story_core_draft(
+            value=draft_v1,
+            provenance=_provenance(draft_v1, "draft v1"),
+            created_at=NOW,
+        )
+        await _accept_character(versions, a1.ref)
+
+        draft_v2 = _core(
+            "core-v2",
+            character_ref=CHAR_APPROVED_REF,
+            core_goal="Delay the sale until the cassette is understood.",
+        )
+        await repo.revise_story_core_draft(
+            value=draft_v2,
+            predecessor=a1.ref,
+            provenance=_provenance(draft_v2, "draft v2"),
+            created_at=NOW,
+            expected_revision=0,
+        )
+
+        stale_branch = _core(
+            "core-v3",
+            character_ref=CHAR_APPROVED_REF,
+            core_goal="Try to branch again from historical core-v1.",
+        )
+        with pytest.raises(
+            StoryCoreGateBlocked,
+            match="StoryCore revision predecessor is not exact current accepted version",
+        ):
+            await repo.revise_story_core_draft(
+                value=stale_branch,
+                predecessor=a1.ref,
+                provenance=_provenance(stale_branch, "stale StoryCore predecessor"),
+                created_at=NOW,
+                expected_revision=1,
+            )
+    finally:
+        await writer.close()
+
+
+@pytest.mark.asyncio
+async def test_conflict_revision_rejects_stale_predecessor(tmp_path):
+    writer = SQLiteWriteOwner(tmp_path / "studio.db")
+    await writer.start()
+    try:
+        versions = await _seed_context(writer)
+        repo = StoryCoreRepository(writer)
+        draft = _core()
+        draft_artifact = await repo.create_story_core_draft(
+            value=draft,
+            provenance=_provenance(draft, "draft"),
+            created_at=NOW,
+        )
+        await _accept_character(versions, draft_artifact.ref)
+
+        conflict_v1 = _conflict(draft_artifact.ref)
+        c1 = await repo.create_conflict(
+            value=conflict_v1,
+            provenance=_provenance(conflict_v1, "conflict v1"),
+            created_at=NOW,
+        )
+        conflict_v2 = _conflict(draft_artifact.ref, version="conflict-v2")
+        await repo.revise_conflict(
+            value=conflict_v2,
+            predecessor=c1.ref,
+            provenance=_provenance(conflict_v2, "conflict v2"),
+            created_at=NOW,
+            expected_revision=1,
+        )
+        conflict_v3 = _conflict(draft_artifact.ref, version="conflict-v3")
+        with pytest.raises(
+            StoryCoreGateBlocked,
+            match="ConflictModel revision predecessor is not exact current accepted version",
+        ):
+            await repo.revise_conflict(
+                value=conflict_v3,
+                predecessor=c1.ref,
+                provenance=_provenance(conflict_v3, "stale conflict predecessor"),
+                created_at=NOW,
+                expected_revision=2,
+            )
+    finally:
+        await writer.close()
+
+
+@pytest.mark.asyncio
+async def test_stakes_revision_rejects_stale_predecessor(tmp_path):
+    writer = SQLiteWriteOwner(tmp_path / "studio.db")
+    await writer.start()
+    try:
+        versions = await _seed_context(writer)
+        repo = StoryCoreRepository(writer)
+        draft = _core()
+        draft_artifact = await repo.create_story_core_draft(
+            value=draft,
+            provenance=_provenance(draft, "draft"),
+            created_at=NOW,
+        )
+        await _accept_character(versions, draft_artifact.ref)
+
+        conflict = _conflict(draft_artifact.ref)
+        conflict_artifact = await repo.create_conflict(
+            value=conflict,
+            provenance=_provenance(conflict, "conflict"),
+            created_at=NOW,
+        )
+        stakes_v1 = _stakes(draft_artifact.ref, conflict_artifact.ref)
+        s1 = await repo.create_stakes(
+            value=stakes_v1,
+            provenance=_provenance(stakes_v1, "stakes v1"),
+            created_at=NOW,
+        )
+        stakes_v2 = _stakes(
+            draft_artifact.ref,
+            conflict_artifact.ref,
+            version="stakes-v2",
+        )
+        await repo.revise_stakes(
+            value=stakes_v2,
+            predecessor=s1.ref,
+            provenance=_provenance(stakes_v2, "stakes v2"),
+            created_at=NOW,
+            expected_revision=1,
+        )
+        stakes_v3 = _stakes(
+            draft_artifact.ref,
+            conflict_artifact.ref,
+            version="stakes-v3",
+        )
+        with pytest.raises(
+            StoryCoreGateBlocked,
+            match="StakesModel revision predecessor is not exact current accepted version",
+        ):
+            await repo.revise_stakes(
+                value=stakes_v3,
+                predecessor=s1.ref,
+                provenance=_provenance(stakes_v3, "stale stakes predecessor"),
+                created_at=NOW,
+                expected_revision=2,
+            )
+    finally:
+        await writer.close()
+
+
+@pytest.mark.asyncio
+async def test_story_graph_revision_rejects_stale_predecessor(tmp_path):
+    writer = SQLiteWriteOwner(tmp_path / "studio.db")
+    await writer.start()
+    try:
+        (
+            _versions,
+            repo,
+            draft_artifact,
+            conflict_artifact,
+            stakes_artifact,
+            graph_artifact,
+            _validation_artifact,
+        ) = await _ready_pipeline(writer)
+
+        graph_v2 = _graph(
+            draft_artifact.ref,
+            conflict_artifact.ref,
+            stakes_artifact.ref,
+            version="graph-v2",
+        )
+        await repo.revise_story_graph(
+            value=graph_v2,
+            predecessor=graph_artifact.ref,
+            provenance=_provenance(graph_v2, "graph v2"),
+            created_at=NOW,
+            expected_revision=1,
+        )
+
+        graph_v3 = _graph(
+            draft_artifact.ref,
+            conflict_artifact.ref,
+            stakes_artifact.ref,
+            version="graph-v3",
+        )
+        with pytest.raises(
+            StoryCoreGateBlocked,
+            match="StoryGraph revision predecessor is not exact current accepted version",
+        ):
+            await repo.revise_story_graph(
+                value=graph_v3,
+                predecessor=graph_artifact.ref,
+                provenance=_provenance(graph_v3, "stale graph predecessor"),
+                created_at=NOW,
+                expected_revision=2,
+            )
+    finally:
+        await writer.close()
+
+
+def test_frozen_story_core_lock_manifest_rejects_cross_project_graph_refs():
+    payload = _core().model_dump(mode="python")
+    payload["version_id"] = VersionId("core-frozen")
+    payload["phase"] = StoryCorePhase.FROZEN_FOR_STRUCTURE
+    payload["lock_manifest"] = StoryCoreLockManifest(
+        draft_ref=_core().ref,
+        story_graph_ref=VersionRef(
+            logical_id=LogicalId("story-graph:project:other"),
+            version_id=VersionId("graph-v1"),
+        ),
+        causal_validation_ref=VersionRef(
+            logical_id=LogicalId("story-graph-validation:project:film"),
+            version_id=VersionId("validation-v1"),
+        ),
+        locked_at=NOW,
+    )
+    with pytest.raises(ValidationError, match="same project"):
+        StoryCoreVersion.model_validate(payload)
+
+
+@pytest.mark.asyncio
 async def test_story_core_revision_invalidates_old_graph_validation_and_lock(tmp_path):
     writer = SQLiteWriteOwner(tmp_path / "studio.db")
     await writer.start()

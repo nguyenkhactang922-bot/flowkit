@@ -284,6 +284,16 @@ class StoryCoreVersion(BaseModel):
                 raise ValueError(
                     "lock manifest draft must reference same StoryCore identity"
                 )
+            _require_project_logical_id(
+                self.lock_manifest.story_graph_ref,
+                story_graph_logical_id(self.project_id),
+                "lock_manifest.story_graph_ref",
+            )
+            _require_project_logical_id(
+                self.lock_manifest.causal_validation_ref,
+                causal_validation_logical_id(self.project_id),
+                "lock_manifest.causal_validation_ref",
+            )
         return self
 
     @property
@@ -895,6 +905,11 @@ class StoryCoreRepository:
             raise StoryCoreIdentityError(
                 "StoryCore revision must preserve story_core_id"
             )
+        await self._assert_current(
+            predecessor,
+            "StoryCore revision predecessor",
+            {LifecycleState.DRAFT, LifecycleState.LOCKED},
+        )
         previous = await self.get_story_core(predecessor)
         if previous is None:
             raise StoryCoreIdentityError("StoryCore predecessor not found")
@@ -960,6 +975,11 @@ class StoryCoreRepository:
     ) -> tuple[StoryCoreArtifact, tuple[InvalidationRecord, ...]]:
         if predecessor.logical_id != value.logical_id:
             raise StoryCoreIdentityError("ConflictModel revision must preserve identity")
+        await self._assert_current(
+            predecessor,
+            "ConflictModel revision predecessor",
+            {LifecycleState.APPROVED},
+        )
         await self._assert_conflict_inputs(value)
         artifact = await self._create_successor(
             value,
@@ -1013,6 +1033,11 @@ class StoryCoreRepository:
     ) -> tuple[StoryCoreArtifact, tuple[InvalidationRecord, ...]]:
         if predecessor.logical_id != value.logical_id:
             raise StoryCoreIdentityError("StakesModel revision must preserve identity")
+        await self._assert_current(
+            predecessor,
+            "StakesModel revision predecessor",
+            {LifecycleState.APPROVED},
+        )
         await self._assert_stakes_inputs(value)
         artifact = await self._create_successor(
             value,
@@ -1059,6 +1084,11 @@ class StoryCoreRepository:
     ) -> tuple[StoryCoreArtifact, tuple[InvalidationRecord, ...]]:
         if predecessor.logical_id != value.logical_id:
             raise StoryCoreIdentityError("StoryGraph revision must preserve identity")
+        await self._assert_current(
+            predecessor,
+            "StoryGraph revision predecessor",
+            {LifecycleState.DRAFT, LifecycleState.APPROVED},
+        )
         await self._assert_graph_inputs(value)
         artifact = await self._create_successor(
             value,

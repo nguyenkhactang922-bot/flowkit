@@ -118,3 +118,33 @@ Pre-existing `_incoming/` remains untracked and is explicitly outside task scope
 Remote PR/CI/exact-head review/merge/main verification remain pending.
 
 NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD → COMMIT IMP-023 → PUSH → PR → UBUNTU CI → EXACT-HEAD REVIEW → MERGE MAIN → VERIFY MAIN"
+
+
+---
+
+## PR #30 exact-head review repair — superseding local checkpoint
+
+Pre-repair PR head: 98225f121d71145327ec1fe3fb7a1866b5df87aa
+Pre-repair workflow run: 36669953970
+Pre-repair CI: Python 3.10 SUCCESS / Python 3.13 SUCCESS.
+
+That CI result applies only to the pre-repair head.
+
+Exact-head review then found:
+- revision APIs could create successors from historical non-current predecessors when supplied the current CAS revision;
+- frozen StoryCore lock-manifest schema did not reject cross-project StoryGraph / causal-validation logical IDs.
+
+Repair:
+- StoryCore, ConflictModel, StakesModel and StoryGraph revision paths now require the declared predecessor to be the exact current version in an allowed lifecycle state;
+- frozen StoryCore lock manifests now require same-project StoryGraph and causal-validation logical IDs;
+- five negative tests cover stale predecessor forks and cross-project lock-manifest references.
+
+Post-repair local evidence:
+- targeted IMP-023 = 17/17 PASS in 5.04s;
+- affected regression = 82/82 PASS in 9.95s;
+- largest valid Windows regression = 528 PASS / 3 known POSIX-path cases deselected in 15.66s;
+- frozen Master guard = PASS;
+- git diff --check = PASS.
+
+STATUS = REPAIR LOCAL VERIFIED / NEW COMMIT AND CI REQUIRED
+NEXT_EXACT_ACTION = "COMMIT EXACT-HEAD REVIEW REPAIR -> PUSH TO PR #30 -> VERIFY NEW EXACT HEAD -> CI -> FINAL REVIEW -> MERGE MAIN"
