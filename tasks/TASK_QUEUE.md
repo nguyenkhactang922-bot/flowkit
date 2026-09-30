@@ -1426,3 +1426,63 @@ NEXT DEPENDENCY-READY TASK:
 - [ ] IMP-025 - MacroStoryBeat / SequencePlan / Sequence / SceneBudget / Scene / SceneBreakdown / SceneDramaticBeat.
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/MERGE IMP-024 GOVERNANCE SYNC -> CLAIM IMP-025"
+
+
+---
+
+## IMP-025 ACTIVE - 2026-09-30
+
+- [x] Branch recovered/created: chatgpt/IMP-025-narrative-hierarchy.
+- [x] Base verified: c546378694d97a3b88f8f65bb212548f1040f8fe.
+- [x] Worktree verified: only pre-existing untracked _incoming/.
+- [x] Dependencies verified: IMP-024 + IMP-005 MAIN VERIFIED.
+- [ ] Read full MacroStoryBeat / SequencePlan / Sequence / SceneBudget / Scene / SceneBreakdown / SceneDramaticBeat frozen authority.
+- [ ] Audit current narrative hierarchy/planning implementation.
+- [ ] Implement IMP-025.
+- [ ] Targeted + negative tests.
+- [ ] Affected regression.
+- [ ] Broader regression.
+- [ ] Frozen Master guard.
+- [ ] Evidence + exact-head review.
+- [ ] Commit / push / PR / CI / merge / main verify.
+
+NEXT_EXACT_ACTION = "READ FULL IMP-025 FROZEN AUTHORITY + AUDIT CURRENT NARRATIVE HIERARCHY / PLANNING SURFACES"
+
+
+- [x] IMP-025 typed contracts/repository/export/traversal implemented.
+- [x] Targeted + negative tests = 11/11 PASS.
+- [ ] Affected regression.
+- [ ] Broader regression.
+- [ ] Frozen Master guard.
+- [ ] Evidence + exact-head self-review.
+- [ ] Commit / push / PR / CI / merge / main verify.
+
+NEXT_EXACT_ACTION = "RUN IMP-025 AFFECTED REGRESSION"
+
+
+---
+
+## IMP-025 LOCAL VERIFIED - 2026-09-30
+
+- [x] Frozen authority / ADR-0018 read and reconciled.
+- [x] Canonical MacroStoryBeat / Sequence / Scene / SceneDramaticBeat implemented.
+- [x] SequencePlan / SceneBudget / SceneListManifest / SceneBreakdownManifest remain planning/projection only.
+- [x] Shared immutable versioning + CAS/current gates.
+- [x] Shared dependency graph + bidirectional ancestry traversal.
+- [x] Shared dependency-reachable invalidation.
+- [x] Targeted + negative IMP-025 = 11/11 PASS.
+- [x] Affected regression = 95/95 PASS.
+- [x] Largest valid Windows regression = 555 PASS / 3 known POSIX-path cases deselected.
+- [x] Frozen Master guard PASS.
+- [x] Exact-head self-review PASS.
+- [x] Evidence recorded.
+- [ ] Side-effect guard.
+- [ ] Commit.
+- [ ] Push.
+- [ ] Open PR.
+- [ ] Ubuntu CI Python 3.10/3.13.
+- [ ] Exact-head review.
+- [ ] Merge main.
+- [ ] Verify main / MAIN VERIFIED.
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-025"
