@@ -1901,3 +1901,50 @@ Acceptance:
 - frozen Master unchanged = SATISFIED
 
 NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-025 -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN"
+
+
+---
+
+## IMP-025 MAIN VERIFIED - 2026-09-30
+
+ACTIVE_TASK = IMP-025 MACROSTORYBEAT / SEQUENCEPLAN / SEQUENCE / SCENEBUDGET / SCENE / SCENEBREAKDOWN / SCENEDRAMATICBEAT
+FINAL_STATUS = MAIN VERIFIED
+
+Feature branch:
+- chatgpt/IMP-025-narrative-hierarchy
+- feature commit = 0582bf9d075008ee54fb7a78c1689eb115447e02
+
+Pull request:
+- PR #34 = MERGED
+- final exact head = 0582bf9d075008ee54fb7a78c1689eb115447e02
+- PR CI run 36695592106 = SUCCESS
+- Python 3.10 / 3.13 = SUCCESS
+- merge commit / verified feature-main SHA = ce2108a72c2e198ef7a73ef8317195b5f1950b32
+
+Local final main verification:
+- frozen Master guard = PASS
+- targeted IMP-025 = 11/11 PASS
+- affected regression = 95/95 PASS
+- worktree = only pre-existing untracked _incoming/
+
+Main push verification:
+- workflow run 36695853857 = SUCCESS
+- exact head = ce2108a72c2e198ef7a73ef8317195b5f1950b32
+- Python 3.10 / 3.13 full unit CI = SUCCESS
+- frozen Master baseline = SUCCESS
+
+DONE CRITERIA:
+- canonical hierarchy StoryCore -> MacroStoryBeat -> Sequence -> Scene -> SceneDramaticBeat = SATISFIED
+- no generic persistent Beat = SATISFIED
+- no manifest shadow truth = SATISFIED
+- canonical Scene distinct from legacy FlowKit Scene = SATISFIED
+- Scene state-change gate = SATISFIED
+- SceneDramaticBeat microchange/resistance-or-reveal gate = SATISFIED
+- bidirectional exact-version ancestry = SATISFIED
+- immutable successor + exact-current CAS gates = SATISFIED
+- dependency invalidation = SATISFIED
+- provider-neutral canonical contracts = SATISFIED
+- frozen Master unchanged = SATISFIED
+
+GOVERNANCE_SYNC_BRANCH = chatgpt/IMP-025-main-verified-state
+NEXT_EXACT_ACTION = "COMMIT/PUSH/MERGE IMP-025 GOVERNANCE SYNC -> CLAIM IMP-026"
