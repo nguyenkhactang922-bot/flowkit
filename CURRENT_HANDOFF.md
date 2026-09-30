@@ -2038,3 +2038,50 @@ Acceptance:
 - frozen Master unchanged = SATISFIED
 
 NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-027 -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN"
+
+
+---
+
+## IMP-027 MAIN VERIFIED - 2026-09-30
+
+ACTIVE_TASK = IMP-027 STORY CRITIQUE / ROOT CAUSE / STORY REPAIR / QUALITY GATE / SCRIPTLOCK
+FINAL_STATUS = MAIN VERIFIED
+
+Feature branch:
+- chatgpt/IMP-027-story-quality-lock
+- feature commit = fb607fdaa6ede42e03be3ff4c8bc188542cf2497
+
+Pull request:
+- PR #38 = MERGED
+- final exact head = fb607fdaa6ede42e03be3ff4c8bc188542cf2497
+- PR CI run 36708712848 = SUCCESS
+- Python 3.10 / 3.13 = SUCCESS
+- merge commit / verified feature-main SHA = 8399fe76a4c7e7dc08010b6f442ef64a0d09bb4c
+
+Local final main verification:
+- frozen Master guard = PASS
+- targeted IMP-027 = 13/13 PASS
+- affected regression = 127/127 PASS
+- worktree = only pre-existing untracked _incoming/
+
+Main push verification:
+- workflow run 36708995131 = SUCCESS
+- exact head = 8399fe76a4c7e7dc08010b6f442ef64a0d09bb4c
+- Python 3.10 / 3.13 full unit CI = SUCCESS
+- frozen Master baseline = SUCCESS
+
+DONE CRITERIA:
+- independent critique evidence, not hidden story authority = SATISFIED
+- hard blockers cannot be averaged away = SATISFIED
+- exact root-cause ancestry = SATISFIED
+- responsible artifact same-project authority = SATISFIED
+- exact preserve-set repair discipline = SATISFIED
+- hard-gate FAIL dominance = SATISFIED
+- ScriptLock exact lineage + PASS quality = SATISFIED
+- immutable successor + exact-current/CAS gates = SATISFIED
+- dependency invalidation / ancestry = SATISFIED
+- provider-neutral canonical contracts = SATISFIED
+- frozen Master unchanged = SATISFIED
+
+GOVERNANCE_SYNC_BRANCH = chatgpt/IMP-027-main-verified-state
+NEXT_EXACT_ACTION = "COMMIT/PUSH/MERGE IMP-027 GOVERNANCE SYNC -> CLAIM IMP-028"

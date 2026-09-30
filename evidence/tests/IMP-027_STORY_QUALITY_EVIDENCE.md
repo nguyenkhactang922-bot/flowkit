@@ -93,3 +93,53 @@ Known environment exclusions remain unchanged:
 Remote commit/push/PR/CI/merge/main verification remain pending.
 
 NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-027 -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN"
+
+
+---
+
+## IMP-027 MAIN VERIFIED — final feature verification
+
+Feature branch:
+- `chatgpt/IMP-027-story-quality-lock`
+- feature commit = `fb607fdaa6ede42e03be3ff4c8bc188542cf2497`
+
+Pull request:
+- PR #38 = MERGED
+- final exact head = `fb607fdaa6ede42e03be3ff4c8bc188542cf2497`
+- PR CI run = `36708712848`
+- Python 3.10 = SUCCESS
+- Python 3.13 = SUCCESS
+- frozen Master baseline step = SUCCESS in both jobs
+- full unit tests = SUCCESS in both jobs
+- merge commit / verified feature-main SHA = `8399fe76a4c7e7dc08010b6f442ef64a0d09bb4c`
+
+Local final main verification:
+- frozen Master guard = PASS
+- targeted IMP-027 = 13/13 PASS
+- affected regression = 127/127 PASS
+- worktree = only pre-existing untracked `_incoming/`
+
+Main push verification:
+- workflow run = `36708995131`
+- event = push
+- head SHA = `8399fe76a4c7e7dc08010b6f442ef64a0d09bb4c`
+- conclusion = SUCCESS
+- unit (3.10) = SUCCESS
+- unit (3.13) = SUCCESS
+- Verify frozen Master baseline = SUCCESS in both jobs
+- Run unit tests = SUCCESS in both jobs
+
+Final exact-head review:
+- hard blockers cannot be averaged away;
+- root cause requires visible source or exact ancestor;
+- responsible artifact uses delimiter-aware same-project authority;
+- repair preserve-set remains exact;
+- hard-gate FAIL dominates aggregate score;
+- ScriptLock requires PASS quality and exact-current accepted lineage;
+- exact-current/CAS revision gates and dependency invalidation remain active;
+- no provider/camera/render authority leakage;
+- final exact-head review = PASS.
+
+IMP-027 = MAIN VERIFIED
+
+NEXT DEPENDENCY-READY TASK = IMP-028 — NarrativeTrace.
