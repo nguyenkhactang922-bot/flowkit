@@ -1948,3 +1948,93 @@ DONE CRITERIA:
 
 GOVERNANCE_SYNC_BRANCH = chatgpt/IMP-025-main-verified-state
 NEXT_EXACT_ACTION = "COMMIT/PUSH/MERGE IMP-025 GOVERNANCE SYNC -> CLAIM IMP-026"
+
+
+---
+
+## IMP-026 CLAIM / RESUME - 2026-09-30
+
+ACTIVE_TASK = IMP-026 DIALOGUE / SETUP-PAYOFF / SCREENPLAY REALIZATION
+STATUS = CLAIMED / AUTHORITY READ NEXT
+BRANCH = chatgpt/IMP-026-screenplay-realization
+BASE_HEAD = 0672edaac2c8a8ec8bd39e0dd6fffa9cde1f6c5d
+DEPENDS = IMP-025 MAIN VERIFIED + IMP-022 MAIN VERIFIED
+FROZEN_MASTER_SHA = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+WORKTREE = only pre-existing untracked _incoming/ outside task scope
+
+Acceptance:
+- screenplay is realization over canonical narrative structure, never a competing Story/Scene truth store.
+- DialogueIntent is grounded in exact CharacterKnowledgeState / relationship / SceneDramaticBeat context and cannot leak unknown facts.
+- SetupPayoffLink binds exact canonical setup/payoff refs and must fail closed on orphan/missing payoff lineage.
+- ScreenplayScene / Screenplay are versioned realizations that reference canonical Scene / SceneDramaticBeat hierarchy exactly.
+- realization edits cannot silently mutate locked upstream narrative truth.
+- immutable successors + exact-current/CAS discipline.
+- dependency edges/invalidation reuse shared VersionRepository / DependencyGraphRepository / InvalidationRepository.
+- provider-neutral contracts; no render/provider/camera authority leakage.
+- frozen Master unchanged.
+
+NEXT_EXACT_ACTION = "READ FULL IMP-026 FROZEN AUTHORITY + AUDIT CURRENT DIALOGUE/SCREENPLAY SURFACES"
+
+
+---
+
+## IMP-026 Targeted Test Checkpoint - 2026-09-30
+
+STATUS = TARGETED TEST PASS
+BRANCH = chatgpt/IMP-026-screenplay-realization
+BASE_HEAD = 0672edaac2c8a8ec8bd39e0dd6fffa9cde1f6c5d
+TARGETED_RESULT = 11 passed in 3.48s
+TARGETED_EXIT_CODE = 0
+
+Verified:
+- DialogueIntent rejects UNKNOWN character knowledge disclosure.
+- known/believed epistemic state remains upstream-owned; realization cannot invent unknown claims.
+- PAID SetupPayoffLink requires exact StoryGraph SETUP/PAYOFF nodes plus PAYS_OFF trace.
+- BROKEN setup/payoff findings cannot enter accepted screenplay realization.
+- ScreenplayScene must realize exact SceneBreakdownManifest beat coverage/order.
+- ScreenplayDialogueLine cannot realize claims outside declared DialogueIntent disclosure.
+- FullScreenplay directly binds canonical Scene + ScreenplayScene realization and rejects mismatch.
+- bidirectional exact-version ancestry uses shared dependency graph.
+- DialogueIntent revision invalidates dependent ScreenplayScene and FullScreenplay.
+- historical non-current revision predecessor fails closed.
+- project-prefix collisions fail closed.
+- provenance must exactly match declared source versions.
+
+NEXT_EXACT_ACTION = "RUN IMP-026 AFFECTED REGRESSION"
+
+
+---
+
+## IMP-026 LOCAL VERIFIED - 2026-09-30
+
+ACTIVE_TASK = IMP-026 DIALOGUE / SETUP-PAYOFF / SCREENPLAY REALIZATION
+STATUS = LOCAL VERIFIED
+BRANCH = chatgpt/IMP-026-screenplay-realization
+BASE_HEAD = 0672edaac2c8a8ec8bd39e0dd6fffa9cde1f6c5d
+
+Evidence:
+- evidence/tests/IMP-026_SCREENPLAY_REALIZATION_EVIDENCE.md
+- targeted final = 12/12 PASS
+- affected regression final = 114/114 PASS
+- largest valid Windows regression = 567 PASS / 3 known POSIX-path cases deselected
+- one broader invocation classified INTERRUPTED after process check; only broader stage rerun
+- frozen Master guard = PASS
+- frozen semantic SHA unchanged = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+- exact-head self-review = PASS
+- git diff --check = PASS
+- _incoming/ remains untracked and outside scope
+
+Acceptance:
+- screenplay is realization over canonical hierarchy, not a competing story master = SATISFIED
+- DialogueIntent exact knowledge/character/relationship discipline = SATISFIED
+- UNKNOWN knowledge leakage rejected = SATISFIED
+- SetupPayoffLink exact StoryGraph SETUP/PAYOFF + PAYS_OFF trace = SATISFIED
+- BROKEN setup/payoff blocked from accepted screenplay realization = SATISFIED
+- ScreenplayScene exact SceneBreakdownManifest coverage/order = SATISFIED
+- FullScreenplay direct canonical Scene + realization refs = SATISFIED
+- immutable successor + exact-current/CAS gates = SATISFIED
+- dependency invalidation / ancestry reuse shared repositories = SATISFIED
+- provider-neutral authority = SATISFIED
+- frozen Master unchanged = SATISFIED
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-026 -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN"

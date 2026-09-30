@@ -1511,3 +1511,64 @@ NEXT DEPENDENCY-READY TASK:
 - [ ] IMP-026 - Dialogue / Setup-Payoff / Screenplay Realization.
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/MERGE IMP-025 GOVERNANCE SYNC -> CLAIM IMP-026"
+
+
+---
+
+## IMP-026 ACTIVE - 2026-09-30
+
+- [x] Branch created: chatgpt/IMP-026-screenplay-realization.
+- [x] Base verified: 0672edaac2c8a8ec8bd39e0dd6fffa9cde1f6c5d.
+- [x] Worktree verified: only pre-existing untracked _incoming/.
+- [x] Dependencies verified: IMP-025 + IMP-022 MAIN VERIFIED.
+- [ ] Read full Dialogue / Setup-Payoff / Screenplay frozen authority.
+- [ ] Audit current dialogue/screenplay implementation surfaces.
+- [ ] Implement IMP-026.
+- [ ] Targeted + negative tests.
+- [ ] Affected regression.
+- [ ] Broader regression.
+- [ ] Frozen Master guard.
+- [ ] Evidence + exact-head review.
+- [ ] Commit / push / PR / CI / merge / main verify.
+
+NEXT_EXACT_ACTION = "READ FULL IMP-026 FROZEN AUTHORITY + AUDIT CURRENT DIALOGUE/SCREENPLAY SURFACES"
+
+
+- [x] IMP-026 typed contracts/repository/export implemented.
+- [x] Authority hardening: graph PAYS_OFF trace, exact SceneBreakdownManifest coverage, direct Scene-realization binding.
+- [x] Targeted + negative tests = 11/11 PASS.
+- [ ] Affected regression.
+- [ ] Broader regression.
+- [ ] Frozen Master guard.
+- [ ] Evidence + exact-head self-review.
+- [ ] Commit / push / PR / CI / merge / main verify.
+
+NEXT_EXACT_ACTION = "RUN IMP-026 AFFECTED REGRESSION"
+
+
+---
+
+## IMP-026 LOCAL VERIFIED - 2026-09-30
+
+- [x] Frozen Dialogue / Setup-Payoff / Screenplay authority read.
+- [x] DialogueIntent / SetupPayoffLink / ScreenplayScene / FullScreenplay implemented.
+- [x] Exact speaker EntityVersion + knowledge discipline.
+- [x] StoryGraph SETUP/PAYOFF + PAYS_OFF trace hardening.
+- [x] Exact SceneBreakdownManifest beat coverage/order.
+- [x] Direct canonical Scene + ScreenplayScene realization binding.
+- [x] Targeted final = 12/12 PASS.
+- [x] Affected regression final = 114/114 PASS.
+- [x] Largest valid Windows regression = 567 PASS / 3 known POSIX-path cases deselected.
+- [x] Frozen Master guard PASS.
+- [x] Exact-head self-review PASS.
+- [x] Evidence recorded.
+- [ ] Side-effect guard.
+- [ ] Commit.
+- [ ] Push.
+- [ ] Open PR.
+- [ ] Ubuntu CI Python 3.10/3.13.
+- [ ] Exact-head review.
+- [ ] Merge main.
+- [ ] Verify main / MAIN VERIFIED.
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-026"
