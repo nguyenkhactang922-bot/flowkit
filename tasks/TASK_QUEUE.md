@@ -1316,3 +1316,84 @@ NEXT DEPENDENCY-READY TASK:
 - [ ] IMP-024 - StructureProfile / MacroBeatSheet / DurationBudget.
 
 NEXT_EXACT_ACTION = "CLAIM IMP-024 STRUCTUREPROFILE / MACROBEATSHEET / DURATIONBUDGET"
+
+
+---
+
+## IMP-024 ACTIVE - 2026-09-30
+
+- [x] Existing branch recovered: chatgpt/IMP-024-structure-profile-budget.
+- [x] Base verified: 066ce0f2f0c53943fab2e5147ba8d05f48a02cde.
+- [x] Worktree verified: only pre-existing untracked _incoming/.
+- [x] Side-effect guard: no remote IMP-024 branch, no PR.
+- [x] Dependencies verified: IMP-023 + IMP-013 MAIN VERIFIED.
+- [ ] Read full StructureProfile / MacroBeatSheet / DurationBudget frozen authority.
+- [ ] Audit current structure/planning implementation and shared persistence/invalidation patterns.
+- [ ] Implement IMP-024.
+- [ ] Targeted + negative tests.
+- [ ] Affected regression.
+- [ ] Broader regression.
+- [ ] Frozen Master guard.
+- [ ] Evidence + exact-head review.
+- [ ] Commit / push / PR / CI / merge / main verify.
+
+NEXT_EXACT_ACTION = "READ FULL IMP-024 FROZEN AUTHORITY + AUDIT CURRENT STRUCTURE/PLANNING CODE SURFACE"
+
+
+- [x] Targeted IMP-024 = 10/10 PASS (exit 0).
+- [ ] Affected regression.
+- [ ] Broader regression.
+- [ ] Frozen Master guard.
+- [ ] Evidence + exact-head review.
+- [ ] Commit / push / PR / CI / merge / main verify.
+
+NEXT_EXACT_ACTION = "RUN IMP-024 AFFECTED REGRESSION"
+
+
+---
+
+## IMP-024 LOCAL VERIFIED - 2026-09-30
+
+- [x] StructureProfile immutable range policy.
+- [x] ProjectBootstrapInput / DomainResolution authority binding.
+- [x] DurationBudget hierarchy + tolerance reconciliation.
+- [x] MacroBeatSheet ordered reference projection with no MacroStoryBeat truth duplication.
+- [x] exact-version/current gates + stale predecessor fail-closed.
+- [x] durable dependency edges + invalidation.
+- [x] Targeted IMP-024 = 12/12 PASS.
+- [x] Affected regression = 67/67 PASS.
+- [x] Largest valid Windows regression = 540 PASS / 3 known POSIX-path cases deselected.
+- [x] Frozen Master guard PASS.
+- [x] Evidence recorded.
+- [ ] Side-effect guard.
+- [ ] Commit.
+- [ ] Push.
+- [ ] Open PR.
+- [ ] Ubuntu CI Python 3.10/3.13.
+- [ ] Exact-head review.
+- [ ] Merge main.
+- [ ] Verify main / MAIN VERIFIED.
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-024"
+
+
+---
+
+## IMP-024 PR #32 REVIEW REPAIR - 2026-09-30
+
+- [x] Pre-repair PR #32 CI PASS on head 9da1b2cf344b85d20d4c7abdf4544a8e8b843199.
+- [x] Exact-head review found project-prefix collision, stale project/domain source, topic-lineage, and zero-count range bypass gaps.
+- [x] Repair implementation complete.
+- [x] Targeted IMP-024 = 16/16 PASS.
+- [x] Affected regression = 71/71 PASS.
+- [x] Largest valid Windows regression = 544 PASS / 3 known POSIX-path cases deselected.
+- [x] Frozen Master guard PASS.
+- [x] git diff --check PASS.
+- [ ] Commit repair.
+- [ ] Push repair to PR #32.
+- [ ] New exact-head Ubuntu CI Python 3.10/3.13.
+- [ ] Final exact-head review PASS.
+- [ ] Merge main.
+- [ ] Verify main / MAIN VERIFIED.
+
+NEXT_EXACT_ACTION = "COMMIT IMP-024 REVIEW REPAIR -> PUSH PR #32"

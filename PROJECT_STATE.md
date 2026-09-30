@@ -1655,3 +1655,109 @@ IMP-023 DONE CRITERIA:
 - no second StoryCore authority = SATISFIED
 
 NEXT_EXACT_ACTION = "CLAIM IMP-024 STRUCTUREPROFILE / MACROBEATSHEET / DURATIONBUDGET"
+
+
+---
+
+## IMP-024 CLAIM / RESUME - 2026-09-30
+
+ACTIVE_TASK = IMP-024 STRUCTUREPROFILE / MACROBEATSHEET / DURATIONBUDGET
+STATUS = CLAIMED / AUTHORITY READ NEXT
+BRANCH = chatgpt/IMP-024-structure-profile-budget
+BASE_HEAD = 066ce0f2f0c53943fab2e5147ba8d05f48a02cde
+DEPENDS = IMP-023 MAIN VERIFIED + IMP-013 MAIN VERIFIED
+FROZEN_MASTER_SHA = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+WORKTREE = only pre-existing untracked _incoming/ outside task scope
+
+Acceptance:
+- StructureProfile is immutable provider-neutral planning policy, not narrative truth.
+- MacroBeatSheet is projection/manifest only and does not duplicate canonical MacroStoryBeat truth.
+- DurationBudget owns runtime allocation/tolerance only and cannot rewrite narrative facts.
+- exact-version ActiveProductionProfile / StoryCore / planning-source provenance.
+- profile-driven ranges, no universal fixed-count law.
+- parent-child duration allocations reconcile within configured tolerance.
+- stale/non-current inputs fail closed.
+- revisions use immutable successors + CAS/current-pointer discipline.
+- dependency edges/invalidation reuse shared VersionRepository / DependencyGraphRepository / InvalidationRepository.
+- no provider/network side effects in canonical persistence transaction.
+- frozen Master unchanged.
+
+NEXT_EXACT_ACTION = "READ FULL IMP-024 FROZEN AUTHORITY + AUDIT CURRENT STRUCTURE/PLANNING CODE SURFACE"
+
+
+---
+
+## IMP-024 Targeted Test Checkpoint - 2026-09-30
+
+STATUS = TARGETED TEST PASS
+BRANCH = chatgpt/IMP-024-structure-profile-budget
+HEAD = 066ce0f2f0c53943fab2e5147ba8d05f48a02cde
+TARGETED_RESULT = 10 passed in 1.88s
+TARGETED_EXIT_CODE = 0
+
+Verified:
+- StructureProfile range policy and exact ActiveProductionProfile lineage.
+- no false-precision target field in CountRange.
+- DurationBudget parent/child tolerance fail-closed.
+- profile-driven macro allocation count range.
+- MacroBeatSheet is ordered reference/budget projection only.
+- MacroBeatSheet cannot carry MacroStoryBeat dramatic truth fields.
+- FROZEN_FOR_STRUCTURE StoryCore gate.
+- StructureProfile revision invalidates planning descendants.
+- stale StructureProfile/current predecessor fail closed.
+- macro allocation coverage gate.
+
+NEXT_EXACT_ACTION = "RUN IMP-024 AFFECTED REGRESSION"
+
+
+---
+
+## IMP-024 LOCAL VERIFIED - 2026-09-30
+
+ACTIVE_TASK = IMP-024 STRUCTUREPROFILE / MACROBEATSHEET / DURATIONBUDGET
+STATUS = LOCAL VERIFIED
+BRANCH = chatgpt/IMP-024-structure-profile-budget
+BASE_HEAD = 066ce0f2f0c53943fab2e5147ba8d05f48a02cde
+
+Evidence:
+- evidence/tests/IMP-024_STRUCTURE_PLANNING_EVIDENCE.md
+- targeted IMP-024 = 12/12 PASS
+- affected regression = 67/67 PASS
+- largest valid Windows regression = 540 PASS / 3 known POSIX-path cases deselected
+- local video-reviewer integration excluded because ffmpeg is absent on FileMCP Windows PATH
+- frozen Master guard = PASS
+- frozen semantic SHA unchanged = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+- exact-head self-review repaired format/niche/runtime shadow-authority gap before commit
+- git diff --check = PASS
+- _incoming/ remains untracked and outside scope
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-024 -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN"
+
+
+---
+
+## IMP-024 PR #32 Exact-Head Review Repair - 2026-09-30
+
+PR = #32
+PRE_REPAIR_HEAD = 9da1b2cf344b85d20d4c7abdf4544a8e8b843199
+PRE_REPAIR_CI_RUN = 36683179936
+PRE_REPAIR_CI = Python 3.10 SUCCESS / Python 3.13 SUCCESS
+REVIEW_RESULT = REPAIR REQUIRED
+
+Review repairs:
+- delimiter-aware same-project logical-ID boundary;
+- exact-current ProjectBootstrapInput / DomainResolution gates;
+- exact DomainResolution -> TopicResolution lineage pinned by ActiveProductionProfile;
+- zero-count cannot bypass StructureProfile minimum ranges;
+- deterministic full planning hierarchy fixture through Shot.
+
+POST_REPAIR_LOCAL:
+- targeted IMP-024 = 16/16 PASS
+- affected regression = 71/71 PASS
+- largest valid Windows regression = 544 PASS / 3 known POSIX-path cases deselected
+- frozen Master guard = PASS
+- git diff --check = PASS
+- _incoming/ remains untracked and outside scope
+
+STATUS = REPAIR LOCAL VERIFIED / COMMIT+PUSH PENDING
+NEXT_EXACT_ACTION = "COMMIT IMP-024 REVIEW REPAIR -> PUSH PR #32 -> NEW CI -> FINAL REVIEW -> MERGE MAIN -> VERIFY MAIN"
