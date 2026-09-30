@@ -1596,3 +1596,59 @@ NEXT DEPENDENCY-READY TASK:
 - [ ] IMP-027 - Story Critique / Root Cause / Repair / Quality Gate / ScriptLock.
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/MERGE IMP-026 GOVERNANCE SYNC -> CLAIM IMP-027"
+
+
+---
+
+## IMP-027 ACTIVE - 2026-09-30
+
+- [x] Branch created: chatgpt/IMP-027-story-quality-lock.
+- [x] Base verified: fd1ef88f42e53ce34e356821eea44ec7fe64b27f.
+- [x] Worktree verified: only pre-existing untracked _incoming/.
+- [x] Dependencies verified: IMP-026 + IMP-006 MAIN VERIFIED.
+- [ ] Read full Story Critique / Root Cause / Story Repair / Quality Gate / ScriptLock authority.
+- [ ] Audit current critique/quality/lock implementation surfaces.
+- [ ] Implement IMP-027.
+- [ ] Targeted + negative tests.
+- [ ] Affected regression.
+- [ ] Broader regression.
+- [ ] Frozen Master guard.
+- [ ] Evidence + exact-head review.
+- [ ] Commit / push / PR / CI / merge / main verify.
+
+NEXT_EXACT_ACTION = "READ FULL IMP-027 FROZEN AUTHORITY + AUDIT CURRENT CRITIQUE/REPAIR/QUALITY/LOCK SURFACES"
+
+
+- [x] IMP-027 typed contracts/repository/export implemented.
+- [x] Targeted + negative tests = 12/12 PASS.
+- [ ] Affected regression.
+- [ ] Broader regression.
+- [ ] Frozen Master guard.
+- [ ] Evidence + exact-head self-review.
+- [ ] Commit / push / PR / CI / merge / main verify.
+
+NEXT_EXACT_ACTION = "RUN IMP-027 AFFECTED REGRESSION"
+
+
+---
+
+## IMP-027 LOCAL VERIFIED - 2026-09-30
+
+- [x] Frozen critique / root-cause / repair / quality / lock authority read.
+- [x] CritiqueFinding / RootCauseLocalization / StoryRepairPlan / StoryQualityResult / ScriptLockManifest implemented.
+- [x] Targeted final = 13/13 PASS.
+- [x] Affected regression final = 127/127 PASS.
+- [x] Largest valid Windows regression = 580 PASS / 3 known POSIX-path cases deselected.
+- [x] Frozen Master guard PASS.
+- [x] Exact-head self-review PASS.
+- [x] Evidence recorded.
+- [ ] Side-effect guard.
+- [ ] Commit.
+- [ ] Push.
+- [ ] Open PR.
+- [ ] Ubuntu CI Python 3.10/3.13.
+- [ ] Exact-head review.
+- [ ] Merge main.
+- [ ] Verify main / MAIN VERIFIED.
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-027"
