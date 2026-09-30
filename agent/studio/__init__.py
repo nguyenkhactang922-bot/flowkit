@@ -180,6 +180,26 @@ from .research_story_material import (
     UnsupportedSynthesis,
     build_research_provenance,
 )
+from .structure_planning import (
+    BudgetAllocation,
+    BudgetLevel,
+    CountRange,
+    DurationBudget,
+    MacroBeatSheet,
+    MacroBeatSheetEntry,
+    PlanningGateCheck,
+    RuntimeRangeSeconds,
+    StructurePlanningArtifact,
+    StructurePlanningError,
+    StructurePlanningGateBlocked,
+    StructurePlanningIdentityError,
+    StructurePlanningRepository,
+    StructureProfile,
+    build_structure_planning_provenance,
+    duration_budget_logical_id,
+    macro_beat_sheet_logical_id,
+    structure_profile_logical_id,
+)
 from .story_core import (
     CausalFinding,
     CausalStoryGraph,
@@ -258,6 +278,25 @@ from .versioning import (
 )
 
 __all__ = [
+    "BudgetAllocation",
+    "BudgetLevel",
+    "CountRange",
+    "DurationBudget",
+    "MacroBeatSheet",
+    "MacroBeatSheetEntry",
+    "PlanningGateCheck",
+    "RuntimeRangeSeconds",
+    "StructurePlanningArtifact",
+    "StructurePlanningError",
+    "StructurePlanningGateBlocked",
+    "StructurePlanningIdentityError",
+    "StructurePlanningRepository",
+    "StructureProfile",
+    "build_structure_planning_provenance",
+    "duration_budget_logical_id",
+    "macro_beat_sheet_logical_id",
+    "structure_profile_logical_id",
+
     "CausalFinding",
     "CausalStoryGraph",
     "CausalStoryGraphEvaluator",
