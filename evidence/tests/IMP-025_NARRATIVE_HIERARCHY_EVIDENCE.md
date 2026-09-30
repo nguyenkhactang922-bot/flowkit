@@ -129,3 +129,52 @@ Pre-existing `_incoming/` remains untracked and outside task scope.
 Remote commit/push/PR/CI/merge/main verification remain pending.
 
 NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-025 -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN"
+
+
+---
+
+## IMP-025 MAIN VERIFIED — final feature verification
+
+Feature branch:
+- `chatgpt/IMP-025-narrative-hierarchy`
+- feature commit = `0582bf9d075008ee54fb7a78c1689eb115447e02`
+
+Pull request:
+- PR #34 = MERGED
+- final exact head = `0582bf9d075008ee54fb7a78c1689eb115447e02`
+- PR CI run = `36695592106`
+- Python 3.10 = SUCCESS
+- Python 3.13 = SUCCESS
+- frozen Master baseline step = SUCCESS in both jobs
+- full unit tests = SUCCESS in both jobs
+- merge commit / verified feature-main SHA = `ce2108a72c2e198ef7a73ef8317195b5f1950b32`
+
+Local final main verification:
+- frozen Master guard = PASS
+- targeted IMP-025 = 11/11 PASS
+- affected regression = 95/95 PASS
+- worktree = only pre-existing untracked `_incoming/`
+
+Main push verification:
+- workflow run = `36695853857`
+- event = push
+- head SHA = `ce2108a72c2e198ef7a73ef8317195b5f1950b32`
+- conclusion = SUCCESS
+- unit (3.10) = SUCCESS
+- unit (3.13) = SUCCESS
+- Verify frozen Master baseline = SUCCESS in both jobs
+- Run unit tests = SUCCESS in both jobs
+
+Final exact-head review:
+- no generic persistent Beat authority;
+- legacy FlowKit Scene remains execution/compatibility only;
+- MacroStoryBeat / Sequence / Scene / SceneDramaticBeat canonical ownership remains explicit;
+- manifests/budgets remain projection/planning only;
+- exact-current/CAS revision gates and dependency invalidation remain active;
+- bidirectional exact-version ancestry uses shared dependency graph;
+- no provider/camera/prompt authority leakage;
+- final exact-head review = PASS.
+
+IMP-025 = MAIN VERIFIED
+
+NEXT DEPENDENCY-READY TASK = IMP-026 — Dialogue / Setup-Payoff / Screenplay Realization.

@@ -1486,3 +1486,28 @@ NEXT_EXACT_ACTION = "RUN IMP-025 AFFECTED REGRESSION"
 - [ ] Verify main / MAIN VERIFIED.
 
 NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-025"
+
+
+---
+
+## IMP-025 FINAL VERIFICATION - 2026-09-30
+
+- [x] Canonical MacroStoryBeat / Sequence / Scene / SceneDramaticBeat implemented.
+- [x] Planning/projection artifacts remain non-authoritative.
+- [x] Targeted final IMP-025 = 11/11 PASS.
+- [x] Affected regression final = 95/95 PASS.
+- [x] Frozen Master guard PASS.
+- [x] PR #34 exact-head CI run 36695592106 PASS on 0582bf9d075008ee54fb7a78c1689eb115447e02.
+- [x] Final exact-head review PASS.
+- [x] PR #34 merged.
+- [x] Feature main = ce2108a72c2e198ef7a73ef8317195b5f1950b32.
+- [x] Local main targeted + affected + frozen guard PASS.
+- [x] Main push run 36695853857 PASS for Python 3.10 + 3.13.
+- [x] IMP-025 = MAIN VERIFIED.
+- [ ] Governance state sync commit / PR / merge.
+- [ ] CLAIM IMP-026 after governance sync is on main.
+
+NEXT DEPENDENCY-READY TASK:
+- [ ] IMP-026 - Dialogue / Setup-Payoff / Screenplay Realization.
+
+NEXT_EXACT_ACTION = "COMMIT/PUSH/MERGE IMP-025 GOVERNANCE SYNC -> CLAIM IMP-026"
