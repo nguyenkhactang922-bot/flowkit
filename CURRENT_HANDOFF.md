@@ -1453,3 +1453,62 @@ Post-repair local evidence:
 
 STATUS = REPAIR LOCAL VERIFIED / REPAIR COMMIT+PUSH PENDING
 NEXT_EXACT_ACTION = "COMMIT EXACT-HEAD REVIEW REPAIR -> PUSH TO PR #30 -> NEW CI -> FINAL REVIEW -> MERGE MAIN"
+
+
+---
+
+## IMP-023 MAIN VERIFIED - 2026-09-30
+
+ACTIVE_TASK = IMP-023 STORYCORE + CAUSAL STORYGRAPH + LOCK
+FINAL_STATUS = MAIN VERIFIED
+
+Feature branch:
+- chatgpt/IMP-023-storycore-causal-lock
+- initial feature commit = 98225f121d71145327ec1fe3fb7a1866b5df87aa
+- exact-head review repair commit = 83bcc387bcd7116b8312a54e763f2ce745c52d88
+
+Pull request:
+- PR #30 = MERGED
+- final exact head = 83bcc387bcd7116b8312a54e763f2ce745c52d88
+- merge commit / verified main SHA = b0a1663ef5155e7a98711cfddfb5bef264962269
+- exact-head PR CI run 36670609338 = SUCCESS
+- Python 3.10 = SUCCESS
+- Python 3.13 = SUCCESS
+- frozen Master baseline step = SUCCESS in both jobs
+- full unit tests = SUCCESS in both jobs
+
+Local final main verification:
+- frozen Master guard = PASS
+- frozen semantic SHA = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+- targeted IMP-023 = 17/17 PASS
+- affected regression = 82/82 PASS
+- worktree = only pre-existing untracked _incoming/
+
+Main push verification:
+- workflow run 36670754503
+- event = push
+- head SHA = b0a1663ef5155e7a98711cfddfb5bef264962269
+- conclusion = SUCCESS
+- unit (3.10) = SUCCESS
+- unit (3.13) = SUCCESS
+- Verify frozen Master baseline = SUCCESS in both jobs
+- Run unit tests = SUCCESS in both jobs
+
+Exact-head review:
+- initial review found character-to-StoryCore / conflict-stakes lineage and stale graph-validation gaps and they were repaired before initial feature commit completion;
+- final PR review found stale historical predecessor branching plus cross-project lock-manifest refs and they were repaired in 83bcc387bcd7116b8312a54e763f2ce745c52d88;
+- final exact-head review after repair = PASS.
+
+Evidence:
+- evidence/tests/IMP-023_STORYCORE_CAUSAL_LOCK_EVIDENCE.md
+
+IMP-023 DONE CRITERIA:
+- one stable story_core_id = SATISFIED
+- DRAFT -> graph validation -> FROZEN_FOR_STRUCTURE successor = SATISFIED
+- no StoryCore/StoryGraph lock cycle = SATISFIED
+- causal gap/orphan/cycle gates = SATISFIED
+- exact-version provenance and stale-input fail-closed = SATISFIED
+- dependency invalidation = SATISFIED
+- no second StoryCore authority = SATISFIED
+
+NEXT_EXACT_ACTION = "CLAIM IMP-024 STRUCTUREPROFILE / MACROBEATSHEET / DURATIONBUDGET"
