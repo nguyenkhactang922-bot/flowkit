@@ -1945,3 +1945,96 @@ DONE CRITERIA:
 
 GOVERNANCE_SYNC_BRANCH = chatgpt/IMP-026-main-verified-state
 NEXT_EXACT_ACTION = "COMMIT/PUSH/MERGE IMP-026 GOVERNANCE SYNC -> CLAIM IMP-027"
+
+
+---
+
+## IMP-027 CLAIM / RESUME - 2026-09-30
+
+ACTIVE_TASK = IMP-027 STORY CRITIQUE / ROOT CAUSE / STORY REPAIR / QUALITY GATE / SCRIPTLOCK
+STATUS = CLAIMED / AUTHORITY READ NEXT
+BRANCH = chatgpt/IMP-027-story-quality-lock
+BASE_HEAD = fd1ef88f42e53ce34e356821eea44ec7fe64b27f
+DEPENDS = IMP-026 MAIN VERIFIED + IMP-006 MAIN VERIFIED
+FROZEN_MASTER_SHA = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+WORKTREE = only pre-existing untracked _incoming/ outside task scope
+
+Acceptance:
+- independent critique roles remain evidence producers, not hidden story authority.
+- blocking findings cannot be averaged away by aggregate quality scoring.
+- root cause points to earliest responsible exact-version source, not only visible downstream symptom.
+- StoryRepairPlan preserves accepted preserve-set truth and scopes changed targets explicitly.
+- StoryQualityResult aggregates deterministic gates without overriding hard blockers.
+- ScriptLockManifest requires all blocking findings resolved and exact accepted upstream versions.
+- lock cannot silently rewrite StoryCore / narrative hierarchy / screenplay realization.
+- immutable successors + exact-current/CAS discipline.
+- dependency edges/invalidation reuse shared VersionRepository / DependencyGraphRepository / InvalidationRepository.
+- provider-neutral contracts; frozen Master unchanged.
+
+NEXT_EXACT_ACTION = "READ FULL IMP-027 FROZEN AUTHORITY + AUDIT CURRENT CRITIQUE/REPAIR/QUALITY/LOCK SURFACES"
+
+
+---
+
+## IMP-027 Targeted Test Checkpoint - 2026-09-30
+
+STATUS = TARGETED TEST PASS
+BRANCH = chatgpt/IMP-027-story-quality-lock
+BASE_HEAD = fd1ef88f42e53ce34e356821eea44ec7fe64b27f
+TARGETED_RESULT = 12 passed in 5.17s
+TARGETED_EXIT_CODE = 0
+
+Verified:
+- independent critic role cannot equal generator role.
+- subjective disagreement cannot auto-escalate to BLOCKER.
+- hard-gate critique kinds remain BLOCKER severity.
+- aggregate score cannot override unresolved BLOCKER finding.
+- root cause must be visible source or exact dependency ancestor.
+- repair plan cannot drop diagnosed preserve set.
+- hard-gate FAIL forces StoryQualityResult FAIL.
+- ScriptLock requires StoryQualityResult PASS.
+- resolved blocker can PASS quality and create exact immutable lock.
+- quality revision invalidates dependent ScriptLock.
+- historical non-current revision predecessor fails closed.
+- project-prefix collision / provenance mismatch / human-approval preconditions fail closed.
+- dependency reachability comparison uses exact graph node keys, not direct VersionRef equality.
+
+NEXT_EXACT_ACTION = "RUN IMP-027 AFFECTED REGRESSION"
+
+
+---
+
+## IMP-027 LOCAL VERIFIED - 2026-09-30
+
+ACTIVE_TASK = IMP-027 STORY CRITIQUE / ROOT CAUSE / STORY REPAIR / QUALITY GATE / SCRIPTLOCK
+STATUS = LOCAL VERIFIED
+BRANCH = chatgpt/IMP-027-story-quality-lock
+BASE_HEAD = fd1ef88f42e53ce34e356821eea44ec7fe64b27f
+
+Evidence:
+- evidence/tests/IMP-027_STORY_QUALITY_EVIDENCE.md
+- targeted final = 13/13 PASS
+- affected regression final = 127/127 PASS
+- largest valid Windows regression = 580 PASS / 3 known POSIX-path cases deselected
+- one broader invocation classified INTERRUPTED after process check; only broader stage rerun
+- frozen Master guard = PASS
+- frozen semantic SHA unchanged = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+- exact-head self-review = PASS
+- git diff --check = PASS
+- _incoming/ remains untracked and outside scope
+
+Acceptance:
+- independent critique evidence, not hidden story authority = SATISFIED
+- subjective disagreement cannot auto-BLOCKER = SATISFIED
+- hard blockers cannot be averaged away = SATISFIED
+- root cause exact-source / exact-ancestor discipline = SATISFIED
+- responsible artifact same-project authority = SATISFIED
+- repair preserve-set discipline = SATISFIED
+- hard-gate FAIL dominance = SATISFIED
+- ScriptLock requires PASS quality + exact accepted refs = SATISFIED
+- immutable successor + exact-current/CAS gates = SATISFIED
+- dependency invalidation / ancestry reuse shared repositories = SATISFIED
+- provider-neutral authority = SATISFIED
+- frozen Master unchanged = SATISFIED
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-027 -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN"
