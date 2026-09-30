@@ -2038,3 +2038,49 @@ Acceptance:
 - frozen Master unchanged = SATISFIED
 
 NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-026 -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN"
+
+
+---
+
+## IMP-026 MAIN VERIFIED - 2026-09-30
+
+ACTIVE_TASK = IMP-026 DIALOGUE / SETUP-PAYOFF / SCREENPLAY REALIZATION
+FINAL_STATUS = MAIN VERIFIED
+
+Feature branch:
+- chatgpt/IMP-026-screenplay-realization
+- feature commit = 01443f365114584b4a62a677b2b904695efb7f98
+
+Pull request:
+- PR #36 = MERGED
+- final exact head = 01443f365114584b4a62a677b2b904695efb7f98
+- PR CI run 36702830926 = SUCCESS
+- Python 3.10 / 3.13 = SUCCESS
+- merge commit / verified feature-main SHA = 5e8b20b6a2770488cfbe0f8e0b6cf9c8b6173155
+
+Local final main verification:
+- frozen Master guard = PASS
+- targeted IMP-026 = 12/12 PASS
+- affected regression = 114/114 PASS
+- worktree = only pre-existing untracked _incoming/
+
+Main push verification:
+- workflow run 36703362942 = SUCCESS
+- exact head = 5e8b20b6a2770488cfbe0f8e0b6cf9c8b6173155
+- Python 3.10 / 3.13 full unit CI = SUCCESS
+- frozen Master baseline = SUCCESS
+
+DONE CRITERIA:
+- screenplay realization does not create competing story/scene truth = SATISFIED
+- DialogueIntent exact epistemic discipline = SATISFIED
+- UNKNOWN knowledge leakage rejected = SATISFIED
+- SetupPayoffLink causal trace and broken-link blocking = SATISFIED
+- ScreenplayScene exact beat realization = SATISFIED
+- FullScreenplay exact Scene + realization binding = SATISFIED
+- immutable successor + exact-current CAS gates = SATISFIED
+- dependency invalidation + ancestry = SATISFIED
+- provider-neutral canonical contracts = SATISFIED
+- frozen Master unchanged = SATISFIED
+
+GOVERNANCE_SYNC_BRANCH = chatgpt/IMP-026-main-verified-state
+NEXT_EXACT_ACTION = "COMMIT/PUSH/MERGE IMP-026 GOVERNANCE SYNC -> CLAIM IMP-027"
