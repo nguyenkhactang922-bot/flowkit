@@ -104,3 +104,51 @@ Known environment exclusions remain unchanged:
 Remote commit/push/PR/CI/merge/main verification remain pending.
 
 NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-026 -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN"
+
+
+---
+
+## IMP-026 MAIN VERIFIED — final feature verification
+
+Feature branch:
+- `chatgpt/IMP-026-screenplay-realization`
+- feature commit = `01443f365114584b4a62a677b2b904695efb7f98`
+
+Pull request:
+- PR #36 = MERGED
+- final exact head = `01443f365114584b4a62a677b2b904695efb7f98`
+- PR CI run = `36702830926`
+- Python 3.10 = SUCCESS
+- Python 3.13 = SUCCESS
+- frozen Master baseline step = SUCCESS in both jobs
+- full unit tests = SUCCESS in both jobs
+- merge commit / verified feature-main SHA = `5e8b20b6a2770488cfbe0f8e0b6cf9c8b6173155`
+
+Local final main verification:
+- frozen Master guard = PASS
+- targeted IMP-026 = 12/12 PASS
+- affected regression = 114/114 PASS
+- worktree = only pre-existing untracked `_incoming/`
+
+Main push verification:
+- workflow run = `36703362942`
+- event = push
+- head SHA = `5e8b20b6a2770488cfbe0f8e0b6cf9c8b6173155`
+- conclusion = SUCCESS
+- unit (3.10) = SUCCESS
+- unit (3.13) = SUCCESS
+- Verify frozen Master baseline = SUCCESS in both jobs
+- Run unit tests = SUCCESS in both jobs
+
+Final exact-head review:
+- UNKNOWN knowledge leakage fail-closed;
+- StoryGraph PAYS_OFF trace required for accepted payoff;
+- exact SceneBreakdownManifest beat realization enforced;
+- FullScreenplay binds canonical Scene + screenplay realization exactly;
+- exact-current/CAS revision gates and dependency invalidation remain active;
+- no provider/camera/render authority leakage;
+- final exact-head review = PASS.
+
+IMP-026 = MAIN VERIFIED
+
+NEXT DEPENDENCY-READY TASK = IMP-027 — Story Critique / Root Cause / Repair / Quality Gate / ScriptLock.
