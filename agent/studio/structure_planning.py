@@ -133,6 +133,17 @@ def _require_same_project_ref(
         )
 
 
+def _is_project_scoped_logical_id(
+    ref: VersionRef,
+    *,
+    prefix: str,
+    project_id: LogicalId,
+) -> bool:
+    base = f"{prefix}{project_id.root}"
+    root = ref.logical_id.root
+    return root == base or root.startswith(base + ":")
+
+
 class CountRange(BaseModel):
     """Profile-driven count range; deliberately has no universal exact target."""
 
@@ -299,8 +310,11 @@ class DurationBudget(BaseModel):
 
         for item in self.allocations:
             if item.target_ref is not None:
-                expected_prefix = f"{_LEVEL_PREFIX[item.level]}{self.project_id.root}"
-                if not item.target_ref.logical_id.root.startswith(expected_prefix):
+                if not _is_project_scoped_logical_id(
+                    item.target_ref,
+                    prefix=_LEVEL_PREFIX[item.level],
+                    project_id=self.project_id,
+                ):
                     raise ValueError(
                         "budget allocation target must belong to the same project"
                     )
@@ -477,10 +491,11 @@ class MacroBeatSheet(BaseModel):
             raise ValueError(
                 "MacroBeatSheet order_index values must be contiguous from zero"
             )
-        expected_macro_prefix = f"macro-story-beat:{self.project_id.root}"
         if any(
-            not entry.macro_story_beat_ref.logical_id.root.startswith(
-                expected_macro_prefix
+            not _is_project_scoped_logical_id(
+                entry.macro_story_beat_ref,
+                prefix="macro-story-beat:",
+                project_id=self.project_id,
             )
             for entry in self.entries
         ):
@@ -884,6 +899,25 @@ class StructurePlanningRepository:
             "ActiveProductionProfile",
             {LifecycleState.LOCKED},
         )
+        await self._assert_current(
+            value.project_ref,
+            "ProjectBootstrapInput",
+            {
+                LifecycleState.DRAFT,
+                LifecycleState.REVIEW,
+                LifecycleState.APPROVED,
+                LifecycleState.LOCKED,
+            },
+        )
+        await self._assert_current(
+            value.domain_ref,
+            "DomainResolution",
+            {
+                LifecycleState.REVIEW,
+                LifecycleState.APPROVED,
+                LifecycleState.LOCKED,
+            },
+        )
         profile = await self._load_active_profile(value.active_profile_ref)
         if profile.project_id != value.project_id:
             raise StructurePlanningGateBlocked(
@@ -903,6 +937,11 @@ class StructurePlanningRepository:
         if project.project_id != value.project_id or domain.project_id != value.project_id:
             raise StructurePlanningGateBlocked(
                 "StructureProfile project/domain inputs belong to a different project"
+            )
+        if domain.topic_resolution_ref != profile.topic_ref:
+            raise StructurePlanningGateBlocked(
+                "StructureProfile DomainResolution must bind the exact TopicResolution "
+                "pinned by ActiveProductionProfile"
             )
         if (
             project.target_duration_seconds is not None
@@ -976,7 +1015,7 @@ class StructurePlanningRepository:
         }
         for level, count_range in level_ranges.items():
             count = sum(1 for item in value.allocations if item.level is level)
-            if count and not count_range.contains(count):
+            if not count_range.contains(count):
                 raise StructurePlanningGateBlocked(
                     f"{level.value} allocation count falls outside StructureProfile range"
                 )

@@ -130,3 +130,41 @@ Pre-existing `_incoming/` remains untracked and outside task scope.
 Remote commit/push/PR/CI/exact-head review/merge/main verification remain pending.
 
 NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-024 -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN"
+
+
+---
+
+## PR #32 exact-head review repair — superseding checkpoint
+
+Pre-repair PR head:
+- `9da1b2cf344b85d20d4c7abdf4544a8e8b843199`
+- PR #32 CI run = `36683179936`
+- Python 3.10 = SUCCESS
+- Python 3.13 = SUCCESS
+
+That CI result applies only to the pre-repair head.
+
+Final exact-head review found three fail-open / authority-boundary gaps:
+1. project-scoped allocation/MacroStoryBeat identity checks used raw `startswith`, so `project:film2` could be accepted for project `project:film`;
+2. StructureProfile could consume stale ProjectBootstrapInput / DomainResolution refs even while ActiveProductionProfile remained current;
+3. profile-driven range checks skipped a level entirely when allocation count was zero, so minimum Sequence/Scene/SceneDramaticBeat constraints could be bypassed.
+
+Repair:
+- add delimiter-aware project-scope identity validation;
+- require exact-current ProjectBootstrapInput and DomainResolution;
+- require DomainResolution to pin the exact TopicResolution carried by ActiveProductionProfile;
+- enforce StructureProfile count ranges even when allocation count is zero;
+- expand deterministic test budget hierarchy through MacroStoryBeat -> Sequence -> Scene -> SceneDramaticBeat -> Shot;
+- add negative tests for project-prefix collision, stale project/domain sources, topic-lineage mismatch, and missing required budget levels.
+
+Post-repair local evidence:
+- targeted IMP-024 = `16/16 PASS`;
+- affected regression = `71/71 PASS`;
+- largest valid Windows regression = `544 PASS / 3 known POSIX-path cases deselected`;
+- frozen Master guard = PASS;
+- frozen semantic SHA unchanged = `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`;
+- `git diff --check` = PASS;
+- pre-existing `_incoming/` remains untracked and outside scope.
+
+STATUS = REVIEW REPAIR LOCAL VERIFIED / NEW COMMIT+CI REQUIRED
+NEXT_EXACT_ACTION = "COMMIT IMP-024 REVIEW REPAIR -> PUSH PR #32 -> NEW EXACT-HEAD CI -> FINAL REVIEW -> MERGE MAIN -> VERIFY MAIN"

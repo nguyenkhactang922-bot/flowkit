@@ -1375,3 +1375,25 @@ NEXT_EXACT_ACTION = "RUN IMP-024 AFFECTED REGRESSION"
 - [ ] Verify main / MAIN VERIFIED.
 
 NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-024"
+
+
+---
+
+## IMP-024 PR #32 REVIEW REPAIR - 2026-09-30
+
+- [x] Pre-repair PR #32 CI PASS on head 9da1b2cf344b85d20d4c7abdf4544a8e8b843199.
+- [x] Exact-head review found project-prefix collision, stale project/domain source, topic-lineage, and zero-count range bypass gaps.
+- [x] Repair implementation complete.
+- [x] Targeted IMP-024 = 16/16 PASS.
+- [x] Affected regression = 71/71 PASS.
+- [x] Largest valid Windows regression = 544 PASS / 3 known POSIX-path cases deselected.
+- [x] Frozen Master guard PASS.
+- [x] git diff --check PASS.
+- [ ] Commit repair.
+- [ ] Push repair to PR #32.
+- [ ] New exact-head Ubuntu CI Python 3.10/3.13.
+- [ ] Final exact-head review PASS.
+- [ ] Merge main.
+- [ ] Verify main / MAIN VERIFIED.
+
+NEXT_EXACT_ACTION = "COMMIT IMP-024 REVIEW REPAIR -> PUSH PR #32"

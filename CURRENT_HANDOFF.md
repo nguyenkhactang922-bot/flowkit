@@ -1593,3 +1593,32 @@ Evidence:
 - _incoming/ remains untracked and outside scope
 
 NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-024 -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN"
+
+
+---
+
+## IMP-024 PR #32 Exact-Head Review Repair - 2026-09-30
+
+PR = #32
+PRE_REPAIR_HEAD = 9da1b2cf344b85d20d4c7abdf4544a8e8b843199
+PRE_REPAIR_CI_RUN = 36683179936
+PRE_REPAIR_CI = Python 3.10 SUCCESS / Python 3.13 SUCCESS
+REVIEW_RESULT = REPAIR REQUIRED
+
+Review repairs:
+- delimiter-aware same-project logical-ID boundary;
+- exact-current ProjectBootstrapInput / DomainResolution gates;
+- exact DomainResolution -> TopicResolution lineage pinned by ActiveProductionProfile;
+- zero-count cannot bypass StructureProfile minimum ranges;
+- deterministic full planning hierarchy fixture through Shot.
+
+POST_REPAIR_LOCAL:
+- targeted IMP-024 = 16/16 PASS
+- affected regression = 71/71 PASS
+- largest valid Windows regression = 544 PASS / 3 known POSIX-path cases deselected
+- frozen Master guard = PASS
+- git diff --check = PASS
+- _incoming/ remains untracked and outside scope
+
+STATUS = REPAIR LOCAL VERIFIED / COMMIT+PUSH PENDING
+NEXT_EXACT_ACTION = "COMMIT IMP-024 REVIEW REPAIR -> PUSH PR #32 -> NEW CI -> FINAL REVIEW -> MERGE MAIN -> VERIFY MAIN"

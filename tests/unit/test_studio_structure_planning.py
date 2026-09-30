@@ -366,6 +366,102 @@ def _budget(
                     parent_allocation_id="macro-b",
                     seconds=20,
                 ),
+                BudgetAllocation(
+                    allocation_id="scene-a1",
+                    level=BudgetLevel.SCENE,
+                    parent_allocation_id="seq-a1",
+                    seconds=30,
+                ),
+                BudgetAllocation(
+                    allocation_id="scene-a2",
+                    level=BudgetLevel.SCENE,
+                    parent_allocation_id="seq-a2",
+                    seconds=30,
+                ),
+                BudgetAllocation(
+                    allocation_id="scene-b1",
+                    level=BudgetLevel.SCENE,
+                    parent_allocation_id="seq-b1",
+                    seconds=40,
+                ),
+                BudgetAllocation(
+                    allocation_id="scene-b2",
+                    level=BudgetLevel.SCENE,
+                    parent_allocation_id="seq-b2",
+                    seconds=20,
+                ),
+                BudgetAllocation(
+                    allocation_id="beat-a1-1",
+                    level=BudgetLevel.SCENE_DRAMATIC_BEAT,
+                    parent_allocation_id="scene-a1",
+                    seconds=15,
+                ),
+                BudgetAllocation(
+                    allocation_id="beat-a1-2",
+                    level=BudgetLevel.SCENE_DRAMATIC_BEAT,
+                    parent_allocation_id="scene-a1",
+                    seconds=15,
+                ),
+                BudgetAllocation(
+                    allocation_id="beat-a2-1",
+                    level=BudgetLevel.SCENE_DRAMATIC_BEAT,
+                    parent_allocation_id="scene-a2",
+                    seconds=30,
+                ),
+                BudgetAllocation(
+                    allocation_id="beat-b1-1",
+                    level=BudgetLevel.SCENE_DRAMATIC_BEAT,
+                    parent_allocation_id="scene-b1",
+                    seconds=20,
+                ),
+                BudgetAllocation(
+                    allocation_id="beat-b1-2",
+                    level=BudgetLevel.SCENE_DRAMATIC_BEAT,
+                    parent_allocation_id="scene-b1",
+                    seconds=20,
+                ),
+                BudgetAllocation(
+                    allocation_id="beat-b2-1",
+                    level=BudgetLevel.SCENE_DRAMATIC_BEAT,
+                    parent_allocation_id="scene-b2",
+                    seconds=20,
+                ),
+                BudgetAllocation(
+                    allocation_id="shot-a1-1",
+                    level=BudgetLevel.SHOT,
+                    parent_allocation_id="beat-a1-1",
+                    seconds=15,
+                ),
+                BudgetAllocation(
+                    allocation_id="shot-a1-2",
+                    level=BudgetLevel.SHOT,
+                    parent_allocation_id="beat-a1-2",
+                    seconds=15,
+                ),
+                BudgetAllocation(
+                    allocation_id="shot-a2-1",
+                    level=BudgetLevel.SHOT,
+                    parent_allocation_id="beat-a2-1",
+                    seconds=30,
+                ),
+                BudgetAllocation(
+                    allocation_id="shot-b1-1",
+                    level=BudgetLevel.SHOT,
+                    parent_allocation_id="beat-b1-1",
+                    seconds=20,
+                ),
+                BudgetAllocation(
+                    allocation_id="shot-b1-2",
+                    level=BudgetLevel.SHOT,
+                    parent_allocation_id="beat-b1-2",
+                    seconds=20,
+                ),
+                BudgetAllocation(
+                    allocation_id="shot-b2-1",
+                    level=BudgetLevel.SHOT,
+                    parent_allocation_id="beat-b2-1",
+                    seconds=20,
+                ),
             )
         )
     return DurationBudget(
@@ -528,6 +624,126 @@ async def test_structure_profile_rejects_shadow_format_genre_and_runtime(tmp_pat
         await writer.close()
 
 
+@pytest.mark.asyncio
+async def test_structure_profile_rejects_stale_project_and_domain_inputs(tmp_path):
+    writer = SQLiteWriteOwner(tmp_path / "studio.db")
+    await writer.start()
+    try:
+        versions = await _seed_context(writer)
+        repo = StructurePlanningRepository(writer)
+
+        project_v2 = VersionRef(
+            logical_id=PROJECT_REF.logical_id,
+            version_id=VersionId("project-v2"),
+        )
+        await versions.create_successor(
+            metadata=_metadata(project_v2, predecessor=PROJECT_REF),
+            payload=_project_input().model_dump(mode="json"),
+            supersession_reason="project input revised",
+        )
+        await versions.update_current(
+            logical_id=project_v2.logical_id,
+            version_id=project_v2.version_id,
+            status=LifecycleState.DRAFT,
+            expected_revision=0,
+        )
+
+        stale_project = _structure_profile()
+        with pytest.raises(
+            StructurePlanningGateBlocked,
+            match="ProjectBootstrapInput is not exact current accepted version",
+        ):
+            await repo.create_structure_profile(
+                value=stale_project,
+                provenance=_provenance(stale_project, "stale project source"),
+                created_at=NOW,
+            )
+    finally:
+        await writer.close()
+
+    writer = SQLiteWriteOwner(tmp_path / "studio-domain.db")
+    await writer.start()
+    try:
+        versions = await _seed_context(writer)
+        repo = StructurePlanningRepository(writer)
+
+        domain_v2 = VersionRef(
+            logical_id=DOMAIN_REF.logical_id,
+            version_id=VersionId("domain-v2"),
+        )
+        await versions.create_successor(
+            metadata=_metadata(domain_v2, predecessor=DOMAIN_REF),
+            payload=_domain_resolution().model_dump(mode="json"),
+            supersession_reason="domain resolution revised",
+        )
+        await versions.update_current(
+            logical_id=domain_v2.logical_id,
+            version_id=domain_v2.version_id,
+            status=LifecycleState.REVIEW,
+            expected_revision=0,
+        )
+
+        stale_domain = _structure_profile()
+        with pytest.raises(
+            StructurePlanningGateBlocked,
+            match="DomainResolution is not exact current accepted version",
+        ):
+            await repo.create_structure_profile(
+                value=stale_domain,
+                provenance=_provenance(stale_domain, "stale domain source"),
+                created_at=NOW,
+            )
+    finally:
+        await writer.close()
+
+
+@pytest.mark.asyncio
+async def test_structure_profile_rejects_domain_topic_lineage_mismatch(tmp_path):
+    writer = SQLiteWriteOwner(tmp_path / "studio.db")
+    await writer.start()
+    try:
+        versions = VersionRepository(writer)
+        await _seed(
+            versions,
+            PROJECT_REF,
+            status=LifecycleState.DRAFT,
+            payload=_project_input().model_dump(mode="json"),
+        )
+        wrong_topic = VersionRef(
+            logical_id=TOPIC_REF.logical_id,
+            version_id=VersionId("topic-other-v1"),
+        )
+        mismatched_domain = _domain_resolution().model_copy(
+            update={"topic_resolution_ref": wrong_topic}
+        )
+        await _seed(
+            versions,
+            DOMAIN_REF,
+            status=LifecycleState.REVIEW,
+            payload=mismatched_domain.model_dump(mode="json"),
+        )
+        await _seed(
+            versions,
+            ACTIVE_PROFILE_REF,
+            status=LifecycleState.LOCKED,
+            payload=_active_profile().model_dump(mode="json"),
+        )
+
+        repo = StructurePlanningRepository(writer)
+        structure = _structure_profile()
+        with pytest.raises(
+            StructurePlanningGateBlocked,
+            match="exact TopicResolution pinned by ActiveProductionProfile",
+        ):
+            await repo.create_structure_profile(
+                value=structure,
+                provenance=_provenance(structure, "mismatched topic lineage"),
+                created_at=NOW,
+            )
+    finally:
+        await writer.close()
+
+
 def test_macro_projection_refs_reject_cross_project_identity():
     structure_ref = VersionRef(
         logical_id=LogicalId("structure-profile:project:film"),
@@ -539,11 +755,26 @@ def test_macro_projection_refs_reject_cross_project_identity():
     )
     payload = _sheet(structure_ref, budget_ref).model_dump(mode="python")
     payload["entries"][0]["macro_story_beat_ref"] = VersionRef(
-        logical_id=LogicalId("macro-story-beat:project:other:opening"),
+        logical_id=LogicalId("macro-story-beat:project:film2:opening"),
         version_id=VersionId("macro-v1"),
     )
     with pytest.raises(ValidationError, match="same project"):
         MacroBeatSheet.model_validate(payload)
+
+
+def test_duration_budget_rejects_project_prefix_collision_target():
+    structure_ref = VersionRef(
+        logical_id=LogicalId("structure-profile:project:film"),
+        version_id=VersionId("structure-v1"),
+    )
+    valid = _budget(structure_ref)
+    payload = valid.model_dump(mode="python")
+    payload["allocations"][0]["target_ref"] = VersionRef(
+        logical_id=LogicalId("macro-story-beat:project:film2:opening"),
+        version_id=VersionId("macro-v1"),
+    )
+    with pytest.raises(ValidationError, match="same project"):
+        DurationBudget.model_validate(payload)
 
 
 def test_duration_budget_parent_child_tolerance_passes_and_overflow_fails():
@@ -562,6 +793,36 @@ def test_duration_budget_parent_child_tolerance_passes_and_overflow_fails():
             item["seconds"] = 20
     with pytest.raises(ValidationError, match="BUDGET_RUNTIME_OVERFLOW"):
         DurationBudget.model_validate(payload)
+
+
+@pytest.mark.asyncio
+async def test_duration_budget_rejects_missing_profile_required_levels(tmp_path):
+    writer = SQLiteWriteOwner(tmp_path / "studio.db")
+    await writer.start()
+    try:
+        await _seed_context(writer)
+        repo = StructurePlanningRepository(writer)
+        structure = _structure_profile()
+        structure_artifact = await repo.create_structure_profile(
+            value=structure,
+            provenance=_provenance(structure, "structure"),
+            created_at=NOW,
+        )
+        incomplete = _budget(
+            structure_artifact.ref,
+            include_children=False,
+        )
+        with pytest.raises(
+            StructurePlanningGateBlocked,
+            match="SEQUENCE allocation count falls outside StructureProfile range",
+        ):
+            await repo.create_duration_budget(
+                value=incomplete,
+                provenance=_provenance(incomplete, "missing required levels"),
+                created_at=NOW,
+            )
+    finally:
+        await writer.close()
 
 
 @pytest.mark.asyncio
