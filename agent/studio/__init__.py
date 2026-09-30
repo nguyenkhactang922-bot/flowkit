@@ -590,3 +590,44 @@ __all__ += [
     "sequence_logical_id",
     "sequence_plan_logical_id",
 ]
+
+
+from .screenplay_realization import (
+    DialogueIntent,
+    FullScreenplay,
+    ScreenplayArtifact,
+    ScreenplayDialogueLine,
+    ScreenplayRealizationError,
+    ScreenplayRealizationGateBlocked,
+    ScreenplayRealizationIdentityError,
+    ScreenplayRealizationRepository,
+    ScreenplayScene,
+    ScreenplaySceneEntry,
+    SetupPayoffLink,
+    SetupPayoffStatus,
+    build_screenplay_provenance,
+    dialogue_intent_logical_id,
+    screenplay_logical_id,
+    screenplay_scene_logical_id,
+    setup_payoff_link_logical_id,
+)
+
+__all__ += [
+    "DialogueIntent",
+    "FullScreenplay",
+    "ScreenplayArtifact",
+    "ScreenplayDialogueLine",
+    "ScreenplayRealizationError",
+    "ScreenplayRealizationGateBlocked",
+    "ScreenplayRealizationIdentityError",
+    "ScreenplayRealizationRepository",
+    "ScreenplayScene",
+    "ScreenplaySceneEntry",
+    "SetupPayoffLink",
+    "SetupPayoffStatus",
+    "build_screenplay_provenance",
+    "dialogue_intent_logical_id",
+    "screenplay_logical_id",
+    "screenplay_scene_logical_id",
+    "setup_payoff_link_logical_id",
+]
