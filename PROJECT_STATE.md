@@ -1808,3 +1808,96 @@ DONE CRITERIA:
 
 GOVERNANCE_SYNC_BRANCH = chatgpt/IMP-024-main-verified-state
 NEXT_EXACT_ACTION = "COMMIT/PUSH/MERGE IMP-024 GOVERNANCE SYNC -> CLAIM IMP-025"
+
+
+---
+
+## IMP-025 CLAIM / RESUME - 2026-09-30
+
+ACTIVE_TASK = IMP-025 MACROSTORYBEAT / SEQUENCEPLAN / SEQUENCE / SCENEBUDGET / SCENE / SCENEBREAKDOWN / SCENEDRAMATICBEAT
+STATUS = CLAIMED / AUTHORITY READ NEXT
+BRANCH = chatgpt/IMP-025-narrative-hierarchy
+BASE_HEAD = c546378694d97a3b88f8f65bb212548f1040f8fe
+DEPENDS = IMP-024 MAIN VERIFIED + IMP-005 MAIN VERIFIED
+FROZEN_MASTER_SHA = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+WORKTREE = only pre-existing untracked _incoming/ outside task scope
+
+Acceptance:
+- canonical hierarchy remains StoryCore -> MacroStoryBeat -> Sequence -> Scene -> SceneDramaticBeat.
+- no generic persistent Beat authority.
+- projection manifests never duplicate narrative truth.
+- MacroStoryBeat / Sequence / Scene / SceneDramaticBeat each own exactly one canonical ID/version boundary.
+- Scene requires meaningful state change; SceneDramaticBeat requires dramatic microchange.
+- exact-version parent/source provenance and bidirectional ancestry support.
+- structure/budget planning from IMP-024 constrains expansion but cannot rewrite narrative truth.
+- immutable successors + CAS/current-pointer discipline.
+- dependency edges/invalidation reuse shared VersionRepository / DependencyGraphRepository / InvalidationRepository.
+- provider-neutral contracts; no camera/lens/light/provider payload authority.
+- frozen Master unchanged.
+
+NEXT_EXACT_ACTION = "READ FULL IMP-025 FROZEN AUTHORITY + AUDIT CURRENT NARRATIVE HIERARCHY / PLANNING SURFACES"
+
+
+---
+
+## IMP-025 Targeted Test Checkpoint - 2026-09-30
+
+STATUS = TARGETED TEST PASS
+BRANCH = chatgpt/IMP-025-narrative-hierarchy
+BASE_HEAD = c546378694d97a3b88f8f65bb212548f1040f8fe
+TARGETED_RESULT = 11 passed in 6.39s
+TARGETED_EXIT_CODE = 0
+
+Verified:
+- no generic persistent Beat canonical entity.
+- canonical Scene is distinct from legacy FlowKit operational Scene.
+- MacroStoryBeat -> Sequence -> Scene -> SceneDramaticBeat exact-version persistence.
+- bidirectional exact-version ancestry via shared DependencyGraphRepository.
+- Scene state-change / explicit no-change-purpose gate.
+- SceneDramaticBeat resistance-or-reveal + microchange gate.
+- SceneListManifest / SceneBreakdownManifest / SceneBudget cannot store canonical narrative shadow truth.
+- stale MacroStoryBeat parent fails closed after successor.
+- historical non-current revision predecessor fails closed.
+- MacroStoryBeat revision emits dependency-reachable invalidation.
+- manifest-only successor does not change canonical Scene identity.
+- project-prefix collisions are rejected.
+- provenance must exactly bind declared source versions.
+
+NEXT_EXACT_ACTION = "RUN IMP-025 AFFECTED REGRESSION"
+
+
+---
+
+## IMP-025 LOCAL VERIFIED - 2026-09-30
+
+ACTIVE_TASK = IMP-025 MACROSTORYBEAT / SEQUENCEPLAN / SEQUENCE / SCENEBUDGET / SCENE / SCENEBREAKDOWN / SCENEDRAMATICBEAT
+STATUS = LOCAL VERIFIED
+BRANCH = chatgpt/IMP-025-narrative-hierarchy
+BASE_HEAD = c546378694d97a3b88f8f65bb212548f1040f8fe
+
+Evidence:
+- evidence/tests/IMP-025_NARRATIVE_HIERARCHY_EVIDENCE.md
+- targeted IMP-025 = 11/11 PASS
+- affected regression = 95/95 PASS
+- largest valid Windows regression = 555 PASS / 3 known POSIX-path cases deselected
+- first broader invocation classified INTERRUPTED after process check; only broader stage rerun
+- local video-reviewer integration excluded because ffmpeg is absent on FileMCP Windows PATH
+- frozen Master guard = PASS
+- frozen semantic SHA unchanged = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+- exact-head self-review = PASS
+- git diff --check = PASS
+- _incoming/ remains untracked and outside scope
+
+Acceptance:
+- StoryCore -> MacroStoryBeat -> Sequence -> Scene -> SceneDramaticBeat canonical hierarchy = SATISFIED
+- no generic persistent Beat = SATISFIED
+- manifests/projections do not duplicate canonical narrative truth = SATISFIED
+- canonical Scene distinct from legacy FlowKit Scene = SATISFIED
+- state-change / microchange gates = SATISFIED
+- exact-version bidirectional ancestry = SATISFIED
+- immutable successor + CAS/current predecessor gates = SATISFIED
+- dependency invalidation = SATISFIED
+- provider-neutral canonical contracts = SATISFIED
+- frozen Master unchanged = SATISFIED
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-025 -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN"
