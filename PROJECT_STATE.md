@@ -2762,3 +2762,16 @@ NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-032 SCOPE -> COMMIT ->
 - transient `.tmp` removed and excluded from scope.
 
 NEXT_EXACT_ACTION = "STAGE EXACT IMP-032 VERIFIED SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI PYTHON 3.10/3.13 -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC"
+
+
+### IMP-032 FEATURE COMMIT / PR CREATED - 2026-10-03
+
+FEATURE_COMMIT = `6e96978bc9596bc4838492532dacabc7c56f1a53`
+REMOTE_BRANCH = `origin/chatgpt/IMP-032-shot-eligibility-fullshotspec`
+PUSH = SUCCESS
+PR = #50
+PR_URL = https://github.com/nguyenkhactang922-bot/flowkit/pull/50
+
+Implementation/test content remains exactly the LOCAL VERIFIED head; this state checkpoint is docs-only.
+
+NEXT_EXACT_ACTION = "COMMIT/PUSH IMP-032 PR CHECKPOINT STATE -> WAIT FRESH CI ON FINAL HEAD -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC"
