@@ -686,3 +686,34 @@ __all__ += [
     "story_quality_result_logical_id",
     "story_repair_plan_logical_id",
 ]
+
+
+from .narrative_trace import (
+    NarrativeArtifactType,
+    NarrativeTraceArtifact,
+    NarrativeTraceError,
+    NarrativeTraceFindingCode,
+    NarrativeTraceGateBlocked,
+    NarrativeTraceIdentityError,
+    NarrativeTraceRecord,
+    NarrativeTraceRepository,
+    NarrativeTraceState,
+    NarrativeWhyExists,
+    build_narrative_trace_provenance,
+    narrative_trace_logical_id,
+)
+
+__all__ += [
+    "NarrativeArtifactType",
+    "NarrativeTraceArtifact",
+    "NarrativeTraceError",
+    "NarrativeTraceFindingCode",
+    "NarrativeTraceGateBlocked",
+    "NarrativeTraceIdentityError",
+    "NarrativeTraceRecord",
+    "NarrativeTraceRepository",
+    "NarrativeTraceState",
+    "NarrativeWhyExists",
+    "build_narrative_trace_provenance",
+    "narrative_trace_logical_id",
+]

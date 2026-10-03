@@ -2224,3 +2224,47 @@ DONE CRITERIA:
 
 GOVERNANCE_SYNC_BRANCH = chatgpt/IMP-027-main-verified-state
 NEXT_EXACT_ACTION = "COMMIT/PUSH/MERGE IMP-027 GOVERNANCE SYNC -> CLAIM IMP-028"
+
+
+---
+
+## IMP-028 Resume / Claim - 2026-10-03
+
+SOURCE_OF_TRUTH_RECONCILIATION:
+- restored repo root = `E:\FlowKit-Studio-Upgrade`
+- verified `main` = `229ccfb227e748f594fb1f9e8d53040095910c9e`
+- PR #39 governance sync is already MERGED at that exact SHA
+- no active IMP-028 process and no pre-existing remote IMP-028 branch
+
+ACTIVE_TASK = IMP-028 NARRATIVETRACE
+STATUS = CLAIMED / AUTHORITY READ + CURRENT CODE AUDIT
+BRANCH = chatgpt/IMP-028-narrative-trace
+BASE_HEAD = 229ccfb227e748f594fb1f9e8d53040095910c9e
+DEPENDS = IMP-025 MAIN VERIFIED + IMP-027 MAIN VERIFIED + IMP-005 MAIN VERIFIED
+FROZEN_MASTER_SHA = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+NEXT_EXACT_ACTION = "AUDIT SHARED VERSION/DEPENDENCY/NARRATIVE HIERARCHY SURFACES -> IMPLEMENT IMP-028 NARRATIVETRACE + TARGETED TESTS"
+
+
+---
+
+## IMP-028 Local Verification - 2026-10-03
+
+IMP-028 = LOCAL VERIFIED
+BRANCH = chatgpt/IMP-028-narrative-trace
+BASE = 229ccfb227e748f594fb1f9e8d53040095910c9e
+
+Evidence:
+- `evidence/tests/IMP-028_NARRATIVE_TRACE_EVIDENCE.md`
+- targeted IMP-028 = 12/12 PASS
+- affected regression = 97/97 PASS
+- largest valid Windows regression = 579 PASS / 3 deselected
+- full Windows broad run exposed unrelated `tests/unit/test_setup.py` default-codepage/UTF-8 fixture failures; no out-of-scope diff
+- frozen Master guard = PASS
+- frozen semantic SHA unchanged = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+- compileall = PASS
+- git diff --check = PASS
+- provider/runtime authority leakage check = PASS
+- exact-head local review repair: trace exact-source dependency edges added for §63 invalidation propagation
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-028 -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE -> VERIFY MAIN"
