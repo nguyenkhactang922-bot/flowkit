@@ -2333,3 +2333,79 @@ WORKTREE_AT_VERIFICATION = clean
 GOVERNANCE_BRANCH = chatgpt/IMP-042-main-verified-state
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-042 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-042 GOVERNANCE VERIFIED / IMP-030 CLAIM - 2026-10-03
+
+SOURCE_OF_TRUTH_RECONCILIATION:
+- IMP-042 feature PR #44 merged and MAIN VERIFIED at `22c9975f8296bb40d5e82cc3c698a2e7fc38b062`.
+- IMP-042 governance PR #45 merged at `6ecc99275fe953f65fb1c7f64158e5f438d655a8`.
+- governance push-main workflow `37108600449` SUCCESS exact governance SHA.
+- frozen Master guard PASS at governance main; semantic SHA `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
+- main worktree clean before claim.
+
+ACTIVE_TASK = IMP-030 AUDIENCE / DIRECTING / SPATIAL / BLOCKING / CINEMATOGRAPHY
+STATUS = CLAIMED / AUTHORITY READ NEXT
+BRANCH = chatgpt/IMP-030-directing-spatial-cinematography
+BASE_HEAD = 6ecc99275fe953f65fb1c7f64158e5f438d655a8
+DEPENDS = IMP-025 MAIN VERIFIED + IMP-027 MAIN VERIFIED + IMP-028 MAIN VERIFIED + IMP-042 MAIN VERIFIED + IMP-013 MAIN VERIFIED
+FROZEN_MASTER_SHA = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+NEXT_EXACT_ACTION = "READ IMP-030 FROZEN AUDIENCE/DIRECTING/SPATIAL/BLOCKING/CINEMATOGRAPHY AUTHORITY + AUDIT CURRENT NARRATIVE/STATE/CAMERA SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-030 AUTHORITY + SURFACE AUDIT PASS - 2026-10-03
+
+ACTIVE_TASK = IMP-030 AUDIENCE / DIRECTING / SPATIAL / BLOCKING / CINEMATOGRAPHY
+STATUS = AUTHORITY + CURRENT SURFACE AUDIT PASS / CODE NEXT
+BRANCH = chatgpt/IMP-030-directing-spatial-cinematography
+BASE_HEAD = 6ecc99275fe953f65fb1c7f64158e5f438d655a8
+
+LOCKED IMPLEMENTATION DECISIONS:
+- AudienceExperienceTarget is beat-scoped viewer-effect authority and binds exact current SceneDramaticBeat + CURRENT NarrativeTrace; it never becomes generic cinematic style prose.
+- DirectingIntent is beat-scoped performance/reveal/staging authority and requires exact LOCKED ScriptLock + AudienceExperienceTarget + SceneDramaticBeat + pinned LOCKED ActiveProductionProfile.
+- SceneSpatialDramaticContract is scene-scoped spatial baseline from exact Scene + Beat set + approved/propagatable StateSnapshot; it owns geography/zones/sightlines/constraints, not camera choice.
+- BlockingPlan is beat-scoped spatial execution and joins DirectingIntent + scene SpatialContract + approved StateSnapshot; blocking cannot be embedded as cinematography/prompt shadow truth.
+- CinematographyObjective is beat-scoped visual-language translation and requires Audience + Directing + Spatial + Blocking + pinned profile; each visual strategy must carry exact upstream decision basis.
+- Cinematography schema will expose strategies/objectives, not free-standing exact camera/lens authority; camera/lens/movement/light/composition cannot self-author.
+- Story/Scene/Beat/State/Profile payloads remain in their owning repositories; IMP-030 stores exact refs/provenance only.
+- ActiveProductionProfile dependencies use `PROFILE_PATH:*` graph edges so IMP-013 selective invalidation remains effective.
+- accepted revisions create immutable successors and durable dependency-reachable invalidation before current-pointer advance.
+- existing FlowKit prompt/camera/service fields remain downstream compatibility/runtime surfaces only; no transport/provider imports enter canonical directing authority.
+
+NEXT_EXACT_ACTION = "IMPLEMENT IMP-030 PROVIDER-NEUTRAL AUTHORITY CONTRACTS + REPOSITORY -> TARGETED TESTS"
+
+
+---
+
+## IMP-030 LOCAL VERIFIED - 2026-10-03
+
+ACTIVE_TASK = IMP-030 AUDIENCE / DIRECTING / SPATIAL / BLOCKING / CINEMATOGRAPHY
+STATUS = LOCAL VERIFIED
+BRANCH = chatgpt/IMP-030-directing-spatial-cinematography
+BASE_HEAD = 6ecc99275fe953f65fb1c7f64158e5f438d655a8
+
+Evidence:
+- `evidence/tests/IMP-030_DIRECTING_AUTHORITY_EVIDENCE.md`
+- targeted final = 18/18 PASS
+- affected regression final = 117/117 PASS
+- largest valid Windows regression = 627 PASS / 3 deselected
+- frozen Master guard = PASS
+- frozen semantic SHA unchanged = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+- compileall = PASS
+- git diff --check = PASS
+- runtime/provider import leakage = NONE
+- TODO/FIXME/NotImplemented = NONE
+
+Review hardening:
+- directing/performance entities must be declared by canonical Scene;
+- spatial participants must be declared by canonical Scene;
+- entity-backed spatial anchors must be authorized by Scene or approved StateSnapshot;
+- location_entity_ref must be canonical LOCATION;
+- Blocking entities must be declared by exact SpatialContract.
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-030 SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN"
