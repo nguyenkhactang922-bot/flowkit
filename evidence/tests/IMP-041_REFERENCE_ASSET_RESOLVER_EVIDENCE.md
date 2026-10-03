@@ -99,3 +99,26 @@ forbidden canonical runtime/authority import grep = no matches
 Remote side-effect guard, commit, push, PR, Ubuntu CI, exact-head review, merge and post-merge main verification are still required before `MAIN VERIFIED`.
 
 NEXT_EXACT_ACTION = `SIDE-EFFECT GUARD -> COMMIT IMP-041 -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN`
+
+
+## MAIN VERIFIED
+
+Feature PR #42:
+- final exact head: `e1425ee94147a93fbfc198c9617e7f66f26e154f`
+- Ubuntu CI run `37105500213`: Python 3.10 SUCCESS + Python 3.13 SUCCESS + frozen guard SUCCESS
+- exact-head review: PASS
+- merged at `dd5cf60fffdbcb18035271d0441fbc100538aa6a`
+
+Post-merge main verification:
+- local main HEAD = `dd5cf60fffdbcb18035271d0441fbc100538aa6a`
+- worktree clean
+- frozen Master guard PASS / semantic SHA unchanged
+- targeted IMP-041 = 13/13 PASS
+- affected regression = 46/46 PASS
+- main push workflow `37105602945` SUCCESS on exact merge SHA
+
+`IMP-041 = MAIN VERIFIED`
+
+Governance sync branch: `chatgpt/IMP-041-main-verified-state`
+
+NEXT_EXACT_ACTION = `COMMIT/PUSH/PR/MERGE IMP-041 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK`

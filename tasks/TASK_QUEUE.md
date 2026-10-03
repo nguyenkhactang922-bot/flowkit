@@ -1803,3 +1803,24 @@ NEXT_EXACT_ACTION = "READ IMP-041 FROZEN AUTHORITY + AUDIT ENTITY/MEDIA/REFERENC
 - [ ] Verify main / MAIN VERIFIED.
 
 NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-041 -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN"
+
+
+---
+
+## IMP-041 MAIN VERIFIED / GOVERNANCE SYNC - 2026-10-03
+
+- [x] Feature commit `e1425ee94147a93fbfc198c9617e7f66f26e154f`.
+- [x] PR #42 exact-head Ubuntu CI Python 3.10/3.13 + frozen guard SUCCESS (`37105500213`).
+- [x] Final exact-head review PASS.
+- [x] PR #42 merged.
+- [x] Main merge SHA `dd5cf60fffdbcb18035271d0441fbc100538aa6a`.
+- [x] Post-merge targeted = 13/13 PASS.
+- [x] Post-merge affected = 46/46 PASS.
+- [x] Frozen Master guard PASS / semantic SHA unchanged.
+- [x] Main push workflow `37105602945` SUCCESS exact merge SHA.
+- [x] IMP-041 feature implementation = MAIN VERIFIED.
+- [ ] Commit/push/merge governance-only state sync.
+- [ ] Verify governance merge on main.
+- [ ] Read DAG/queue and CLAIM next dependency-ready task.
+
+NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-041 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
