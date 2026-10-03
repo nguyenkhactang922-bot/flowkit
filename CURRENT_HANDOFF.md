@@ -2157,3 +2157,58 @@ WORKTREE_AT_VERIFICATION = clean
 GOVERNANCE_BRANCH = chatgpt/IMP-028-main-verified-state
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-028 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-041 Claim - 2026-10-03
+
+SOURCE_OF_TRUTH_RECONCILIATION:
+- IMP-028 feature PR #40 merged and MAIN VERIFIED.
+- IMP-028 governance PR #41 merged at `80671b9a46b057285e9c1476ae266990e87be6a4`.
+- governance push-main workflow `37097429052` SUCCESS exact governance SHA.
+- main worktree clean before claim.
+
+ACTIVE_TASK = IMP-041 REFERENCEASSET / REFERENCE RESOLVER
+STATUS = CLAIMED / AUTHORITY READ + CURRENT CODE AUDIT
+BRANCH = chatgpt/IMP-041-reference-asset-resolver
+BASE_HEAD = 80671b9a46b057285e9c1476ae266990e87be6a4
+DEPENDS = IMP-040 MAIN VERIFIED + IMP-005 MAIN VERIFIED + IMP-013 MAIN VERIFIED
+FROZEN_MASTER_SHA = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+NEXT_EXACT_ACTION = "READ IMP-041 FROZEN AUTHORITY + AUDIT ENTITY/MEDIA/REFERENCE/INVALIDATION SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-041 LOCAL VERIFIED - 2026-10-03
+
+ACTIVE_TASK = IMP-041 REFERENCEASSET / REFERENCE RESOLVER
+STATUS = LOCAL VERIFIED
+BRANCH = chatgpt/IMP-041-reference-asset-resolver
+BASE_HEAD = 80671b9a46b057285e9c1476ae266990e87be6a4
+
+Evidence:
+- `evidence/tests/IMP-041_REFERENCE_ASSET_RESOLVER_EVIDENCE.md`
+- targeted IMP-041 = 13/13 PASS
+- affected regression = 46/46 PASS
+- largest valid Windows regression = 593 PASS / 3 deselected
+- frozen Master guard = PASS
+- frozen semantic SHA unchanged = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+- compileall = PASS
+- git diff --check = PASS
+- canonical runtime/authority leakage scan = PASS
+- FM-005 successor invalidation bypass found in self-review and repaired before commit
+
+Acceptance:
+- ReferenceAsset exact identity/version/hash/role = SATISFIED
+- legacy UUID/media compatibility without Entity shadow truth = SATISFIED
+- resolver minimal deterministic subset = SATISFIED
+- stale/unapproved Entity/Reference fail closed = SATISFIED
+- exact resolution provenance + bind-time race revalidation = SATISFIED
+- changed ReferenceVersion durable selective invalidation = SATISFIED
+- plain successor promotion cannot bypass invalidation = SATISFIED
+- reference evidence is not canonical State = SATISFIED
+- provider/runtime authority remains downstream = SATISFIED
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-041 -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN"
