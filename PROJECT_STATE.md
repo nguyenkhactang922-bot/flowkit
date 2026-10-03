@@ -2368,3 +2368,86 @@ WORKTREE_AT_VERIFICATION = clean
 GOVERNANCE_BRANCH = chatgpt/IMP-041-main-verified-state
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-041 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-042 Claim - 2026-10-03
+
+SOURCE_OF_TRUTH_RECONCILIATION:
+- IMP-041 feature PR #42 merged and MAIN VERIFIED at `dd5cf60fffdbcb18035271d0441fbc100538aa6a`.
+- IMP-041 governance PR #43 merged at `55ba8d747db11c52417d6d9dfe1b67a807de604e`.
+- governance push-main workflow `37105880072` SUCCESS exact governance SHA.
+- main worktree clean before claim.
+
+ACTIVE_TASK = IMP-042 STATESNAPSHOT / CONTINUITYLEDGER / APPROVEDENDSTATE
+STATUS = CLAIMED / AUTHORITY READ NEXT
+BRANCH = chatgpt/IMP-042-state-continuity
+BASE_HEAD = 55ba8d747db11c52417d6d9dfe1b67a807de604e
+DEPENDS = IMP-041 MAIN VERIFIED + IMP-004 MAIN VERIFIED + IMP-005 MAIN VERIFIED
+FROZEN_MASTER_SHA = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+NEXT_EXACT_ACTION = "READ IMP-042 FROZEN STATE/CONTINUITY/APPROVED-END-STATE AUTHORITY + AUDIT MEDIA-CHAIN/ENTITY/INVALIDATION SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-042 AUTHORITY + SURFACE AUDIT PASS - 2026-10-03
+
+ACTIVE_TASK = IMP-042 STATESNAPSHOT / CONTINUITYLEDGER / APPROVEDENDSTATE
+STATUS = AUTHORITY + CURRENT SURFACE AUDIT PASS / CODE NEXT
+BRANCH = chatgpt/IMP-042-state-continuity
+BASE_HEAD = 55ba8d747db11c52417d6d9dfe1b67a807de604e
+
+LOCKED IMPLEMENTATION DECISIONS:
+- StateSnapshot is the sole canonical semantic continuity/world-state payload owner.
+- ContinuityLedger owns versioned continuity evidence/constraints/propagation links only; it MUST NOT duplicate StateSnapshot payload.
+- ApprovedEndState is an approval designation/reference only; it MUST NOT duplicate StateSnapshot payload.
+- only APPROVED/LOCKED StateSnapshot versions may propagate downstream.
+- approval requires exact QA/approval evidence refs; provider success alone cannot authorize state propagation.
+- Story-owned psychology/relationship/knowledge payloads remain owned by character_state.py and may only be exact-version source refs here.
+- legacy parent_scene_id / image_media_id / end_scene_media_id remain execution-conditioning lineage, never canonical StateSnapshot authority.
+- state/reference/continuity dependencies use shared VersionRepository + DependencyGraph + durable InvalidationRecord; no second truth store.
+- accepted StateSnapshot successor change must selectively invalidate exact bound descendants before replacement becomes downstream current authority.
+
+NEXT_EXACT_ACTION = "IMPLEMENT IMP-042 STATE SNAPSHOT + STATE DELTA + CONTINUITY LEDGER + APPROVED-END-STATE DESIGNATION -> TARGETED TESTS"
+
+
+---
+
+## IMP-042 LOCAL VERIFIED - 2026-10-03
+
+ACTIVE_TASK = IMP-042 STATESNAPSHOT / CONTINUITYLEDGER / APPROVEDENDSTATE
+STATUS = LOCAL VERIFIED
+BRANCH = chatgpt/IMP-042-state-continuity
+BASE_HEAD = 55ba8d747db11c52417d6d9dfe1b67a807de604e
+
+Evidence:
+- `evidence/tests/IMP-042_STATE_CONTINUITY_EVIDENCE.md`
+- targeted final = 16/16 PASS
+- affected regression final = 65/65 PASS
+- largest valid Windows regression = 609 PASS / 3 known exclusions deselected
+- frozen Master guard = PASS
+- frozen semantic SHA unchanged = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+- compileall = PASS
+- git diff --check = PASS
+- provider/runtime authority import scan = NONE
+- TODO/FIXME/NotImplemented scan = NONE
+
+Acceptance:
+- StateSnapshot is sole semantic continuity payload authority = SATISFIED
+- generated artifact/media-chain != State = SATISFIED
+- Story-owned psychology/relationship/knowledge remain exact refs only = SATISFIED
+- payload-free StateDelta = SATISFIED
+- only exact current APPROVED/LOCKED snapshot with approved designation propagates = SATISFIED
+- ApprovedEndState designation contains no duplicate state payload = SATISFIED
+- stale QA/policy/outcome/source inputs fail closed = SATISFIED
+- ContinuityLedger constraints/findings refs-only and fact-key validated = SATISFIED
+- exact consumer provenance + durable dependency edges = SATISFIED
+- StateSnapshot successor selective invalidation = SATISFIED
+- replacement snapshot self-invalidation prevented = SATISFIED
+- ContinuityLedger successor invalidation bypass closed = SATISFIED
+- ApprovedEndState revocation history + durable invalidation = SATISFIED
+- frozen Master unchanged = SATISFIED
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-042 -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN"
