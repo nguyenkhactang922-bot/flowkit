@@ -1752,3 +1752,54 @@ NEXT_EXACT_ACTION = "COMMIT/PUSH PR #40 REVIEW FIX -> RERUN UBUNTU CI -> FINAL E
 - [ ] Read DAG/queue and CLAIM next dependency-ready task.
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-028 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-041 CLAIMED - 2026-10-03
+
+- [x] Verify IMP-028 governance PR #41 merged at `80671b9a46b057285e9c1476ae266990e87be6a4`.
+- [x] Verify governance push-main workflow `37097429052` SUCCESS.
+- [x] Verify IMP-041 dependencies: IMP-040 + IMP-005 + IMP-013 MAIN VERIFIED.
+- [x] Verify no remote/pr duplicate for `chatgpt/IMP-041-reference-asset-resolver`.
+- [x] Claim branch from clean main `80671b9a46b057285e9c1476ae266990e87be6a4`.
+- [ ] Read frozen ReferenceAsset/Resolver authority.
+- [ ] Audit canonical EntityVersion + media/reference reuse + invalidation surfaces.
+- [ ] Implement ReferenceAsset/version/hash/role + resolver trace + provider binding projection.
+- [ ] Tests: role selection, stale ref invalidation, UUID/media compatibility, no reference-as-state.
+- [ ] Targeted + affected + broader regression + frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify.
+
+NEXT_EXACT_ACTION = "READ IMP-041 FROZEN AUTHORITY + AUDIT ENTITY/MEDIA/REFERENCE/INVALIDATION SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-041 LOCAL VERIFIED - 2026-10-03
+
+- [x] Resume from materialized draft after stream interruption; no task restart.
+- [x] Frozen Reference System / FM-005 authority read.
+- [x] Canonical EntityVersion + legacy media/reference + shared invalidation surfaces audited.
+- [x] ReferenceAsset/version/hash/role + deterministic project/entity/slot identity implemented.
+- [x] Legacy UUID/media compatibility projection implemented without Entity shadow truth.
+- [x] Minimal deterministic Reference Resolver + exact resolution trace/provenance implemented.
+- [x] Consumer binding exact-version dependency edges + bind-time stale race revalidation implemented.
+- [x] FM-005 successor-promotion bypass found in self-review and closed.
+- [x] Successor activation durably invalidates old ReferenceVersion consumers before current-pointer move.
+- [x] Targeted final = 13/13 PASS.
+- [x] Affected regression final = 46/46 PASS.
+- [x] Largest valid Windows regression = 593 PASS / 3 deselected.
+- [x] Frozen Master guard PASS.
+- [x] compileall + git diff --check PASS.
+- [x] Provider/runtime authority leakage scan PASS.
+- [x] Evidence recorded: `evidence/tests/IMP-041_REFERENCE_ASSET_RESOLVER_EVIDENCE.md`.
+- [ ] Side-effect guard.
+- [ ] Commit.
+- [ ] Push.
+- [ ] Open PR.
+- [ ] Ubuntu CI Python 3.10/3.13 + frozen guard.
+- [ ] Exact-head review.
+- [ ] Merge main.
+- [ ] Verify main / MAIN VERIFIED.
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-041 -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN"
