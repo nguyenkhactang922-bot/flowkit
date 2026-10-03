@@ -1824,3 +1824,71 @@ NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-041 -> PUSH -> PR -> UBUNTU
 - [ ] Read DAG/queue and CLAIM next dependency-ready task.
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-041 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-042 CLAIMED - 2026-10-03
+
+- [x] Verify IMP-041 feature PR #42 MAIN VERIFIED.
+- [x] Verify IMP-041 governance PR #43 merged at `55ba8d747db11c52417d6d9dfe1b67a807de604e`.
+- [x] Verify governance push-main workflow `37105880072` SUCCESS.
+- [x] Verify IMP-042 dependencies: IMP-041 + IMP-004 + IMP-005 MAIN VERIFIED.
+- [x] Verify no remote/pr duplicate for `chatgpt/IMP-042-state-continuity`.
+- [x] Claim branch from clean main `55ba8d747db11c52417d6d9dfe1b67a807de604e`.
+- [ ] Read frozen StateSnapshot / ContinuityLedger / ApprovedEndState authority.
+- [ ] Audit current media-chain continuity + EntityVersion + DependencyGraph/Invalidation surfaces.
+- [ ] Implement StateSnapshot + StateDelta + ContinuityLedger + approval designation/reference.
+- [ ] Tests: generated artifact != State, only approved/locked snapshot propagates, no duplicate state payload, selective invalidation.
+- [ ] Targeted + affected + broader regression + frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify.
+
+NEXT_EXACT_ACTION = "READ IMP-042 FROZEN STATE/CONTINUITY/APPROVED-END-STATE AUTHORITY + AUDIT MEDIA-CHAIN/ENTITY/INVALIDATION SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-042 AUTHORITY + SURFACE AUDIT PASS - 2026-10-03
+
+- [x] Verify dependencies IMP-041 + IMP-004 + IMP-005 MAIN VERIFIED.
+- [x] Claim branch `chatgpt/IMP-042-state-continuity` from clean main `55ba8d747db11c52417d6d9dfe1b67a807de604e`.
+- [x] Read frozen StateSnapshot / ContinuityLedger / ApprovedEndState authority.
+- [x] Audit Story-owned character state boundaries and legacy media-chain continuity surfaces.
+- [x] Lock StateSnapshot as sole semantic continuity truth; ledger/designation refs-only.
+- [x] Lock legacy parent/media chain as execution conditioning only, not State authority.
+- [ ] Implement StateSnapshot + state delta + ContinuityLedger + ApprovedEndState designation.
+- [ ] Tests: generated artifact != State, only approved/locked snapshot propagates, no duplicate state payload, selective invalidation.
+- [ ] Targeted + affected + broader regression + frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify.
+
+NEXT_EXACT_ACTION = "IMPLEMENT IMP-042 STATE SNAPSHOT + STATE DELTA + CONTINUITY LEDGER + APPROVED-END-STATE DESIGNATION -> TARGETED TESTS"
+
+
+---
+
+## IMP-042 LOCAL VERIFIED - 2026-10-03
+
+- [x] Frozen StateSnapshot / ContinuityLedger / ApprovedEndState authority read.
+- [x] Legacy media-chain / Story-owned character-state / shared invalidation surfaces audited.
+- [x] Implement StateSnapshot semantic facts + exact source provenance.
+- [x] Implement payload-free StateDelta.
+- [x] Implement ApprovedEndState refs-only designation and QA/policy/outcome hard gate.
+- [x] Implement ContinuityLedger refs-only constraints/findings + exact fact-key validation.
+- [x] Keep legacy parent/media chaining as execution conditioning only; UUID media compatibility guarded.
+- [x] State successor selective invalidation; replacement self-invalidation excluded.
+- [x] ContinuityLedger successor promotion requires durable invalidation.
+- [x] ApprovedEndState revocation creates immutable history + durable descendant invalidation.
+- [x] Targeted final 16/16 PASS.
+- [x] Affected regression final 65/65 PASS.
+- [x] Largest valid Windows regression 609 PASS / 3 deselected.
+- [x] Frozen Master guard PASS / semantic SHA unchanged.
+- [x] compileall + git diff --check + authority leakage/TODO scans PASS.
+- [x] IMP-042 = LOCAL VERIFIED.
+- [ ] Side-effect guard.
+- [ ] Commit/push/PR.
+- [ ] Ubuntu CI Python 3.10/3.13 + frozen guard.
+- [ ] Exact-head review.
+- [ ] Merge main.
+- [ ] Post-merge main verification / MAIN VERIFIED.
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-042 -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN"
