@@ -1730,3 +1730,25 @@ NEXT_EXACT_ACTION = "AUDIT SHARED VERSION/DEPENDENCY/NARRATIVE HIERARCHY SURFACE
 NEXT_EXACT_ACTION = "COMMIT/PUSH PR #40 REVIEW FIX -> RERUN UBUNTU CI -> FINAL EXACT-HEAD REVIEW -> MERGE -> VERIFY MAIN"
 
 - PR #40 exact-head review hardening = transitive durable invalidation gap repaired; post-fix targeted 13/13, affected 98/98, broader 580 PASS / 3 deselected, frozen guard PASS.
+
+
+---
+
+## IMP-028 MAIN VERIFIED / GOVERNANCE SYNC - 2026-10-03
+
+- [x] Feature commit + review-fix pushed.
+- [x] PR #40 final head `f18955e68945fe7252443392768233120f129bb9`.
+- [x] PR CI Python 3.10 + 3.13 SUCCESS on final head.
+- [x] Final exact-head review PASS after transitive invalidation repair.
+- [x] PR #40 merged.
+- [x] Main merge SHA `32e078c7225b27eb54b3ed4536ec0d792efec98d`.
+- [x] Post-merge targeted = 13/13 PASS.
+- [x] Post-merge affected = 98/98 PASS.
+- [x] Frozen Master guard PASS / semantic SHA unchanged.
+- [x] Main push workflow `37097099717` SUCCESS on exact merge SHA.
+- [x] IMP-028 feature implementation = MAIN VERIFIED.
+- [ ] Commit/push/merge governance-only state sync.
+- [ ] Verify governance merge on main.
+- [ ] Read DAG/queue and CLAIM next dependency-ready task.
+
+NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-028 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
