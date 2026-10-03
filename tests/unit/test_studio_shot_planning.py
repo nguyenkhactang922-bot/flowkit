@@ -554,13 +554,22 @@ async def test_unresolved_upstream_invalidation_blocks_current_coverage_consumpt
 
 
 @pytest.mark.asyncio
-async def test_expansion_rejects_second_parallel_allocation_of_same_shot_ids(tmp_path):
+async def test_expansion_exact_replay_is_idempotent_but_conflicting_successor_is_rejected(tmp_path):
     writer = SQLiteWriteOwner(tmp_path / "studio.db")
     await writer.start()
     try:
         repo, request, _, _, _, _, _, _ = await _ready(writer)
-        await _expand(repo, request)
-        with pytest.raises(ShotPlanningIdentityError, match="shot_id already exists"):
+        first = await _expand(repo, request)
+        replay = await _expand(repo, request)
+        assert tuple(item.ref for item in replay.shot_items) == tuple(
+            item.ref for item in first.shot_items
+        )
+        assert tuple(trace.ref for trace in replay.shot_traces) == tuple(
+            trace.ref for trace in first.shot_traces
+        )
+        assert replay.manifest.ref == first.manifest.ref
+
+        with pytest.raises(ShotPlanningIdentityError, match="different current version/state"):
             await repo.expand_scene(
                 request=request,
                 shot_item_version=VersionId("shot-v2"),
@@ -570,6 +579,110 @@ async def test_expansion_rejects_second_parallel_allocation_of_same_shot_ids(tmp
                 reason="forbidden parallel allocation",
                 recorded_at=NOW,
             )
+    finally:
+        await writer.close()
+
+
+@pytest.mark.asyncio
+async def test_expansion_replay_repairs_interrupted_shot_trace_creation(tmp_path, monkeypatch):
+    writer = SQLiteWriteOwner(tmp_path / "studio.db")
+    await writer.start()
+    try:
+        repo, request, _, _, _, _, _, _ = await _ready(writer)
+        original = repo._create_shot_trace
+        calls = 0
+
+        async def fail_once(**kwargs):
+            nonlocal calls
+            calls += 1
+            if calls == 1:
+                raise RuntimeError("simulated trace interruption")
+            return await original(**kwargs)
+
+        monkeypatch.setattr(repo, "_create_shot_trace", fail_once)
+        with pytest.raises(RuntimeError, match="simulated trace interruption"):
+            await _expand(repo, request)
+
+        first_ref = VersionRef(
+            logical_id=shot_list_item_logical_id(PROJECT_ID, BEAT_REF, "shot-a"),
+            version_id=VersionId("shot-v1"),
+        )
+        pointer = await repo.versions.get_current(first_ref.logical_id)
+        assert pointer is not None and pointer.version_id == first_ref.version_id
+        with pytest.raises(ShotPlanningGateBlocked, match="lacks exact CURRENT NarrativeTrace"):
+            await repo._assert_current_valid(first_ref, "ShotListItem", {LifecycleState.APPROVED})
+
+        monkeypatch.setattr(repo, "_create_shot_trace", original)
+        result = await _expand(repo, request)
+        assert len(result.shot_items) == 2
+        assert len(result.shot_traces) == 2
+        await repo._assert_current_valid(first_ref, "ShotListItem", {LifecycleState.APPROVED})
+        assert await repo.traces.trace_state(result.shot_traces[0].ref) is NarrativeTraceState.CURRENT
+    finally:
+        await writer.close()
+
+
+@pytest.mark.asyncio
+async def test_shot_revision_replay_repairs_interrupted_trace_successor(tmp_path, monkeypatch):
+    writer = SQLiteWriteOwner(tmp_path / "studio.db")
+    await writer.start()
+    try:
+        repo, request, _, _, _, _, _, _ = await _ready(writer)
+        result = await _expand(repo, request)
+        old_item = result.shot_items[0].value
+        assert isinstance(old_item, ShotListItem)
+        item_pointer = await repo.versions.get_current(old_item.logical_id)
+        assert item_pointer is not None
+        successor = old_item.model_copy(
+            update={
+                "version_id": VersionId("shot-v2"),
+                "reason_for_exist": old_item.reason_for_exist + " Recovery-safe successor.",
+            }
+        )
+        original = repo.traces.revise_trace
+        calls = 0
+
+        async def fail_once(**kwargs):
+            nonlocal calls
+            calls += 1
+            if calls == 1:
+                raise RuntimeError("simulated trace successor interruption")
+            return await original(**kwargs)
+
+        monkeypatch.setattr(repo.traces, "revise_trace", fail_once)
+        with pytest.raises(RuntimeError, match="simulated trace successor interruption"):
+            await repo.revise_shot_list_item(
+                value=successor,
+                predecessor=old_item.ref,
+                trace_version=VersionId("shot-trace-v2"),
+                provenance=_planning_prov(successor, "revise shot with interruption"),
+                created_at=NOW,
+                expected_revision=item_pointer.revision,
+            )
+
+        successor_ref = successor.ref
+        current = await repo.versions.get_current(successor.logical_id)
+        assert current is not None and current.version_id == successor.version_id
+        with pytest.raises(ShotPlanningGateBlocked, match="lacks exact CURRENT NarrativeTrace"):
+            await repo._assert_current_valid(
+                successor_ref, "ShotListItem", {LifecycleState.APPROVED}
+            )
+
+        monkeypatch.setattr(repo.traces, "revise_trace", original)
+        revised_item, revised_trace, _ = await repo.revise_shot_list_item(
+            value=successor,
+            predecessor=old_item.ref,
+            trace_version=VersionId("shot-trace-v2"),
+            provenance=_planning_prov(successor, "revise shot with interruption"),
+            created_at=NOW,
+            expected_revision=item_pointer.revision,
+        )
+        assert revised_item.ref == successor_ref
+        assert revised_trace.value.traced_ref == successor_ref
+        assert await repo.traces.trace_state(revised_trace.ref) is NarrativeTraceState.CURRENT
+        await repo._assert_current_valid(
+            successor_ref, "ShotListItem", {LifecycleState.APPROVED}
+        )
     finally:
         await writer.close()
 

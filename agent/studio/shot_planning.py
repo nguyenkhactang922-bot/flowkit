@@ -936,17 +936,46 @@ class ShotPlanningRepository:
         provenance: Provenance,
         created_at: datetime,
     ) -> tuple[ShotPlanningArtifact, NarrativeTraceArtifact]:
-        """Allocate shot_id and its mandatory NarrativeTrace as one creation boundary."""
+        """Allocate shot_id and mandatory trace with exact-replay recovery.
+
+        A process interruption may occur after the immutable ShotListItem/current pointer
+        commits but before NarrativeTrace creation returns. An exact retry repairs that
+        partial boundary; a conflicting payload/version still fails closed.
+        """
 
         await self._assert_item_inputs(value)
-        artifact = await self._create_approved(value, provenance, created_at)
-        trace = await self._create_shot_trace(
+        current = await self.versions.get_current(value.logical_id)
+        if current is None:
+            artifact = await self._create_approved(value, provenance, created_at)
+        else:
+            if current.version_id != value.version_id or current.status not in _ACCEPTED:
+                raise ShotPlanningIdentityError(
+                    "shot_id already exists with a different current version/state; "
+                    "parallel/reused Shot identity is forbidden"
+                )
+            artifact = await self.get_shot_list_item(value.ref)
+            if artifact is None or artifact.value != value:
+                raise ShotPlanningIdentityError(
+                    "shot_id exact replay payload differs from persisted ShotListItem"
+                )
+            unresolved = await self.invalidations.list_unresolved()
+            if any(
+                record.affected_object_id == value.logical_id
+                and record.affected_object_version == value.version_id
+                for record in unresolved
+            ):
+                raise ShotPlanningGateBlocked(
+                    "ShotListItem exact replay has unresolved durable invalidation"
+                )
+
+        trace = await self._ensure_shot_trace(
             value=value,
             artifact=artifact,
             trace_version=trace_version,
             provenance=provenance,
             created_at=created_at,
         )
+        await self._assert_current_valid(artifact.ref, "ShotListItem", _ACCEPTED)
         return artifact, trace
 
     async def revise_shot_list_item(
@@ -963,31 +992,110 @@ class ShotPlanningRepository:
         NarrativeTraceArtifact,
         tuple[InvalidationRecord, ...],
     ]:
-        """Revise ShotListItem and advance the same shot lineage trace."""
+        """Revise ShotListItem and resume safely across a trace-write interruption."""
 
         await self._assert_item_inputs(value)
-        previous_trace = await self.traces.get_current_trace(
-            artifact_type=NarrativeArtifactType.SHOT_LIST_ITEM,
-            traced_ref=predecessor,
-        )
-        if previous_trace is None or await self.traces.trace_state(previous_trace.ref) is not NarrativeTraceState.CURRENT:
-            raise ShotPlanningGateBlocked(
-                "ShotListItem revision requires exact CURRENT NarrativeTrace for predecessor"
+        if predecessor.logical_id != value.logical_id:
+            raise ShotPlanningIdentityError(
+                "ShotListItem revision must preserve canonical shot_id"
             )
-        trace_pointer = await self.versions.get_current(previous_trace.value.logical_id)
-        if trace_pointer is None:
-            raise ShotPlanningGateBlocked("ShotListItem NarrativeTrace current pointer missing")
-        artifact, records = await self._revise_approved(
-            value=value,
-            predecessor=predecessor,
-            provenance=provenance,
-            created_at=created_at,
-            expected_revision=expected_revision,
-            label="ShotListItem",
-            cause="ShotListItem revision",
-            scope="shot_realization_descendants",
-            repair="Re-evaluate eligibility and recompute dependent FullShotSpec/ShotIR/provider derivatives.",
+        self._assert_provenance(value, provenance)
+        current = await self.versions.get_current(value.logical_id)
+        if current is None:
+            raise ShotPlanningIdentityError("ShotListItem current pointer is missing")
+
+        current_trace = await self.traces.get_current_trace(
+            artifact_type=NarrativeArtifactType.SHOT_LIST_ITEM,
+            traced_ref=value.ref,
         )
+
+        async def matching_records() -> tuple[InvalidationRecord, ...]:
+            return tuple(
+                record
+                for record in await self.invalidations.list_unresolved()
+                if record.source_object_id == predecessor.logical_id
+                and record.source_version_old == predecessor.version_id
+                and record.source_version_new == value.version_id
+            )
+
+        # Exact replay after the Shot pointer advanced but the trace update (or the
+        # caller's response) was interrupted. Never allocate another successor.
+        if current.version_id == value.version_id:
+            if (
+                current.status not in _ACCEPTED
+                or current.revision != expected_revision + 1
+            ):
+                raise ShotPlanningIdentityError(
+                    "ShotListItem revision replay does not match expected current revision/state"
+                )
+            artifact = await self.get_shot_list_item(value.ref)
+            if artifact is None or artifact.value != value:
+                raise ShotPlanningIdentityError(
+                    "ShotListItem revision replay payload differs from persisted successor"
+                )
+            if (
+                current_trace is not None
+                and current_trace.value.traced_ref == artifact.ref
+                and current_trace.value.trace_version == trace_version
+                and await self.traces.trace_state(current_trace.ref)
+                is NarrativeTraceState.CURRENT
+            ):
+                await self._assert_current_valid(artifact.ref, "ShotListItem", _ACCEPTED)
+                return artifact, current_trace, await matching_records()
+            if current_trace is None or current_trace.value.traced_ref != predecessor:
+                raise ShotPlanningGateBlocked(
+                    "ShotListItem revision replay cannot identify exact predecessor trace"
+                )
+            replay_trace_state = await self.traces.trace_state(current_trace.ref)
+            if replay_trace_state not in {
+                NarrativeTraceState.CURRENT,
+                NarrativeTraceState.INVALIDATED,
+            }:
+                raise ShotPlanningGateBlocked(
+                    "ShotListItem revision replay predecessor trace is not recoverable"
+                )
+            previous_trace = current_trace
+            trace_pointer = await self.versions.get_current(previous_trace.value.logical_id)
+            if trace_pointer is None:
+                raise ShotPlanningGateBlocked(
+                    "ShotListItem NarrativeTrace current pointer missing"
+                )
+        else:
+            if (
+                current.version_id != predecessor.version_id
+                or current.status not in _ACCEPTED
+                or current.revision != expected_revision
+            ):
+                raise ShotPlanningIdentityError(
+                    "ShotListItem successor requires exact current accepted predecessor/revision"
+                )
+            if (
+                current_trace is None
+                or current_trace.value.traced_ref != predecessor
+                or await self.traces.trace_state(current_trace.ref)
+                is not NarrativeTraceState.CURRENT
+            ):
+                raise ShotPlanningGateBlocked(
+                    "ShotListItem revision requires exact CURRENT NarrativeTrace for predecessor"
+                )
+            previous_trace = current_trace
+            trace_pointer = await self.versions.get_current(previous_trace.value.logical_id)
+            if trace_pointer is None:
+                raise ShotPlanningGateBlocked(
+                    "ShotListItem NarrativeTrace current pointer missing"
+                )
+            artifact, records = await self._revise_approved(
+                value=value,
+                predecessor=predecessor,
+                provenance=provenance,
+                created_at=created_at,
+                expected_revision=expected_revision,
+                label="ShotListItem",
+                cause="ShotListItem revision",
+                scope="shot_realization_descendants",
+                repair="Re-evaluate eligibility and recompute dependent FullShotSpec/ShotIR/provider derivatives.",
+            )
+
         shot_trace = NarrativeTraceRecord(
             project_id=value.project_id,
             artifact_type=NarrativeArtifactType.SHOT_LIST_ITEM,
@@ -1012,7 +1120,10 @@ class ShotPlanningRepository:
             created_at=created_at,
             expected_revision=trace_pointer.revision,
         )
-        return artifact, trace_artifact, records
+        await self._assert_current_valid(artifact.ref, "ShotListItem", _ACCEPTED)
+        if current.version_id == value.version_id:
+            records = await matching_records()
+        return artifact, trace_artifact, tuple(records)
 
     async def create_manifest(
         self,
@@ -1022,7 +1133,20 @@ class ShotPlanningRepository:
         created_at: datetime,
     ) -> ShotPlanningArtifact:
         await self._assert_manifest_inputs(value)
-        return await self._create_approved(value, provenance, created_at)
+        current = await self.versions.get_current(value.logical_id)
+        if current is None:
+            return await self._create_approved(value, provenance, created_at)
+        if current.version_id != value.version_id or current.status not in _ACCEPTED:
+            raise ShotPlanningIdentityError(
+                "scene already has a different current ShotListManifest; use successor revision"
+            )
+        existing = await self.get_manifest(value.ref)
+        if existing is None or existing.value != value:
+            raise ShotPlanningIdentityError(
+                "ShotListManifest exact replay payload differs from persisted manifest"
+            )
+        await self._assert_current_valid(existing.ref, "ShotListManifest", _ACCEPTED)
+        return existing
 
     async def revise_manifest(
         self,
@@ -1112,17 +1236,59 @@ class ShotPlanningRepository:
                 required_visual_information=candidate.required_visual_information,
                 must_preserve=candidate.must_preserve,
             )
-            if await self.versions.get_current(value.logical_id) is not None:
-                raise ShotPlanningIdentityError(
-                    f"shot_id already exists; ShotExpansion cannot allocate parallel/reused identity: {value.shot_id.root}"
-                )
             item_values.append(value)
 
+        counts: dict[str, int] = {}
+        for candidate in request.candidates:
+            counts[candidate.coverage_key] = counts.get(candidate.coverage_key, 0) + 1
         manifest_id = shot_list_manifest_logical_id(request.project_id, request.scene_ref)
-        if await self.versions.get_current(manifest_id) is not None:
-            raise ShotPlanningIdentityError(
-                "scene already has current ShotListManifest; use successor manifest revision, not parallel expansion"
-            )
+        manifest = ShotListManifest(
+            project_id=request.project_id,
+            shot_list_manifest_id=manifest_id,
+            version_id=manifest_version,
+            active_profile_ref=request.active_profile_ref,
+            scene_ref=request.scene_ref,
+            coverage_strategy_ref=coverage.ref,
+            shot_budget_ref=budget.ref,
+            duration_budget_ref=request.duration_budget_ref,
+            ordered_shot_refs=tuple(item.ref for item in item_values),
+            coverage_summary=tuple(
+                ManifestCoverageSummary(coverage_key=key, shot_count=counts[key])
+                for key in sorted(counts)
+            ),
+            ordering_rationale=request.ordering_rationale,
+        )
+
+        # Preflight every deterministic identity before writing anything. Exact replay is
+        # resumable; conflicting version/payload is a parallel-shot/manifest attempt.
+        for value in item_values:
+            current = await self.versions.get_current(value.logical_id)
+            if current is None:
+                continue
+            if current.version_id != value.version_id or current.status not in _ACCEPTED:
+                raise ShotPlanningIdentityError(
+                    f"shot_id already exists with a different current version/state: {value.shot_id.root}"
+                )
+            existing = await self.get_shot_list_item(value.ref)
+            if existing is None or existing.value != value:
+                raise ShotPlanningIdentityError(
+                    f"shot_id exact replay payload differs from persisted ShotListItem: {value.shot_id.root}"
+                )
+
+        current_manifest = await self.versions.get_current(manifest_id)
+        if current_manifest is not None:
+            if (
+                current_manifest.version_id != manifest.version_id
+                or current_manifest.status not in _ACCEPTED
+            ):
+                raise ShotPlanningIdentityError(
+                    "scene already has a different current ShotListManifest; use successor manifest revision"
+                )
+            existing_manifest = await self.get_manifest(manifest.ref)
+            if existing_manifest is None or existing_manifest.value != manifest:
+                raise ShotPlanningIdentityError(
+                    "ShotListManifest exact replay payload differs from persisted manifest"
+                )
 
         item_artifacts: list[ShotPlanningArtifact] = []
         trace_artifacts: list[NarrativeTraceArtifact] = []
@@ -1145,25 +1311,6 @@ class ShotPlanningRepository:
             item_artifacts.append(artifact)
             trace_artifacts.append(trace_artifact)
 
-        counts: dict[str, int] = {}
-        for candidate in request.candidates:
-            counts[candidate.coverage_key] = counts.get(candidate.coverage_key, 0) + 1
-        manifest = ShotListManifest(
-            project_id=request.project_id,
-            shot_list_manifest_id=manifest_id,
-            version_id=manifest_version,
-            active_profile_ref=request.active_profile_ref,
-            scene_ref=request.scene_ref,
-            coverage_strategy_ref=coverage.ref,
-            shot_budget_ref=budget.ref,
-            duration_budget_ref=request.duration_budget_ref,
-            ordered_shot_refs=tuple(item.ref for item in item_artifacts),
-            coverage_summary=tuple(
-                ManifestCoverageSummary(coverage_key=key, shot_count=counts[key])
-                for key in sorted(counts)
-            ),
-            ordering_rationale=request.ordering_rationale,
-        )
         manifest_artifact = await self.create_manifest(
             value=manifest,
             provenance=build_shot_planning_provenance(
@@ -1232,6 +1379,37 @@ class ShotPlanningRepository:
             ),
             created_at=created_at,
         )
+
+    async def _ensure_shot_trace(
+        self,
+        *,
+        value: ShotListItem,
+        artifact: ShotPlanningArtifact,
+        trace_version: VersionId,
+        provenance: Provenance,
+        created_at: datetime,
+    ) -> NarrativeTraceArtifact:
+        existing = await self.traces.get_current_trace(
+            artifact_type=NarrativeArtifactType.SHOT_LIST_ITEM,
+            traced_ref=artifact.ref,
+        )
+        if existing is None:
+            return await self._create_shot_trace(
+                value=value,
+                artifact=artifact,
+                trace_version=trace_version,
+                provenance=provenance,
+                created_at=created_at,
+            )
+        if (
+            existing.value.traced_ref != artifact.ref
+            or existing.value.trace_version != trace_version
+            or await self.traces.trace_state(existing.ref) is not NarrativeTraceState.CURRENT
+        ):
+            raise ShotPlanningGateBlocked(
+                "existing shot NarrativeTrace does not match exact current ShotListItem replay"
+            )
+        return existing
 
     async def _create_approved(
         self,
@@ -1392,6 +1570,19 @@ class ShotPlanningRepository:
             for record in unresolved
         ):
             raise ShotPlanningGateBlocked(f"{label} has unresolved durable invalidation")
+        if ref.logical_id.root.startswith("shot-list-item:"):
+            trace = await self.traces.get_current_trace(
+                artifact_type=NarrativeArtifactType.SHOT_LIST_ITEM,
+                traced_ref=ref,
+            )
+            if (
+                trace is None
+                or trace.value.traced_ref != ref
+                or await self.traces.trace_state(trace.ref) is not NarrativeTraceState.CURRENT
+            ):
+                raise ShotPlanningGateBlocked(
+                    f"{label} lacks exact CURRENT NarrativeTrace"
+                )
 
     async def _load(self, ref: VersionRef, model, label: str):
         stored = await self.versions.get_version(ref)

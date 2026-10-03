@@ -2504,3 +2504,33 @@ Acceptance:
 - frozen Master unchanged = SATISFIED
 
 NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-031 SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN"
+
+
+---
+
+## IMP-031 PR #48 REVIEW-FIX LOCAL VERIFIED - 2026-10-03
+
+ACTIVE_TASK = IMP-031 SHOTEXPANSION / SHOTLISTMANIFEST / SHOTLISTITEM
+STATUS = PR REVIEW-FIX LOCAL VERIFIED / PUSH NEW HEAD NEXT
+BRANCH = chatgpt/IMP-031-shot-expansion
+BASE_HEAD = 2da4d431fd52269cd79039a2f9bb6cf0bd940c91
+INITIAL_FEATURE_COMMIT = 243f97e6a207a83b3fb5a041c5744b8b37ac3d16
+PR = #48
+
+Review hardening:
+- exact-replay recovery repairs missing Shot NarrativeTrace after interruption between ShotListItem persistence and trace completion;
+- ShotListItem consumers fail closed without exact CURRENT shot NarrativeTrace;
+- exact manifest replay is idempotent while conflicting replay fails closed;
+- fault-injection tests cover initial-create and revision recovery gaps.
+
+Evidence:
+- targeted = 17/17 PASS
+- affected regression = 130/130 PASS
+- broader valid Windows regression = 644 PASS / 3 deselected
+- frozen Master guard = PASS
+- frozen semantic SHA unchanged = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+- compileall + git diff --check = PASS
+- provider/runtime/network import leakage = NONE
+- TODO/FIXME/NotImplemented = NONE
+
+NEXT_EXACT_ACTION = "STAGE EXACT REVIEW-FIX SCOPE -> COMMIT REVIEW-FIX -> PUSH NEW HEAD TO PR #48 -> WAIT FRESH CI -> EXACT-HEAD REVIEW/MERGE GUARD -> MERGE MAIN -> VERIFY MAIN"

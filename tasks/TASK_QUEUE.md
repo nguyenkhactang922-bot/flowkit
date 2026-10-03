@@ -2072,3 +2072,29 @@ NEXT_EXACT_ACTION = "IMPLEMENT IMP-031 SHOT PLANNING CONTRACTS/REPOSITORY + STAT
 - [ ] Post-merge main verification / MAIN VERIFIED.
 
 NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-031 SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN"
+
+
+---
+
+## IMP-031 PR #48 REVIEW-FIX LOCAL VERIFIED - 2026-10-03
+
+- [x] Initial feature commit `243f97e6a207a83b3fb5a041c5744b8b37ac3d16` pushed and PR #48 opened.
+- [x] Initial PR CI Python 3.10 / 3.13 PASS on initial head.
+- [x] Exact-head review found crash-recovery gap between ShotListItem persistence and NarrativeTrace completion.
+- [x] Add idempotent exact-replay repair for missing shot trace; conflicting replay fails closed.
+- [x] Require exact CURRENT Shot NarrativeTrace before ShotListItem consumption.
+- [x] Add idempotent exact ShotListManifest replay; conflicting replay fails closed.
+- [x] Add fault-injection tests for initial-create and revision interruption recovery.
+- [x] Review-fix targeted = 17/17 PASS.
+- [x] Review-fix affected regression = 130/130 PASS.
+- [x] Review-fix broader valid Windows regression = 644 PASS / 3 deselected.
+- [x] Frozen Master guard / compileall / diff check / import/TODO scans PASS.
+- [ ] Commit review-fix.
+- [ ] Push new exact head to PR #48.
+- [ ] Wait for fresh Ubuntu CI Python 3.10 / 3.13 on new head.
+- [ ] Exact-head merge guard / merge main.
+- [ ] Post-merge targeted + affected + frozen guard + push-main workflow.
+- [ ] Governance state sync / MAIN VERIFIED.
+- [ ] Read DAG/queue and CLAIM next dependency-ready task.
+
+NEXT_EXACT_ACTION = "STAGE EXACT REVIEW-FIX SCOPE -> COMMIT REVIEW-FIX -> PUSH NEW HEAD TO PR #48 -> WAIT FRESH CI -> EXACT-HEAD REVIEW/MERGE GUARD -> MERGE MAIN -> VERIFY MAIN"

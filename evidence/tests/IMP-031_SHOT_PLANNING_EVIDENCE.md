@@ -113,3 +113,29 @@ Review caught and repaired before LOCAL VERIFIED:
 `IMP-031 = LOCAL VERIFIED`
 
 Next: side-effect guard → exact-scope commit → push → PR → Ubuntu CI Python 3.10/3.13 → exact-head review → merge main → post-merge verification → MAIN VERIFIED.
+
+
+## PR #48 Exact-Head Review Hardening — 2026-10-03
+
+Review after initial PR CI found a crash-recovery gap at the ShotListItem/NarrativeTrace boundary: a process interruption after ShotListItem persistence/current-pointer promotion but before NarrativeTrace completion could leave an accepted ShotListItem without a current exact shot trace. The same ordering risk existed for ShotListItem revision before trace-successor completion.
+
+Hardening applied:
+- exact replay of an already-persisted identical ShotListItem is idempotent and repairs a missing exact NarrativeTrace;
+- conflicting payload/version replay still fails closed and cannot allocate a parallel/reused shot identity;
+- consumers fail closed unless the ShotListItem has the exact CURRENT NarrativeTrace;
+- exact replay of an already-persisted identical ShotListManifest is idempotent; conflicting manifest replay still fails closed;
+- fault-injection tests cover interruption after initial ShotListItem write and interruption after ShotListItem revision pointer advance.
+
+Verification on the review-fix worktree:
+- targeted: `17 passed in 33.95s`;
+- affected regression: `130 passed in 73.03s`;
+- broader valid Windows regression: `644 passed, 3 deselected in 110.11s`;
+- frozen Master guard: PASS, semantic SHA unchanged `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`;
+- compileall: PASS;
+- `git diff --check`: PASS;
+- provider/runtime/network import scan: NONE;
+- TODO/FIXME/NotImplemented scan: NONE.
+
+`IMP-031 review-fix = LOCAL VERIFIED`
+
+Next: commit review-fix -> push exact new head to PR #48 -> wait for fresh Ubuntu CI on that head -> exact-head merge guard -> merge -> verify main.
