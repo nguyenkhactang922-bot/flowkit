@@ -92,3 +92,16 @@ TODO/FIXME/NotImplemented=NONE
 ## Local decision
 
 IMP-030 is **LOCAL VERIFIED**. Git side effects remain gated by duplicate checks, PR exact-head Ubuntu CI, exact-head review, merge verification and post-merge main verification.
+
+
+## Main verification
+
+Feature commit `e6ff93f23550d4f650ac3461410f974e56fdfcc6` merged via PR #46 as main merge commit `3dc15e029d6cfb2e3736ee443a72cbbda504c726`.
+
+- PR CI run `37111493909`: Python 3.10 SUCCESS, Python 3.13 SUCCESS, exact feature head.
+- Post-merge frozen Master guard: PASS, semantic SHA unchanged.
+- Post-merge targeted: `18 passed`.
+- Post-merge affected regression: `117 passed`.
+- Main push workflow `37111589949`: SUCCESS on exact merge SHA.
+
+IMP-030 feature implementation is **MAIN VERIFIED**. Governance-only state synchronization remains separate from feature authority/code.
