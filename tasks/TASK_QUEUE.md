@@ -1679,3 +1679,54 @@ NEXT DEPENDENCY-READY TASK:
   - Deliverables: trace repo/index, orphan/cycle detection, why-exists traversal
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/MERGE IMP-027 GOVERNANCE SYNC -> CLAIM IMP-028"
+
+
+---
+
+## IMP-028 CLAIMED - 2026-10-03
+
+- [x] Reconcile restored repo with GitHub source of truth.
+- [x] Verify PR #39 governance sync already merged; do not retry.
+- [x] Verify no active IMP-028 runtime process.
+- [x] Verify no pre-existing remote `chatgpt/IMP-028-narrative-trace` branch.
+- [x] Claim branch `chatgpt/IMP-028-narrative-trace` from main `229ccfb227e748f594fb1f9e8d53040095910c9e`.
+- [ ] Audit VersionRepository / DependencyGraph / NarrativeHierarchy exact-version surfaces.
+- [ ] Implement NarrativeTrace repository/index + validation.
+- [ ] Add top-down / bottom-up / orphan / missing-parent / cycle / exact-version provenance tests.
+- [ ] Targeted + affected + broader regression + frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify.
+
+NEXT_EXACT_ACTION = "AUDIT SHARED VERSION/DEPENDENCY/NARRATIVE HIERARCHY SURFACES -> IMPLEMENT IMP-028 NARRATIVETRACE + TARGETED TESTS"
+
+
+---
+
+## IMP-028 LOCAL VERIFIED - 2026-10-03
+
+- [x] Authority / shared VersionRepository / DependencyGraph / NarrativeHierarchy audit.
+- [x] NarrativeTrace immutable trace repo/index implemented.
+- [x] Exact structural parent/root validation implemented.
+- [x] Top-down / bottom-up / why-exists traversal implemented.
+- [x] `TRACE_MISSING_PARENT` / `TRACE_ORPHAN_ARTIFACT` / `TRACE_CYCLE` fail-closed tests.
+- [x] Exact provenance + source supersession state tests.
+- [x] §63 `narrative_trace_source` dependency edges + durable invalidation propagation verified.
+- [x] Targeted final = 13/13 PASS.
+- [x] Affected regression final = 98/98 PASS.
+- [x] Largest valid Windows regression = 580 PASS / 3 deselected.
+- [x] Frozen Master guard PASS.
+- [x] compileall + git diff --check PASS.
+- [x] Evidence recorded: `evidence/tests/IMP-028_NARRATIVE_TRACE_EVIDENCE.md`.
+- [x] Side-effect guard.
+- [x] Commit `6764a887f9d8c512b0d3db43ebd6f7fee5312879`.
+- [x] Push exact head `6764a887f9d8c512b0d3db43ebd6f7fee5312879`.
+- [x] Open PR #40.
+- [x] Initial Ubuntu CI Python 3.10/3.13 + frozen guard PASS on `6764a887...`.
+- [x] Exact-head review found transitive durable invalidation gap; repair implemented and locally verified.
+- [ ] Push review-fix head + rerun Ubuntu CI.
+- [ ] Final exact-head review.
+- [ ] Merge main.
+- [ ] Verify main / MAIN VERIFIED.
+
+NEXT_EXACT_ACTION = "COMMIT/PUSH PR #40 REVIEW FIX -> RERUN UBUNTU CI -> FINAL EXACT-HEAD REVIEW -> MERGE -> VERIFY MAIN"
+
+- PR #40 exact-head review hardening = transitive durable invalidation gap repaired; post-fix targeted 13/13, affected 98/98, broader 580 PASS / 3 deselected, frozen guard PASS.
