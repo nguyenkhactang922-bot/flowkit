@@ -2098,3 +2098,22 @@ NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-031 SCOPE -> COMMIT ->
 - [ ] Read DAG/queue and CLAIM next dependency-ready task.
 
 NEXT_EXACT_ACTION = "STAGE EXACT REVIEW-FIX SCOPE -> COMMIT REVIEW-FIX -> PUSH NEW HEAD TO PR #48 -> WAIT FRESH CI -> EXACT-HEAD REVIEW/MERGE GUARD -> MERGE MAIN -> VERIFY MAIN"
+
+
+---
+
+## IMP-031 MAIN VERIFIED / GOVERNANCE SYNC - 2026-10-03
+
+- [x] Feature PR #48 merged from exact head `62754bc9655b6732f3fad669c281381ab47ae1ed`.
+- [x] Merge SHA `c6913a2f82c85d05c128824b640f5a17bb635bbf`.
+- [x] PR CI run `37118314077` SUCCESS Python 3.10 / 3.13.
+- [x] Post-merge targeted = 17/17 PASS.
+- [x] Post-merge affected = 130/130 PASS.
+- [x] Frozen Master guard PASS / semantic SHA unchanged.
+- [x] Main push workflow `37118410749` SUCCESS exact merge SHA.
+- [x] IMP-031 feature implementation = MAIN VERIFIED.
+- [ ] Commit/push/PR/merge governance-only state sync.
+- [ ] Verify governance merge on main.
+- [ ] Read DAG/queue and CLAIM next dependency-ready task.
+
+NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-031 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
