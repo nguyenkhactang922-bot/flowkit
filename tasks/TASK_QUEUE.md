@@ -1710,19 +1710,23 @@ NEXT_EXACT_ACTION = "AUDIT SHARED VERSION/DEPENDENCY/NARRATIVE HIERARCHY SURFACE
 - [x] `TRACE_MISSING_PARENT` / `TRACE_ORPHAN_ARTIFACT` / `TRACE_CYCLE` fail-closed tests.
 - [x] Exact provenance + source supersession state tests.
 - [x] §63 `narrative_trace_source` dependency edges + durable invalidation propagation verified.
-- [x] Targeted final = 12/12 PASS.
-- [x] Affected regression final = 97/97 PASS.
-- [x] Largest valid Windows regression = 579 PASS / 3 deselected.
+- [x] Targeted final = 13/13 PASS.
+- [x] Affected regression final = 98/98 PASS.
+- [x] Largest valid Windows regression = 580 PASS / 3 deselected.
 - [x] Frozen Master guard PASS.
 - [x] compileall + git diff --check PASS.
 - [x] Evidence recorded: `evidence/tests/IMP-028_NARRATIVE_TRACE_EVIDENCE.md`.
-- [ ] Side-effect guard.
-- [ ] Commit.
-- [ ] Push.
-- [ ] Open PR.
-- [ ] Ubuntu CI Python 3.10/3.13 + frozen guard.
-- [ ] Exact-head review.
+- [x] Side-effect guard.
+- [x] Commit `6764a887f9d8c512b0d3db43ebd6f7fee5312879`.
+- [x] Push exact head `6764a887f9d8c512b0d3db43ebd6f7fee5312879`.
+- [x] Open PR #40.
+- [x] Initial Ubuntu CI Python 3.10/3.13 + frozen guard PASS on `6764a887...`.
+- [x] Exact-head review found transitive durable invalidation gap; repair implemented and locally verified.
+- [ ] Push review-fix head + rerun Ubuntu CI.
+- [ ] Final exact-head review.
 - [ ] Merge main.
 - [ ] Verify main / MAIN VERIFIED.
 
-NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-028 -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE -> VERIFY MAIN"
+NEXT_EXACT_ACTION = "COMMIT/PUSH PR #40 REVIEW FIX -> RERUN UBUNTU CI -> FINAL EXACT-HEAD REVIEW -> MERGE -> VERIFY MAIN"
+
+- PR #40 exact-head review hardening = transitive durable invalidation gap repaired; post-fix targeted 13/13, affected 98/98, broader 580 PASS / 3 deselected, frozen guard PASS.

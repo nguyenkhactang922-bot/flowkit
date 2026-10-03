@@ -456,6 +456,47 @@ async def test_source_supersession_derives_invalidated_trace_state(tmp_path):
 
 
 @pytest.mark.asyncio
+async def test_transitive_unresolved_invalidation_marks_trace_invalidated(tmp_path):
+    writer = SQLiteWriteOwner(tmp_path / "studio.db")
+    await writer.start()
+    try:
+        versions, _ = await _seed_chain(writer)
+        repo = NarrativeTraceRepository(writer)
+        value = _trace(
+            NarrativeArtifactType.SCENE,
+            SCENE,
+            trace_version="trace-scene-transitive-v1",
+            parent_refs=(SEQUENCE,),
+        )
+        artifact = await repo.create_trace(
+            value=value,
+            provenance=_trace_provenance(value),
+            created_at=NOW,
+        )
+        macro_v2 = await _supersede(versions, MACRO_A, new_version="macro-a-v2")
+
+        # Direct trace bindings are still current here; only durable graph
+        # invalidation can reveal that the upstream ancestor made this trace stale.
+        assert await repo.trace_state(artifact.ref) is NarrativeTraceState.CURRENT
+        records = await repo.invalidations.create_for_change(
+            cause="macro ancestor superseded",
+            source_old=MACRO_A,
+            source_new=macro_v2,
+            provenance=_seed_provenance("invalidate transitive trace ancestry"),
+            scope="narrative trace transitive ancestry",
+            repair_or_recompute_requirement="recompute descendant lineage evidence",
+        )
+        assert any(
+            record.affected_object_id == artifact.ref.logical_id
+            and record.affected_object_version == artifact.ref.version_id
+            for record in records
+        )
+        assert await repo.trace_state(artifact.ref) is NarrativeTraceState.INVALIDATED
+    finally:
+        await writer.close()
+
+
+@pytest.mark.asyncio
 async def test_trace_revision_is_immutable_successor_and_old_trace_is_superseded(tmp_path):
     writer = SQLiteWriteOwner(tmp_path / "studio.db")
     await writer.start()

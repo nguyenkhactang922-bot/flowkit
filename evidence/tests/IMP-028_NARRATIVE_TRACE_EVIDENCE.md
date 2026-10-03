@@ -41,7 +41,7 @@ uv run --isolated --no-project --python 3.13 --with-requirements requirements.tx
 Final result:
 
 ```text
-12 passed in 2.47s
+13 passed in 2.16s
 exit code 0
 ```
 
@@ -73,7 +73,7 @@ uv run --isolated --no-project --python 3.13 --with-requirements requirements.tx
 Final result:
 
 ```text
-97 passed in 24.42s
+98 passed in 22.02s
 exit code 0
 ```
 
@@ -96,7 +96,7 @@ uv run --isolated --no-project --python 3.13 --with-requirements requirements.tx
 Final result:
 
 ```text
-579 passed, 3 deselected in 33.39s
+580 passed, 3 deselected in 32.13s
 exit code 0
 ```
 
@@ -132,3 +132,8 @@ All targeted, affected, broader-unaffected, frozen, compile and diff checks were
 Remote PR CI / exact-head review / merge / final main verification remain required before `MAIN VERIFIED`.
 
 NEXT_EXACT_ACTION = `SIDE-EFFECT GUARD -> COMMIT IMP-028 -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE -> VERIFY MAIN`
+
+
+### PR exact-head review hardening
+
+PR #40 exact-head review found a transitive invalidation gap: a trace could remain `CURRENT` when an ancestor version change produced a durable unresolved §63 `InvalidationRecord` for that trace while all direct source pointers were still current. The repository now consults durable unresolved invalidation records in `trace_state()`. Added a transitive MacroStoryBeat → Sequence → Scene → NarrativeTrace test. Post-fix verification: targeted 13/13 PASS, affected 98/98 PASS, broader unaffected Windows 580 PASS / 3 deselected, frozen guard PASS.

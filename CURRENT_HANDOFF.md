@@ -1875,7 +1875,7 @@ BASE_HEAD = 0672edaac2c8a8ec8bd39e0dd6fffa9cde1f6c5d
 
 Evidence:
 - evidence/tests/IMP-026_SCREENPLAY_REALIZATION_EVIDENCE.md
-- targeted final = 12/12 PASS
+- targeted final = 13/13 PASS
 - affected regression final = 114/114 PASS
 - largest valid Windows regression = 567 PASS / 3 known POSIX-path cases deselected
 - one broader invocation classified INTERRUPTED after process check; only broader stage rerun
@@ -2119,9 +2119,9 @@ BASE = 229ccfb227e748f594fb1f9e8d53040095910c9e
 
 Evidence:
 - `evidence/tests/IMP-028_NARRATIVE_TRACE_EVIDENCE.md`
-- targeted IMP-028 = 12/12 PASS
-- affected regression = 97/97 PASS
-- largest valid Windows regression = 579 PASS / 3 deselected
+- targeted IMP-028 = 13/13 PASS
+- affected regression = 98/98 PASS
+- largest valid Windows regression = 580 PASS / 3 deselected
 - full Windows broad run exposed unrelated `tests/unit/test_setup.py` default-codepage/UTF-8 fixture failures; no out-of-scope diff
 - frozen Master guard = PASS
 - frozen semantic SHA unchanged = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
@@ -2131,3 +2131,11 @@ Evidence:
 - exact-head local review repair: trace exact-source dependency edges added for §63 invalidation propagation
 
 NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-028 -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE -> VERIFY MAIN"
+
+- PR #40 exact-head review hardening = transitive durable invalidation gap repaired; post-fix targeted 13/13, affected 98/98, broader 580 PASS / 3 deselected, frozen guard PASS.
+
+
+STATUS = IMP-028 PR #40 REVIEW FIX LOCAL VERIFIED
+REVIEW_FINDING = transitive unresolved §63 invalidation was not reflected by trace_state; repaired
+POST_FIX_EVIDENCE = targeted 13/13 PASS; affected 98/98 PASS; broader 580 PASS / 3 deselected; frozen guard PASS
+NEXT_EXACT_ACTION = "COMMIT/PUSH PR #40 REVIEW FIX -> RERUN UBUNTU CI -> FINAL EXACT-HEAD REVIEW -> MERGE -> VERIFY MAIN"

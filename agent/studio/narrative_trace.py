@@ -13,7 +13,11 @@ from enum import Enum
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-from .invalidation import DependencyGraphRepository, DependencyReachability
+from .invalidation import (
+    DependencyGraphRepository,
+    DependencyReachability,
+    InvalidationRepository,
+)
 from .persistence import SQLiteWriteOwner
 from .primitives import (
     LifecycleState,
@@ -264,6 +268,7 @@ class NarrativeTraceRepository:
     def __init__(self, writer: SQLiteWriteOwner) -> None:
         self.versions = VersionRepository(writer)
         self.graph = DependencyGraphRepository(writer)
+        self.invalidations = InvalidationRepository(writer, graph=self.graph)
 
     async def create_trace(
         self,
@@ -377,6 +382,13 @@ class NarrativeTraceRepository:
         if pointer is None or pointer.version_id != trace_ref.version_id:
             return NarrativeTraceState.SUPERSEDED
         if pointer.status not in _ACCEPTED_SOURCE_STATES:
+            return NarrativeTraceState.INVALIDATED
+        unresolved = await self.invalidations.list_unresolved()
+        if any(
+            record.affected_object_id == trace_ref.logical_id
+            and record.affected_object_version == trace_ref.version_id
+            for record in unresolved
+        ):
             return NarrativeTraceState.INVALIDATED
         for binding in trace.value.source_bindings():
             source_pointer = await self.versions.get_current(binding.source.logical_id)
