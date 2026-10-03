@@ -2565,3 +2565,102 @@ WORKTREE_AT_VERIFICATION = clean
 GOVERNANCE_BRANCH = chatgpt/IMP-030-main-verified-state
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-030 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-031 CLAIMED - 2026-10-03
+
+ACTIVE_TASK = IMP-031 SHOTEXPANSION / SHOTLISTMANIFEST / SHOTLISTITEM
+STATUS = CLAIMED / AUTHORITY READ NEXT
+BRANCH = chatgpt/IMP-031-shot-expansion
+BASE_HEAD = 2da4d431fd52269cd79039a2f9bb6cf0bd940c91
+DEPENDS = IMP-030 MAIN VERIFIED + IMP-028 MAIN VERIFIED + IMP-024 MAIN VERIFIED
+FROZEN_MASTER_SHA = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+NEXT_EXACT_ACTION = "READ IMP-031 FROZEN SHOTEXPANSION / SHOTLISTMANIFEST / SHOTLISTITEM AUTHORITY + ADR-0020 + AUDIT COVERAGE/BUDGET/DIRECTING/NARRATIVE TRACE SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-031 AUTHORITY + CURRENT-SURFACE AUDIT PASS - 2026-10-03
+
+ACTIVE_TASK = IMP-031 SHOTEXPANSION / SHOTLISTMANIFEST / SHOTLISTITEM
+STATUS = AUTHORITY + CURRENT SURFACE AUDIT PASS / CODE NEXT
+BRANCH = chatgpt/IMP-031-shot-expansion
+BASE_HEAD = 2da4d431fd52269cd79039a2f9bb6cf0bd940c91
+
+LOCKED IMPLEMENTATION DECISIONS:
+- ADR-0020 is authoritative: ShotListItem is the sole canonical shot_id origin; ShotExpansion is a stateless planning transformation; ShotListManifest is refs/projection only.
+- CoverageStrategy and ShotBudget have no separate implementation task, but Frozen Master §§45-46 place them as mandatory canonical planning prerequisites to ShotExpansion and IMP-031 explicitly requires coverage/budget tests. They are implemented in the same Shot Planning boundary without owning Shot identity or narrative truth.
+- ShotExpansion candidates are ephemeral and contain no shot_id. shot_id is allocated only after narrative/coverage/budget/redundancy gates pass at the ShotListItem creation boundary.
+- ShotListItem immediate narrative parent is exact current SceneDramaticBeat; inherited Scene/Sequence/MacroStoryBeat/StoryCore context is proven through CURRENT NarrativeTrace rather than copied into Shot truth.
+- Exact ScriptLock, DirectingIntent, BlockingPlan, CinematographyObjective, CoverageStrategy, ShotBudget, DurationBudget and LOCKED ActiveProductionProfile versions are bound in provenance/dependency edges.
+- CoverageStrategy is scene-scoped provider-neutral coverage/editing planning; ShotBudget is scene-scoped count/duration range+rationale planning. Neither may invent narrative or exact provider/camera truth.
+- ShotListManifest stores ordered ShotListItem refs + coverage/order metadata only; no duplicated dramatic/basic-shot payload.
+- consumers fail closed on stale current pointers and durable unresolved invalidation records.
+- accepted revisions persist immutable successors, register exact dependency edges, create durable selective invalidation before current-pointer CAS.
+- planning writes have no provider/network side effects; partial item creation before manifest approval is recoverable because Master explicitly permits ShotListItem identities to exist before manifest approval and manifest is a separate projection lifecycle.
+- legacy FlowKit Scene/render rows remain downstream compatibility/execution targets only and never allocate canonical shot_id.
+
+NEXT_EXACT_ACTION = "IMPLEMENT IMP-031 SHOT PLANNING CONTRACTS/REPOSITORY + STATELESS EXPANSION SERVICE -> TARGETED TESTS"
+
+
+---
+
+## IMP-031 LOCAL VERIFIED - 2026-10-03
+
+ACTIVE_TASK = IMP-031 SHOTEXPANSION / SHOTLISTMANIFEST / SHOTLISTITEM
+STATUS = LOCAL VERIFIED
+BRANCH = chatgpt/IMP-031-shot-expansion
+BASE_HEAD = 2da4d431fd52269cd79039a2f9bb6cf0bd940c91
+
+Evidence:
+- `evidence/tests/IMP-031_SHOT_PLANNING_EVIDENCE.md`
+- targeted final = 15/15 PASS
+- affected regression final = 128/128 PASS
+- largest valid Windows regression = 642 PASS / 3 deselected
+- frozen Master guard = PASS
+- frozen semantic SHA unchanged = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+- compileall + git diff --check = PASS
+- provider/runtime/network import leakage = NONE
+- TODO/FIXME/NotImplemented = NONE
+
+Acceptance:
+- ShotExpansion stateless / no candidate shot_id = SATISFIED
+- ShotListItem sole canonical shot_id origin = SATISFIED
+- exact SceneDramaticBeat parent + CURRENT NarrativeTrace = SATISFIED
+- ShotListItem creation/revision always maintains shot NarrativeTrace = SATISFIED
+- CoverageStrategy exact current beat-set coverage = SATISFIED
+- ShotBudget count/duration reconciliation = SATISFIED
+- no redundant/unjustified shot = SATISFIED
+- ShotListManifest refs-only / no shadow truth = SATISFIED
+- no premature ELIGIBLE bypass before IMP-032 = SATISFIED
+- exact-current + unresolved-invalidation fail closed = SATISFIED
+- selective dependency invalidation = SATISFIED
+- frozen Master unchanged = SATISFIED
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-031 SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN"
+
+
+---
+
+## IMP-031 PR #48 REVIEW-FIX LOCAL VERIFIED - 2026-10-03
+
+ACTIVE_TASK = IMP-031 SHOTEXPANSION / SHOTLISTMANIFEST / SHOTLISTITEM
+STATUS = PR REVIEW-FIX LOCAL VERIFIED / PUSH NEW HEAD NEXT
+BRANCH = chatgpt/IMP-031-shot-expansion
+INITIAL_FEATURE_COMMIT = 243f97e6a207a83b3fb5a041c5744b8b37ac3d16
+PR = #48
+
+Checkpoint:
+- exact-replay recovery hardens ShotListItem + NarrativeTrace crash boundary;
+- ShotListItem consumption requires exact CURRENT shot NarrativeTrace;
+- exact ShotListManifest replay is idempotent; conflicting replay remains forbidden;
+- targeted 17/17 PASS;
+- affected 130/130 PASS;
+- broader valid Windows 644 PASS / 3 deselected;
+- frozen Master guard PASS / semantic SHA unchanged;
+- compileall + diff check + import/TODO scans PASS.
+
+NEXT_EXACT_ACTION = "STAGE EXACT REVIEW-FIX SCOPE -> COMMIT REVIEW-FIX -> PUSH NEW HEAD TO PR #48 -> WAIT FRESH CI -> EXACT-HEAD REVIEW/MERGE GUARD -> MERGE MAIN -> VERIFY MAIN"

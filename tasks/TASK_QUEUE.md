@@ -2005,3 +2005,96 @@ NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-030 SCOPE -> COMMIT ->
 - [ ] Read DAG/queue and CLAIM next dependency-ready task.
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-030 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-031 CLAIMED - 2026-10-03
+
+- [x] IMP-030 + IMP-028 + IMP-024 MAIN VERIFIED.
+- [x] Verify no remote/pr duplicate for `chatgpt/IMP-031-shot-expansion`.
+- [x] Claim branch from clean main `2da4d431fd52269cd79039a2f9bb6cf0bd940c91`.
+- [ ] Read frozen ShotExpansion / ShotListManifest / ShotListItem authority + ADR-0020.
+- [ ] Audit CoverageStrategy / budget / Directing chain / NarrativeTrace exact-version surfaces.
+- [ ] Implement planning transformation + one ShotListItem shot_id origin + refs-only manifest.
+- [ ] Tests: no orphan shot, no duplicate manifest truth, no parallel shot ID, coverage/redundancy/budget.
+- [ ] Targeted + affected + broader regression + frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify.
+
+NEXT_EXACT_ACTION = "READ IMP-031 FROZEN SHOTEXPANSION / SHOTLISTMANIFEST / SHOTLISTITEM AUTHORITY + ADR-0020 + AUDIT COVERAGE/BUDGET/DIRECTING/NARRATIVE TRACE SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-031 AUTHORITY + SURFACE AUDIT PASS - 2026-10-03
+
+- [x] Read Frozen Master §§45-48 + ADR-0020.
+- [x] Audit current code: no canonical CoverageStrategy / ShotBudget / ShotListItem / ShotListManifest exists.
+- [x] Reuse IMP-024 DurationBudget/StructureProfile exact-version planning constraints.
+- [x] Reuse IMP-028 NarrativeTrace SHOT_LIST_ITEM parent contract.
+- [x] Reuse IMP-030 Directing/Blocking/Cinematography authority; no camera self-author path.
+- [x] Lock ShotExpansion as stateless transformation; candidates contain no shot_id.
+- [x] Lock ShotListItem as sole shot_id origin; Manifest remains refs-only projection.
+- [x] Allocate CoverageStrategy + ShotBudget to same Shot Planning boundary because no separate task owns them and IMP-031 coverage/budget acceptance requires them.
+- [x] Lock exact-current + unresolved-invalidation fail-closed consumption.
+- [ ] Implement shot_planning contracts/repository/expansion service.
+- [ ] Tests: no orphan shot, no duplicate/shadow manifest truth, no parallel shot_id, coverage/redundancy/budget, stale/invalidation, exact NarrativeTrace.
+- [ ] Targeted + affected + broader regression + frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify.
+
+NEXT_EXACT_ACTION = "IMPLEMENT IMP-031 SHOT PLANNING CONTRACTS/REPOSITORY + STATELESS EXPANSION SERVICE -> TARGETED TESTS"
+
+
+---
+
+## IMP-031 LOCAL VERIFIED - 2026-10-03
+
+- [x] Frozen ShotExpansion / ShotListManifest / ShotListItem authority + ADR-0020 read.
+- [x] CoverageStrategy / ShotBudget ownership reconciled inside Shot Planning boundary.
+- [x] Implement stateless ShotExpansion candidates with no shot identity.
+- [x] Implement CoverageStrategy + exact current SceneDramaticBeat coverage.
+- [x] Implement ShotBudget count/duration planning constraints.
+- [x] Implement ShotListItem sole shot_id creation boundary.
+- [x] Implement mandatory Shot NarrativeTrace creation/revision.
+- [x] Implement refs-only ShotListManifest projection.
+- [x] Block premature ELIGIBLE state before IMP-032.
+- [x] Block stale/unresolved invalidated exact inputs.
+- [x] Targeted final 15/15 PASS.
+- [x] Affected regression final 128/128 PASS.
+- [x] Broader Windows regression 642 PASS / 3 deselected.
+- [x] Frozen Master guard + compileall + git diff --check PASS.
+- [x] Evidence = `evidence/tests/IMP-031_SHOT_PLANNING_EVIDENCE.md`.
+- [ ] Side-effect guard.
+- [ ] Commit/push/PR.
+- [ ] Ubuntu CI Python 3.10/3.13 + frozen guard.
+- [ ] Exact-head review.
+- [ ] Merge main.
+- [ ] Post-merge main verification / MAIN VERIFIED.
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-031 SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN"
+
+
+---
+
+## IMP-031 PR #48 REVIEW-FIX LOCAL VERIFIED - 2026-10-03
+
+- [x] Initial feature commit `243f97e6a207a83b3fb5a041c5744b8b37ac3d16` pushed and PR #48 opened.
+- [x] Initial PR CI Python 3.10 / 3.13 PASS on initial head.
+- [x] Exact-head review found crash-recovery gap between ShotListItem persistence and NarrativeTrace completion.
+- [x] Add idempotent exact-replay repair for missing shot trace; conflicting replay fails closed.
+- [x] Require exact CURRENT Shot NarrativeTrace before ShotListItem consumption.
+- [x] Add idempotent exact ShotListManifest replay; conflicting replay fails closed.
+- [x] Add fault-injection tests for initial-create and revision interruption recovery.
+- [x] Review-fix targeted = 17/17 PASS.
+- [x] Review-fix affected regression = 130/130 PASS.
+- [x] Review-fix broader valid Windows regression = 644 PASS / 3 deselected.
+- [x] Frozen Master guard / compileall / diff check / import/TODO scans PASS.
+- [ ] Commit review-fix.
+- [ ] Push new exact head to PR #48.
+- [ ] Wait for fresh Ubuntu CI Python 3.10 / 3.13 on new head.
+- [ ] Exact-head merge guard / merge main.
+- [ ] Post-merge targeted + affected + frozen guard + push-main workflow.
+- [ ] Governance state sync / MAIN VERIFIED.
+- [ ] Read DAG/queue and CLAIM next dependency-ready task.
+
+NEXT_EXACT_ACTION = "STAGE EXACT REVIEW-FIX SCOPE -> COMMIT REVIEW-FIX -> PUSH NEW HEAD TO PR #48 -> WAIT FRESH CI -> EXACT-HEAD REVIEW/MERGE GUARD -> MERGE MAIN -> VERIFY MAIN"
