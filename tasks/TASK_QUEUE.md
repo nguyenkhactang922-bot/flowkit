@@ -1913,3 +1913,74 @@ NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> COMMIT IMP-042 -> PUSH -> PR -> UBUNTU
 - [ ] Read DAG/queue and CLAIM next dependency-ready task.
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-042 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-042 GOVERNANCE VERIFIED / IMP-030 CLAIMED - 2026-10-03
+
+- [x] IMP-042 feature PR #44 MAIN VERIFIED at `22c9975f8296bb40d5e82cc3c698a2e7fc38b062`.
+- [x] IMP-042 governance PR #45 merged at `6ecc99275fe953f65fb1c7f64158e5f438d655a8`.
+- [x] Governance push-main workflow `37108600449` SUCCESS exact governance SHA.
+- [x] Verify IMP-030 dependencies: IMP-025 + IMP-027 + IMP-028 + IMP-042 + IMP-013 MAIN VERIFIED.
+- [x] Verify no remote/pr duplicate for `chatgpt/IMP-030-directing-spatial-cinematography`.
+- [x] Claim branch from clean main `6ecc99275fe953f65fb1c7f64158e5f438d655a8`.
+- [ ] Read frozen AudienceExperienceTarget / DirectingIntent / SceneSpatialDramaticContract / BlockingPlan / CinematographyObjective authority.
+- [ ] Audit current narrative/state/camera surfaces and exact-version dependencies.
+- [ ] Implement provider-neutral directing chain with hard-gate bypass prevention.
+- [ ] Tests: required dramatic/directing parents, stale exact-version rejection, camera self-author negative paths, deterministic provenance/dependency edges.
+- [ ] Targeted + affected + broader regression + frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify.
+
+NEXT_EXACT_ACTION = "READ IMP-030 FROZEN AUDIENCE/DIRECTING/SPATIAL/BLOCKING/CINEMATOGRAPHY AUTHORITY + AUDIT CURRENT NARRATIVE/STATE/CAMERA SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-030 AUTHORITY + SURFACE AUDIT PASS - 2026-10-03
+
+- [x] Read frozen Master §§28/30/42-44 and ADR-0019.
+- [x] Audit exact current Scene/SceneDramaticBeat, ScriptLock, NarrativeTrace, StateSnapshot/ApprovedEndState and ActiveProductionProfile contracts.
+- [x] Audit legacy camera/prompt surfaces; keep them downstream compatibility/runtime only.
+- [x] Lock beat-scoped AudienceExperienceTarget / DirectingIntent / BlockingPlan / CinematographyObjective identities and scene-scoped SceneSpatialDramaticContract.
+- [x] Lock NarrativeTrace as inherited narrative-context evidence without copied Story/Scene truth.
+- [x] Lock approved StateSnapshot + designation as semantic continuity input for spatial/blocking.
+- [x] Lock `PROFILE_PATH:*` dependency edge for profile-selective invalidation.
+- [x] Lock CinematographyObjective as visual strategy + exact decision-basis refs, never self-originating camera authority.
+- [ ] Implement typed contracts + shared VersionRepository/DependencyGraph/Invalidation repository flow.
+- [ ] Tests: hard-gate bypass, stale source rejection, profile lineage, approved-state propagation, spatial/blocking ownership, camera decision basis, selective invalidation.
+- [ ] Targeted + affected + broader regression + frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify.
+
+NEXT_EXACT_ACTION = "IMPLEMENT IMP-030 PROVIDER-NEUTRAL AUTHORITY CONTRACTS + REPOSITORY -> TARGETED TESTS"
+
+
+---
+
+## IMP-030 LOCAL VERIFIED - 2026-10-03
+
+- [x] Authority/surface audit PASS.
+- [x] Implement AudienceExperienceTarget / DirectingIntent / SceneSpatialDramaticContract / BlockingPlan / CinematographyObjective.
+- [x] Keep provider/runtime camera surfaces downstream-only.
+- [x] Enforce CURRENT NarrativeTrace + LOCKED ScriptLock + LOCKED ActiveProductionProfile.
+- [x] Enforce approved/propagatable StateSnapshot + exact designation for spatial/blocking.
+- [x] Enforce Scene participant authority for directing/performance/spatial participants.
+- [x] Enforce Scene-or-approved-State authority for entity-backed spatial anchors.
+- [x] Enforce canonical LOCATION kind for location_entity_ref.
+- [x] Enforce Blocking entities declared by exact SpatialContract.
+- [x] Enforce exact visual decision basis; no self-originating camera authority.
+- [x] Exact dependency edges + `PROFILE_PATH:*` + durable selective invalidation.
+- [x] Targeted final = 18/18 PASS.
+- [x] Affected regression final = 117/117 PASS.
+- [x] Broader valid Windows regression = 627 PASS / 3 deselected.
+- [x] Frozen Master guard PASS / semantic SHA unchanged.
+- [x] compileall + diff check + authority leakage/TODO scans PASS.
+- [x] IMP-030 = LOCAL VERIFIED.
+- [ ] Side-effect guard.
+- [ ] Commit/push/PR.
+- [ ] Ubuntu CI Python 3.10/3.13 + frozen guard.
+- [ ] Exact-head review.
+- [ ] Merge main.
+- [ ] Post-merge main verification / MAIN VERIFIED.
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-030 SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN"
