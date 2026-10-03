@@ -137,3 +137,19 @@ NEXT_EXACT_ACTION = `SIDE-EFFECT GUARD -> COMMIT IMP-028 -> PUSH -> PR -> UBUNTU
 ### PR exact-head review hardening
 
 PR #40 exact-head review found a transitive invalidation gap: a trace could remain `CURRENT` when an ancestor version change produced a durable unresolved §63 `InvalidationRecord` for that trace while all direct source pointers were still current. The repository now consults durable unresolved invalidation records in `trace_state()`. Added a transitive MacroStoryBeat → Sequence → Scene → NarrativeTrace test. Post-fix verification: targeted 13/13 PASS, affected 98/98 PASS, broader unaffected Windows 580 PASS / 3 deselected, frozen guard PASS.
+
+
+## Post-merge main verification
+
+Feature PR #40 merged at `2026-10-03T04:36:21Z`.
+
+- feature head: `f18955e68945fe7252443392768233120f129bb9`
+- main merge commit: `32e078c7225b27eb54b3ed4536ec0d792efec98d`
+- local main worktree: clean at exact merge commit
+- frozen Master guard: PASS, semantic SHA unchanged `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`
+- post-merge targeted NarrativeTrace: 13/13 PASS
+- post-merge affected regression: 98/98 PASS
+- GitHub push-main workflow `37097099717`: SUCCESS at exact merge SHA
+- PR #40 full Ubuntu CI: Python 3.10 SUCCESS + Python 3.13 SUCCESS on final feature head
+
+Feature implementation is MAIN VERIFIED. This governance-only branch records that already-proven state; it does not alter implementation semantics.
