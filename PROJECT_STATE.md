@@ -2682,3 +2682,83 @@ MAIN_PUSH_WORKFLOW = 37118410749 SUCCESS exact merge SHA
 GOVERNANCE_BRANCH = chatgpt/IMP-031-main-verified-state
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-031 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-031 GOVERNANCE VERIFIED / IMP-032 CLAIMED - 2026-10-03
+
+IMP-031 governance PR #49 merged at `f7ec86c9392be24185d23893cd8b513e281f1c52`.
+Governance push-main workflow `37118828928` SUCCESS exact governance SHA.
+
+ACTIVE_TASK = IMP-032 SHOTELIGIBILITYGATE / FULLSHOTSPEC / STATICKEYFRAMESPEC / MOTIONDELTASPEC / SHOTDECISIONTRACE
+STATUS = CLAIMED / AUTHORITY READ NEXT
+BRANCH = chatgpt/IMP-032-shot-eligibility-fullshotspec
+BASE_HEAD = f7ec86c9392be24185d23893cd8b513e281f1c52
+DEPENDS = IMP-031 MAIN VERIFIED + IMP-042 MAIN VERIFIED + IMP-041 MAIN VERIFIED + IMP-013 MAIN VERIFIED
+
+NEXT_EXACT_ACTION = "READ IMP-032 FROZEN SHOT ELIGIBILITY / FULLSHOTSPEC L1-L8 / STATICKEYFRAMESPEC / MOTIONDELTASPEC / SHOTDECISIONTRACE AUTHORITY + AUDIT CURRENT SHOT/STATE/REFERENCE/PROFILE SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-032 AUTHORITY + CURRENT-SURFACE AUDIT PASS - 2026-10-03
+
+ACTIVE_TASK = IMP-032 SHOTELIGIBILITYGATE / FULLSHOTSPEC / STATICKEYFRAMESPEC / MOTIONDELTASPEC / SHOTDECISIONTRACE
+STATUS = AUTHORITY + CURRENT SURFACE AUDIT PASS / CODE NEXT
+BRANCH = chatgpt/IMP-032-shot-eligibility-fullshotspec
+BASE_HEAD = f7ec86c9392be24185d23893cd8b513e281f1c52
+
+Locked boundaries:
+- same canonical shot_id from ShotListItem only;
+- immutable exact-input ShotEligibilityGate, CURRENT ELIGIBLE required for realization;
+- FullShotSpec = provider-neutral detailed realization with exactly semantic L1-L8 and field authority/provenance;
+- StaticKeyframeSpec = start/keyframe state only; MotionDeltaSpec = temporal delta only;
+- ShotDecisionTrace = explainability evidence bound to exact FullShotSpec version;
+- reuse current approved StateSnapshot/designation + exact ReferenceAsset resolution + locked ActiveProductionProfile;
+- shared VersionRepository/DependencyGraph/Invalidation only; no provider/runtime authority.
+
+NEXT_EXACT_ACTION = "IMPLEMENT IMP-032 PROVIDER-NEUTRAL REALIZATION CONTRACTS/REPOSITORY + HARD GATES -> TARGETED TESTS"
+
+
+---
+
+## IMP-032 LOCAL VERIFIED - 2026-10-03
+
+IMP-032 = LOCAL VERIFIED
+BRANCH = chatgpt/IMP-032-shot-eligibility-fullshotspec
+BASE_HEAD = f7ec86c9392be24185d23893cd8b513e281f1c52
+FROZEN_MASTER_SHA = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+Verified implementation:
+- ShotEligibilityGate exact evaluated-input evidence with exact rule/profile/state/reference/directing/cinematography bindings;
+- FullShotSpec exactly L1-L8 with field authority/provenance;
+- StaticKeyframeSpec static-only start state;
+- MotionDeltaSpec temporal-delta-only contract;
+- ShotDecisionTrace exact explainability lineage;
+- no new shot_id authority and no provider/runtime canonical leakage;
+- selective durable invalidation for reference/rule/spec/gate successors;
+- crash-safe reference-binding promotion boundary.
+
+Verification evidence:
+- targeted = 15/15 PASS;
+- affected = 154/154 PASS;
+- broader Windows = 659 PASS / 3 deselected;
+- frozen guard = PASS;
+- semantic SHA unchanged = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287;
+- compileall / diff check / leakage scan / TODO scan = PASS;
+- evidence = `evidence/tests/IMP-032_SHOT_REALIZATION_EVIDENCE.md`.
+
+REMOTE STATUS = NOT YET COMMITTED/PUSHED/PR/MERGED
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-032 SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI PYTHON 3.10/3.13 -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC -> MAIN VERIFIED -> CLAIM NEXT TASK"
+
+
+### IMP-032 SIDE-EFFECT GUARD PASS - 2026-10-03
+
+- remote feature branch absent before push;
+- no existing PR for `chatgpt/IMP-032-shot-eligibility-fullshotspec`;
+- staged index was empty before exact-scope staging;
+- transient `.tmp` removed and excluded from scope.
+
+NEXT_EXACT_ACTION = "STAGE EXACT IMP-032 VERIFIED SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI PYTHON 3.10/3.13 -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC"
