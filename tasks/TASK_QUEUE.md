@@ -1984,3 +1984,24 @@ NEXT_EXACT_ACTION = "IMPLEMENT IMP-030 PROVIDER-NEUTRAL AUTHORITY CONTRACTS + RE
 - [ ] Post-merge main verification / MAIN VERIFIED.
 
 NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-030 SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN"
+
+
+---
+
+## IMP-030 MAIN VERIFIED / GOVERNANCE SYNC - 2026-10-03
+
+- [x] Feature commit `e6ff93f23550d4f650ac3461410f974e56fdfcc6` pushed.
+- [x] PR #46 CI Python 3.10 + 3.13 SUCCESS on exact feature head.
+- [x] Final exact-head review PASS.
+- [x] PR #46 merged.
+- [x] Main merge SHA `3dc15e029d6cfb2e3736ee443a72cbbda504c726`.
+- [x] Post-merge targeted = 18/18 PASS.
+- [x] Post-merge affected = 117/117 PASS.
+- [x] Frozen Master guard PASS / semantic SHA unchanged.
+- [x] Main push workflow `37111589949` SUCCESS on exact merge SHA.
+- [x] IMP-030 feature implementation = MAIN VERIFIED.
+- [ ] Commit/push/merge governance-only state sync.
+- [ ] Verify governance merge on main.
+- [ ] Read DAG/queue and CLAIM next dependency-ready task.
+
+NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-030 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
