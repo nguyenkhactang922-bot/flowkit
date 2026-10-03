@@ -2553,3 +2553,106 @@ WORKTREE_AT_VERIFICATION = clean
 GOVERNANCE_BRANCH = chatgpt/IMP-031-main-verified-state
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-031 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-031 GOVERNANCE VERIFIED / IMP-032 CLAIMED - 2026-10-03
+
+IMP-031_GOVERNANCE_PR = #49
+IMP-031_GOVERNANCE_MERGE_SHA = f7ec86c9392be24185d23893cd8b513e281f1c52
+IMP-031_GOVERNANCE_PUSH_WORKFLOW = 37118828928 SUCCESS Python 3.10 / 3.13 exact governance SHA
+
+ACTIVE_TASK = IMP-032 SHOTELIGIBILITYGATE / FULLSHOTSPEC / STATICKEYFRAMESPEC / MOTIONDELTASPEC / SHOTDECISIONTRACE
+STATUS = CLAIMED / AUTHORITY READ NEXT
+BRANCH = chatgpt/IMP-032-shot-eligibility-fullshotspec
+BASE_HEAD = f7ec86c9392be24185d23893cd8b513e281f1c52
+DEPENDS = IMP-031 MAIN VERIFIED + IMP-042 MAIN VERIFIED + IMP-041 MAIN VERIFIED + IMP-013 MAIN VERIFIED
+FROZEN_MASTER_SHA = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+NEXT_EXACT_ACTION = "READ IMP-032 FROZEN SHOT ELIGIBILITY / FULLSHOTSPEC L1-L8 / STATICKEYFRAMESPEC / MOTIONDELTASPEC / SHOTDECISIONTRACE AUTHORITY + AUDIT CURRENT SHOT/STATE/REFERENCE/PROFILE SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-032 AUTHORITY + CURRENT-SURFACE AUDIT PASS - 2026-10-03
+
+ACTIVE_TASK = IMP-032 SHOTELIGIBILITYGATE / FULLSHOTSPEC / STATICKEYFRAMESPEC / MOTIONDELTASPEC / SHOTDECISIONTRACE
+STATUS = AUTHORITY + CURRENT SURFACE AUDIT PASS / CODE NEXT
+BRANCH = chatgpt/IMP-032-shot-eligibility-fullshotspec
+BASE_HEAD = f7ec86c9392be24185d23893cd8b513e281f1c52
+
+LOCKED IMPLEMENTATION DECISIONS:
+- ADR-0020 + Frozen Master §§49-54 are authoritative: ShotListItem remains sole shot_id origin; IMP-032 never allocates/rekeys Shot identity.
+- ShotEligibilityGate is immutable versioned evidence for exact evaluated inputs; only CURRENT ELIGIBLE gate may authorize FullShotSpec.
+- Any ShotListItem/State/Reference/Profile/directing/cinematography exact-version change makes prior eligibility unusable for new realization through current-pointer/invalidation checks.
+- FullShotSpec realizes the SAME shot_id and persists exactly eight semantic layers L1 SUBJECT, L2 STATE/WARDROBE, L3 ACTION/PERFORMANCE, L4 ENVIRONMENT, L5 TIME/ATMOSPHERE, L6 CAMERA, L7 LIGHTING/STYLE, L8 CONTINUITY.
+- Every semantic field carries authority class FIXED/INHERITED/VARIABLE plus exact source refs; no canonical L9-L12 are invented.
+- T9 StaticKeyframeSpec and T10 MotionDeltaSpec are technical realization stages only, not semantic layers.
+- StaticKeyframeSpec contains observable start/keyframe state/composition/visible performance and cannot contain temporal delta fields.
+- MotionDeltaSpec references exact FullShotSpec + current StaticKeyframeSpec and contains only temporal change; it cannot silently redefine start state.
+- ShotDecisionTrace is immutable explainability evidence bound to exact FullShotSpec version + same shot_id; generic "cinematic" is never sufficient rationale.
+- State authority is reused through StateSnapshotRepository.assert_propagatable(); no state payload shadow store is created.
+- Reference authority is reused through ReferenceResolver exact-current resolution/bind_consumer; only selected ReferenceAsset refs/hashes are bound, provider projection is not canonical shot truth.
+- Shared VersionRepository + DependencyGraph + InvalidationRepository remain the only version/current/dependency/invalidation truth.
+- No provider/runtime/network side effects or provider-specific request syntax enter IMP-032 canonical transaction.
+
+NEXT_EXACT_ACTION = "IMPLEMENT IMP-032 PROVIDER-NEUTRAL REALIZATION CONTRACTS/REPOSITORY + HARD GATES -> TARGETED TESTS"
+
+
+---
+
+## IMP-032 LOCAL VERIFIED - 2026-10-03
+
+ACTIVE_TASK = IMP-032 SHOTELIGIBILITYGATE / FULLSHOTSPEC / STATICKEYFRAMESPEC / MOTIONDELTASPEC / SHOTDECISIONTRACE
+STATUS = LOCAL VERIFIED / SIDE-EFFECT GUARD NEXT
+BRANCH = chatgpt/IMP-032-shot-eligibility-fullshotspec
+BASE_HEAD = f7ec86c9392be24185d23893cd8b513e281f1c52
+FROZEN_MASTER_SHA = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+Checkpoint evidence:
+- provider-neutral realization contracts/repository implemented without new shot_id origin;
+- exact-input ShotEligibilityGate + L1-L8 FullShotSpec + StaticKeyframeSpec + MotionDeltaSpec + ShotDecisionTrace implemented;
+- exact required-reference set + full ReferenceResolutionTrace hash + exact eligibility-rule version persisted in gate evidence;
+- exact reference/rule successor invalidation fails closed;
+- reference-binding interruption recovery remains DRAFT until exact binding succeeds;
+- targeted final = 15/15 PASS;
+- affected direct-authority regression final = 154/154 PASS;
+- broader valid Windows regression final = 659 PASS / 3 deselected;
+- frozen Master guard PASS / semantic SHA unchanged;
+- compileall + git diff --check PASS;
+- provider/runtime/network import leakage = NONE;
+- TODO/FIXME/NotImplemented = NONE;
+- evidence = evidence/tests/IMP-032_SHOT_REALIZATION_EVIDENCE.md.
+
+Recovery note:
+- an inherited pytest process was found RUNNING and was monitored without restart;
+- it exited without durable result marker, so that run was classified INTERRUPTED/UNKNOWN rather than PASS;
+- execution resumed from the last durable targeted PASS checkpoint at affected regression.
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-032 SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI PYTHON 3.10/3.13 -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC -> MAIN VERIFIED -> CLAIM NEXT TASK"
+
+
+### IMP-032 SIDE-EFFECT GUARD PASS - 2026-10-03
+
+- branch = `chatgpt/IMP-032-shot-eligibility-fullshotspec`
+- local HEAD/base = `f7ec86c9392be24185d23893cd8b513e281f1c52`
+- remote branch = ABSENT
+- existing PR for head branch = NONE
+- staged index before guard = EMPTY
+- transient `.tmp` = REMOVED / OUT OF SCOPE
+
+NEXT_EXACT_ACTION = "STAGE EXACT IMP-032 VERIFIED SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI PYTHON 3.10/3.13 -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC"
+
+
+### IMP-032 FEATURE COMMIT / PR CREATED - 2026-10-03
+
+FEATURE_COMMIT = 6e96978bc9596bc4838492532dacabc7c56f1a53
+REMOTE_BRANCH = origin/chatgpt/IMP-032-shot-eligibility-fullshotspec
+PUSH = SUCCESS
+PR = #50
+PR_URL = https://github.com/nguyenkhactang922-bot/flowkit/pull/50
+
+Feature code/tests/evidence are unchanged since LOCAL VERIFIED. This checkpoint update is governance/state-only.
+
+NEXT_EXACT_ACTION = "COMMIT/PUSH IMP-032 PR CHECKPOINT STATE -> WAIT FRESH CI ON FINAL HEAD -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC"

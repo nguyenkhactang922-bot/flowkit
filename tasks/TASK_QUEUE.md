@@ -2117,3 +2117,94 @@ NEXT_EXACT_ACTION = "STAGE EXACT REVIEW-FIX SCOPE -> COMMIT REVIEW-FIX -> PUSH N
 - [ ] Read DAG/queue and CLAIM next dependency-ready task.
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-031 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-031 GOVERNANCE VERIFIED / IMP-032 CLAIMED - 2026-10-03
+
+- [x] IMP-031 governance PR #49 merged at `f7ec86c9392be24185d23893cd8b513e281f1c52`.
+- [x] Governance push-main workflow `37118828928` SUCCESS exact governance SHA.
+- [x] Verify IMP-032 dependencies: IMP-031 + IMP-042 + IMP-041 + IMP-013 MAIN VERIFIED.
+- [x] Verify no remote branch/PR duplicate for IMP-032.
+- [x] Claim `chatgpt/IMP-032-shot-eligibility-fullshotspec` from clean governance main.
+- [ ] Read frozen ShotEligibilityGate / FullShotSpec L1-L8 / StaticKeyframeSpec / MotionDeltaSpec / ShotDecisionTrace authority.
+- [ ] Audit current ShotListItem/NarrativeTrace, StateSnapshot, ReferenceAsset resolver and ActiveProductionProfile surfaces.
+- [ ] Implement provider-neutral eligibility/realization boundary without creating a new shot_id.
+- [ ] Tests: stale gate rejection, required upstream gates, same shot_id across revisions, L1-L8 only, static/motion delta separation, decision trace exact provenance.
+- [ ] Targeted + affected + broader regression + frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify.
+
+NEXT_EXACT_ACTION = "READ IMP-032 FROZEN SHOT ELIGIBILITY / FULLSHOTSPEC L1-L8 / STATICKEYFRAMESPEC / MOTIONDELTASPEC / SHOTDECISIONTRACE AUTHORITY + AUDIT CURRENT SHOT/STATE/REFERENCE/PROFILE SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-032 AUTHORITY + CURRENT-SURFACE AUDIT PASS - 2026-10-03
+
+- [x] Read Frozen Master §§49-54 + L1-L8 policy + ADR-0020.
+- [x] Confirm no existing canonical FullShotSpec/StaticKeyframeSpec/MotionDeltaSpec owner in `agent/studio`.
+- [x] Reuse IMP-031 ShotListItem + exact current shot NarrativeTrace; no new shot_id origin.
+- [x] Reuse IMP-042 StateSnapshot approval/propagation authority.
+- [x] Reuse IMP-041 ReferenceAsset/ReferenceResolver exact-current bindings.
+- [x] Reuse IMP-013 ActiveProductionProfile exact current LOCKED binding.
+- [x] Lock exactly eight semantic layers L1-L8 with field-level FIXED/INHERITED/VARIABLE + source refs; no invented canonical L9-L12.
+- [x] Lock StaticKeyframeSpec as static start state only and MotionDeltaSpec as temporal delta only.
+- [x] Lock ShotDecisionTrace as explainability evidence, not Shot truth.
+- [ ] Implement typed contracts/repository/gates.
+- [ ] Tests: stale/rejected gate, same shot_id across spec revisions, L1-L8 only, static/motion separation, exact State/Reference/Profile bindings, decision trace provenance, selective invalidation.
+- [ ] Targeted + affected + broader regression + frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify.
+
+NEXT_EXACT_ACTION = "IMPLEMENT IMP-032 PROVIDER-NEUTRAL REALIZATION CONTRACTS/REPOSITORY + HARD GATES -> TARGETED TESTS"
+
+
+---
+
+## IMP-032 LOCAL VERIFIED - 2026-10-03
+
+- [x] Read frozen ShotEligibilityGate / FullShotSpec L1-L8 / StaticKeyframeSpec / MotionDeltaSpec / ShotDecisionTrace authority.
+- [x] Audit current ShotListItem/NarrativeTrace, StateSnapshot, ReferenceAsset resolver and ActiveProductionProfile surfaces.
+- [x] Implement typed provider-neutral ShotEligibilityGate / FullShotSpec / StaticKeyframeSpec / MotionDeltaSpec / ShotDecisionTrace contracts and repository.
+- [x] Preserve same canonical shot_id; no parallel/reallocated Shot identity.
+- [x] Bind exact current Shot NarrativeTrace / profile / state / directing / spatial / blocking / cinematography authority.
+- [x] Bind exact required-reference set + selected ReferenceAssets/content hashes + full ReferenceResolutionTrace hash.
+- [x] Bind exact eligibility-rule version and durable dependency invalidation.
+- [x] Enforce current ELIGIBLE gate before FullShotSpec.
+- [x] Enforce exactly semantic L1-L8 with field-level FIXED/INHERITED/VARIABLE authority.
+- [x] Enforce StaticKeyframeSpec static-only and MotionDeltaSpec temporal-delta-only separation.
+- [x] Enforce ShotDecisionTrace exact provenance and reject generic `cinematic` rationale.
+- [x] Fault-injection recovery: failed ReferenceResolver consumer bind leaves gate DRAFT; exact replay recovers.
+- [x] Targeted final = 15/15 PASS.
+- [x] Affected direct-authority regression final = 154/154 PASS.
+- [x] Broader valid Windows regression final = 659 PASS / 3 deselected.
+- [x] Frozen Master guard / compileall / git diff --check / import leakage / TODO scans PASS.
+- [x] Evidence = `evidence/tests/IMP-032_SHOT_REALIZATION_EVIDENCE.md`.
+- [x] Side-effect guard — PASS: remote branch absent, PR absent, staged index empty, transient `.tmp` removed.
+- [ ] Commit exact IMP-032 scope.
+- [ ] Push branch / create PR.
+- [ ] Ubuntu CI Python 3.10/3.13 + frozen guard.
+- [ ] Exact-head review.
+- [ ] Merge main.
+- [ ] Post-merge main verification / push-main workflow.
+- [ ] Governance state sync / MAIN VERIFIED.
+- [ ] Read DAG/queue and CLAIM next dependency-ready task.
+
+NEXT_EXACT_ACTION = "STAGE EXACT IMP-032 VERIFIED SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI PYTHON 3.10/3.13 -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC"
+
+
+### IMP-032 FEATURE COMMIT / PR CHECKPOINT - 2026-10-03
+
+- [x] Side-effect guard PASS.
+- [x] Commit exact IMP-032 scope = `6e96978bc9596bc4838492532dacabc7c56f1a53`.
+- [x] Push feature branch = SUCCESS.
+- [x] Create PR #50 = SUCCESS.
+- [ ] Commit/push this docs-only PR checkpoint state.
+- [ ] Fresh Ubuntu CI Python 3.10/3.13 + frozen guard on final PR head.
+- [ ] Exact-head review.
+- [ ] Merge main.
+- [ ] Post-merge main verification / push-main workflow.
+- [ ] Governance state sync / MAIN VERIFIED.
+- [ ] Read DAG/queue and CLAIM next dependency-ready task.
+
+NEXT_EXACT_ACTION = "COMMIT/PUSH IMP-032 PR CHECKPOINT STATE -> WAIT FRESH CI ON FINAL HEAD -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC"
