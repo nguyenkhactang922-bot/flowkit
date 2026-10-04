@@ -2230,3 +2230,70 @@ NEXT_EXACT_ACTION = "COMMIT/PUSH IMP-032 PR CHECKPOINT STATE -> WAIT FRESH CI ON
 - [ ] Read DAG/queue and CLAIM next dependency-ready task.
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-032 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-032 GOVERNANCE VERIFIED / IMP-033 CLAIMED - 2026-10-03
+
+- [x] IMP-032 governance PR #51 merged at `2f47dc6354e6c5e7a1a0bce7afe9b8e176a6c332`.
+- [x] Governance push-main workflow `37138826694` SUCCESS Python 3.10 / 3.13 exact governance SHA.
+- [x] IMP-032 = MAIN VERIFIED.
+- [x] Verify IMP-033 dependency: IMP-032 MAIN VERIFIED.
+- [x] Verify no remote branch/PR duplicate for IMP-033.
+- [x] Claim `chatgpt/IMP-033-shotir-production-compiler` from clean governance main.
+- [ ] Read frozen ShotIR / Production Compiler authority and applicable ADRs.
+- [ ] Audit current ShotRealization, request compilation, provider-boundary and existing prompt/request surfaces.
+- [ ] Implement deterministic provider-neutral ShotIR + compiler provenance without provider-specific authority leakage.
+- [ ] Tests: deterministic golden compile, exact input-version bindings, stable hashes/metadata, no provider-specific authority in IR, stale source rejection.
+- [ ] Targeted + affected + broader regression + frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify.
+
+NEXT_EXACT_ACTION = "READ IMP-033 FROZEN SHOTIR / PRODUCTION COMPILER AUTHORITY + AUDIT CURRENT SHOT REALIZATION / REQUEST / COMPILER / PROVIDER-BOUNDARY SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-033 AUTHORITY + CURRENT-SURFACE AUDIT PASS - 2026-10-04
+
+- [x] Read Frozen Master §55 Shot IR and §64 Production Compiler authority.
+- [x] Reconcile ADR-0020 Shot identity/spec/IR boundary.
+- [x] Audit current ShotRealization exact-current sources and invalidation path.
+- [x] Audit legacy Flow/Omni prompt/request/provider surfaces; classify as compatibility/provider lowering, not canonical authority.
+- [x] Confirm no existing canonical ShotIR/CompiledRequest owner under `agent/studio`.
+- [x] Keep ProviderProfile/capability/router for IMP-050 and provider adapter anti-corruption for IMP-051.
+- [ ] Implement provider-neutral ShotIR + compiler rule/version provenance + diagnostics + deterministic request metadata/hashes.
+- [ ] Tests: deterministic golden compile, exact version bindings, stale source rejection, stable hash/metadata, no provider-specific authority leakage.
+- [ ] Targeted + affected + broader regression + frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify.
+
+NEXT_EXACT_ACTION = "IMPLEMENT IMP-033 PROVIDER-NEUTRAL SHOTIR + DETERMINISTIC PRODUCTION COMPILER + PROVENANCE/HASHES -> TARGETED TESTS"
+
+
+---
+
+## IMP-033 LOCAL VERIFIED - 2026-10-04
+
+- [x] Read Frozen ShotIR / Production Compiler authority + ADR-0020.
+- [x] Audit current ShotRealization, compiler/request and provider-boundary surfaces.
+- [x] Implement deterministic provider-neutral ShotIR + Production Compiler.
+- [x] Preserve same canonical shot_id; no rekey/new Shot identity.
+- [x] Bind exact FullShotSpec / eligibility / static / motion / State / profile / ReferenceAsset / compiler-rule versions.
+- [x] Enforce stale/unresolved-invalidation fail-closed behavior.
+- [x] Enforce provider-specific execution constraint keys/request authority rejection.
+- [x] Targeted = 14/14 PASS.
+- [x] Affected regression = 169/169 PASS.
+- [x] Broader valid Windows regression = 673 PASS / 3 deselected.
+- [x] Frozen Master guard / compileall / git diff --check / leakage / TODO scans PASS.
+- [x] Evidence = `evidence/tests/IMP-033_SHOTIR_PRODUCTION_COMPILER_EVIDENCE.md`.
+- [ ] Side-effect guard.
+- [ ] Commit exact IMP-033 scope.
+- [ ] Push feature branch / create PR.
+- [ ] Ubuntu CI Python 3.10/3.13 + frozen guard.
+- [ ] Exact-head review.
+- [ ] Merge main.
+- [ ] Post-merge verification / push-main workflow.
+- [ ] Governance state sync / MAIN VERIFIED.
+- [ ] Read DAG/queue and CLAIM next dependency-ready task.
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-033 SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI PYTHON 3.10/3.13 -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC"
