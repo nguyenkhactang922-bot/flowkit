@@ -2336,3 +2336,69 @@ NEXT_EXACT_ACTION = "COMMIT/PUSH IMP-033 PR CHECKPOINT STATE -> WAIT FRESH CI ON
 - [ ] Read DAG/queue and CLAIM next dependency-ready task.
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-033 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-033 GOVERNANCE VERIFIED / IMP-050 CLAIMED - 2026-10-04
+
+- [x] IMP-033 governance PR #53 merged at `9c6c8a68df6eba566e86aea680d6a892a815eb26`.
+- [x] Governance push-main workflow `37175814754` SUCCESS exact governance SHA.
+- [x] Frozen Master guard PASS / semantic SHA unchanged.
+- [x] Verify IMP-050 dependencies: IMP-033 + IMP-013 + IMP-006 MAIN VERIFIED.
+- [x] Verify no remote branch/PR duplicate for IMP-050.
+- [x] Claim `chatgpt/IMP-050-capability-provider-router` from clean governance main.
+- [ ] Read frozen CapabilityRegistry / ProviderProfile / Router authority and applicable ADRs.
+- [ ] Audit current Flow/Omni capability/routing/provider surfaces and observability/evidence integration.
+- [ ] Implement evidence-versioned provider capabilities + deterministic routing without brand assumptions.
+- [ ] Tests: capability constraints, stale profile, unsupported requirement, deterministic selection/evidence.
+- [ ] Targeted + affected + broader regression + frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify.
+
+NEXT_EXACT_ACTION = "READ FROZEN CAPABILITYREGISTRY / PROVIDERPROFILE / ROUTER AUTHORITY + AUDIT CURRENT FLOW/OMNI/CAPABILITY/ROUTING SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-050 AUTHORITY + CURRENT-SURFACE AUDIT PASS - 2026-10-04
+
+- [x] Read Frozen Master Provider Capability Model / Provider Router authority.
+- [x] Audit legacy CLI provider config, Flow transport/batch and Omni Flash capability/model/cost surfaces.
+- [x] Reuse EvidenceReference, ShotIR, ActiveProductionProfile and shared version/dependency/invalidation owners.
+- [x] Lock UNKNOWN-not-guessed, evidence freshness, deterministic ranking, explicit degradation and no-hidden-fallback invariants.
+- [x] Keep Flow/Omni adapter lowering out of IMP-050; IMP-051 owns provider anti-corruption.
+- [x] Implement initial canonical `provider_routing.py` and harden current-pointer/invalidation + ShotIR constraint-preservation gates.
+- [x] py_compile PASS.
+- [ ] Export API.
+- [ ] Targeted tests: evidence/profile identity/freshness, UNKNOWN/unsupported, deterministic selection, stale profile, constraint weakening, degradation, budget/recovery, invalidation/replay.
+- [ ] Affected + broader regression + frozen/static gates.
+- [ ] Evidence / state sync / commit / push / PR / CI / exact-head review / merge / main verify / governance.
+
+NEXT_EXACT_ACTION = "EXPORT IMP-050 API -> WRITE REAL SQLITE/SHOTIR TARGETED TESTS -> RUN TARGETED"
+
+
+---
+
+## IMP-050 LOCAL VERIFIED - 2026-10-04
+
+- [x] Read Frozen Master Provider Capability Model / Provider Router authority.
+- [x] Audit current Flow/Omni/capability/routing surfaces.
+- [x] Implement evidence-versioned `ProviderProfile` + deterministic provider-neutral Router.
+- [x] Enforce UNKNOWN-not-guessed / no hidden fallback / explicit degradation policy.
+- [x] Enforce ShotIR constraint preservation + current-pointer/unresolved-invalidation checks.
+- [x] Require explicit execution `as_of` timestamp for selected-route freshness validation.
+- [x] Targeted = 13/13 PASS.
+- [x] Affected regression = 75/75 PASS.
+- [x] Broader valid Windows regression = 686 PASS / 3 deselected.
+- [x] Frozen Master guard / compileall / diff check / import/TODO scans PASS.
+- [x] Evidence = `evidence/tests/IMP-050_PROVIDER_ROUTING_EVIDENCE.md`.
+- [ ] Side-effect guard.
+- [ ] Stage exact IMP-050 scope.
+- [ ] Commit / push / PR.
+- [ ] Ubuntu CI Python 3.10 / 3.13 + frozen guard.
+- [ ] Exact-head review / merge main.
+- [ ] Post-merge main verification / MAIN VERIFIED.
+- [ ] Governance state sync / governance main verify.
+- [ ] Read DAG/queue and claim next dependency-ready task.
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-050 SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI PYTHON 3.10/3.13 -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC"

@@ -2783,3 +2783,83 @@ MAIN_PUSH_WORKFLOW = `37175266699` SUCCESS exact merge SHA
 GOVERNANCE_BRANCH = `chatgpt/IMP-033-main-verified-state`
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-033 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-033 GOVERNANCE VERIFIED / IMP-050 CLAIMED - 2026-10-04
+
+IMP-033_GOVERNANCE_PR = #53
+IMP-033_GOVERNANCE_MERGE_SHA = `9c6c8a68df6eba566e86aea680d6a892a815eb26`
+IMP-033_GOVERNANCE_PUSH_WORKFLOW = `37175814754` SUCCESS exact governance SHA
+FROZEN_MASTER_GUARD = PASS / `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`
+
+ACTIVE_TASK = IMP-050 CAPABILITYREGISTRY / PROVIDERPROFILE / ROUTER
+STATUS = CLAIMED / AUTHORITY READ NEXT
+BRANCH = `chatgpt/IMP-050-capability-provider-router`
+BASE_HEAD = `9c6c8a68df6eba566e86aea680d6a892a815eb26`
+DEPENDS = IMP-033 MAIN VERIFIED + IMP-013 MAIN VERIFIED + IMP-006 MAIN VERIFIED
+REMOTE_DUPLICATE_GUARD = PASS (no IMP-050 branch/PR)
+
+NEXT_EXACT_ACTION = "READ FROZEN CAPABILITYREGISTRY / PROVIDERPROFILE / ROUTER AUTHORITY + AUDIT CURRENT FLOW/OMNI/CAPABILITY/ROUTING SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-050 AUTHORITY + CURRENT-SURFACE AUDIT PASS - 2026-10-04
+
+ACTIVE_TASK = IMP-050 CAPABILITYREGISTRY / PROVIDERPROFILE / ROUTER
+STATUS = AUTHORITY + CURRENT SURFACE AUDIT PASS / CODE IN PROGRESS
+BRANCH = `chatgpt/IMP-050-capability-provider-router`
+BASE_HEAD = `9c6c8a68df6eba566e86aea680d6a892a815eb26`
+FROZEN_MASTER_SHA = `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`
+
+LOCKED IMPLEMENTATION DECISIONS:
+- Frozen Master sections 65-66 own ProviderProfile evidence and Provider Router decision scope.
+- ProviderProfile identity binds provider + surface + region + model family + model version + immutable profile version.
+- Capability/limit/cost/recovery/availability facts require EvidenceReference + verified_at/expiry; UNKNOWN is explicit and never guessed from brand/model.
+- Router consumes exact current ShotIR + exact ProviderProfiles + locked ActiveProductionProfile policy + routing rule; it cannot mutate canonical shot intent.
+- Degradation is allowed only by explicit project/profile policy; unsupported/UNKNOWN facts cannot silently pass.
+- No eligible provider produces persisted NO_ELIGIBLE_PROVIDER evidence and planning/repair/escalation, never hidden fallback.
+- Routing is deterministic and side-effect-free; no provider/network call occurs in canonical write transactions.
+- Reuse shared VersionRepository / DependencyGraph / InvalidationRepository, EvidenceReference, ShotIR and ActiveProductionProfile; no competing state/evidence store.
+- Legacy Flow/Omni hard-coded model/duration/resolution/reference/cost knowledge is classified as compatibility/transport donor only and is not canonical ProviderProfile authority. IMP-051 remains adapter anti-corruption owner.
+- ActiveProductionProfile routing dependency uses PROFILE_PATH:* so policy changes selectively invalidate dependent route evidence through shared section-63 invalidation.
+- Candidate ProviderProfile exact-current status and unresolved invalidation are checked before deterministic ranking.
+- ShotIR execution constraints cannot be omitted or weakened in routing requirements.
+
+CODE CHECKPOINT:
+- `agent/studio/provider_routing.py` materialized.
+- py_compile PASS after current-pointer/invalidation/constraint hardening.
+
+NEXT_EXACT_ACTION = "EXPORT IMP-050 API -> WRITE REAL SQLITE/SHOTIR TARGETED TESTS -> RUN TARGETED"
+
+
+---
+
+## IMP-050 LOCAL VERIFIED - 2026-10-04
+
+ACTIVE_TASK = IMP-050 CAPABILITYREGISTRY / PROVIDERPROFILE / ROUTER
+STATUS = LOCAL VERIFIED / GIT SIDE-EFFECT GUARD NEXT
+BRANCH = `chatgpt/IMP-050-capability-provider-router`
+BASE_HEAD = `9c6c8a68df6eba566e86aea680d6a892a815eb26`
+
+Evidence:
+- targeted = 13/13 PASS;
+- affected regression = 75/75 PASS;
+- broader valid Windows regression = 686 PASS / 3 deselected;
+- frozen Master guard = PASS;
+- frozen semantic SHA unchanged = `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`;
+- compileall + git diff --check = PASS;
+- provider/runtime/network import leakage = NONE;
+- TODO/FIXME/NotImplemented = NONE;
+- evidence = `evidence/tests/IMP-050_PROVIDER_ROUTING_EVIDENCE.md`.
+
+Final hardening:
+- selected-route execution requires explicit timezone-aware `as_of`; no silent reuse of routing-time freshness and no implicit clock read;
+- candidate ProviderProfile exact current/unresolved-invalidation checks are mandatory before deterministic ranking;
+- ShotIR execution constraints cannot be omitted/weakened;
+- degradation/no-provider paths remain explicit and fail-closed;
+- no provider call/adapter payload/secret enters canonical IMP-050 transaction.
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-050 SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI PYTHON 3.10/3.13 -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC"
