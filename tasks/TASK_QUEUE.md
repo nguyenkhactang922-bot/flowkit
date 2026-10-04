@@ -2297,3 +2297,20 @@ NEXT_EXACT_ACTION = "IMPLEMENT IMP-033 PROVIDER-NEUTRAL SHOTIR + DETERMINISTIC P
 - [ ] Read DAG/queue and CLAIM next dependency-ready task.
 
 NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-033 SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI PYTHON 3.10/3.13 -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC"
+
+
+### IMP-033 FEATURE COMMIT / PR CHECKPOINT - 2026-10-04
+
+- [x] Side-effect guard PASS.
+- [x] Commit exact IMP-033 scope = `ee0bd4bc04cf8879746a278538540f996d6cd4d5`.
+- [x] Push feature branch = SUCCESS.
+- [x] Create PR #52 = SUCCESS.
+- [ ] Commit/push this docs-only PR checkpoint state.
+- [ ] Fresh Ubuntu CI Python 3.10/3.13 + frozen guard on final PR head.
+- [ ] Exact-head review.
+- [ ] Merge main.
+- [ ] Post-merge verification / push-main workflow.
+- [ ] Governance state sync / MAIN VERIFIED.
+- [ ] Read DAG/queue and CLAIM next dependency-ready task.
+
+NEXT_EXACT_ACTION = "COMMIT/PUSH IMP-033 PR CHECKPOINT STATE -> WAIT FRESH CI ON FINAL PR HEAD -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC"
