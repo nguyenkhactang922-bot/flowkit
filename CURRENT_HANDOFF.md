@@ -2675,3 +2675,92 @@ MAIN_PUSH_WORKFLOW = 37138380626 SUCCESS Python 3.10 / 3.13 exact merge SHA
 GOVERNANCE_BRANCH = chatgpt/IMP-032-main-verified-state
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-032 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-032 GOVERNANCE VERIFIED / IMP-033 CLAIMED - 2026-10-03
+
+IMP-032 = MAIN VERIFIED
+IMP-032_GOVERNANCE_PR = #51
+IMP-032_GOVERNANCE_COMMIT = 9b37f47a9ac3e1cc0a43cbd0f52edd743ae625be
+IMP-032_GOVERNANCE_MERGE_SHA = 2f47dc6354e6c5e7a1a0bce7afe9b8e176a6c332
+IMP-032_GOVERNANCE_PUSH_WORKFLOW = 37138826694 SUCCESS Python 3.10 / 3.13 exact governance SHA
+
+ACTIVE_TASK = IMP-033 SHOTIR / PRODUCTION COMPILER
+STATUS = CLAIMED / AUTHORITY READ NEXT
+BRANCH = chatgpt/IMP-033-shotir-production-compiler
+BASE_HEAD = 2f47dc6354e6c5e7a1a0bce7afe9b8e176a6c332
+DEPENDS = IMP-032 MAIN VERIFIED
+
+NEXT_EXACT_ACTION = "READ IMP-033 FROZEN SHOTIR / PRODUCTION COMPILER AUTHORITY + AUDIT CURRENT SHOT REALIZATION / REQUEST / COMPILER / PROVIDER-BOUNDARY SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-033 AUTHORITY + CURRENT-SURFACE AUDIT PASS - 2026-10-04
+
+ACTIVE_TASK = IMP-033 SHOTIR / PRODUCTION COMPILER
+STATUS = AUTHORITY + CURRENT SURFACE AUDIT PASS / CODE NEXT
+BRANCH = `chatgpt/IMP-033-shotir-production-compiler`
+BASE_HEAD = `2f47dc6354e6c5e7a1a0bce7afe9b8e176a6c332`
+FROZEN_MASTER_SHA = `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`
+
+LOCKED IMPLEMENTATION DECISIONS:
+- Frozen Master §55 + §64 and ADR-0020 are authoritative; ShotIR is provider/model-neutral and never creates/rekeys shot_id.
+- ShotIR binds exact current FullShotSpec + StaticKeyframeSpec + MotionDeltaSpec + approved StateSnapshot/designation + exact ReferenceAssets + locked ActiveProductionProfile + compiler rule version.
+- ShotIR contains normalized static/motion/continuity/QA execution semantics and exact source hashes; it contains no provider RPC IDs, upload slots, credentials, model magic tokens or provider request field names.
+- Production Compiler is a deterministic lowering service only; it owns no Story/Directing/State/Reference/Shot truth.
+- IMP-033 does NOT implement ProviderProfile/routing/capability evidence (IMP-050) and does NOT replace Flow/Omni adapters (IMP-051).
+- Existing Flow `prompt`/`video_prompt` and direct provider request surfaces remain legacy compatibility donors; they are not canonical compilation authority.
+- Provider-specific CompiledRequest lowering remains downstream of capability resolution; IMP-033 may emit only provider-neutral compile metadata/fingerprints required to seed that later lowering.
+- Shared VersionRepository + DependencyGraph + InvalidationRepository remain the only version/current/dependency/invalidation truth.
+- Recompile is immutable successor; stale source/compiler-rule changes invalidate dependent IR only, never upstream truth.
+- Same pinned canonical inputs + same compiler rules must yield identical semantic IR/hash/metadata.
+- Frozen guard PASS before code; no existing canonical ShotIR/CompiledRequest implementation found under `agent/studio`.
+
+NEXT_EXACT_ACTION = "IMPLEMENT IMP-033 PROVIDER-NEUTRAL SHOTIR + DETERMINISTIC PRODUCTION COMPILER + PROVENANCE/HASHES -> TARGETED TESTS"
+
+
+---
+
+## IMP-033 LOCAL VERIFIED - 2026-10-04
+
+ACTIVE_TASK = IMP-033 SHOTIR / PRODUCTION COMPILER
+STATUS = LOCAL VERIFIED / SIDE-EFFECT GUARD NEXT
+BRANCH = `chatgpt/IMP-033-shotir-production-compiler`
+BASE_HEAD = `2f47dc6354e6c5e7a1a0bce7afe9b8e176a6c332`
+FROZEN_MASTER_SHA = `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`
+
+Checkpoint evidence:
+- provider-neutral deterministic ShotIR + Production Compiler implemented without creating/rekeying shot_id;
+- exact FullShotSpec / eligibility / static / motion / State / profile / ReferenceAsset / compiler-rule pins;
+- deterministic compile hashes and immutable metadata content hash;
+- stale source/reference/rule inputs fail closed;
+- provider-specific constraint keys/request authority rejected from canonical IR;
+- initial rule/IR interruption recovery remains replay-safe;
+- ShotIR successor invalidates downstream before current-pointer advancement;
+- targeted = 14/14 PASS;
+- affected regression = 169/169 PASS;
+- broader valid Windows regression = 673 PASS / 3 deselected;
+- frozen Master guard PASS / semantic SHA unchanged;
+- compileall + git diff --check PASS;
+- provider/runtime/network import leakage = NONE;
+- TODO/FIXME/NotImplemented = NONE;
+- evidence = `evidence/tests/IMP-033_SHOTIR_PRODUCTION_COMPILER_EVIDENCE.md`.
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-033 SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI PYTHON 3.10/3.13 -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC -> MAIN VERIFIED -> CLAIM NEXT TASK"
+
+
+### IMP-033 FEATURE COMMIT / PR CREATED - 2026-10-04
+
+FEATURE_COMMIT = `ee0bd4bc04cf8879746a278538540f996d6cd4d5`
+REMOTE_BRANCH = `origin/chatgpt/IMP-033-shotir-production-compiler`
+PUSH = SUCCESS
+PR = #52
+PR_URL = https://github.com/nguyenkhactang922-bot/flowkit/pull/52
+INITIAL_PR_CI_RUN = 37175035654 / Python 3.10 + 3.13 IN_PROGRESS on feature head at checkpoint time
+
+Feature code/tests/evidence are unchanged since LOCAL VERIFIED. This checkpoint update is state-only.
+
+NEXT_EXACT_ACTION = "COMMIT/PUSH IMP-033 PR CHECKPOINT STATE -> WAIT FRESH CI ON FINAL PR HEAD -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC"

@@ -2794,3 +2794,82 @@ MAIN_PUSH_WORKFLOW = `37138380626` SUCCESS Python 3.10 / 3.13 exact merge SHA
 GOVERNANCE_BRANCH = `chatgpt/IMP-032-main-verified-state`
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-032 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-032 GOVERNANCE VERIFIED / IMP-033 CLAIMED - 2026-10-03
+
+IMP-032 governance PR #51 merged at `2f47dc6354e6c5e7a1a0bce7afe9b8e176a6c332`.
+Governance push-main workflow `37138826694` SUCCESS Python 3.10 / 3.13 exact governance SHA.
+IMP-032 = MAIN VERIFIED.
+
+ACTIVE_TASK = IMP-033 SHOTIR / PRODUCTION COMPILER
+STATUS = CLAIMED / AUTHORITY READ NEXT
+BRANCH = `chatgpt/IMP-033-shotir-production-compiler`
+BASE_HEAD = `2f47dc6354e6c5e7a1a0bce7afe9b8e176a6c332`
+DEPENDS = IMP-032 MAIN VERIFIED
+
+NEXT_EXACT_ACTION = "READ IMP-033 FROZEN SHOTIR / PRODUCTION COMPILER AUTHORITY + AUDIT CURRENT SHOT REALIZATION / REQUEST / COMPILER / PROVIDER-BOUNDARY SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-033 AUTHORITY + CURRENT-SURFACE AUDIT PASS - 2026-10-04
+
+ACTIVE_TASK = IMP-033 SHOTIR / PRODUCTION COMPILER
+STATUS = AUTHORITY + CURRENT SURFACE AUDIT PASS / CODE NEXT
+BRANCH = `chatgpt/IMP-033-shotir-production-compiler`
+BASE_HEAD = `2f47dc6354e6c5e7a1a0bce7afe9b8e176a6c332`
+
+Checkpoint:
+- Frozen Master §55 Shot IR + §64 Production Compiler read and reconciled with ADR-0020.
+- Task acceptance confirmed: deterministic golden compile, exact input-version bindings, stable hashes/metadata, no provider-specific authority in IR, stale-source rejection.
+- No canonical ShotIR/CompiledRequest owner exists in `agent/studio` yet.
+- IMP-032 FullShotSpec/StaticKeyframeSpec/MotionDeltaSpec + State/Reference/Profile exact-current authorities are the upstream compile inputs.
+- Legacy Flow/Omni prompt/request builders are provider/compatibility surfaces only and remain untouched by IMP-033.
+- ProviderProfile/router/capability lowering remains IMP-050; adapter anti-corruption remains IMP-051.
+- Frozen Master guard PASS / semantic SHA unchanged.
+
+NEXT_EXACT_ACTION = "IMPLEMENT IMP-033 PROVIDER-NEUTRAL SHOTIR + DETERMINISTIC PRODUCTION COMPILER + PROVENANCE/HASHES -> TARGETED TESTS"
+
+
+---
+
+## IMP-033 LOCAL VERIFIED - 2026-10-04
+
+IMP-033 = LOCAL VERIFIED
+BRANCH = `chatgpt/IMP-033-shotir-production-compiler`
+BASE_HEAD = `2f47dc6354e6c5e7a1a0bce7afe9b8e176a6c332`
+
+Verified implementation:
+- canonical provider-neutral ShotIR with same existing shot_id;
+- deterministic Production Compiler with exact source-version/provenance bindings;
+- exact current FullShotSpec / eligibility / StaticKeyframeSpec / MotionDeltaSpec / approved State / locked profile / ReferenceAsset / CompilerRuleSet validation;
+- stable input/semantic/static/motion fingerprints;
+- provider/runtime request authority excluded from canonical IR;
+- immutable successor + durable downstream invalidation + replay-safe promotion.
+
+Verification evidence:
+- targeted = 14/14 PASS;
+- affected = 169/169 PASS;
+- broader Windows = 673 PASS / 3 deselected;
+- frozen guard = PASS;
+- semantic SHA unchanged = `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`;
+- compileall / diff check / leakage scan / TODO scan = PASS;
+- evidence = `evidence/tests/IMP-033_SHOTIR_PRODUCTION_COMPILER_EVIDENCE.md`.
+
+REMOTE STATUS = NOT YET COMMITTED/PUSHED/PR/MERGED
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-033 SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI PYTHON 3.10/3.13 -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC"
+
+
+### IMP-033 FEATURE COMMIT / PR CREATED - 2026-10-04
+
+FEATURE_COMMIT = `ee0bd4bc04cf8879746a278538540f996d6cd4d5`
+REMOTE_BRANCH = `origin/chatgpt/IMP-033-shotir-production-compiler`
+PR = #52
+PR_URL = https://github.com/nguyenkhactang922-bot/flowkit/pull/52
+INITIAL_PR_CI_RUN = 37175035654 / Python 3.10 + 3.13 IN_PROGRESS at checkpoint time
+
+NEXT_EXACT_ACTION = "COMMIT/PUSH IMP-033 PR CHECKPOINT STATE -> WAIT FRESH CI ON FINAL PR HEAD -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC"
