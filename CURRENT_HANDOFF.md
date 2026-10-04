@@ -2881,3 +2881,77 @@ WORKTREE_AT_VERIFICATION = clean
 GOVERNANCE_BRANCH = chatgpt/IMP-050-main-verified-state
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-050 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+---
+
+## IMP-050 GOVERNANCE VERIFIED / IMP-051 CLAIMED - 2026-10-04
+
+IMP-050_GOVERNANCE_PR = #55
+IMP-050_GOVERNANCE_MERGE_SHA = 0f8f1387f5aa9b3aacd5efe3ef240f1666306a98
+IMP-050_GOVERNANCE_PUSH_WORKFLOW = 37186570087 SUCCESS Python 3.10 / 3.13 exact governance SHA
+
+ACTIVE_TASK = IMP-051 FLOW / OMNI PROVIDERADAPTER ANTI-CORRUPTION
+STATUS = CLAIMED / AUTHORITY READ NEXT
+BRANCH = chatgpt/IMP-051-provider-adapter-anti-corruption
+BASE_HEAD = 0f8f1387f5aa9b3aacd5efe3ef240f1666306a98
+DEPENDS = IMP-050 MAIN VERIFIED + IMP-033 MAIN VERIFIED + IMP-013 MAIN VERIFIED + IMP-041 MAIN VERIFIED
+FROZEN_MASTER_SHA = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+NEXT_EXACT_ACTION = "READ IMP-051 PROVIDER ADAPTER / ANTI-CORRUPTION AUTHORITY + AUDIT FLOW/OMNI TRANSPORT/REQUEST SURFACES BEFORE CODE"
+
+---
+
+## IMP-051 AUTHORITY + CURRENT-SURFACE AUDIT PASS - 2026-10-04
+
+ACTIVE_TASK = IMP-051 FLOW / OMNI PROVIDERADAPTER ANTI-CORRUPTION
+STATUS = AUTHORITY + CURRENT SURFACE AUDIT PASS / CODE NEXT
+BRANCH = chatgpt/IMP-051-provider-adapter-anti-corruption
+BASE_HEAD = 0f8f1387f5aa9b3aacd5efe3ef240f1666306a98
+
+LOCKED IMPLEMENTATION DECISIONS:
+- Frozen Master §67 is authoritative: adapter owns provider transport dialect only; it cannot edit canonical Story/Shot/State/ShotIR/Router truth.
+- IMP-051 consumes exact-current ShotIR + SELECTED ProviderRoutingDecision/ProviderProfile and emits derivative provider requests plus normalized submit/poll/cancel/reconcile observations.
+- IMP-052, not IMP-051, owns GenerationJob four-axis persistence/state transitions/CAS and durable submission-attempt identity.
+- Remote calls are outside canonical DB transactions; canonical preflight is complete before transport side effects.
+- FlowClient / Flow batch / Omni Flash are compatibility donors behind concrete adapters; agent.studio neutral contracts MUST NOT import agent.services or Flow payload schemas.
+- Hidden/degraded legacy fallback is forbidden. Unsupported provider mode returns explicit UNSUPPORTED before transport call.
+- Cancel is not synthesized: current Flow/Omni transport has no proven cancel API, so cancel reports UNSUPPORTED unless a real transport implementation proves otherwise.
+- Reconcile never resubmits. Existing handle/workflow may be looked up/polled; insufficient proof returns AMBIGUOUS, never fake failure/success.
+- Timeout/connection/crash after possible submit is AMBIGUOUS; NO RETRY WITHOUT PROOF.
+- Normalized transport observations are evidence/adapter outputs only, not canonical job-state authority.
+- Scoped authorization/session metadata is runtime-only; long-lived secrets/raw provider payloads are not persisted into canonical contracts.
+- Existing Flow/Omni transport tests remain regression gates.
+
+NEXT_EXACT_ACTION = "IMPLEMENT NEUTRAL PROVIDER ADAPTER CONTRACT/PORT + FLOW/OMNI COMPATIBILITY ADAPTERS -> TARGETED CONTRACT/TRANSPORT TESTS"
+
+
+---
+
+## IMP-051 LOCAL VERIFIED - 2026-10-04
+
+ACTIVE_TASK = IMP-051 FLOW / OMNI PROVIDERADAPTER ANTI-CORRUPTION
+STATUS = LOCAL VERIFIED / SIDE-EFFECT GUARD NEXT
+BRANCH = chatgpt/IMP-051-provider-adapter-anti-corruption
+BASE_HEAD = 0f8f1387f5aa9b3aacd5efe3ef240f1666306a98
+
+Evidence:
+- targeted provider-adapter contract/transport = 18/18 PASS;
+- affected regression = 186/186 PASS (Provider Routing 13 + Production Compiler 14 + Omni 28 + Flow compatibility 131);
+- broader valid Windows regression = 659 PASS / 3 deselected, excluding the three exact canonical files already PASS separately;
+- complete valid-unit coverage = 704 PASS / 3 deselected;
+- frozen Master guard PASS / semantic SHA `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`;
+- py_compile + compileall + git diff --check PASS;
+- `agent.studio` -> `agent.services` runtime import leakage = NONE;
+- TODO/FIXME/NotImplementedError = NONE;
+- evidence = `evidence/tests/IMP-051_PROVIDER_ADAPTER_EVIDENCE.md`.
+
+Verified boundary:
+- canonical preflight is side-effect free;
+- Flow/Omni dialects confined to `agent.services.provider_adapters`;
+- unsupported mode/model/duration/resolution fail explicitly before submit;
+- possible-submit uncertainty = AMBIGUOUS / retry_safe=false;
+- reconcile never resubmits;
+- cancel is UNSUPPORTED unless a real API is proven;
+- IMP-052 remains sole owner of durable GenerationJob state/attempt/CAS.
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-051 SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI PYTHON 3.10/3.13 -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC"

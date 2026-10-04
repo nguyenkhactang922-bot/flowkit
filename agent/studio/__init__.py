@@ -1106,3 +1106,38 @@ __all__ += [
     "provider_route_decision_logical_id",
     "provider_routing_rule_logical_id",
 ]
+
+
+from .provider_adapter import (
+    ProviderAdapterError,
+    ProviderAdapterGateBlocked,
+    ProviderAdapterPort,
+    ProviderAdapterPrepareRequest,
+    ProviderAdapterPreflight,
+    ProviderAdapterUnsupported,
+    ProviderExecutionMode,
+    ProviderExecutionPlan,
+    ProviderHandleKind,
+    ProviderObservationKind,
+    ProviderObservationState,
+    ProviderTransportHandle,
+    ProviderTransportObservation,
+    RuntimeReferenceBinding,
+)
+
+__all__ += [
+    "ProviderAdapterError",
+    "ProviderAdapterGateBlocked",
+    "ProviderAdapterPort",
+    "ProviderAdapterPrepareRequest",
+    "ProviderAdapterPreflight",
+    "ProviderAdapterUnsupported",
+    "ProviderExecutionMode",
+    "ProviderExecutionPlan",
+    "ProviderHandleKind",
+    "ProviderObservationKind",
+    "ProviderObservationState",
+    "ProviderTransportHandle",
+    "ProviderTransportObservation",
+    "RuntimeReferenceBinding",
+]
