@@ -2892,3 +2892,68 @@ MAIN_PUSH_WORKFLOW = `37175266699` SUCCESS exact merge SHA
 GOVERNANCE_BRANCH = `chatgpt/IMP-033-main-verified-state`
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-033 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-033 GOVERNANCE VERIFIED / IMP-050 CLAIMED - 2026-10-04
+
+IMP-033 governance PR #53 merged at `9c6c8a68df6eba566e86aea680d6a892a815eb26`.
+Governance push-main workflow `37175814754` SUCCESS exact governance SHA.
+Frozen Master guard PASS / semantic SHA unchanged.
+
+ACTIVE_TASK = IMP-050 CAPABILITYREGISTRY / PROVIDERPROFILE / ROUTER
+STATUS = CLAIMED / AUTHORITY READ NEXT
+BRANCH = `chatgpt/IMP-050-capability-provider-router`
+BASE_HEAD = `9c6c8a68df6eba566e86aea680d6a892a815eb26`
+DEPENDS = IMP-033 MAIN VERIFIED + IMP-013 MAIN VERIFIED + IMP-006 MAIN VERIFIED
+REMOTE_DUPLICATE_GUARD = PASS
+
+NEXT_EXACT_ACTION = "READ FROZEN CAPABILITYREGISTRY / PROVIDERPROFILE / ROUTER AUTHORITY + AUDIT CURRENT FLOW/OMNI/CAPABILITY/ROUTING SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-050 AUTHORITY + CURRENT-SURFACE AUDIT PASS - 2026-10-04
+
+ACTIVE_TASK = IMP-050 CAPABILITYREGISTRY / PROVIDERPROFILE / ROUTER
+STATUS = AUTHORITY + CURRENT SURFACE AUDIT PASS / CODE IN PROGRESS
+BRANCH = `chatgpt/IMP-050-capability-provider-router`
+BASE_HEAD = `9c6c8a68df6eba566e86aea680d6a892a815eb26`
+
+Locked boundaries:
+- evidence-versioned ProviderProfile only; UNKNOWN facts are never guessed;
+- deterministic side-effect-free Router over exact current ShotIR/Profile/ActiveProductionProfile/rule inputs;
+- explicit degradation policy only; no hidden fallback;
+- shared version/dependency/invalidation/evidence owners only;
+- Flow/Omni operational capability constants stay legacy adapter donors for IMP-051, not canonical authority;
+- candidate current-pointer/invalidation and ShotIR constraint-preservation gates are mandatory before ranking.
+
+CODE = `agent/studio/provider_routing.py` materialized / py_compile PASS.
+
+NEXT_EXACT_ACTION = "EXPORT IMP-050 API -> WRITE REAL SQLITE/SHOTIR TARGETED TESTS -> RUN TARGETED"
+
+
+---
+
+## IMP-050 LOCAL VERIFIED - 2026-10-04
+
+IMP-050 provider capability registry/router implementation is LOCAL VERIFIED on branch `chatgpt/IMP-050-capability-provider-router` from base `9c6c8a68df6eba566e86aea680d6a892a815eb26`.
+
+Verification:
+- targeted `tests/unit/test_studio_provider_routing.py` = 13 PASS;
+- affected regression = 75 PASS;
+- broader valid Windows regression = 686 PASS / 3 deselected;
+- Frozen Master guard PASS / semantic SHA unchanged `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`;
+- compileall / diff check / forbidden-import scan / TODO scan PASS;
+- evidence: `evidence/tests/IMP-050_PROVIDER_ROUTING_EVIDENCE.md`.
+
+Authority/result:
+- evidence-versioned ProviderProfile only; UNKNOWN never guessed;
+- deterministic provider-neutral route decision over exact current ShotIR/Profile/ActiveProductionProfile/rule inputs;
+- no hidden fallback; degradation only by explicit profile policy;
+- exact dependency/invalidation truth reused;
+- adapter/provider side effects excluded from canonical transaction;
+- execution freshness requires explicit timezone-aware `as_of`.
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-050 SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI PYTHON 3.10/3.13 -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC"
