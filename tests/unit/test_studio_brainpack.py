@@ -439,7 +439,7 @@ def test_registry_contract_does_not_own_effective_project_policy():
 
 
 @pytest.mark.asyncio
-async def test_schema_v4_upgrades_to_v5_and_preserves_history(tmp_path):
+async def test_schema_v4_upgrades_to_latest_and_preserves_history(tmp_path):
     db_path = tmp_path / "studio.db"
     assert await ensure_schema_compatibility(
         db_path,
@@ -462,6 +462,7 @@ async def test_schema_v4_upgrades_to_v5_and_preserves_history(tmp_path):
             (3, "studio_dependency_invalidation"),
             (4, "studio_observability_evidence"),
             (5, "studio_brainpack_registry"),
+            (6, "studio_generation_job_four_axis"),
         ]
     finally:
         await writer.close()
