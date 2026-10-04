@@ -2511,3 +2511,69 @@ NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-051 SCOPE -> COMMIT ->
 - [ ] Read DAG/queue and CLAIM next dependency-ready task.
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-051 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-051 GOVERNANCE VERIFIED / IMP-052 CLAIMED - 2026-10-04
+
+- [x] IMP-051 governance PR #57 merged at `abbe70693f9282adf7ba2041deb20a09c6687a9c`.
+- [x] Governance push-main workflow `37217851883` SUCCESS exact governance SHA.
+- [x] Verify IMP-052 dependencies: IMP-003 + IMP-004 + IMP-033 + IMP-051 MAIN VERIFIED.
+- [x] Verify no remote branch/PR duplicate for IMP-052.
+- [x] Claim `chatgpt/IMP-052-generation-job-four-axis` from clean governance main.
+- [ ] Read frozen GenerationJob four-axis / exact 62-row transition authority.
+- [ ] Audit current job/queue/provider transport surfaces.
+- [ ] Implement persisted four axes + closed transition validator + CAS + transition history + generic-status projection.
+- [ ] Tests: all states reachable, all 62 legal rows, every unspecified transition rejected, V0.13 fixtures.
+- [ ] Targeted + affected + broader regression + frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "READ IMP-052 FROZEN GENERATIONJOB FOUR-AXIS / EXACT 62-ROW TRANSITION AUTHORITY + AUDIT CURRENT JOB/QUEUE/TRANSPORT SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-052 AUTHORITY + CURRENT-SURFACE AUDIT PASS - 2026-10-04
+
+- [x] Read Frozen Master §68/FM2-002 GenerationJob authority.
+- [x] Machine-count exact closed relation: scheduler 15 + provider 19 + artifact 14 + creative 14 = 62 rows.
+- [x] Read V0.13 model-check valid/invalid fixtures and all-state reachability evidence.
+- [x] Audit current code: no canonical GenerationJob owner; ProviderAdapter observations are evidence-only; legacy request.status is compatibility-only.
+- [x] Audit persistence: shared SQLiteWriteOwner/CAS; schema v5 requires GenerationJob migration v6.
+- [x] Lock exact ShotIR / ProviderRoutingDecision / ProviderProfile / input fingerprint / submission-attempt identity pins.
+- [x] Lock one-axis transition ownership, full-tuple validation, append-only transition history and no-network-in-transaction rule.
+- [ ] Implement schema migration v6.
+- [ ] Implement typed GenerationJob contracts + exact 62-row validator + repository/CAS/history + derived UI status.
+- [ ] Targeted tests: exact 62 rows, reachability, unspecified rejection, V0.13 tuples, CAS, immutable identity, owner guard, recovery/no-blind-resubmit.
+- [ ] Affected + broader regression + frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "IMPLEMENT PERSISTENCE MIGRATION V6 + GENERATIONJOB TYPED CONTRACT/62-ROW VALIDATOR/REPOSITORY/CAS/HISTORY/DERIVED STATUS -> TARGETED TESTS"
+
+
+---
+
+## IMP-052 LOCAL VERIFIED - 2026-10-05
+
+- [x] Read frozen GenerationJob four-axis / exact 62-row transition authority.
+- [x] Audit current job/queue/provider transport surfaces.
+- [x] Implement persistence migration v6.
+- [x] Implement typed GenerationJob contract + exact 62-row validator + repository/CAS/history + derived UI status.
+- [x] Tests: exact 62 rows, reachability, unspecified rejection, V0.13 tuples, CAS, immutable identity, owner guard, recovery/no-blind-resubmit.
+- [x] Targeted = 20/20 PASS.
+- [x] Affected regression = 77/77 PASS.
+- [x] Broader valid Windows = 647 PASS / 3 deselected.
+- [x] Complete valid unit-file coverage = 724 PASS / 3 deselected.
+- [x] Frozen Master guard / compileall / diff check / leakage scans PASS.
+- [x] Evidence = `evidence/tests/IMP-052_GENERATION_JOB_EVIDENCE.md`.
+- [ ] Side-effect guard.
+- [ ] Stage exact IMP-052 scope.
+- [ ] Commit / push / PR.
+- [ ] Ubuntu CI Python 3.10 / 3.13 + frozen guard.
+- [ ] Exact-head review / merge main.
+- [ ] Post-merge main verification / MAIN VERIFIED.
+- [ ] Governance state sync / governance main verify.
+- [ ] Read DAG/queue and claim next dependency-ready task.
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-052 SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI PYTHON 3.10/3.13 -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC"

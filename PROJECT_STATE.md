@@ -3057,3 +3057,72 @@ MAIN_PUSH_WORKFLOW = 37216924329 SUCCESS exact merge SHA
 GOVERNANCE_BRANCH = chatgpt/IMP-051-main-verified-state
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-051 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-051 GOVERNANCE VERIFIED / IMP-052 CLAIMED - 2026-10-04
+
+IMP-051 governance PR #57 merged at `abbe70693f9282adf7ba2041deb20a09c6687a9c`.
+Governance push-main workflow `37217851883` SUCCESS exact governance SHA.
+
+ACTIVE_TASK = IMP-052 GENERATIONJOB FOUR-AXIS STATE MACHINE
+STATUS = CLAIMED / AUTHORITY READ NEXT
+BRANCH = chatgpt/IMP-052-generation-job-four-axis
+BASE_HEAD = abbe70693f9282adf7ba2041deb20a09c6687a9c
+DEPENDS = IMP-003 + IMP-004 + IMP-033 + IMP-051 MAIN VERIFIED
+
+NEXT_EXACT_ACTION = "READ IMP-052 FROZEN GENERATIONJOB FOUR-AXIS / EXACT 62-ROW TRANSITION AUTHORITY + AUDIT CURRENT JOB/QUEUE/TRANSPORT SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-052 AUTHORITY + CURRENT-SURFACE AUDIT PASS - 2026-10-04
+
+ACTIVE_TASK = IMP-052 GENERATIONJOB FOUR-AXIS STATE MACHINE
+STATUS = AUTHORITY + CURRENT SURFACE AUDIT PASS / CODE NEXT
+BRANCH = chatgpt/IMP-052-generation-job-four-axis
+BASE_HEAD = abbe70693f9282adf7ba2041deb20a09c6687a9c
+
+Locked boundaries:
+- exact 62-row closed transition relation = 15 scheduler + 19 provider + 14 artifact + 14 creative;
+- four persisted orthogonal axes only; generic status is derived UI evidence;
+- migration v6 on shared SQLiteWriteOwner/CAS; no parallel job store/writer;
+- immutable exact ShotIR/routing/profile/input/submission identity; provider operation lineage durable;
+- one-axis legal transition + full target tuple validation + append-only history + optimistic CAS;
+- legacy request.status is compatibility-only;
+- no network/provider call inside canonical DB transaction;
+- NO RETRY WITHOUT PROOF remains blocking.
+
+NEXT_EXACT_ACTION = "IMPLEMENT PERSISTENCE MIGRATION V6 + GENERATIONJOB TYPED CONTRACT/62-ROW VALIDATOR/REPOSITORY/CAS/HISTORY/DERIVED STATUS -> TARGETED TESTS"
+
+
+---
+
+## IMP-052 LOCAL VERIFIED - 2026-10-05
+
+ACTIVE_TASK = IMP-052 GENERATIONJOB FOUR-AXIS STATE MACHINE
+STATUS = LOCAL VERIFIED / SIDE-EFFECT GUARD NEXT
+BRANCH = chatgpt/IMP-052-generation-job-four-axis
+BASE_HEAD = abbe70693f9282adf7ba2041deb20a09c6687a9c
+
+Evidence:
+- targeted = 20/20 PASS;
+- affected regression = 77/77 PASS;
+- broader valid Windows regression = 647 PASS / 3 deselected;
+- complete valid-unit coverage = 724 PASS / 3 deselected;
+- frozen Master guard PASS / semantic SHA unchanged;
+- py_compile + compileall + git diff --check PASS;
+- exact transition table = 62 unique rows (15 scheduler + 19 provider + 14 artifact + 14 creative);
+- provider/runtime/network leakage = NONE;
+- evidence = `evidence/tests/IMP-052_GENERATION_JOB_EVIDENCE.md`.
+
+Verified boundary:
+- four persisted orthogonal axes are canonical; generic status is derived only;
+- immutable exact ShotIR/routing/profile/input/submission identity;
+- one-axis transition + full-tuple validation + CAS revision + append-only history;
+- durable remote lineage cannot be rebound;
+- no network/provider call inside canonical DB transaction;
+- NO RETRY WITHOUT PROOF remains blocking.
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-052 SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI PYTHON 3.10/3.13 -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC"

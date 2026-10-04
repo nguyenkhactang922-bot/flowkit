@@ -22,7 +22,7 @@ from typing import Any, Awaitable, Callable, Generic, Iterable, Sequence, TypeVa
 import aiosqlite
 
 
-FOUNDATION_SCHEMA_VERSION = 5
+FOUNDATION_SCHEMA_VERSION = 6
 _MIGRATION_TABLE = "studio_schema_migration"
 _IDENTIFIER_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 _in_write_transaction: contextvars.ContextVar[bool] = contextvars.ContextVar(
@@ -531,6 +531,176 @@ DEFAULT_MIGRATIONS: tuple[Migration, ...] = (
             BEFORE DELETE ON studio_brainpack_lifecycle_transition
             BEGIN
                 SELECT RAISE(ABORT, 'brainpack lifecycle history is immutable');
+            END
+            """,
+        ),
+    ),
+    Migration(
+        version=6,
+        name="studio_generation_job_four_axis",
+        statements=(
+            """
+            CREATE TABLE studio_generation_job (
+                generation_job_id TEXT PRIMARY KEY,
+                project_id TEXT NOT NULL,
+                shot_id TEXT NOT NULL,
+                shot_ir_object_id TEXT NOT NULL,
+                shot_ir_version TEXT NOT NULL,
+                routing_decision_object_id TEXT NOT NULL,
+                routing_decision_version TEXT NOT NULL,
+                provider_profile_object_id TEXT NOT NULL,
+                provider_profile_version TEXT NOT NULL,
+                expected_input_fingerprint TEXT NOT NULL,
+                execution_plan_hash TEXT NOT NULL,
+                attempt INTEGER NOT NULL CHECK (attempt >= 1),
+                submission_attempt_id TEXT NOT NULL UNIQUE,
+                local_submission_key TEXT NOT NULL UNIQUE,
+                idempotency_key TEXT,
+                provider_key TEXT NOT NULL,
+                provider_surface TEXT NOT NULL,
+                region TEXT NOT NULL,
+                model_family TEXT NOT NULL,
+                model_version TEXT NOT NULL,
+                created_by TEXT NOT NULL,
+                creation_reason TEXT NOT NULL,
+                creation_correlation_id TEXT NOT NULL,
+                creation_evidence_json TEXT NOT NULL,
+                provider_request_id TEXT,
+                provider_operation_id TEXT,
+                scheduler_state TEXT NOT NULL CHECK (scheduler_state IN (
+                    'QUEUED','WAITING_DEPENDENCY','WAITING_CAPACITY','CLAIMED',
+                    'RUNNING','WAITING_RECOVERY','TERMINAL'
+                )),
+                provider_state TEXT NOT NULL CHECK (provider_state IN (
+                    'NOT_SUBMITTED','SUBMITTING','SUBMITTED','POLLING',
+                    'UNKNOWN_REMOTE_STATE','RECONCILING','AMBIGUOUS_HOLD',
+                    'REMOTE_SUCCEEDED','REMOTE_FAILED','CANCEL_REQUESTED','REMOTE_CANCELED'
+                )),
+                artifact_state TEXT NOT NULL CHECK (artifact_state IN (
+                    'NONE','STAGING','READY','STALE_RESULT','QUARANTINED',
+                    'MISSING','CORRUPT','ARCHIVED'
+                )),
+                creative_state TEXT NOT NULL CHECK (creative_state IN (
+                    'NOT_APPLICABLE','PENDING_QA','QA_RUNNING','QA_ERROR','QA_FAILED',
+                    'REPAIR_PENDING','NEEDS_HUMAN_REVIEW','APPROVED','LOCKED','REJECTED'
+                )),
+                revision INTEGER NOT NULL DEFAULT 0 CHECK (revision >= 0),
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL,
+                submitted_at TEXT,
+                FOREIGN KEY (shot_ir_object_id, shot_ir_version)
+                    REFERENCES studio_semantic_version(logical_id, version_id),
+                FOREIGN KEY (routing_decision_object_id, routing_decision_version)
+                    REFERENCES studio_semantic_version(logical_id, version_id),
+                FOREIGN KEY (provider_profile_object_id, provider_profile_version)
+                    REFERENCES studio_semantic_version(logical_id, version_id)
+            )
+            """,
+            """
+            CREATE INDEX studio_generation_job_state_idx
+            ON studio_generation_job(scheduler_state, provider_state, artifact_state, creative_state)
+            """,
+            """
+            CREATE TABLE studio_generation_job_transition (
+                transition_id TEXT PRIMARY KEY,
+                generation_job_id TEXT NOT NULL,
+                axis TEXT NOT NULL CHECK (axis IN ('SCHEDULER','PROVIDER','ARTIFACT','CREATIVE')),
+                command TEXT NOT NULL,
+                from_state TEXT NOT NULL,
+                to_state TEXT NOT NULL,
+                owner TEXT NOT NULL,
+                guard_evidence_json TEXT NOT NULL,
+                actor_ref TEXT NOT NULL,
+                reason TEXT NOT NULL,
+                correlation_id TEXT NOT NULL,
+                from_revision INTEGER NOT NULL CHECK (from_revision >= 0),
+                to_revision INTEGER NOT NULL CHECK (to_revision = from_revision + 1),
+                created_at TEXT NOT NULL,
+                FOREIGN KEY (generation_job_id) REFERENCES studio_generation_job(generation_job_id),
+                UNIQUE (generation_job_id, to_revision)
+            )
+            """,
+            """
+            CREATE INDEX studio_generation_job_transition_job_idx
+            ON studio_generation_job_transition(generation_job_id, to_revision)
+            """,
+            """
+            CREATE TRIGGER studio_generation_job_immutable_identity
+            BEFORE UPDATE ON studio_generation_job
+            WHEN
+                NEW.generation_job_id IS NOT OLD.generation_job_id
+                OR NEW.project_id IS NOT OLD.project_id
+                OR NEW.shot_id IS NOT OLD.shot_id
+                OR NEW.shot_ir_object_id IS NOT OLD.shot_ir_object_id
+                OR NEW.shot_ir_version IS NOT OLD.shot_ir_version
+                OR NEW.routing_decision_object_id IS NOT OLD.routing_decision_object_id
+                OR NEW.routing_decision_version IS NOT OLD.routing_decision_version
+                OR NEW.provider_profile_object_id IS NOT OLD.provider_profile_object_id
+                OR NEW.provider_profile_version IS NOT OLD.provider_profile_version
+                OR NEW.expected_input_fingerprint IS NOT OLD.expected_input_fingerprint
+                OR NEW.execution_plan_hash IS NOT OLD.execution_plan_hash
+                OR NEW.attempt IS NOT OLD.attempt
+                OR NEW.submission_attempt_id IS NOT OLD.submission_attempt_id
+                OR NEW.local_submission_key IS NOT OLD.local_submission_key
+                OR NEW.idempotency_key IS NOT OLD.idempotency_key
+                OR NEW.provider_key IS NOT OLD.provider_key
+                OR NEW.provider_surface IS NOT OLD.provider_surface
+                OR NEW.region IS NOT OLD.region
+                OR NEW.model_family IS NOT OLD.model_family
+                OR NEW.model_version IS NOT OLD.model_version
+                OR NEW.created_by IS NOT OLD.created_by
+                OR NEW.creation_reason IS NOT OLD.creation_reason
+                OR NEW.creation_correlation_id IS NOT OLD.creation_correlation_id
+                OR NEW.creation_evidence_json IS NOT OLD.creation_evidence_json
+                OR NEW.created_at IS NOT OLD.created_at
+            BEGIN
+                SELECT RAISE(ABORT, 'generation job immutable identity/input fields cannot change');
+            END
+            """,
+            """
+            CREATE TRIGGER studio_generation_job_remote_lineage_once
+            BEFORE UPDATE ON studio_generation_job
+            WHEN
+                (OLD.provider_request_id IS NOT NULL AND NEW.provider_request_id IS NOT OLD.provider_request_id)
+                OR (OLD.provider_operation_id IS NOT NULL AND NEW.provider_operation_id IS NOT OLD.provider_operation_id)
+            BEGIN
+                SELECT RAISE(ABORT, 'generation job remote lineage cannot be rebound');
+            END
+            """,
+            """
+            CREATE TRIGGER studio_generation_job_axis_transition_guard
+            BEFORE UPDATE ON studio_generation_job
+            WHEN
+                NEW.revision != OLD.revision + 1
+                OR (
+                    (NEW.scheduler_state IS NOT OLD.scheduler_state) +
+                    (NEW.provider_state IS NOT OLD.provider_state) +
+                    (NEW.artifact_state IS NOT OLD.artifact_state) +
+                    (NEW.creative_state IS NOT OLD.creative_state)
+                ) != 1
+            BEGIN
+                SELECT RAISE(ABORT, 'generation job update must change exactly one axis with revision+1');
+            END
+            """,
+            """
+            CREATE TRIGGER studio_generation_job_no_delete
+            BEFORE DELETE ON studio_generation_job
+            BEGIN
+                SELECT RAISE(ABORT, 'generation job history is durable');
+            END
+            """,
+            """
+            CREATE TRIGGER studio_generation_job_transition_no_update
+            BEFORE UPDATE ON studio_generation_job_transition
+            BEGIN
+                SELECT RAISE(ABORT, 'generation job transition history is append-only');
+            END
+            """,
+            """
+            CREATE TRIGGER studio_generation_job_transition_no_delete
+            BEFORE DELETE ON studio_generation_job_transition
+            BEGIN
+                SELECT RAISE(ABORT, 'generation job transition history is append-only');
             END
             """,
         ),
