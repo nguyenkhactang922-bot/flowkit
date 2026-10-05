@@ -3139,3 +3139,94 @@ Main push workflow `37223369097` SUCCESS on exact merge SHA with full unit tests
 Governance branch = `chatgpt/IMP-052-main-verified-state`.
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-052 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-052 GOVERNANCE VERIFIED / IMP-053 CLAIMED - 2026-10-05
+
+IMP-052 governance PR #59 merged at `b7a942897cef404cabcda67b7b58737fb7d10b3a`.
+Governance push-main workflow `37260218808` SUCCESS exact governance SHA.
+
+ACTIVE_TASK = IMP-053 SCHEDULER / QUEUE / DAG / LEASES / ADMISSION
+STATUS = CLAIMED / AUTHORITY READ NEXT
+BRANCH = chatgpt/IMP-053-scheduler-dag-leases-admission
+BASE_HEAD = b7a942897cef404cabcda67b7b58737fb7d10b3a
+DEPENDS = IMP-052 + IMP-005 MAIN VERIFIED
+
+NEXT_EXACT_ACTION = "READ IMP-053 FROZEN SCHEDULER/DAG/LEASE/ADMISSION AUTHORITY + AUDIT CURRENT WORKER PRIORITY/CONCURRENCY/COOLDOWN/PREREQUISITE SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-053 AUTHORITY + CURRENT-SURFACE AUDIT PASS - 2026-10-05
+
+ACTIVE_TASK = IMP-053 SCHEDULER / QUEUE / DAG / LEASES / ADMISSION
+STATUS = AUTHORITY + CURRENT SURFACE AUDIT PASS / CODE NEXT
+BRANCH = chatgpt/IMP-053-scheduler-dag-leases-admission
+BASE_HEAD = b7a942897cef404cabcda67b7b58737fb7d10b3a
+
+Locked boundaries:
+- GenerationJob.scheduler_state remains canonical; no duplicate scheduler status store.
+- Migration v7 adds durable scheduler DAG/readiness/lease/admission/fairness coordination on shared SQLiteWriteOwner.
+- Immutable DAG edges; CAS mutable checkpoints/leases/cursors; append-only histories/evidence.
+- Ordering priority -> project fairness -> oldest-ready.
+- Admission global/provider/model/operation/local-resource/dependency/budget; cap values are evidence inputs.
+- Work requires matching active lease plus legal GenerationJob CLAIMED/RUNNING transitions.
+- Lease loss on active work goes to recovery semantics; never reset paid work blindly to QUEUED.
+- Legacy queue strengths are KEEP+EXTEND compatibility inputs only.
+
+NEXT_EXACT_ACTION = "IMPLEMENT MIGRATION V7 + TYPED SCHEDULER DAG/READINESS/LEASE/ADMISSION/FAIRNESS REPOSITORY + LEGAL GENERATIONJOB TRANSITION INTEGRATION -> TARGETED TESTS"
+
+---
+
+## IMP-053 TARGETED + AFFECTED CHECKPOINT - 2026-10-05
+
+ACTIVE_TASK = IMP-053 SCHEDULER / QUEUE / DAG / LEASES / ADMISSION
+STATUS = TARGETED + AFFECTED PASS / BROADER REGRESSION NEXT
+BRANCH = chatgpt/IMP-053-scheduler-dag-leases-admission
+
+Verified test evidence:
+- scheduler targeted 13/13 PASS;
+- GenerationJob affected 20/20 PASS with clean exit codes after isolated retry of the Windows temp-cleanup-failed batch only;
+- persistence + latest-schema migration compatibility 13/13 PASS.
+
+NEXT_EXACT_ACTION = "RUN BROADER VALID WINDOWS REGRESSION WITH ESTABLISHED EXCLUSIONS AND AFFECTED FILES EXCLUDED -> FROZEN/STATIC/DIFF REVIEW -> EVIDENCE"
+
+
+---
+
+## IMP-053 BROADER REGRESSION RESUME CHECKPOINT - 2026-10-05
+
+STATUS = BROADER REGRESSION PARTIAL PASS / MISSING BATCHES NEXT
+Durable JUnit PASS already recorded: scheduler 13; GenerationJob 20; persistence/schema 13; broader completed 466; production compiler 14. No pytest/uv process remains.
+Missing-only modules = profile_resolver, provider_adapter, provider_routing, reference, research_story_material, screenplay_realization, shot_planning, shot_realization, state_continuity, story_core, story_intake, story_quality, structure_planning, topic_domain, versioning.
+
+NEXT_EXACT_ACTION = "RUN ONLY MISSING IMP-053 BROADER MODULE BATCHES WITH DURABLE JUNIT/EXIT MARKERS -> FROZEN/STATIC/DIFF REVIEW -> EVIDENCE"
+
+
+---
+
+## IMP-053 LOCAL VERIFIED - 2026-10-05
+
+ACTIVE_TASK = IMP-053 SCHEDULER / QUEUE / DAG / LEASES / ADMISSION
+STATUS = LOCAL VERIFIED / SIDE-EFFECT GUARD NEXT
+BRANCH = chatgpt/IMP-053-scheduler-dag-leases-admission
+BASE_HEAD = b7a942897cef404cabcda67b7b58737fb7d10b3a
+
+VERIFIED:
+- scheduler targeted 13/13 PASS;
+- GenerationJob affected 20/20 PASS;
+- persistence/schema compatibility 13/13 PASS;
+- broader regression 691/691 PASS;
+- frozen Master guard PASS / semantic SHA unchanged;
+- compile/static/diff review PASS;
+- evidence file `evidence/tests/IMP-053_SCHEDULER_EVIDENCE.md`.
+
+IMPLEMENTATION:
+- schema v7 durable scheduler node/DAG/readiness/admission/lease/fairness coordination;
+- no duplicate scheduler-state authority;
+- immutable DAG + CAS checkpoints/leases/cursors + append-only histories;
+- fail-closed hierarchical admission and restart-safe recovery handoff.
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-053 SCOPE EXCLUDING .tmp -> COMMIT -> PUSH -> PR -> CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC -> NEXT TASK"
