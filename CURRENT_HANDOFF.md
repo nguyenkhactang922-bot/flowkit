@@ -3064,3 +3064,117 @@ WORKTREE_AT_VERIFICATION = clean after local temp cleanup
 GOVERNANCE_BRANCH = chatgpt/IMP-052-main-verified-state
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-052 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-052 GOVERNANCE VERIFIED / IMP-053 CLAIMED - 2026-10-05
+
+IMP-052_GOVERNANCE_PR = #59
+IMP-052_GOVERNANCE_MERGE_SHA = b7a942897cef404cabcda67b7b58737fb7d10b3a
+IMP-052_GOVERNANCE_PUSH_WORKFLOW = 37260218808 SUCCESS exact governance SHA
+
+ACTIVE_TASK = IMP-053 SCHEDULER / QUEUE / DAG / LEASES / ADMISSION
+STATUS = CLAIMED / AUTHORITY READ NEXT
+BRANCH = chatgpt/IMP-053-scheduler-dag-leases-admission
+BASE_HEAD = b7a942897cef404cabcda67b7b58737fb7d10b3a
+DEPENDS = IMP-052 MAIN VERIFIED + IMP-005 MAIN VERIFIED
+TASK_GOAL = dependency-aware bounded scheduling with durable readiness/checkpoints, lease claim, fairness, provider/model/resource/budget admission
+REMOTE_DUPLICATE_GUARD = no remote IMP-053 branch / no PR
+
+NEXT_EXACT_ACTION = "READ IMP-053 FROZEN SCHEDULER/DAG/LEASE/ADMISSION AUTHORITY + AUDIT CURRENT WORKER PRIORITY/CONCURRENCY/COOLDOWN/PREREQUISITE SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-053 AUTHORITY + CURRENT-SURFACE AUDIT PASS - 2026-10-05
+
+ACTIVE_TASK = IMP-053 SCHEDULER / QUEUE / DAG / LEASES / ADMISSION
+STATUS = AUTHORITY + CURRENT SURFACE AUDIT PASS / CODE NEXT
+BRANCH = chatgpt/IMP-053-scheduler-dag-leases-admission
+BASE_HEAD = b7a942897cef404cabcda67b7b58737fb7d10b3a
+
+LOCKED IMPLEMENTATION DECISIONS:
+- Frozen Master section 69/FM2-003 is authoritative: ordering = priority class + project fairness + oldest-ready; admission = global + provider + model + operation + local-resource + dependency readiness + budget.
+- GenerationJob.scheduler_state remains the only canonical scheduler-state authority; IMP-053 MUST NOT persist a competing status/state machine.
+- Accepted job-DAG edges are immutable; topology change requires new job/topology identities rather than editing accepted edges.
+- Add schema migration v7 on the shared SQLiteWriteOwner only: scheduler-node metadata, immutable dependency edges, durable readiness checkpoint/history, lease current/history, admission evidence and fairness cursor.
+- Lease/current checkpoint/admission/fairness coordination uses optimistic revision/CAS and durable evidence; provider/network work stays outside DB transactions.
+- Lease claim cannot authorize work by itself: work requires legal GenerationJob QUEUED->CLAIMED->RUNNING transitions plus a matching unexpired active lease.
+- Expired/lost lease on CLAIMED/RUNNING is recovery territory; IMP-053 never resets paid work blindly to QUEUED.
+- Admission cap values are evidence inputs, not hard-coded provider facts; global-only limiting is insufficient.
+- Fairness is durable round-robin across projects within priority, then oldest-ready within project; legacy type-priority/concurrency/cooldown/prerequisite behavior is reusable only behind this canonical boundary.
+- Legacy PROCESSING->PENDING startup reset and in-memory defer/retry maps are compatibility behavior, not canonical restart truth.
+
+NEXT_EXACT_ACTION = "IMPLEMENT MIGRATION V7 + TYPED SCHEDULER DAG/READINESS/LEASE/ADMISSION/FAIRNESS REPOSITORY + LEGAL GENERATIONJOB TRANSITION INTEGRATION -> TARGETED TESTS"
+
+---
+
+## IMP-053 TARGETED + AFFECTED CHECKPOINT - 2026-10-05
+
+ACTIVE_TASK = IMP-053 SCHEDULER / QUEUE / DAG / LEASES / ADMISSION
+STATUS = TARGETED + AFFECTED PASS / BROADER REGRESSION NEXT
+BRANCH = chatgpt/IMP-053-scheduler-dag-leases-admission
+BASE_HEAD = b7a942897cef404cabcda67b7b58737fb7d10b3a
+
+Evidence:
+- scheduler targeted = 13/13 PASS (`.tmp/imp053-scheduler.xml`, 0 failures / 0 errors);
+- GenerationJob affected = 20/20 PASS with clean exit after retrying only the Windows pytest temp-cleanup-failed 5-test batch using repo-local basetemp;
+- persistence + schema-upgrade migration compatibility = 13/13 PASS;
+- no scheduler/pytest process remains running at checkpoint.
+
+NEXT_EXACT_ACTION = "RUN BROADER VALID WINDOWS REGRESSION USING ESTABLISHED EXCLUSION ENVELOPE WITHOUT RERUNNING AFFECTED FILES -> FROZEN/STATIC/DIFF REVIEW -> EVIDENCE"
+
+
+---
+
+## IMP-053 BROADER REGRESSION RESUME CHECKPOINT - 2026-10-05
+
+ACTIVE_TASK = IMP-053 SCHEDULER / QUEUE / DAG / LEASES / ADMISSION
+STATUS = BROADER REGRESSION PARTIAL PASS / MISSING BATCHES NEXT
+BRANCH = chatgpt/IMP-053-scheduler-dag-leases-admission
+BASE_HEAD = b7a942897cef404cabcda67b7b58737fb7d10b3a
+
+Durable JUnit evidence already PASS and MUST NOT be rerun:
+- scheduler targeted 13/13;
+- GenerationJob affected 20/20;
+- persistence/schema compatibility 13/13;
+- broader completed modules aggregate 466/466;
+- production compiler 14/14.
+
+No pytest/uv process remains running at this checkpoint.
+Missing broader modules only: profile_resolver, provider_adapter, provider_routing, reference, research_story_material, screenplay_realization, shot_planning, shot_realization, state_continuity, story_core, story_intake, story_quality, structure_planning, topic_domain, versioning.
+
+NEXT_EXACT_ACTION = "RUN ONLY MISSING IMP-053 BROADER MODULE BATCHES WITH DURABLE JUNIT/EXIT MARKERS -> FROZEN/STATIC/DIFF REVIEW -> EVIDENCE"
+
+
+---
+
+## IMP-053 LOCAL VERIFIED - 2026-10-05
+
+ACTIVE_TASK = IMP-053 SCHEDULER / QUEUE / DAG / LEASES / ADMISSION
+STATUS = LOCAL VERIFIED / SIDE-EFFECT GUARD NEXT
+BRANCH = chatgpt/IMP-053-scheduler-dag-leases-admission
+BASE_HEAD = b7a942897cef404cabcda67b7b58737fb7d10b3a
+
+Evidence:
+- scheduler targeted = 13/13 PASS;
+- GenerationJob affected = 20/20 PASS;
+- persistence/schema compatibility = 13/13 PASS;
+- broader valid Windows regression = 691/691 PASS;
+- missing-only resume lane = 211/211 PASS without rerunning prior PASS modules;
+- shot_realization clean-exit proof = 15/15 PASS via non-overlapping 4+4+4+3 repo-local-basetemp batches;
+- frozen Master guard = PASS;
+- frozen semantic SHA = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287;
+- compileall + git diff --check + whitespace/import/TODO scans = PASS;
+- evidence = evidence/tests/IMP-053_SCHEDULER_EVIDENCE.md.
+
+Exact review:
+- GenerationJob.scheduler_state remains sole canonical scheduler state;
+- immutable DAG/node topology + durable readiness/admission/lease/fairness evidence;
+- serialized admission/lease reservation prevents oversubscription;
+- START_WORK requires legal CLAIMED state + matching unexpired lease;
+- expired CLAIMED/RUNNING leases hand off to RecoveryCoordinator; no blind requeue;
+- provider/network work remains outside scheduler DB transactions.
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-053 SCOPE EXCLUDING .tmp -> COMMIT -> PUSH -> PR -> CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC -> NEXT TASK"

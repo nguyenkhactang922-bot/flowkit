@@ -111,9 +111,9 @@ async def test_migration_v6_persists_four_axes_and_no_generic_status(tmp_path):
         reader = SQLiteReadRepository(writer.db_path)
         migration = await reader.fetchone(
             "SELECT version,name FROM studio_schema_migration WHERE version=?",
-            (FOUNDATION_SCHEMA_VERSION,),
+            (6,),
         )
-        assert FOUNDATION_SCHEMA_VERSION == 6
+        assert FOUNDATION_SCHEMA_VERSION >= 6
         assert migration is not None and migration["name"] == "studio_generation_job_four_axis"
         columns = await reader.fetchall("PRAGMA table_info(studio_generation_job)")
         names = {row["name"] for row in columns}

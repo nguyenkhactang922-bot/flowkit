@@ -2594,3 +2594,102 @@ NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-052 SCOPE -> COMMIT ->
 - [ ] Read DAG/queue and CLAIM next dependency-ready task.
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-052 GOVERNANCE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-052 GOVERNANCE VERIFIED / IMP-053 CLAIMED - 2026-10-05
+
+- [x] IMP-052 governance PR #59 merged at `b7a942897cef404cabcda67b7b58737fb7d10b3a`.
+- [x] Governance push-main workflow `37260218808` SUCCESS exact governance SHA.
+- [x] Verify IMP-053 dependencies: IMP-052 + IMP-005 MAIN VERIFIED.
+- [x] Verify no remote branch/PR duplicate for IMP-053.
+- [x] Claim `chatgpt/IMP-053-scheduler-dag-leases-admission` from clean governance main.
+- [ ] Read Frozen Scheduler/Queue/DAG/Lease/Admission authority.
+- [ ] Audit current worker priority/concurrency/cooldown/prerequisite logic.
+- [ ] Implement durable readiness/checkpoints + lease claim + fairness + admission controls.
+- [ ] Tests: lease conflict, starvation, backpressure, dependency gating, restart readiness.
+- [ ] Targeted + affected + broader regression + frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "READ IMP-053 FROZEN SCHEDULER/DAG/LEASE/ADMISSION AUTHORITY + AUDIT CURRENT WORKER PRIORITY/CONCURRENCY/COOLDOWN/PREREQUISITE SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-053 AUTHORITY + CURRENT-SURFACE AUDIT PASS - 2026-10-05
+
+- [x] Read Frozen Master section 69/FM2-003 Queue/DAG authority.
+- [x] Audit GenerationJob scheduler-axis transition contract from IMP-052.
+- [x] Audit legacy worker priority/concurrency/cooldown/prerequisite behavior for KEEP+EXTEND mapping.
+- [x] Lock schema v7 shared-writer design: DAG edges, scheduler node metadata, readiness checkpoint/history, lease current/history, admission evidence, fairness cursor.
+- [x] Lock ordering = priority -> project fairness -> oldest-ready.
+- [x] Lock admission = global/provider/model/operation/local-resource/dependency/budget with evidence-driven cap values.
+- [x] Lock no duplicate scheduler-state authority and no blind restart reset.
+- [ ] Implement migration v7.
+- [ ] Implement typed scheduler contracts/repository/CAS/history/admission/fairness/lease integration.
+- [ ] Tests: lease conflict, starvation/fairness, backpressure/admission, dependency gating, restart readiness.
+- [ ] Targeted + affected + broader regression + frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "IMPLEMENT MIGRATION V7 + TYPED SCHEDULER DAG/READINESS/LEASE/ADMISSION/FAIRNESS REPOSITORY + LEGAL GENERATIONJOB TRANSITION INTEGRATION -> TARGETED TESTS"
+
+---
+
+## IMP-053 TARGETED + AFFECTED CHECKPOINT - 2026-10-05
+
+- [x] Migration v7 + typed scheduler/DAG/readiness/lease/admission/fairness implementation materialized.
+- [x] Scheduler targeted = 13/13 PASS.
+- [x] GenerationJob affected regression = 20/20 PASS.
+- [x] Persistence + schema-upgrade migration compatibility = 13/13 PASS.
+- [ ] Broader valid Windows regression with established exclusions and affected files excluded.
+- [ ] Frozen Master guard + compile/static/diff review.
+- [ ] Evidence / LOCAL VERIFIED.
+- [ ] Side-effect guard / commit / push / PR / CI / exact-head review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "RUN BROADER VALID WINDOWS REGRESSION -> FROZEN/STATIC/DIFF REVIEW -> EVIDENCE"
+
+
+---
+
+## IMP-053 BROADER REGRESSION RESUME CHECKPOINT - 2026-10-05
+
+- [x] Scheduler targeted 13/13 PASS.
+- [x] GenerationJob affected 20/20 PASS.
+- [x] Persistence/schema compatibility 13/13 PASS.
+- [x] Completed broader modules 466/466 PASS.
+- [x] Production compiler 14/14 PASS.
+- [ ] Run only missing broader modules: profile_resolver, provider_adapter, provider_routing, reference, research_story_material, screenplay_realization, shot_planning, shot_realization, state_continuity, story_core, story_intake, story_quality, structure_planning, topic_domain, versioning.
+- [ ] Frozen Master guard + compile/static/diff review.
+- [ ] Evidence / LOCAL VERIFIED.
+- [ ] Side-effect guard / commit / push / PR / CI / exact-head review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "RUN ONLY MISSING IMP-053 BROADER MODULE BATCHES WITH DURABLE JUNIT/EXIT MARKERS -> FROZEN/STATIC/DIFF REVIEW -> EVIDENCE"
+
+
+---
+
+## IMP-053 LOCAL VERIFIED - 2026-10-05
+
+- [x] Migration v7 scheduler coordination schema.
+- [x] Typed scheduler node / immutable DAG / readiness checkpoint + history.
+- [x] Durable admission evidence / lease current+history / fairness cursor.
+- [x] Legal GenerationJob scheduler transition integration.
+- [x] Hierarchical admission + dependency/budget/backpressure gates.
+- [x] Lease conflict / serialized claim / no oversubscription.
+- [x] Fairness / no-starvation ordering.
+- [x] Restart readiness + expired-lease recovery handoff without blind requeue.
+- [x] Scheduler targeted = 13/13 PASS.
+- [x] GenerationJob affected = 20/20 PASS.
+- [x] Persistence/schema compatibility = 13/13 PASS.
+- [x] Broader valid Windows regression = 691/691 PASS.
+- [x] Frozen Master guard + compile/static/diff review PASS.
+- [x] Evidence = `evidence/tests/IMP-053_SCHEDULER_EVIDENCE.md`.
+- [ ] Side-effect guard.
+- [ ] Commit / push / PR.
+- [ ] CI Python 3.10 / 3.13 + frozen guard.
+- [ ] Exact-head review / merge main.
+- [ ] Post-merge main verification / governance sync.
+- [ ] Read DAG/queue and claim next dependency-ready task.
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-053 SCOPE EXCLUDING .tmp -> COMMIT -> PUSH -> PR -> CI -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC -> NEXT TASK"

@@ -1203,3 +1203,52 @@ __all__ += [
 
 from .generation_job import resolve_transition_rule
 __all__ += ["resolve_transition_rule"]
+
+
+from .scheduler import (
+    AdmissionUsage,
+    DependencyRequirement,
+    LeaseEvent,
+    LeaseState,
+    SchedulerAdmissionBlocked,
+    SchedulerAdmissionDecision,
+    SchedulerAdmissionPolicy,
+    SchedulerCheckpoint,
+    SchedulerClaim,
+    SchedulerDependencyEdge,
+    SchedulerDependencyError,
+    SchedulerError,
+    SchedulerIdentityError,
+    SchedulerLease,
+    SchedulerLeaseConflict,
+    SchedulerNode,
+    SchedulerNodeRegistration,
+    SchedulerRepository,
+    SchedulerStartupReport,
+    scheduler_dependency_edge_id,
+    scheduler_model_capacity_key,
+)
+
+__all__ += [
+    "AdmissionUsage",
+    "DependencyRequirement",
+    "LeaseEvent",
+    "LeaseState",
+    "SchedulerAdmissionBlocked",
+    "SchedulerAdmissionDecision",
+    "SchedulerAdmissionPolicy",
+    "SchedulerCheckpoint",
+    "SchedulerClaim",
+    "SchedulerDependencyEdge",
+    "SchedulerDependencyError",
+    "SchedulerError",
+    "SchedulerIdentityError",
+    "SchedulerLease",
+    "SchedulerLeaseConflict",
+    "SchedulerNode",
+    "SchedulerNodeRegistration",
+    "SchedulerRepository",
+    "SchedulerStartupReport",
+    "scheduler_dependency_edge_id",
+    "scheduler_model_capacity_key",
+]

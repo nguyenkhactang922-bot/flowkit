@@ -22,7 +22,7 @@ from typing import Any, Awaitable, Callable, Generic, Iterable, Sequence, TypeVa
 import aiosqlite
 
 
-FOUNDATION_SCHEMA_VERSION = 6
+FOUNDATION_SCHEMA_VERSION = 7
 _MIGRATION_TABLE = "studio_schema_migration"
 _IDENTIFIER_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 _in_write_transaction: contextvars.ContextVar[bool] = contextvars.ContextVar(
@@ -702,6 +702,197 @@ DEFAULT_MIGRATIONS: tuple[Migration, ...] = (
             BEGIN
                 SELECT RAISE(ABORT, 'generation job transition history is append-only');
             END
+            """,
+        ),
+    ),
+    Migration(
+        version=7,
+        name="studio_scheduler_dag_leases_admission",
+        statements=(
+            """
+            CREATE TABLE studio_scheduler_node (
+                generation_job_id TEXT PRIMARY KEY,
+                priority_class INTEGER NOT NULL CHECK (priority_class >= 0 AND priority_class <= 1000),
+                operation_key TEXT NOT NULL,
+                local_resource_key TEXT NOT NULL,
+                estimated_cost_microunits INTEGER NOT NULL CHECK (estimated_cost_microunits >= 0),
+                registration_evidence_json TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                FOREIGN KEY (generation_job_id) REFERENCES studio_generation_job(generation_job_id)
+            )
+            """,
+            """
+            CREATE TABLE studio_scheduler_dependency (
+                dependency_edge_id TEXT PRIMARY KEY,
+                upstream_job_id TEXT NOT NULL,
+                downstream_job_id TEXT NOT NULL,
+                requirement TEXT NOT NULL CHECK (requirement IN ('SCHEDULER_TERMINAL','ARTIFACT_READY','CREATIVE_ACCEPTED')),
+                evidence_json TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                CHECK (upstream_job_id != downstream_job_id),
+                FOREIGN KEY (upstream_job_id) REFERENCES studio_generation_job(generation_job_id),
+                FOREIGN KEY (downstream_job_id) REFERENCES studio_generation_job(generation_job_id),
+                UNIQUE (upstream_job_id, downstream_job_id, requirement)
+            )
+            """,
+            """
+            CREATE INDEX studio_scheduler_dependency_downstream_idx ON studio_scheduler_dependency(downstream_job_id, upstream_job_id)
+            """,
+            """
+            CREATE INDEX studio_scheduler_dependency_upstream_idx ON studio_scheduler_dependency(upstream_job_id, downstream_job_id)
+            """,
+            """
+            CREATE TABLE studio_scheduler_admission (
+                decision_id TEXT PRIMARY KEY,
+                generation_job_id TEXT NOT NULL,
+                admitted INTEGER NOT NULL CHECK (admitted IN (0,1)),
+                reasons_json TEXT NOT NULL,
+                snapshot_json TEXT NOT NULL,
+                job_revision INTEGER NOT NULL CHECK (job_revision >= 0),
+                checkpoint_revision INTEGER NOT NULL CHECK (checkpoint_revision >= 0),
+                actor_ref TEXT NOT NULL,
+                reason TEXT NOT NULL,
+                correlation_id TEXT NOT NULL,
+                evidence_json TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                FOREIGN KEY (generation_job_id) REFERENCES studio_generation_job(generation_job_id)
+            )
+            """,
+            """
+            CREATE INDEX studio_scheduler_admission_job_idx ON studio_scheduler_admission(generation_job_id, created_at)
+            """,
+            """
+            CREATE TABLE studio_scheduler_checkpoint (
+                generation_job_id TEXT PRIMARY KEY,
+                dependency_ready INTEGER NOT NULL CHECK (dependency_ready IN (0,1)),
+                blocked_dependencies_json TEXT NOT NULL,
+                dependency_digest TEXT NOT NULL,
+                ready_since TEXT,
+                last_evaluated_at TEXT NOT NULL,
+                last_admission_decision_id TEXT,
+                revision INTEGER NOT NULL DEFAULT 0 CHECK (revision >= 0),
+                FOREIGN KEY (generation_job_id) REFERENCES studio_generation_job(generation_job_id),
+                FOREIGN KEY (last_admission_decision_id) REFERENCES studio_scheduler_admission(decision_id)
+            )
+            """,
+            """
+            CREATE INDEX studio_scheduler_checkpoint_ready_idx ON studio_scheduler_checkpoint(dependency_ready, ready_since)
+            """,
+            """
+            CREATE TABLE studio_scheduler_checkpoint_history (
+                checkpoint_event_id TEXT PRIMARY KEY,
+                generation_job_id TEXT NOT NULL,
+                dependency_ready INTEGER NOT NULL CHECK (dependency_ready IN (0,1)),
+                blocked_dependencies_json TEXT NOT NULL,
+                dependency_digest TEXT NOT NULL,
+                ready_since TEXT,
+                last_admission_decision_id TEXT,
+                from_revision INTEGER NOT NULL CHECK (from_revision >= -1),
+                to_revision INTEGER NOT NULL CHECK (to_revision = from_revision + 1),
+                actor_ref TEXT NOT NULL,
+                reason TEXT NOT NULL,
+                correlation_id TEXT NOT NULL,
+                evidence_json TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                FOREIGN KEY (generation_job_id) REFERENCES studio_generation_job(generation_job_id)
+            )
+            """,
+            """
+            CREATE INDEX studio_scheduler_checkpoint_history_job_idx ON studio_scheduler_checkpoint_history(generation_job_id, to_revision)
+            """,
+            """
+            CREATE TABLE studio_scheduler_lease (
+                generation_job_id TEXT PRIMARY KEY,
+                lease_token TEXT NOT NULL UNIQUE,
+                worker_id TEXT NOT NULL,
+                state TEXT NOT NULL CHECK (state IN ('ACTIVE','RELEASED','EXPIRED')),
+                acquired_at TEXT NOT NULL,
+                expires_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL,
+                revision INTEGER NOT NULL DEFAULT 0 CHECK (revision >= 0),
+                FOREIGN KEY (generation_job_id) REFERENCES studio_generation_job(generation_job_id)
+            )
+            """,
+            """
+            CREATE INDEX studio_scheduler_lease_state_expiry_idx ON studio_scheduler_lease(state, expires_at)
+            """,
+            """
+            CREATE TABLE studio_scheduler_lease_history (
+                lease_event_id TEXT PRIMARY KEY,
+                generation_job_id TEXT NOT NULL,
+                lease_token TEXT NOT NULL,
+                worker_id TEXT NOT NULL,
+                event TEXT NOT NULL CHECK (event IN ('ACQUIRE','RENEW','RELEASE','EXPIRE')),
+                previous_expires_at TEXT,
+                new_expires_at TEXT,
+                from_revision INTEGER NOT NULL CHECK (from_revision >= -1),
+                to_revision INTEGER NOT NULL CHECK (to_revision = from_revision + 1),
+                actor_ref TEXT NOT NULL,
+                reason TEXT NOT NULL,
+                correlation_id TEXT NOT NULL,
+                evidence_json TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                FOREIGN KEY (generation_job_id) REFERENCES studio_generation_job(generation_job_id)
+            )
+            """,
+            """
+            CREATE INDEX studio_scheduler_lease_history_job_idx ON studio_scheduler_lease_history(generation_job_id, to_revision)
+            """,
+            """
+            CREATE TABLE studio_scheduler_fairness_cursor (
+                priority_class INTEGER PRIMARY KEY CHECK (priority_class >= 0 AND priority_class <= 1000),
+                last_project_id TEXT,
+                revision INTEGER NOT NULL DEFAULT 0 CHECK (revision >= 0),
+                updated_at TEXT NOT NULL
+            )
+            """,
+            """
+            CREATE TRIGGER studio_scheduler_node_no_update BEFORE UPDATE ON studio_scheduler_node BEGIN SELECT RAISE(ABORT, 'scheduler node metadata is immutable'); END
+            """,
+            """
+            CREATE TRIGGER studio_scheduler_node_no_delete BEFORE DELETE ON studio_scheduler_node BEGIN SELECT RAISE(ABORT, 'scheduler node metadata is durable'); END
+            """,
+            """
+            CREATE TRIGGER studio_scheduler_dependency_no_update BEFORE UPDATE ON studio_scheduler_dependency BEGIN SELECT RAISE(ABORT, 'scheduler dependency topology is immutable'); END
+            """,
+            """
+            CREATE TRIGGER studio_scheduler_dependency_no_delete BEFORE DELETE ON studio_scheduler_dependency BEGIN SELECT RAISE(ABORT, 'scheduler dependency topology is durable'); END
+            """,
+            """
+            CREATE TRIGGER studio_scheduler_admission_no_update BEFORE UPDATE ON studio_scheduler_admission BEGIN SELECT RAISE(ABORT, 'scheduler admission evidence is append-only'); END
+            """,
+            """
+            CREATE TRIGGER studio_scheduler_admission_no_delete BEFORE DELETE ON studio_scheduler_admission BEGIN SELECT RAISE(ABORT, 'scheduler admission evidence is append-only'); END
+            """,
+            """
+            CREATE TRIGGER studio_scheduler_checkpoint_revision_guard BEFORE UPDATE ON studio_scheduler_checkpoint WHEN NEW.revision != OLD.revision + 1 BEGIN SELECT RAISE(ABORT, 'scheduler checkpoint update requires revision+1'); END
+            """,
+            """
+            CREATE TRIGGER studio_scheduler_checkpoint_no_delete BEFORE DELETE ON studio_scheduler_checkpoint BEGIN SELECT RAISE(ABORT, 'scheduler checkpoint is durable'); END
+            """,
+            """
+            CREATE TRIGGER studio_scheduler_checkpoint_history_no_update BEFORE UPDATE ON studio_scheduler_checkpoint_history BEGIN SELECT RAISE(ABORT, 'scheduler checkpoint history is append-only'); END
+            """,
+            """
+            CREATE TRIGGER studio_scheduler_checkpoint_history_no_delete BEFORE DELETE ON studio_scheduler_checkpoint_history BEGIN SELECT RAISE(ABORT, 'scheduler checkpoint history is append-only'); END
+            """,
+            """
+            CREATE TRIGGER studio_scheduler_lease_revision_guard BEFORE UPDATE ON studio_scheduler_lease WHEN NEW.revision != OLD.revision + 1 BEGIN SELECT RAISE(ABORT, 'scheduler lease update requires revision+1'); END
+            """,
+            """
+            CREATE TRIGGER studio_scheduler_lease_no_delete BEFORE DELETE ON studio_scheduler_lease BEGIN SELECT RAISE(ABORT, 'scheduler lease is durable'); END
+            """,
+            """
+            CREATE TRIGGER studio_scheduler_lease_history_no_update BEFORE UPDATE ON studio_scheduler_lease_history BEGIN SELECT RAISE(ABORT, 'scheduler lease history is append-only'); END
+            """,
+            """
+            CREATE TRIGGER studio_scheduler_lease_history_no_delete BEFORE DELETE ON studio_scheduler_lease_history BEGIN SELECT RAISE(ABORT, 'scheduler lease history is append-only'); END
+            """,
+            """
+            CREATE TRIGGER studio_scheduler_fairness_revision_guard BEFORE UPDATE ON studio_scheduler_fairness_cursor WHEN NEW.revision != OLD.revision + 1 BEGIN SELECT RAISE(ABORT, 'scheduler fairness cursor update requires revision+1'); END
+            """,
+            """
+            CREATE TRIGGER studio_scheduler_fairness_no_delete BEFORE DELETE ON studio_scheduler_fairness_cursor BEGIN SELECT RAISE(ABORT, 'scheduler fairness cursor is durable'); END
             """,
         ),
     ),
