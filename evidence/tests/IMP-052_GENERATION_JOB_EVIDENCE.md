@@ -60,3 +60,14 @@ Complete valid-unit coverage without double-counting affected files:
 - Generic status remains derived UI evidence only.
 
 RESULT = IMP-052 LOCAL VERIFIED
+
+## Post-merge main verification - 2026-10-05
+- Feature PR #58 merged from exact feature head `5e56cb9dffc0ab7239549f6e3ced67bfc77ec57e`.
+- Main merge SHA: `657424f6db4e53ec5fa2d4122efa06aaf47e156f`.
+- PR CI run `37223076071`: SUCCESS on Python 3.10 / 3.13.
+- Local post-merge targeted GenerationJob verification: 20/20 PASS with durable per-batch exit codes.
+- Local frozen Master guard: PASS; semantic SHA `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
+- Main push workflow `37223369097`: SUCCESS on exact merge SHA, including frozen Master guard and full unit-test steps on Python 3.10 / 3.13.
+- A local provider-routing regression attempt was interrupted by the FileMCP bridge and is not counted as PASS evidence; exact-main CI is the authoritative post-merge regression evidence.
+
+RESULT = IMP-052 FEATURE MAIN VERIFIED
