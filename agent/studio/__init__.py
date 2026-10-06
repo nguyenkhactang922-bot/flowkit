@@ -1252,3 +1252,40 @@ __all__ += [
     "scheduler_dependency_edge_id",
     "scheduler_model_capacity_key",
 ]
+
+
+from .recovery import (
+    ProviderAdapterRecoveryProbe,
+    RecoveryCoordinator,
+    RecoveryDecision,
+    RecoveryError,
+    RecoveryEvent,
+    RecoveryEventRepository,
+    RecoveryEvidenceConflict,
+    RecoveryFailureClassification,
+    RecoveryGateBlocked,
+    RecoveryProbeOutcome,
+    RecoveryProbePort,
+    RecoveryProbeResult,
+    RecoveryProofKind,
+    RecoveryResult,
+    RecoveryTrigger,
+)
+
+__all__ += [
+    "ProviderAdapterRecoveryProbe",
+    "RecoveryCoordinator",
+    "RecoveryDecision",
+    "RecoveryError",
+    "RecoveryEvent",
+    "RecoveryEventRepository",
+    "RecoveryEvidenceConflict",
+    "RecoveryFailureClassification",
+    "RecoveryGateBlocked",
+    "RecoveryProbeOutcome",
+    "RecoveryProbePort",
+    "RecoveryProbeResult",
+    "RecoveryProofKind",
+    "RecoveryResult",
+    "RecoveryTrigger",
+]

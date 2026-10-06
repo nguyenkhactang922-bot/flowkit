@@ -22,7 +22,7 @@ from typing import Any, Awaitable, Callable, Generic, Iterable, Sequence, TypeVa
 import aiosqlite
 
 
-FOUNDATION_SCHEMA_VERSION = 7
+FOUNDATION_SCHEMA_VERSION = 8
 _MIGRATION_TABLE = "studio_schema_migration"
 _IDENTIFIER_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 _in_write_transaction: contextvars.ContextVar[bool] = contextvars.ContextVar(
@@ -893,6 +893,71 @@ DEFAULT_MIGRATIONS: tuple[Migration, ...] = (
             """,
             """
             CREATE TRIGGER studio_scheduler_fairness_no_delete BEFORE DELETE ON studio_scheduler_fairness_cursor BEGIN SELECT RAISE(ABORT, 'scheduler fairness cursor is durable'); END
+            """,
+        ),
+    ),
+    Migration(
+        version=8,
+        name="studio_generation_recovery_evidence",
+        statements=(
+            """
+            CREATE TABLE studio_generation_recovery_event (
+                recovery_event_id TEXT PRIMARY KEY,
+                recovery_attempt_id TEXT NOT NULL,
+                generation_job_id TEXT NOT NULL,
+                job_revision_observed INTEGER NOT NULL CHECK (job_revision_observed >= 0),
+                trigger TEXT NOT NULL,
+                strategy TEXT NOT NULL,
+                failure_code TEXT NOT NULL,
+                failure_class TEXT NOT NULL,
+                retry_disposition TEXT NOT NULL CHECK (retry_disposition IN (
+                    'RETRYABLE','NOT_RETRYABLE','RECONCILIATION_REQUIRED'
+                )),
+                proof_kind TEXT NOT NULL CHECK (proof_kind IN (
+                    'NONE','TRANSPORT_NOT_DISPATCHED','PROVEN_ABSENT',
+                    'VERIFIED_SAME_JOB_IDEMPOTENCY','RECOVERED_HANDLE',
+                    'RECOVERED_ACTIVE_POLL','REMOTE_SUCCEEDED','REMOTE_FAILED',
+                    'REMOTE_CANCELED','STILL_AMBIGUOUS'
+                )),
+                decision TEXT NOT NULL CHECK (decision IN (
+                    'SAFE_TO_REQUEUE','RESUME_EXISTING','HOLD_AMBIGUOUS',
+                    'TERMINAL_OBSERVED','NO_ACTION'
+                )),
+                provider_profile_object_id TEXT NOT NULL,
+                provider_profile_version TEXT NOT NULL,
+                rule_version TEXT NOT NULL,
+                evidence_json TEXT NOT NULL,
+                observation_json TEXT,
+                recovered_provider_request_id TEXT,
+                recovered_provider_operation_id TEXT,
+                actor_ref TEXT NOT NULL,
+                reason TEXT NOT NULL,
+                correlation_id TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                FOREIGN KEY (generation_job_id)
+                    REFERENCES studio_generation_job(generation_job_id),
+                FOREIGN KEY (provider_profile_object_id, provider_profile_version)
+                    REFERENCES studio_semantic_version(logical_id, version_id),
+                UNIQUE (generation_job_id, recovery_attempt_id)
+            )
+            """,
+            """
+            CREATE INDEX studio_generation_recovery_event_job_idx
+            ON studio_generation_recovery_event(generation_job_id, created_at)
+            """,
+            """
+            CREATE TRIGGER studio_generation_recovery_event_no_update
+            BEFORE UPDATE ON studio_generation_recovery_event
+            BEGIN
+                SELECT RAISE(ABORT, 'generation recovery evidence is append-only');
+            END
+            """,
+            """
+            CREATE TRIGGER studio_generation_recovery_event_no_delete
+            BEFORE DELETE ON studio_generation_recovery_event
+            BEGIN
+                SELECT RAISE(ABORT, 'generation recovery evidence is append-only');
+            END
             """,
         ),
     ),

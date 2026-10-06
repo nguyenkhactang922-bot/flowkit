@@ -1009,16 +1009,24 @@ class GenerationJobRepository:
         if command == "REQUEST_CANCEL" and facts.get("cancel_supported") is not True:
             raise GenerationJobTransitionError("REQUEST_CANCEL requires proven provider cancel capability")
         if command == "PROVEN_ABSENT" and not (
-            facts.get("proven_absent") is True or facts.get("verified_same_job_idempotency") is True
+            facts.get("proven_absent") is True
+            or facts.get("verified_same_job_idempotency") is True
+            or facts.get("transport_not_dispatched") is True
         ):
-            raise GenerationJobTransitionError("PROVEN_ABSENT requires absence/idempotency proof")
+            raise GenerationJobTransitionError(
+                "PROVEN_ABSENT requires absence/idempotency proof or no-dispatch proof"
+            )
         if command == "RECOVERY_PROVEN_SAFE_TO_REQUEUE":
             if job.provider_state is not ProviderState.NOT_SUBMITTED:
                 raise GenerationJobTransitionError("safe requeue requires provider NOT_SUBMITTED after reconciliation")
             if not (
-                facts.get("proven_absent") is True or facts.get("verified_same_job_idempotency") is True
+                facts.get("proven_absent") is True
+                or facts.get("verified_same_job_idempotency") is True
+                or facts.get("transport_not_dispatched") is True
             ):
-                raise GenerationJobTransitionError("safe requeue requires absence/idempotency proof")
+                raise GenerationJobTransitionError(
+                    "safe requeue requires absence/idempotency proof or no-dispatch proof"
+                )
         if command == "RECOVERY_RESUMES_ACTIVE_WORK" and job.provider_state not in {
             ProviderState.SUBMITTED,
             ProviderState.POLLING,

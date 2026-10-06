@@ -3247,3 +3247,74 @@ LOCAL_POST_MERGE_TARGETED = INTERRUPTED / no durable result marker / not counted
 GOVERNANCE_BRANCH = chatgpt/IMP-053-main-verified-state
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-053 GOVERNANCE-ONLY STATE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-053 GOVERNANCE VERIFIED / IMP-054 CLAIMED - 2026-10-05
+
+IMP-053 governance PR #61 merged at `18d92a82359d559bd2d2f9b9eafbc25e44430253`.
+Governance push-main workflow `37343051638` SUCCESS Python 3.10 / 3.13 exact governance SHA.
+
+ACTIVE_TASK = IMP-054 RETRY / RESUME / REMOTE AMBIGUITY RECOVERY
+STATUS = CLAIMED / AUTHORITY READ NEXT
+BRANCH = chatgpt/IMP-054-retry-resume-remote-ambiguity
+BASE_HEAD = 18d92a82359d559bd2d2f9b9eafbc25e44430253
+DEPENDS = IMP-052 + IMP-051 + IMP-006 MAIN VERIFIED
+REMOTE_DUPLICATE_GUARD = PASS
+
+NEXT_EXACT_ACTION = "READ IMP-054 FROZEN RETRY/RESUME/REMOTE AMBIGUITY AUTHORITY + AUDIT CURRENT GENERATIONJOB/PROVIDER ADAPTER/RECOVERY/OBSERVABILITY SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-054 AUTHORITY + CURRENT-SURFACE AUDIT PASS - 2026-10-05
+
+ACTIVE_TASK = IMP-054 RETRY / RESUME / REMOTE AMBIGUITY RECOVERY
+STATUS = AUTHORITY + CURRENT SURFACE AUDIT PASS / CODE NEXT
+BRANCH = chatgpt/IMP-054-retry-resume-remote-ambiguity
+BASE_HEAD = 18d92a82359d559bd2d2f9b9eafbc25e44430253
+
+Authority lock:
+- Retry/Resume owns decisions/evidence only; GenerationJob owns job state.
+- Reuse existing 62-row closed GenerationJob transition relation; no new provider/scheduler states.
+- Persist immutable recovery event/proof history under the one-writer SQLite boundary.
+- NO RETRY WITHOUT PROOF: proven no-side-effect/absence or verified same-job idempotency only.
+- Provider ambiguity always requires reconciliation; timeout/exception alone never authorizes submit.
+- Flow/Omni no-handle reconcile remains ambiguous/hold unless stronger provider-specific evidence exists.
+
+NEXT_EXACT_ACTION = "IMPLEMENT IMP-054 MIGRATION V8 DURABLE RECOVERY EVIDENCE + PROVIDER-NEUTRAL RECOVERY COORDINATOR -> TARGETED FAULT-INJECTION TESTS"
+
+
+---
+
+## IMP-054 LOCAL VERIFIED - 2026-10-06
+
+ACTIVE_TASK = IMP-054 RETRY / RESUME / REMOTE AMBIGUITY RECOVERY
+STATUS = LOCAL VERIFIED / SIDE-EFFECT GUARD NEXT
+BRANCH = chatgpt/IMP-054-retry-resume-remote-ambiguity
+BASE_HEAD = 18d92a82359d559bd2d2f9b9eafbc25e44430253
+
+Verified implementation:
+- shared schema migration v8 adds append-only recovery evidence only;
+- GenerationJob remains sole mutable job-state authority;
+- recovery decisions use existing CAS transition commands and proof guards;
+- no retry without transport-not-dispatched / proven-absent / verified same-job idempotency proof;
+- remote ambiguity reconciles/holds instead of blindly resubmitting;
+- recovered handle resumes existing job identity;
+- cancellation race and restart scan are covered by durable evidence/tests.
+
+Evidence:
+- targeted recovery 10/10 PASS;
+- direct/affected latest unique 73/73 PASS;
+- broader latest unique 202/202 PASS;
+- frozen Master guard PASS at semantic SHA `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`;
+- py_compile + diff check PASS;
+- static leakage/TODO scan NONE;
+- evidence file `evidence/tests/IMP-054_RECOVERY_RETRY_RESUME_EVIDENCE.md`.
+
+CHECKPOINT_LAST_PASS = IMP-054 LOCAL VERIFIED
+PROCESS = none
+BLOCKER = none
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-054 SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI PYTHON 3.10/3.13 -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC -> MAIN VERIFIED -> CLAIM NEXT TASK"
