@@ -2711,3 +2711,88 @@ NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-053 SCOPE EXCLUDING .t
 - [ ] Read DAG/queue and claim next dependency-ready task.
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-053 GOVERNANCE-ONLY STATE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-053 GOVERNANCE VERIFIED / IMP-054 CLAIMED - 2026-10-05
+
+- [x] IMP-053 governance PR #61 merged at `18d92a82359d559bd2d2f9b9eafbc25e44430253`.
+- [x] Governance push-main workflow `37343051638` SUCCESS Python 3.10 / 3.13 exact governance SHA.
+- [x] Verify IMP-054 dependencies: IMP-052 + IMP-051 + IMP-006 MAIN VERIFIED.
+- [x] Verify no remote branch/PR duplicate for IMP-054.
+- [x] Claim `chatgpt/IMP-054-retry-resume-remote-ambiguity` from clean governance main.
+- [ ] Read frozen retry/resume/remote ambiguity authority.
+- [ ] Audit GenerationJob/provider adapter/recovery/observability surfaces.
+- [ ] Implement failure taxonomy + RecoveryCoordinator + reconciliation + idempotency/absence evidence + AMBIGUOUS_HOLD.
+- [ ] Tests: crash-before-submit, crash-after-possible-submit, timeout, recovered handle, proven absent, still ambiguous, cancellation race.
+- [ ] Targeted + affected + broader regression + frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "READ IMP-054 FROZEN RETRY/RESUME/REMOTE AMBIGUITY AUTHORITY + AUDIT CURRENT GENERATIONJOB/PROVIDER ADAPTER/RECOVERY/OBSERVABILITY SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-054 AUTHORITY + CURRENT-SURFACE AUDIT PASS - 2026-10-05
+
+- [x] Read Frozen Master §§70-71 + GenerationJob recovery transition authority.
+- [x] Audit GenerationJob four-axis CAS/history owner.
+- [x] Audit ProviderAdapterPort/Flow/Omni reconcile behavior.
+- [x] Audit ErrorClass/RetryDisposition observability taxonomy.
+- [x] Confirm Retry/Resume has no independent state store; RecoveryEvent/attempt identity owns persistence evidence only.
+- [x] Confirm no blind retry: only proven absent/no-side-effect or verified same-job idempotency may requeue/resubmit.
+- [ ] Add migration v8 durable append-only recovery evidence/proof history.
+- [ ] Implement provider-neutral RecoveryCoordinator over existing GenerationJob transitions.
+- [ ] Tests: crash-before-submit, crash-after-possible-submit, timeout, recovered handle, proven absent, still ambiguous, cancellation race, restart scan/idempotency.
+- [ ] Targeted + affected + broader regression + frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "IMPLEMENT IMP-054 MIGRATION V8 DURABLE RECOVERY EVIDENCE + PROVIDER-NEUTRAL RECOVERY COORDINATOR -> TARGETED FAULT-INJECTION TESTS"
+
+
+---
+
+## IMP-054 LOCAL VERIFIED - 2026-10-06
+
+- [x] Add migration v8 durable append-only recovery evidence.
+- [x] Implement provider-neutral RecoveryCoordinator over GenerationJob four-axis CAS authority.
+- [x] Enforce NO RETRY WITHOUT PROOF.
+- [x] Cover pre-dispatch no-side-effect, proven-absent and verified same-job idempotency recovery.
+- [x] Cover recovered handle/resume, ambiguous hold, restart scan and cancellation race.
+- [x] Recovery targeted = 10/10 PASS.
+- [x] Direct/affected latest unique = 73/73 PASS.
+- [x] Broader latest unique = 202/202 PASS after exact migration expectation repair.
+- [x] Frozen Master guard + py_compile + git diff --check PASS.
+- [x] Evidence = `evidence/tests/IMP-054_RECOVERY_RETRY_RESUME_EVIDENCE.md`.
+- [ ] Side-effect guard.
+- [ ] Stage exact IMP-054 scope / commit.
+- [ ] Push / PR.
+- [ ] Ubuntu CI Python 3.10 / 3.13 + frozen guard.
+- [ ] Exact-head review / merge main.
+- [ ] Post-merge main verification.
+- [ ] Governance-only state sync / MAIN VERIFIED.
+- [ ] Read DAG/queue and claim next dependency-ready task.
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-054 SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI PYTHON 3.10/3.13 -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC -> MAIN VERIFIED -> CLAIM NEXT TASK"
+
+
+---
+
+## IMP-054 PR #62 REVIEW FIX LOCAL VERIFIED - 2026-10-06
+
+- [x] Feature commit `ffe8316295cb06ebe1d4e8855566a5d2a86f30cb` pushed; PR #62 opened.
+- [x] Exact-head review found request-id/workflow handle-kind reconstruction gap.
+- [x] Repair durable lineage mapping: operation-id -> OPERATION; request-id -> WORKFLOW.
+- [x] Focused workflow recovery regression = 1/1 PASS.
+- [x] Upstream Omni WORKFLOW reconcile contract = 1/1 PASS.
+- [x] py_compile + frozen Master guard + git diff --check PASS.
+- [ ] Commit review-fix.
+- [ ] Push new exact head to PR #62.
+- [ ] Fresh Ubuntu CI Python 3.10 / 3.13 on new head.
+- [ ] Final exact-head merge guard / merge main.
+- [ ] Post-merge main verification.
+- [ ] Governance-only sync / MAIN VERIFIED.
+- [ ] Read DAG/queue and claim next dependency-ready task.
+
+NEXT_EXACT_ACTION = "STAGE EXACT REVIEW-FIX SCOPE -> COMMIT REVIEW-FIX -> PUSH NEW HEAD TO PR #62 -> WAIT FRESH CI PYTHON 3.10/3.13 -> FINAL EXACT-HEAD MERGE GUARD -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC -> MAIN VERIFIED -> CLAIM NEXT TASK"

@@ -464,6 +464,7 @@ async def test_schema_v4_upgrades_to_latest_and_preserves_history(tmp_path):
             (5, "studio_brainpack_registry"),
             (6, "studio_generation_job_four_axis"),
             (7, "studio_scheduler_dag_leases_admission"),
+            (8, "studio_generation_recovery_evidence"),
         ]
     finally:
         await writer.close()

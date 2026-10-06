@@ -3195,3 +3195,104 @@ LOCAL_POST_MERGE_TARGETED = INTERRUPTED by FileMCP bridge / NO JUnit marker / NO
 GOVERNANCE_BRANCH = chatgpt/IMP-053-main-verified-state
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-053 GOVERNANCE-ONLY STATE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-053 GOVERNANCE VERIFIED / IMP-054 CLAIMED - 2026-10-05
+
+IMP-053_GOVERNANCE_PR = #61
+IMP-053_GOVERNANCE_MERGE_SHA = 18d92a82359d559bd2d2f9b9eafbc25e44430253
+IMP-053_GOVERNANCE_PUSH_WORKFLOW = 37343051638 SUCCESS Python 3.10 / 3.13 exact governance SHA
+
+ACTIVE_TASK = IMP-054 RETRY / RESUME / REMOTE AMBIGUITY RECOVERY
+STATUS = CLAIMED / AUTHORITY READ NEXT
+BRANCH = chatgpt/IMP-054-retry-resume-remote-ambiguity
+BASE_HEAD = 18d92a82359d559bd2d2f9b9eafbc25e44430253
+DEPENDS = IMP-052 MAIN VERIFIED + IMP-051 MAIN VERIFIED + IMP-006 MAIN VERIFIED
+REMOTE_DUPLICATE_GUARD = PASS (no IMP-054 branch/PR)
+FROZEN_MASTER_SHA = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+
+NEXT_EXACT_ACTION = "READ IMP-054 FROZEN RETRY/RESUME/REMOTE AMBIGUITY AUTHORITY + AUDIT CURRENT GENERATIONJOB/PROVIDER ADAPTER/RECOVERY/OBSERVABILITY SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-054 AUTHORITY + CURRENT-SURFACE AUDIT PASS - 2026-10-05
+
+ACTIVE_TASK = IMP-054 RETRY / RESUME / REMOTE AMBIGUITY RECOVERY
+STATUS = AUTHORITY + CURRENT SURFACE AUDIT PASS / CODE NEXT
+BRANCH = chatgpt/IMP-054-retry-resume-remote-ambiguity
+BASE_HEAD = 18d92a82359d559bd2d2f9b9eafbc25e44430253
+
+LOCKED IMPLEMENTATION DECISIONS:
+- Frozen Master §§70-71 + GenerationJob closed transition table are authoritative: NO RETRY WITHOUT PROOF.
+- Retry/Resume is a policy/service boundary with NO independent state store; GenerationJob four axes remain sole job-state authority.
+- Recovery persistence is immutable RecoveryEvent/attempt/proof history only; observed submission identity/remote lineage/reconciliation evidence is never overwritten to manufacture retry proof.
+- Existing GenerationJob submission_attempt_id/local_submission_key/idempotency_key/input fingerprint/provider profile pin remain canonical submission identity.
+- Existing provider states/transitions are reused unchanged; IMP-054 orchestrates UNKNOWN_REMOTE_STATE -> RECONCILING -> recovered/proven-absent/AMBIGUOUS_HOLD through GenerationJobRepository.transition CAS.
+- Retry can be authorized only by PROVEN_NOT_SUBMITTED/PROVEN_ABSENT, VERIFIED_SAME_JOB_IDEMPOTENCY, or transport proof request never crossed side-effect boundary.
+- Generic timeout/connection/crash after possible dispatch is PROVIDER_AMBIGUITY + RECONCILIATION_REQUIRED, never generic RETRYABLE.
+- Provider transport calls/reconciliation remain outside DB transactions. Durable transitions/evidence use the one logical SQLite writer.
+- Current Flow/Omni adapters are HANDLE_ONLY when no durable handle exists and therefore resolve missing-handle ambiguity to AMBIGUOUS_HOLD, not resubmit.
+- ErrorClass/RetryDisposition from observability are reused for failure taxonomy; telemetry remains evidence only and does not authorize retry.
+
+NEXT_EXACT_ACTION = "IMPLEMENT IMP-054 MIGRATION V8 DURABLE RECOVERY EVIDENCE + PROVIDER-NEUTRAL RECOVERY COORDINATOR -> TARGETED FAULT-INJECTION TESTS"
+
+
+---
+
+## IMP-054 LOCAL VERIFIED - 2026-10-06
+
+ACTIVE_TASK = IMP-054 RETRY / RESUME / REMOTE AMBIGUITY RECOVERY
+STATUS = LOCAL VERIFIED / SIDE-EFFECT GUARD NEXT
+BRANCH = chatgpt/IMP-054-retry-resume-remote-ambiguity
+BASE_HEAD = 18d92a82359d559bd2d2f9b9eafbc25e44430253
+
+Implemented:
+- migration v8 append-only `studio_generation_recovery_event` evidence;
+- provider-neutral `RecoveryCoordinator` over existing GenerationJob four-axis CAS transitions;
+- durable failure/proof/decision taxonomy with NO RETRY WITHOUT PROOF;
+- pre-dispatch no-side-effect proof, proven-absent and verified same-job idempotency safe-requeue paths;
+- remote-handle recovery/resume, ambiguity hold, cancellation-race reconciliation and startup scan;
+- Flow/Omni HANDLE_ONLY missing-handle ambiguity remains hold/reconcile, never blind resubmit.
+
+Evidence:
+- recovery targeted = 10/10 PASS;
+- direct/affected JUnit latest unique = 73/73 PASS;
+- broader latest unique = 202/202 PASS after exact migration-expectation repair;
+- frozen Master guard = PASS;
+- frozen semantic SHA unchanged = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287;
+- py_compile + git diff --check = PASS;
+- network/provider-submit/TODO leakage scan = NONE;
+- evidence = `evidence/tests/IMP-054_RECOVERY_RETRY_RESUME_EVIDENCE.md`.
+
+CHECKPOINT_LAST_PASS = IMP-054 LOCAL VERIFIED
+PROCESS = none
+BLOCKER = none
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-054 SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI PYTHON 3.10/3.13 -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC -> MAIN VERIFIED -> CLAIM NEXT TASK"
+
+
+---
+
+## IMP-054 PR #62 REVIEW FIX LOCAL VERIFIED - 2026-10-06
+
+ACTIVE_TASK = IMP-054 RETRY / RESUME / REMOTE AMBIGUITY RECOVERY
+STATUS = PR #62 REVIEW FIX LOCAL VERIFIED / COMMIT+PUSH NEXT
+PR = #62
+INITIAL_FEATURE_HEAD = ffe8316295cb06ebe1d4e8855566a5d2a86f30cb
+
+Exact-head review finding repaired:
+- durable `provider_request_id` could be reconstructed as an OPERATION handle by default;
+- recovery wrapper now derives kind from durable lineage: operation-id -> OPERATION, request-id -> WORKFLOW;
+- focused workflow recovery regression = 1/1 PASS;
+- upstream Omni WORKFLOW reconcile contract = 1/1 PASS;
+- py_compile + frozen Master guard + git diff --check PASS;
+- original targeted/affected/broader evidence for untouched paths remains valid.
+
+CHECKPOINT_LAST_PASS = IMP-054 PR #62 REVIEW FIX LOCAL VERIFIED
+PROCESS = none
+BLOCKER = none
+
+NEXT_EXACT_ACTION = "STAGE EXACT REVIEW-FIX SCOPE -> COMMIT REVIEW-FIX -> PUSH NEW HEAD TO PR #62 -> WAIT FRESH CI PYTHON 3.10/3.13 -> FINAL EXACT-HEAD MERGE GUARD -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC -> MAIN VERIFIED -> CLAIM NEXT TASK"

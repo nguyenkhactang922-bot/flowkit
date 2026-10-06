@@ -113,7 +113,7 @@ async def test_migration_v7_adds_scheduler_coordination_without_second_status(tm
     writer = SQLiteWriteOwner(tmp_path / "studio.db")
     await writer.start()
     try:
-        assert FOUNDATION_SCHEMA_VERSION == 7
+        assert FOUNDATION_SCHEMA_VERSION >= 7
         reader = SQLiteReadRepository(writer.db_path)
         migration = await reader.fetchone(
             "SELECT name FROM studio_schema_migration WHERE version=7"
