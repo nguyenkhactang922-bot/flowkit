@@ -2813,3 +2813,180 @@ NEXT_EXACT_ACTION = "STAGE EXACT REVIEW-FIX SCOPE -> COMMIT REVIEW-FIX -> PUSH N
 - [ ] Read DAG/queue and claim next dependency-ready task.
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-054 GOVERNANCE-ONLY STATE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-054 GOVERNANCE VERIFIED / IMP-055 CLAIMED - 2026-10-06
+
+- [x] IMP-054 governance PR #63 merged at `ffeecd49eacc4019bbc63f4a5cb45293d9a4e97d`.
+- [x] Governance push-main workflow `37431843970` SUCCESS Python 3.10 / 3.13 exact governance SHA.
+- [x] Verify IMP-055 dependencies: IMP-052 + IMP-003 + IMP-005 MAIN VERIFIED.
+- [x] Verify no remote branch/PR duplicate for IMP-055.
+- [x] Claim `chatgpt/IMP-055-artifact-lifecycle-reconciler` from clean governance main.
+- [ ] Read frozen artifact lifecycle/store/reconciler authority.
+- [ ] Audit current GenerationJob/artifact/media/persistence surfaces.
+- [ ] Implement STAGING/READY/STALE_RESULT/QUARANTINED/MISSING/CORRUPT/ARCHIVED lifecycle, immutable hashes and startup reconciliation without creative-approval leakage.
+- [ ] Tests: crash at each stage, missing file, orphan final file, corruption, stale result, recovery.
+- [ ] Targeted + affected + broader regression + frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "READ IMP-055 FROZEN ARTIFACT LIFECYCLE/STORE/RECONCILIATION AUTHORITY + AUDIT CURRENT GENERATIONJOB/ARTIFACT/MEDIA/PERSISTENCE SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-055 AUTHORITY + CURRENT-SURFACE AUDIT PASS - 2026-10-06
+
+- [x] Read Frozen Master artifact materialization state + exact legal transition table.
+- [x] Confirm GenerationJob artifact axis remains sole mutable lifecycle owner.
+- [x] Confirm no existing canonical Artifact Store/Reconciler owner in `agent/studio`.
+- [x] Confirm persistence currently ends at migration v8; IMP-055 may add metadata/evidence schema only, not shadow status.
+- [x] Confirm startup reconciliation must handle staging/final crash windows, orphan final bytes, READY-missing and READY-corrupt cases.
+- [ ] Add migration v9 immutable artifact identity + append-only materialization/reconciliation evidence.
+- [ ] Implement Artifact Store + startup reconciler over existing GenerationJob CAS artifact transitions.
+- [ ] Tests: crash at each stage, missing file, orphan final, corruption, stale result, recovery/archive, creative-axis non-leakage.
+- [ ] Targeted + affected + broader regression + frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "IMPLEMENT MIGRATION V9 IMMUTABLE ARTIFACT IDENTITY + APPEND-ONLY MATERIALIZATION EVIDENCE + ARTIFACT STORE/STARTUP RECONCILER -> TARGETED FAULT-INJECTION TESTS"
+
+
+---
+
+## IMP-055 TARGETED + RECOVERY CHECKPOINT PASS - 2026-10-06
+
+- [x] IMP-055 targeted artifact lifecycle = 10/10 PASS (`imp055-targeted-a.xml` 5/5 + `imp055-targeted-b-resume.xml` 5/5).
+- [x] Affected recovery regression = 11/11 PASS (PTY exit 0).
+- [ ] Remaining affected persistence/generation regression.
+- [ ] Broader unit regression.
+- [ ] Frozen Master guard / semantic SHA unchanged.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "RUN ONLY REMAINING IMP-055 AFFECTED PERSISTENCE/GENERATION REGRESSION -> BROADER UNIT REGRESSION -> FROZEN MASTER GUARD; DO NOT RERUN TARGETED 10/10 OR RECOVERY 11/11"
+
+
+---
+
+## IMP-055 RESUME CHECKPOINT / BROADER REGRESSION RUNNING - 2026-10-06
+
+- [x] IMP-055 targeted artifact lifecycle = 10/10 PASS.
+- [x] IMP-055 recovery affected = 11/11 PASS.
+- [x] IMP-055 persistence + GenerationJob affected = 32/32 PASS.
+- [x] Frozen Master guard PASS at `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
+- [x] `git diff --check` PASS.
+- [ ] Broader regression batch A running under FileMCP PTY, root PID 72412; `active_profile + brainpack + entity + invalidation`; JUnit `.tmp/imp055-broad-a.xml`.
+- [ ] Remaining non-overlapping broader regression batches.
+- [ ] Static compile/leakage/TODO checks + evidence document.
+- [ ] Side-effect guard -> commit/push/PR/CI/exact-head review/merge/main verify/governance sync.
+
+NEXT_EXACT_ACTION = "MONITOR EXISTING BROADER BATCH A PID 72412 / PTY TO EXIT; DO NOT RESTART; VERIFY JUNIT; THEN RUN ONLY REMAINING NON-OVERLAPPING BROADER BATCHES"
+
+
+---
+
+## IMP-055 AFFECTED CORE PASS - 2026-10-06
+
+- [x] Targeted artifact lifecycle = 10/10 PASS.
+- [x] Affected recovery = 11/11 PASS.
+- [x] Affected persistence/generation = 32/32 PASS (`.tmp/imp055-affected-core.xml`, errors=0, failures=0).
+- [ ] Broader unit regression.
+- [ ] Frozen Master guard / semantic SHA unchanged.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "RUN BROADER UNIT REGRESSION ONCE -> FROZEN MASTER GUARD / SEMANTIC SHA CHECK -> EVIDENCE + VERIFY; DO NOT RERUN TARGETED/RECOVERY/AFFECTED CORE"
+
+
+---
+
+## IMP-055 BROADER A REPAIRED / REMAINING BROADER RUNNING - 2026-10-06
+
+- [x] Broader batch A unaffected cases = 35 PASS.
+- [x] Exact batch A failure identified as stale migration-history expectation in `test_studio_brainpack.py`.
+- [x] Expectation extended with migration v9 only; failed testcase rerun = 1/1 PASS.
+- [ ] Remaining non-overlapping broader regression running under FileMCP PTY, root PID 69624; JUnit `.tmp/imp055-broad-rest.xml`.
+- [ ] Static compile/leakage/TODO checks + evidence document.
+- [ ] Side-effect guard -> commit/push/PR/CI/exact-head review/merge/main verify/governance sync.
+
+NEXT_EXACT_ACTION = "MONITOR EXISTING BROADER-REST PID 69624 / PTY TO EXIT; DO NOT RESTART; VERIFY JUNIT; IF FAIL FIX ONLY EXACT FAILURES; IF PASS RUN STATIC COMPILE/LEAKAGE/TODO CHECKS -> EVIDENCE -> SIDE-EFFECT GUARD"
+
+
+---
+
+## IMP-055 BROADER UNIT REGRESSION RUNNING - 2026-10-06
+
+- [x] Targeted artifact lifecycle 10/10 PASS.
+- [x] Affected recovery 11/11 PASS.
+- [x] Affected persistence/generation 32/32 PASS.
+- [~] Broader unit regression RUNNING under root PID 47368; final JUnit pending.
+- [ ] Frozen Master guard / semantic SHA unchanged.
+- [ ] Evidence / verify / commit / push / PR / CI / review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "IF PID 47368 STILL EXISTS: MONITOR ONLY; DO NOT RESTART. WHEN PROCESS ENDS, READ FINAL JUNIT AND CLASSIFY BROADER PASS/FAIL."
+
+
+---
+
+## IMP-055 LOCAL VERIFIED / SIDE-EFFECT GUARD NEXT - 2026-10-07
+
+- [x] Frozen artifact lifecycle/store/reconciler authority read and current surfaces audited.
+- [x] Migration v9 immutable artifact identity + append-only artifact evidence implemented.
+- [x] Artifact Store / startup reconciler implemented over existing GenerationJob artifact axis.
+- [x] Targeted artifact lifecycle = 10/10 PASS.
+- [x] Affected recovery = 11/11 PASS.
+- [x] Affected persistence/generation = 32/32 PASS.
+- [x] Broader non-overlapping remainder = 166/166 PASS.
+- [x] Schema-v9 stale migration expectation repaired; exact rerun = 1/1 PASS.
+- [x] Exact-head review found and repaired crash-after-durable-event / before-state-transition replay defect.
+- [x] New crash-window fault-injection = 1/1 PASS.
+- [x] Direct post-review affected regression = 5/5 PASS.
+- [x] py_compile + compileall + TODO/leakage scan + git diff --check PASS.
+- [x] Frozen Master + freeze manifest unchanged; prior frozen guard PASS remains valid.
+- [x] Evidence document: `evidence/tests/IMP-055_ARTIFACT_LIFECYCLE_RECONCILER_EVIDENCE.md`.
+- [!] Full Windows `tests/unit` execution remains FAIL (803 / 7 failures / 22 errors): one stale-collected migration expectation has exact current-state PASS; 28 remaining failures/errors are unchanged Windows path / UTF-8 setup / ffmpeg-missing surfaces. Do not relabel full suite PASS and do not restart it.
+- [ ] Side-effect guard: duplicate commit/push/PR + exact scope.
+- [ ] Stage exact IMP-055 scope excluding `.tmp`.
+- [ ] Commit.
+- [ ] Push / PR.
+- [ ] Ubuntu CI Python 3.10 / 3.13 + frozen guard.
+- [ ] Exact-head review / merge main.
+- [ ] Post-merge main verification.
+- [ ] Governance-only state sync / MAIN VERIFIED.
+- [ ] Read DAG/queue and claim next dependency-ready task.
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> VERIFY NO DUPLICATE IMP-055 COMMIT/PUSH/PR -> INSPECT/STAGE EXACT SCOPE EXCLUDING .tmp -> COMMIT"
+
+
+---
+
+## IMP-055 SIDE-EFFECT GUARD PASS - 2026-10-07
+
+- [x] Verify no duplicate local commit since base.
+- [x] Verify remote IMP-055 branch absent.
+- [x] Verify no upstream branch.
+- [x] Verify no existing IMP-055 PR.
+- [x] Verify exact scope; `.tmp/` excluded.
+- [ ] Stage exact scope.
+- [ ] Inspect staged diff/status.
+- [ ] Commit.
+- [ ] Push / PR / CI / review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "STAGE EXACT IMP-055 SCOPE EXCLUDING .tmp -> VERIFY STAGED DIFF -> COMMIT"
+
+
+---
+
+## IMP-055 FEATURE COMMIT CREATED - 2026-10-07
+
+- [x] Exact scope staged and cached diff verified.
+- [x] Feature commit `d871abaae8ec8e294274d9c0c44390d95dd0196d` created.
+- [ ] Governance-only state sync commit.
+- [ ] Push branch.
+- [ ] Create PR.
+- [ ] Ubuntu CI Python 3.10 / 3.13 + frozen guard.
+- [ ] Exact-head review / merge main.
+- [ ] Post-merge main verification.
+- [ ] Governance-only MAIN VERIFIED sync.
+- [ ] Claim next dependency-ready task.
+
+NEXT_EXACT_ACTION = "COMMIT GOVERNANCE-ONLY STATE SYNC -> PUSH BRANCH -> CREATE PR -> VERIFY CI"

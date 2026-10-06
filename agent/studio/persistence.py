@@ -22,7 +22,7 @@ from typing import Any, Awaitable, Callable, Generic, Iterable, Sequence, TypeVa
 import aiosqlite
 
 
-FOUNDATION_SCHEMA_VERSION = 8
+FOUNDATION_SCHEMA_VERSION = 9
 _MIGRATION_TABLE = "studio_schema_migration"
 _IDENTIFIER_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
 _in_write_transaction: contextvars.ContextVar[bool] = contextvars.ContextVar(
@@ -958,6 +958,73 @@ DEFAULT_MIGRATIONS: tuple[Migration, ...] = (
             BEGIN
                 SELECT RAISE(ABORT, 'generation recovery evidence is append-only');
             END
+            """,
+        ),
+    ),
+    Migration(
+        version=9,
+        name="studio_generation_artifact_evidence",
+        statements=(
+            """
+            CREATE TABLE studio_generation_artifact_identity (
+                artifact_id TEXT PRIMARY KEY,
+                generation_job_id TEXT NOT NULL UNIQUE,
+                storage_key TEXT NOT NULL UNIQUE,
+                actor_ref TEXT NOT NULL,
+                reason TEXT NOT NULL,
+                correlation_id TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                FOREIGN KEY (generation_job_id)
+                    REFERENCES studio_generation_job(generation_job_id)
+            )
+            """,
+            """
+            CREATE TABLE studio_generation_artifact_event (
+                artifact_event_id TEXT PRIMARY KEY,
+                artifact_id TEXT NOT NULL,
+                generation_job_id TEXT NOT NULL,
+                attempt INTEGER NOT NULL CHECK (attempt >= 1),
+                event_kind TEXT NOT NULL CHECK (event_kind IN (
+                    'BEGIN_MATERIALIZE','STAGING_BYTES_WRITTEN','FINAL_BYTES_WRITTEN',
+                    'MATERIALIZE_VALID','INPUT_BECAME_STALE','INTEGRITY_FAILED',
+                    'LINEAGE_UNTRUSTED','FILE_MISSING','ARCHIVE','RECOVER_BYTES',
+                    'DISCOVER_ORPHAN'
+                )),
+                job_revision_observed INTEGER NOT NULL CHECK (job_revision_observed >= 0),
+                expected_input_fingerprint TEXT NOT NULL,
+                observed_input_fingerprint TEXT,
+                staging_relative_path TEXT,
+                final_relative_path TEXT,
+                content_sha256 TEXT,
+                byte_count INTEGER CHECK (byte_count IS NULL OR byte_count >= 0),
+                media_type TEXT,
+                evidence_json TEXT NOT NULL,
+                actor_ref TEXT NOT NULL,
+                reason TEXT NOT NULL,
+                correlation_id TEXT NOT NULL,
+                created_at TEXT NOT NULL,
+                FOREIGN KEY (artifact_id)
+                    REFERENCES studio_generation_artifact_identity(artifact_id),
+                FOREIGN KEY (generation_job_id)
+                    REFERENCES studio_generation_job(generation_job_id),
+                UNIQUE (artifact_id, attempt, event_kind)
+            )
+            """,
+            """
+            CREATE INDEX studio_generation_artifact_event_job_idx
+            ON studio_generation_artifact_event(generation_job_id, attempt, created_at)
+            """,
+            """
+            CREATE TRIGGER studio_generation_artifact_identity_no_update BEFORE UPDATE ON studio_generation_artifact_identity BEGIN SELECT RAISE(ABORT, 'generation artifact identity is immutable'); END
+            """,
+            """
+            CREATE TRIGGER studio_generation_artifact_identity_no_delete BEFORE DELETE ON studio_generation_artifact_identity BEGIN SELECT RAISE(ABORT, 'generation artifact identity is durable'); END
+            """,
+            """
+            CREATE TRIGGER studio_generation_artifact_event_no_update BEFORE UPDATE ON studio_generation_artifact_event BEGIN SELECT RAISE(ABORT, 'generation artifact evidence is append-only'); END
+            """,
+            """
+            CREATE TRIGGER studio_generation_artifact_event_no_delete BEFORE DELETE ON studio_generation_artifact_event BEGIN SELECT RAISE(ABORT, 'generation artifact evidence is append-only'); END
             """,
         ),
     ),

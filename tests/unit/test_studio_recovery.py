@@ -151,7 +151,7 @@ async def test_migration_v8_adds_append_only_recovery_evidence_without_new_job_s
     writer = SQLiteWriteOwner(tmp_path / "studio.db")
     await writer.start()
     try:
-        assert FOUNDATION_SCHEMA_VERSION == 8
+        assert FOUNDATION_SCHEMA_VERSION >= 8
         reader = SQLiteReadRepository(writer.db_path)
         migration = await reader.fetchone(
             "SELECT name FROM studio_schema_migration WHERE version=8"

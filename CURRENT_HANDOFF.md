@@ -3317,3 +3317,174 @@ PROCESS = none for FlowKit-Studio-Upgrade
 BLOCKER = none
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-054 GOVERNANCE-ONLY STATE SYNC -> VERIFY GOVERNANCE MAIN -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-054 GOVERNANCE VERIFIED / IMP-055 CLAIMED - 2026-10-06
+
+IMP-054_GOVERNANCE_PR = #63
+IMP-054_GOVERNANCE_MERGE_SHA = ffeecd49eacc4019bbc63f4a5cb45293d9a4e97d
+IMP-054_GOVERNANCE_PUSH_WORKFLOW = 37431843970 SUCCESS Python 3.10 / 3.13 exact governance SHA
+
+ACTIVE_TASK = IMP-055 ARTIFACT LIFECYCLE / STORE / RECONCILER
+STATUS = CLAIMED / AUTHORITY READ NEXT
+BRANCH = chatgpt/IMP-055-artifact-lifecycle-reconciler
+BASE_HEAD = ffeecd49eacc4019bbc63f4a5cb45293d9a4e97d
+DEPENDS = IMP-052 MAIN VERIFIED + IMP-003 MAIN VERIFIED + IMP-005 MAIN VERIFIED
+TASK_GOAL = staged immutable artifact bytes + DB metadata lifecycle without conflating materialization with creative approval
+REMOTE_DUPLICATE_GUARD = PASS (no IMP-055 branch/PR)
+FROZEN_MASTER_SHA = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+CHECKPOINT_LAST_PASS = IMP-054 GOVERNANCE MAIN VERIFIED / IMP-055 CLAIMED
+PROCESS = none for FlowKit-Studio-Upgrade
+BLOCKER = none
+
+NEXT_EXACT_ACTION = "READ IMP-055 FROZEN ARTIFACT LIFECYCLE/STORE/RECONCILIATION AUTHORITY + AUDIT CURRENT GENERATIONJOB/ARTIFACT/MEDIA/PERSISTENCE SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-055 AUTHORITY + CURRENT-SURFACE AUDIT PASS - 2026-10-06
+
+ACTIVE_TASK = IMP-055 ARTIFACT LIFECYCLE / STORE / RECONCILER
+STATUS = AUTHORITY + CURRENT SURFACE AUDIT PASS / CODE NEXT
+BRANCH = chatgpt/IMP-055-artifact-lifecycle-reconciler
+BASE_HEAD = ffeecd49eacc4019bbc63f4a5cb45293d9a4e97d
+
+LOCKED IMPLEMENTATION DECISIONS:
+- Frozen Master artifact materialization axis is authoritative: NONE/STAGING/READY/STALE_RESULT/QUARANTINED/MISSING/CORRUPT/ARCHIVED; APPROVED/REJECTED are forbidden on this axis.
+- Existing GenerationJob.artifact_state and its 14 closed transitions remain the sole mutable artifact lifecycle authority; IMP-055 must not create a second status/current-state store.
+- New persistence stores immutable artifact identity + append-only materialization/reconciliation evidence only.
+- Artifact bytes follow staged same-volume commit protocol; READY requires validated bytes/hash/size/lineage and exact pinned input fingerprint.
+- A stale late result becomes STALE_RESULT and never activates/propagates or implies creative approval.
+- Startup reconciliation handles STAGING partial/final crash windows, READY metadata with missing/corrupt bytes, and trusted-job orphan final bytes; unspecified transitions remain fail-closed.
+- File/network/provider side effects remain outside SQLite transactions; one-writer SQLite owns durable metadata/evidence and GenerationJob CAS transitions.
+- Legacy output/media paths remain execution compatibility surfaces and are not promoted into canonical artifact authority by IMP-055.
+
+NEXT_EXACT_ACTION = "IMPLEMENT MIGRATION V9 IMMUTABLE ARTIFACT IDENTITY + APPEND-ONLY MATERIALIZATION EVIDENCE + ARTIFACT STORE/STARTUP RECONCILER -> TARGETED FAULT-INJECTION TESTS"
+
+
+---
+
+## IMP-055 TARGETED + RECOVERY CHECKPOINT PASS - 2026-10-06
+
+ACTIVE_TASK = IMP-055 ARTIFACT LIFECYCLE / STORE / RECONCILER
+STATUS = IMPLEMENTED LOCALLY / TARGETED + RECOVERY CHECKPOINT PASS / AFFECTED REGRESSION NEXT
+BRANCH = chatgpt/IMP-055-artifact-lifecycle-reconciler
+BASE_HEAD = ffeecd49eacc4019bbc63f4a5cb45293d9a4e97d
+CHECKPOINT_LAST_PASS = IMP-055 TARGETED ARTIFACT 10/10 PASS + AFFECTED RECOVERY 11/11 PASS
+RUNTIME = no retained test process after PASS
+EVIDENCE = `.tmp/imp055-targeted-a.xml` 5/5 PASS; `.tmp/imp055-targeted-b-resume.xml` 5/5 PASS; affected recovery PTY exit 0 / 11 passed
+BLOCKER = none
+
+NEXT_EXACT_ACTION = "RUN ONLY REMAINING IMP-055 AFFECTED PERSISTENCE/GENERATION REGRESSION -> BROADER UNIT REGRESSION -> FROZEN MASTER GUARD; DO NOT RERUN TARGETED 10/10 OR RECOVERY 11/11"
+
+
+---
+
+## IMP-055 RESUME CHECKPOINT / BROADER REGRESSION RUNNING - 2026-10-06
+
+ACTIVE_TASK = IMP-055 ARTIFACT LIFECYCLE / STORE / RECONCILER
+STATUS = LOCAL TARGETED + DIRECT AFFECTED PASS / BROADER REGRESSION RUNNING
+BRANCH = chatgpt/IMP-055-artifact-lifecycle-reconciler
+BASE_HEAD = ffeecd49eacc4019bbc63f4a5cb45293d9a4e97d
+CHECKPOINT_LAST_PASS = targeted artifact lifecycle 10/10 PASS + recovery 11/11 PASS + persistence/generation-job affected 32/32 PASS + frozen Master guard PASS + git diff --check PASS
+EVIDENCE = .tmp/imp055-targeted-a.xml ; .tmp/imp055-targeted-b-resume.xml ; .tmp/imp055-recovery-resume.xml ; .tmp/imp055-affected-core.xml
+FROZEN_MASTER_SHA = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+PROCESS = broader batch A RUNNING under FileMCP PTY; root PID 72412; tests = active_profile + brainpack + entity + invalidation; junit = .tmp/imp055-broad-a.xml
+BLOCKER = none
+NEXT_EXACT_ACTION = "MONITOR EXISTING BROADER BATCH A PID 72412 / PTY TO EXIT; DO NOT RESTART; VERIFY JUNIT; THEN RUN ONLY REMAINING NON-OVERLAPPING BROADER BATCHES"
+
+
+---
+
+## IMP-055 AFFECTED CORE PASS - 2026-10-06
+
+ACTIVE_TASK = IMP-055 ARTIFACT LIFECYCLE / STORE / RECONCILER
+STATUS = IMPLEMENTED LOCALLY / TARGETED + RECOVERY + AFFECTED CORE PASS / BROADER REGRESSION NEXT
+BRANCH = chatgpt/IMP-055-artifact-lifecycle-reconciler
+BASE_HEAD = ffeecd49eacc4019bbc63f4a5cb45293d9a4e97d
+CHECKPOINT_LAST_PASS = TARGETED ARTIFACT 10/10 + RECOVERY 11/11 + AFFECTED PERSISTENCE/GENERATION 32/32
+RUNTIME = none; affected-core PIDs 54124/65312/18180 exited
+EVIDENCE = `.tmp/imp055-targeted-a.xml` 5/5; `.tmp/imp055-targeted-b-resume.xml` 5/5; `.tmp/imp055-recovery-resume.xml` 11/11; `.tmp/imp055-affected-core.xml` 32/32, errors=0, failures=0
+NOTE = transient WinError32/JUnit errors observed while affected-core was still RUNNING were overwritten by final clean JUnit; no code change/retry performed
+BLOCKER = none
+
+NEXT_EXACT_ACTION = "RUN BROADER UNIT REGRESSION ONCE -> FROZEN MASTER GUARD / SEMANTIC SHA CHECK -> EVIDENCE + VERIFY; DO NOT RERUN TARGETED/RECOVERY/AFFECTED CORE"
+
+
+---
+
+## IMP-055 BROADER A REPAIRED / REMAINING BROADER RUNNING - 2026-10-06
+
+STATUS = BROADER REGRESSION IN PROGRESS
+CHECKPOINT_LAST_PASS = prior targeted/affected/frozen/diff checks + broader batch A 35 unaffected PASS + exact stale migration expectation repaired + failed testcase rerun 1/1 PASS
+REPAIR = tests/unit/test_studio_brainpack.py migration-history expectation extended with v9 `studio_generation_artifact_evidence`; implementation unchanged by this repair
+EVIDENCE = .tmp/imp055-broad-a.xml ; .tmp/imp055-broad-a-fix.xml
+PROCESS = remaining non-overlapping broader regression RUNNING under FileMCP PTY; root PID 69624; junit = .tmp/imp055-broad-rest.xml
+BLOCKER = none
+NEXT_EXACT_ACTION = "MONITOR EXISTING BROADER-REST PID 69624 / PTY TO EXIT; DO NOT RESTART; VERIFY JUNIT; IF FAIL FIX ONLY EXACT FAILURES; IF PASS RUN STATIC COMPILE/LEAKAGE/TODO CHECKS -> EVIDENCE -> SIDE-EFFECT GUARD"
+
+
+---
+
+## IMP-055 BROADER UNIT REGRESSION RUNNING - 2026-10-06
+
+ACTIVE_TASK = IMP-055 ARTIFACT LIFECYCLE / STORE / RECONCILER
+STATUS = BROADER UNIT REGRESSION RUNNING
+PROCESS_ROOT_PID = 47368
+PROCESS_COMMAND = `uv run --isolated --no-project --python 3.13 --with-requirements requirements.txt --with-requirements requirements-dev.txt python -m pytest tests/unit -q --basetemp=.tmp/pytest-imp055-broader --junitxml=.tmp/imp055-broader.xml`
+CHECKPOINT_LAST_PASS = TARGETED 10/10 + RECOVERY 11/11 + AFFECTED CORE 32/32
+RESULT_MARKER = pending; `.tmp/imp055-broader.xml` not final yet
+BLOCKER = none
+NEXT_EXACT_ACTION = "IF PID 47368 STILL EXISTS: MONITOR ONLY; DO NOT RESTART. WHEN PROCESS ENDS, READ FINAL JUNIT AND CLASSIFY BROADER PASS/FAIL."
+
+
+---
+
+## IMP-055 LOCAL VERIFIED / SIDE-EFFECT GUARD NEXT - 2026-10-07
+
+ACTIVE_TASK = IMP-055 ARTIFACT LIFECYCLE / STORE / RECONCILER
+STATUS = LOCAL VERIFIED FOR CLAIMED SCOPE / FULL WINDOWS UNIT SUITE RETAINS OUTSIDE-SCOPE FAILURES / SIDE-EFFECT GUARD NEXT
+BRANCH = chatgpt/IMP-055-artifact-lifecycle-reconciler
+BASE_HEAD = ffeecd49eacc4019bbc63f4a5cb45293d9a4e97d
+CHECKPOINT_LAST_PASS = targeted 10/10 + recovery 11/11 + affected core 32/32 + broader rest 166/166 + migration fix 1/1 + review fault-injection 1/1 + directly affected post-review 5/5 + py_compile/compileall/diff/leakage/TODO PASS
+BROAD_FULL_RESULT = FAIL: 803 tests / 7 failures / 22 errors; task-related stale-collected migration expectation superseded by exact current-state 1/1 PASS; remaining 28 failures/errors are unchanged Windows path / UTF-8 setup / missing-ffmpeg surfaces and are documented, not relabeled
+REVIEW_REPAIR = `_append_or_verify` now accepts audit-envelope drift only when immutable materialization semantics are identical, allowing crash recovery after durable final events before GenerationJob transition
+FROZEN_MASTER_GUARD = prior PASS remains valid; frozen Master + freeze manifest unchanged after review repair
+EVIDENCE = `evidence/tests/IMP-055_ARTIFACT_LIFECYCLE_RECONCILER_EVIDENCE.md`; `.tmp/imp055-broader.xml`; `.tmp/imp055-broad-a-fix.xml`; `.tmp/imp055-broad-rest.xml`; `.tmp/imp055-review-fix.xml`; `.tmp/imp055-review-affected.xml`
+PROCESS = none for FlowKit-Studio-Upgrade
+BLOCKER = none for IMP-055 commit/PR workflow; full Windows unit-suite environment limitations explicitly recorded
+
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD: VERIFY NO EXISTING IMP-055 COMMIT/PUSH/PR, INSPECT EXACT DIFF/STATUS, EXCLUDE .tmp, STAGE ONLY IMP-055 IMPLEMENTATION+TEST+EVIDENCE+STATE FILES -> COMMIT"
+
+
+---
+
+## IMP-055 SIDE-EFFECT GUARD PASS / COMMIT NEXT - 2026-10-07
+
+STATUS = LOCAL VERIFIED / SIDE-EFFECT GUARD PASS
+HEAD = ffeecd49eacc4019bbc63f4a5cb45293d9a4e97d
+COMMITS_SINCE_BASE = none
+REMOTE_BRANCH = absent
+UPSTREAM = none
+PR = none (`gh pr list --head chatgpt/IMP-055-artifact-lifecycle-reconciler --state all` -> `[]`)
+EXACT_SCOPE = implementation + migration/export + affected tests + IMP-055 evidence + governance state files
+EXCLUDED = `.tmp/` runtime/JUnit artifacts; never stage/commit
+BLOCKER = none
+
+NEXT_EXACT_ACTION = "STAGE EXACT IMP-055 SCOPE EXCLUDING .tmp -> INSPECT STAGED DIFF/STATUS -> COMMIT"
+
+
+---
+
+## IMP-055 FEATURE COMMITTED / GOVERNANCE SYNC NEXT - 2026-10-07
+
+FEATURE_COMMIT = d871abaae8ec8e294274d9c0c44390d95dd0196d
+FEATURE_COMMIT_MESSAGE = `feat(studio): add artifact lifecycle reconciler`
+STATUS_AFTER_COMMIT = tracked worktree clean; only `.tmp/` untracked runtime evidence
+REMOTE_BRANCH = absent
+PR = none
+BLOCKER = none
+
+NEXT_EXACT_ACTION = "COMMIT GOVERNANCE-ONLY STATE SYNC WITH FEATURE SHA -> PUSH BRANCH -> CREATE PR -> WAIT/VERIFY CI"

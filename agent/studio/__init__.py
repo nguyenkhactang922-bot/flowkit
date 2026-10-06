@@ -1289,3 +1289,40 @@ __all__ += [
     "RecoveryResult",
     "RecoveryTrigger",
 ]
+
+
+from .artifact_lifecycle import (
+    ArtifactEvidenceRepository,
+    ArtifactEvent,
+    ArtifactEventKind,
+    ArtifactIdentity,
+    ArtifactIdentityConflict,
+    ArtifactIntegrityError,
+    ArtifactLifecycleBlocked,
+    ArtifactLifecycleError,
+    ArtifactLifecycleService,
+    ArtifactPaths,
+    ReconcileClassification,
+    ReconcileFinding,
+    artifact_logical_id,
+    artifact_storage_key,
+    derive_artifact_event_id,
+)
+
+__all__ += [
+    "ArtifactEvidenceRepository",
+    "ArtifactEvent",
+    "ArtifactEventKind",
+    "ArtifactIdentity",
+    "ArtifactIdentityConflict",
+    "ArtifactIntegrityError",
+    "ArtifactLifecycleBlocked",
+    "ArtifactLifecycleError",
+    "ArtifactLifecycleService",
+    "ArtifactPaths",
+    "ReconcileClassification",
+    "ReconcileFinding",
+    "artifact_logical_id",
+    "artifact_storage_key",
+    "derive_artifact_event_id",
+]
