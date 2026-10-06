@@ -492,3 +492,47 @@ async def test_startup_scan_finds_only_remote_or_recovery_inflight_jobs(tmp_path
         assert await repo.get_job(untouched.generation_job_id) == untouched
     finally:
         await writer.close()
+
+
+@pytest.mark.asyncio
+async def test_provider_adapter_recovery_probe_reconstructs_workflow_handle_from_request_lineage(tmp_path):
+    class CaptureAdapter:
+        def __init__(self, provider_key: str) -> None:
+            self.provider_key = provider_key
+            self.handle = None
+
+        async def reconcile(self, handle, *, observed_at):
+            self.handle = handle
+            assert handle is not None
+            return ProviderTransportObservation(
+                provider_key=self.provider_key,
+                kind=ProviderObservationKind.RECONCILE,
+                state=ProviderObservationState.PENDING,
+                observed_at=observed_at,
+                handle=handle,
+                retry_safe=False,
+            )
+
+    writer = SQLiteWriteOwner(tmp_path / "studio.db")
+    await writer.start()
+    try:
+        repo, job, _ = await _submitting_job(writer)
+        job = (
+            await _transition(
+                repo,
+                job,
+                axis=GenerationJobAxis.PROVIDER,
+                command="ACCEPTED_HANDLE",
+                owner=TransitionOwner.PROVIDER_ADAPTER,
+                remote=ProviderRemoteLineage(provider_request_id="workflow-001"),
+            )
+        ).job
+        adapter = CaptureAdapter(job.provider_key)
+        result = await ProviderAdapterRecoveryProbe(adapter).reconcile(job, observed_at=NOW)
+        assert adapter.handle is not None
+        assert adapter.handle.kind is ProviderHandleKind.WORKFLOW
+        assert adapter.handle.handle_id == "workflow-001"
+        assert result.handle == adapter.handle
+        assert result.outcome is RecoveryProbeOutcome.RECOVERED_ACTIVE_POLL
+    finally:
+        await writer.close()

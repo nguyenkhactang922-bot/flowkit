@@ -3272,3 +3272,27 @@ PROCESS = none
 BLOCKER = none
 
 NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-054 SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI PYTHON 3.10/3.13 -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC -> MAIN VERIFIED -> CLAIM NEXT TASK"
+
+
+---
+
+## IMP-054 PR #62 REVIEW FIX LOCAL VERIFIED - 2026-10-06
+
+ACTIVE_TASK = IMP-054 RETRY / RESUME / REMOTE AMBIGUITY RECOVERY
+STATUS = PR #62 REVIEW FIX LOCAL VERIFIED / COMMIT+PUSH NEXT
+PR = #62
+INITIAL_FEATURE_HEAD = ffe8316295cb06ebe1d4e8855566a5d2a86f30cb
+
+Exact-head review finding repaired:
+- durable `provider_request_id` could be reconstructed as an OPERATION handle by default;
+- recovery wrapper now derives kind from durable lineage: operation-id -> OPERATION, request-id -> WORKFLOW;
+- focused workflow recovery regression = 1/1 PASS;
+- upstream Omni WORKFLOW reconcile contract = 1/1 PASS;
+- py_compile + frozen Master guard + git diff --check PASS;
+- original targeted/affected/broader evidence for untouched paths remains valid.
+
+CHECKPOINT_LAST_PASS = IMP-054 PR #62 REVIEW FIX LOCAL VERIFIED
+PROCESS = none
+BLOCKER = none
+
+NEXT_EXACT_ACTION = "STAGE EXACT REVIEW-FIX SCOPE -> COMMIT REVIEW-FIX -> PUSH NEW HEAD TO PR #62 -> WAIT FRESH CI PYTHON 3.10/3.13 -> FINAL EXACT-HEAD MERGE GUARD -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC -> MAIN VERIFIED -> CLAIM NEXT TASK"

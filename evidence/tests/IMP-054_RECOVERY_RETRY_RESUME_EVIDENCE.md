@@ -60,3 +60,14 @@ One earlier broader batch had exactly one stale migration expectation in `test_s
 - No provider/network operation occurs inside the SQLite write transaction.
 
 RESULT = IMP-054 LOCAL VERIFIED
+
+## PR #62 exact-head review hardening - 2026-10-06
+- Exact-head review found durable remote-lineage reconstruction could label `provider_request_id` as an OPERATION handle because the recovery wrapper used a caller/default handle kind.
+- Repair: durable GenerationJob lineage now determines the handle kind itself: `provider_operation_id -> OPERATION`; `provider_request_id -> WORKFLOW`. No provider identity is guessed from a default.
+- Added regression proof that a persisted workflow/request lineage reconstructs a WORKFLOW handle before reconcile.
+- Focused review-fix test: workflow recovery reconstruction = 1/1 PASS.
+- Upstream Omni workflow handle/reconcile contract = 1/1 PASS.
+- The original recovery targeted 10/10, direct/affected 73/73 and broader 202/202 evidence remain valid for untouched paths; no test in the original recovery file used `ProviderAdapterRecoveryProbe` before this new regression.
+- `py_compile`, frozen Master guard and `git diff --check` PASS after repair.
+
+RESULT = IMP-054 PR #62 REVIEW FIX LOCAL VERIFIED

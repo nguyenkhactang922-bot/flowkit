@@ -2775,3 +2775,24 @@ NEXT_EXACT_ACTION = "IMPLEMENT IMP-054 MIGRATION V8 DURABLE RECOVERY EVIDENCE + 
 - [ ] Read DAG/queue and claim next dependency-ready task.
 
 NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD -> STAGE EXACT IMP-054 SCOPE -> COMMIT -> PUSH -> PR -> UBUNTU CI PYTHON 3.10/3.13 -> EXACT-HEAD REVIEW -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC -> MAIN VERIFIED -> CLAIM NEXT TASK"
+
+
+---
+
+## IMP-054 PR #62 REVIEW FIX LOCAL VERIFIED - 2026-10-06
+
+- [x] Feature commit `ffe8316295cb06ebe1d4e8855566a5d2a86f30cb` pushed; PR #62 opened.
+- [x] Exact-head review found request-id/workflow handle-kind reconstruction gap.
+- [x] Repair durable lineage mapping: operation-id -> OPERATION; request-id -> WORKFLOW.
+- [x] Focused workflow recovery regression = 1/1 PASS.
+- [x] Upstream Omni WORKFLOW reconcile contract = 1/1 PASS.
+- [x] py_compile + frozen Master guard + git diff --check PASS.
+- [ ] Commit review-fix.
+- [ ] Push new exact head to PR #62.
+- [ ] Fresh Ubuntu CI Python 3.10 / 3.13 on new head.
+- [ ] Final exact-head merge guard / merge main.
+- [ ] Post-merge main verification.
+- [ ] Governance-only sync / MAIN VERIFIED.
+- [ ] Read DAG/queue and claim next dependency-ready task.
+
+NEXT_EXACT_ACTION = "STAGE EXACT REVIEW-FIX SCOPE -> COMMIT REVIEW-FIX -> PUSH NEW HEAD TO PR #62 -> WAIT FRESH CI PYTHON 3.10/3.13 -> FINAL EXACT-HEAD MERGE GUARD -> MERGE MAIN -> VERIFY MAIN -> GOVERNANCE SYNC -> MAIN VERIFIED -> CLAIM NEXT TASK"

@@ -285,21 +285,25 @@ class ProviderAdapterRecoveryProbe:
         self,
         adapter: ProviderAdapterPort,
         *,
-        handle_kind: ProviderHandleKind = ProviderHandleKind.OPERATION,
         project_handle: str | None = None,
     ) -> None:
         self.adapter = adapter
-        self.handle_kind = handle_kind
         self.project_handle = project_handle
 
     async def reconcile(self, job: GenerationJob, *, observed_at: datetime) -> RecoveryProbeResult:
-        handle_id = job.provider_operation_id or job.provider_request_id
         handle = None
-        if handle_id is not None:
+        if job.provider_operation_id is not None:
             handle = ProviderTransportHandle(
                 provider_key=job.provider_key,
-                kind=self.handle_kind,
-                handle_id=handle_id,
+                kind=ProviderHandleKind.OPERATION,
+                handle_id=job.provider_operation_id,
+                project_handle=self.project_handle,
+            )
+        elif job.provider_request_id is not None:
+            handle = ProviderTransportHandle(
+                provider_key=job.provider_key,
+                kind=ProviderHandleKind.WORKFLOW,
+                handle_id=job.provider_request_id,
                 project_handle=self.project_handle,
             )
         observation = await self.adapter.reconcile(handle, observed_at=observed_at)
