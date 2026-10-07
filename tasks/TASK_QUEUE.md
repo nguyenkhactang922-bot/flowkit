@@ -3173,3 +3173,67 @@ NEXT_EXACT_ACTION = "STAGE EXACT IMP-060 SCOPE -> VERIFY INDEX -> COMMIT -> PUSH
 - [ ] Exact-head review / merge main / main verify / governance sync.
 
 NEXT_EXACT_ACTION = "COMMIT GOVERNANCE-ONLY STATE SYNC -> SIDE-EFFECT GUARD -> PUSH BRANCH -> CREATE PR -> VERIFY CI"
+
+
+## IMP-060 POST-MERGE MAIN TARGETED RUNNING - 2026-10-07
+
+- [x] PR #66 exact-head CI run `37589325071` SUCCESS Python 3.10 / 3.13 + Frozen guard.
+- [x] PR #66 merged to main at `71bde3940e4ea74399669731e071cb02a98a08de`.
+- [~] Post-merge Static QA targeted RUNNING under PTY `pty_6084cd9bf86caa5167c5626851cc726086c2`, PID `26916`.
+- [ ] Post-merge affected 8-file regression.
+- [ ] Frozen Master guard.
+- [~] Main push workflow `37590060906` RUNNING on exact merge SHA.
+- [ ] Mark feature MAIN VERIFIED -> governance-only state sync -> next dependency-ready task.
+
+NEXT_EXACT_ACTION = "MONITOR EXISTING POST-MERGE TARGETED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> AFFECTED 8-FILE MAIN REGRESSION -> FROZEN GUARD -> VERIFY MAIN PUSH CI"
+
+
+## IMP-060 POST-MERGE MAIN TARGETED PASS / MAIN CI PASS - 2026-10-07
+
+- [x] Post-merge Static QA targeted = 9/9 PASS (`.tmp/imp060-main-targeted.xml`, exit 0).
+- [x] Main push workflow `37590060906` SUCCESS on exact merge SHA `71bde3940e4ea74399669731e071cb02a98a08de`.
+- [ ] Post-merge affected 8-file regression.
+- [ ] Frozen Master guard.
+- [ ] Mark IMP-060 feature MAIN VERIFIED -> governance-only state sync -> governance CI/merge/main verify -> next dependency-ready task.
+
+NEXT_EXACT_ACTION = "RUN POST-MERGE AFFECTED 8-FILE REGRESSION ONLY -> FROZEN MASTER GUARD -> MARK IMP-060 FEATURE MAIN VERIFIED"
+
+
+## IMP-060 POST-MERGE MAIN AFFECTED REGRESSION RUNNING - 2026-10-07
+
+- [x] Post-merge targeted = 9/9 PASS.
+- [x] Main push workflow `37590060906` SUCCESS exact merge SHA.
+- [~] Post-merge affected 8-file regression RUNNING under PTY `pty_369c47c0e547e5957f27a8bc855916755f47`, PID `66228`.
+- [ ] Finalize `.tmp/imp060-main-affected.xml`; classify only from final JUnit/exit.
+- [ ] Frozen Master guard.
+- [ ] Mark IMP-060 feature MAIN VERIFIED -> governance-only state sync -> governance CI/merge/main verify -> next dependency-ready task.
+
+NEXT_EXACT_ACTION = "MONITOR EXISTING POST-MERGE AFFECTED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> FROZEN MASTER GUARD -> MARK IMP-060 FEATURE MAIN VERIFIED"
+
+
+## IMP-060 POST-MERGE MAIN AFFECTED PASS - 2026-10-07
+
+- [x] Post-merge targeted = 9/9 PASS.
+- [x] Post-merge affected 8-file regression = 105/105 PASS (`.tmp/imp060-main-affected.xml`).
+- [x] Main push CI `37590060906` SUCCESS exact merge SHA `71bde3940e4ea74399669731e071cb02a98a08de`.
+- [ ] Frozen Master guard on exact main SHA.
+- [ ] Mark IMP-060 feature MAIN VERIFIED.
+- [ ] Governance-only state sync / PR / CI / merge / governance main verify.
+- [ ] Claim next dependency-ready task.
+
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD ON MAIN -> MARK IMP-060 FEATURE MAIN VERIFIED -> GOVERNANCE-ONLY STATE SYNC"
+
+
+## IMP-060 FEATURE MAIN VERIFIED / GOVERNANCE SYNC - 2026-10-07
+
+- [x] Feature PR #66 merged at `71bde3940e4ea74399669731e071cb02a98a08de`.
+- [x] Post-merge targeted = 9/9 PASS.
+- [x] Post-merge affected = 105/105 PASS.
+- [x] Frozen Master guard PASS / semantic SHA unchanged.
+- [x] Main push workflow `37590060906` SUCCESS exact merge SHA.
+- [x] IMP-060 feature implementation = MAIN VERIFIED.
+- [ ] Commit/push/PR/merge governance-only state sync.
+- [ ] Verify governance merge + push-main CI.
+- [ ] Read DAG/queue and CLAIM next dependency-ready task.
+
+NEXT_EXACT_ACTION = "CREATE GOVERNANCE BRANCH chatgpt/IMP-060-main-verified-state -> COMMIT/PUSH/PR/MERGE STATE-ONLY SYNC -> VERIFY GOVERNANCE MAIN CI -> CLAIM NEXT DEPENDENCY-READY TASK"
