@@ -3404,3 +3404,74 @@ NEXT_EXACT_ACTION = "STAGE EXACT 7 IMP-061 FILES EXCLUDING .tmp -> VERIFY INDEX 
 - [ ] Side-effect guard -> push -> PR -> CI -> exact-head review -> merge -> main verify -> governance sync.
 
 NEXT_EXACT_ACTION = "SYNC EXACT FEATURE COMMIT INTO 3 STATE FILES -> GOVERNANCE-ONLY COMMIT -> SIDE-EFFECT GUARD -> PUSH/PR"
+
+
+## IMP-061 POST-MERGE MAIN TARGETED RUNNING - 2026-10-07
+
+- [x] PR #68 merged to `main` at `74789c209ef57983405726607af4e28c1d3c5ff4` after exact-head CI/review PASS.
+- [~] Post-merge Motion QA targeted RUNNING under PTY `pty_db4db4a3fe79b02652c669619e5f76a745ed`, PID `58648`.
+- [ ] Finalize `.tmp/imp061-main-targeted.xml` from final JUnit/exit only.
+- [ ] Main affected authority regression (only after targeted PASS).
+- [ ] Main Frozen Master guard + verify push-main CI `37614346927` exact merge SHA.
+- [ ] Mark MAIN VERIFIED -> governance-only sync lifecycle.
+
+NEXT_EXACT_ACTION = "MONITOR EXISTING MAIN TARGETED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> MAIN AFFECTED IF PASS"
+
+
+## IMP-061 POST-MERGE MAIN TARGETED PASS - 2026-10-07
+
+- [x] Post-merge Motion QA targeted = 8/8 PASS (`.tmp/imp061-main-targeted.xml`, exit 0).
+- [ ] Post-merge affected authority regression (8 existing authority files only).
+- [ ] Main Frozen Master guard.
+- [ ] Verify push-main CI `37614346927` SUCCESS on exact merge SHA.
+- [ ] MAIN VERIFIED -> governance-only sync lifecycle.
+
+NEXT_EXACT_ACTION = "RUN POST-MERGE MAIN AFFECTED 8-FILE AUTHORITY REGRESSION -> FINAL JUNIT/EXIT -> MAIN FROZEN GUARD"
+
+
+## IMP-061 POST-MERGE MAIN AFFECTED RUNNING - 2026-10-07
+
+- [x] Post-merge Motion QA targeted 8/8 PASS.
+- [~] Post-merge affected 8-file authority regression RUNNING under PTY `pty_88b6b2bef57e105af6cb98f4c9d4641e3c27`, PID `63016`; Motion QA targeted excluded.
+- [ ] Finalize `.tmp/imp061-main-affected.xml` from final JUnit/exit only.
+- [ ] Main Frozen Master guard.
+- [ ] Verify push-main CI `37614346927` exact merge SHA SUCCESS.
+- [ ] MAIN VERIFIED -> governance-only sync lifecycle.
+
+NEXT_EXACT_ACTION = "MONITOR EXISTING MAIN AFFECTED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> MAIN FROZEN GUARD IF PASS"
+
+
+## IMP-061 PUSH-MAIN CI PASS / MAIN AFFECTED RUNNING - 2026-10-07
+
+- [x] Push-main CI `37614346927` SUCCESS on exact merge SHA `74789c209ef57983405726607af4e28c1d3c5ff4`; Python 3.10 + 3.13 + Frozen guard PASS.
+- [x] Post-merge Motion QA targeted 8/8 PASS.
+- [~] Main affected regression continues under PTY `pty_88b6b2bef57e105af6cb98f4c9d4641e3c27`, PID `63016`.
+- [ ] Final JUnit/exit -> main Frozen guard -> MAIN VERIFIED.
+
+NEXT_EXACT_ACTION = "MONITOR EXISTING MAIN AFFECTED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> MAIN FROZEN GUARD"
+
+
+## IMP-061 POST-MERGE MAIN AFFECTED PASS - 2026-10-07
+
+- [x] Post-merge Motion QA targeted 8/8 PASS.
+- [x] Post-merge affected 8-file authority regression = 105/105 PASS (`.tmp/imp061-main-affected.xml`, failures=0, errors=0, skipped=0).
+- [x] Push-main CI `37614346927` SUCCESS on exact merge SHA `74789c209ef57983405726607af4e28c1d3c5ff4`.
+- [ ] Main Frozen Master guard.
+- [ ] Mark IMP-061 feature MAIN VERIFIED -> governance-only sync lifecycle.
+
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD ON EXACT MAIN SHA -> IF PASS MARK IMP-061 FEATURE MAIN VERIFIED -> GOVERNANCE-ONLY STATE SYNC"
+
+
+## IMP-061 FEATURE MAIN VERIFIED / GOVERNANCE SYNC - 2026-10-07
+
+- [x] Feature PR #68 merged at `74789c209ef57983405726607af4e28c1d3c5ff4`.
+- [x] Post-merge targeted = 8/8 PASS.
+- [x] Post-merge affected = 105/105 PASS.
+- [x] Frozen Master guard PASS; semantic SHA unchanged.
+- [x] Main push workflow `37614346927` SUCCESS Python 3.10 / 3.13 exact merge SHA.
+- [x] IMP-061 feature implementation = MAIN VERIFIED.
+- [ ] Governance-only state sync.
+- [ ] Verify governance merge + push-main CI.
+- [ ] Read DAG/queue and CLAIM next dependency-ready task.
+
+NEXT_EXACT_ACTION = "CREATE GOVERNANCE BRANCH chatgpt/IMP-061-main-verified-state -> STATE-ONLY COMMIT -> PUSH/PR/MERGE -> VERIFY GOVERNANCE MAIN CI -> CLAIM NEXT DEPENDENCY-READY TASK"
