@@ -3237,3 +3237,170 @@ NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD ON MAIN -> MARK IMP-060 FEATURE MAI
 - [ ] Read DAG/queue and CLAIM next dependency-ready task.
 
 NEXT_EXACT_ACTION = "CREATE GOVERNANCE BRANCH chatgpt/IMP-060-main-verified-state -> COMMIT/PUSH/PR/MERGE STATE-ONLY SYNC -> VERIFY GOVERNANCE MAIN CI -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-060 GOVERNANCE VERIFIED / IMP-061 CLAIMED - 2026-10-07
+
+- [x] IMP-060 governance PR #67 merged at `56906ffd2dc4b282a5e8d6802cd939fe1a2b8537`.
+- [x] Governance push-main workflow `37596114723` SUCCESS Python 3.10 / 3.13 + Frozen guard exact governance SHA.
+- [x] IMP-060 = MAIN VERIFIED.
+- [x] Verify IMP-061 dependencies: IMP-032 + IMP-042 + IMP-055 MAIN VERIFIED.
+- [x] Verify no local/remote branch or PR duplicate for `chatgpt/IMP-061-motion-video-qa`.
+- [x] Claim `chatgpt/IMP-061-motion-video-qa` from clean governance main `56906ffd2dc4b282a5e8d6802cd939fe1a2b8537`.
+- [ ] Read Frozen Motion/Video QA authority and audit current donor/canonical surfaces.
+- [ ] Implement provider-neutral time-bound Motion/Video QA contract/repository/evaluator orchestration.
+- [ ] Tests: provider success != QA pass, time-range findings, evaluator error, evidence binding.
+- [ ] Targeted + affected + broader valid regression + frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "READ IMP-061 FROZEN MOTION/VIDEO QA AUTHORITY + AUDIT VIDEO REVIEW DONOR / GENERATIONJOB / ARTIFACT / SHOTIR / STATE SURFACES -> LOCK CONTRACT -> CODE"
+
+
+## IMP-061 AUTHORITY + CURRENT-SURFACE AUDIT PASS - 2026-10-07
+
+- [x] Read Frozen Master §75 Video/Motion QA + FM2-003 local contract completeness.
+- [x] Audit legacy `agent/services/video_reviewer.py`; KEEP+EXTEND extraction/time-range donor only, not canonical verdict/provider authority.
+- [x] Audit GenerationJob creative transitions and READY artifact gate.
+- [x] Audit MotionDeltaSpec/FullShotSpec/StaticKeyframeSpec/ShotIR exact lineage and QA expectations.
+- [x] Lock provider-neutral evaluator boundary and exact provenance/dependency bindings.
+- [x] Lock failure taxonomy: evaluator/tool failure -> QA_ERROR; artifact defect -> QA_FAILED.
+- [x] Lock provider-success invariant: provider success alone cannot imply Motion QA pass.
+- [ ] Implement Motion QA contract/service/repository/evaluator orchestration.
+- [ ] Add targeted tests: provider success != pass, time-range findings, evaluator error, stale/evidence binding, blocking cannot be averaged away.
+- [ ] Targeted + affected + broader valid regression + frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "CODE agent/studio/motion_qa.py + EXPORTS + TARGETED TESTS -> PYCOMPILE/IMPORT -> RUN TARGETED IMP-061"
+
+
+## IMP-061 TARGETED RUNNING - 2026-10-07
+
+- [x] Authority/surface audit PASS.
+- [x] Draft Motion QA contract/service implemented; public export added.
+- [x] `py_compile` + public import + `git diff --check` PASS.
+- [~] Targeted `tests/unit/test_studio_motion_qa.py` RUNNING under PTY `pty_74534fa4f00996a377efc16c36855a37f27e`, root PID `59116`.
+- [ ] Classify `.tmp/imp061-targeted.xml` from final JUnit/exit only.
+- [ ] Affected regression / exact-head review / broader valid regression / frozen guard.
+
+NEXT_EXACT_ACTION = "MONITOR EXISTING PTY pty_74534fa4f00996a377efc16c36855a37f27e; DO NOT RESTART -> FINAL JUNIT/EXIT -> FIX/RERUN ONLY FAILING CASES IF ANY"
+
+
+## IMP-061 TARGETED PASS - 2026-10-07
+
+- [x] Authority/surface audit PASS.
+- [x] Motion QA contract/service + public exports + targeted tests implemented.
+- [x] py_compile/public import/diff gate PASS.
+- [x] Targeted `tests/unit/test_studio_motion_qa.py` = 8/8 PASS (`.tmp/imp061-targeted.xml`).
+- [ ] Exact-head review; fix only real defects if any.
+- [ ] Affected regression without rerunning targeted 8/8.
+- [ ] Broader valid regression + Frozen Master guard.
+- [ ] Evidence / verify / commit / push / PR / CI / review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "EXACT-HEAD REVIEW motion_qa.py + exports/tests -> FIX ONLY REAL DEFECTS IF ANY -> RUN AFFECTED REGRESSION WITHOUT TARGETED RERUN"
+
+
+## IMP-061 REVIEW-FIX TARGETED PASS - 2026-10-07
+
+- [x] Exact-head review found and fixed direct EntityVersion provenance gap for identity-drift authority.
+- [x] Review-fix static gate PASS.
+- [x] Review-fix targeted = 8/8 PASS, exit 0 (`.tmp/imp061-review-targeted.xml`).
+- [x] Preserve original targeted 8/8 evidence; no duplicate rerun after exact-head PASS.
+- [ ] Affected authority regression: generation_job + artifact_lifecycle + shot_realization + production_compiler + state_continuity + reference + versioning + invalidation.
+- [ ] Broader valid Windows regression excluding known invalid platform cases and all already-PASS targeted/affected files.
+- [ ] Frozen Master guard / evidence / verify / commit / push / PR / CI / review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "RUN AFFECTED 8-FILE AUTHORITY REGRESSION WITHOUT test_studio_motion_qa.py -> FINAL JUNIT/EXIT -> BROADER VALID REGRESSION -> FROZEN GUARD"
+
+
+## IMP-061 AFFECTED REGRESSION RUNNING - 2026-10-07
+
+- [x] Review-fix targeted 8/8 PASS.
+- [~] Affected 8-file authority regression RUNNING under PTY `pty_77852684c4110c63d0ca723e89852d24f5f7`, PID `62760`.
+- [ ] Finalize `.tmp/imp061-affected.xml` from final JUnit/exit only.
+- [ ] Broader valid Windows regression excluding known platform-invalid cases and already-PASS targeted/affected files.
+- [ ] Frozen Master guard / evidence / verify / lifecycle.
+
+NEXT_EXACT_ACTION = "MONITOR EXISTING AFFECTED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> BROADER VALID REGRESSION"
+
+
+## IMP-061 AFFECTED REGRESSION PASS - 2026-10-07
+
+- [x] Review-fix targeted = 8/8 PASS.
+- [x] Affected 8-file authority regression = 105/105 PASS (`.tmp/imp061-affected.xml`, failures=0, errors=0, skipped=0).
+- [ ] Non-overlapping broader valid Windows regression with established platform exclusions and current targeted/affected files ignored.
+- [ ] Frozen Master guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "RUN NON-OVERLAPPING BROADER VALID WINDOWS REGRESSION -> FINAL JUNIT/EXIT -> FROZEN MASTER GUARD"
+
+
+## IMP-061 BROADER VALID WINDOWS REGRESSION RUNNING - 2026-10-07
+
+- [x] Review-fix targeted 8/8 PASS.
+- [x] Affected authority regression 105/105 PASS.
+- [~] Non-overlapping broader valid Windows regression RUNNING under PTY `pty_dc88b5d28e4050d8ce7f26a896fef4d437df`, PID `59912`.
+- [ ] Finalize `.tmp/imp061-broader-valid.xml` from final JUnit/exit only.
+- [ ] Frozen Master guard / evidence / lifecycle.
+
+NEXT_EXACT_ACTION = "MONITOR EXISTING BROADER PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> FROZEN MASTER GUARD"
+
+
+## IMP-061 BROADER VALID WINDOWS REGRESSION PASS - 2026-10-07
+
+- [x] Review-fix targeted 8/8 PASS.
+- [x] Affected authority regression 105/105 PASS.
+- [x] Non-overlapping broader valid Windows regression = 663 PASS / 3 deselected (`.tmp/imp061-broader-valid.xml`, exit 0).
+- [ ] Frozen Master guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD -> VERIFY SEMANTIC SHA / STATIC GATES -> EVIDENCE / SIDE-EFFECT GUARD"
+
+
+## IMP-061 FROZEN MASTER GUARD PASS - 2026-10-07
+
+- [x] Review-fix targeted 8/8 PASS.
+- [x] Affected authority regression 105/105 PASS.
+- [x] Non-overlapping broader valid Windows regression 663 PASS / 3 deselected.
+- [x] Frozen Master guard PASS; semantic SHA `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287` unchanged.
+- [ ] Create evidence and exact-scope/side-effect guard.
+- [ ] Commit / push / PR / CI / exact-head review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "CREATE IMP-061 EVIDENCE -> EXACT-SCOPE / SIDE-EFFECT GUARD -> COMMIT IF CLEAN"
+
+
+## IMP-061 LOCAL VERIFIED - 2026-10-07
+
+- [x] Targeted review-fix 8/8 PASS.
+- [x] Affected authority regression 105/105 PASS.
+- [x] Broader valid Windows regression 663 PASS / 3 deselected.
+- [x] Frozen Master guard PASS.
+- [x] Evidence created: `evidence/tests/IMP-061_MOTION_VIDEO_QA_EVIDENCE.md`.
+- [x] Side-effect guard PASS: no existing commit/remote branch/upstream/PR.
+- [ ] Stage exact 7 files excluding `.tmp`, verify index, commit feature.
+- [ ] Push / PR / CI / exact-head review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "STAGE EXACT 7 IMP-061 FILES EXCLUDING .tmp -> VERIFY INDEX -> COMMIT FEATURE"
+
+
+## IMP-061 LOCAL VERIFIED / COMMIT NEXT - 2026-10-07
+
+- [x] Review-fix targeted 8/8 PASS.
+- [x] Affected authority regression 105/105 PASS.
+- [x] Broader valid Windows regression 663 PASS / 3 deselected.
+- [x] Frozen Master guard PASS; semantic SHA unchanged.
+- [x] Evidence created: `evidence/tests/IMP-061_MOTION_VIDEO_QA_EVIDENCE.md`.
+- [x] Exact-scope / side-effect guard PASS: no commit/remote/upstream/PR duplicate; exact non-`.tmp` scope = 7 files.
+- [ ] Stage exact 7 files excluding `.tmp`, verify index, commit feature.
+- [ ] Push / PR / CI / exact-head review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "STAGE EXACT 7 IMP-061 FILES EXCLUDING .tmp -> VERIFY INDEX / DIFF-CHECK -> COMMIT FEATURE"
+
+
+## IMP-061 FEATURE COMMIT CREATED - 2026-10-07
+
+- [x] Feature commit created: `4b8c1143792ee2118449799f124dc96c96faac85` (`feat(studio): add motion video qa gate`).
+- [x] Worktree clean except untracked `.tmp/` runtime evidence.
+- [ ] Governance-only state sync commit.
+- [ ] Side-effect guard -> push -> PR -> CI -> exact-head review -> merge -> main verify -> governance sync.
+
+NEXT_EXACT_ACTION = "SYNC EXACT FEATURE COMMIT INTO 3 STATE FILES -> GOVERNANCE-ONLY COMMIT -> SIDE-EFFECT GUARD -> PUSH/PR"

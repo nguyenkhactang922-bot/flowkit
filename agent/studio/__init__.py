@@ -1371,3 +1371,48 @@ __all__ += [
     "decide_static_qa_verdict",
     "static_qa_result_logical_id",
 ]
+
+
+from .motion_qa import (
+    MotionQAArtifact,
+    MotionQADimension,
+    MotionQAError,
+    MotionQAEvaluator,
+    MotionQAEvaluatorResponse,
+    MotionQAEvaluatorSubject,
+    MotionQAExecutionRequest,
+    MotionQAExecutionResult,
+    MotionQAExecutionStatus,
+    MotionQAFinding,
+    MotionQAFindingVerdict,
+    MotionQAGateBlocked,
+    MotionQAIdentityError,
+    MotionQAPolicy,
+    MotionQAResult,
+    MotionQAService,
+    MotionQASeverity,
+    decide_motion_qa_verdict,
+    motion_qa_result_logical_id,
+)
+
+__all__ += [
+    "MotionQAArtifact",
+    "MotionQADimension",
+    "MotionQAError",
+    "MotionQAEvaluator",
+    "MotionQAEvaluatorResponse",
+    "MotionQAEvaluatorSubject",
+    "MotionQAExecutionRequest",
+    "MotionQAExecutionResult",
+    "MotionQAExecutionStatus",
+    "MotionQAFinding",
+    "MotionQAFindingVerdict",
+    "MotionQAGateBlocked",
+    "MotionQAIdentityError",
+    "MotionQAPolicy",
+    "MotionQAResult",
+    "MotionQAService",
+    "MotionQASeverity",
+    "decide_motion_qa_verdict",
+    "motion_qa_result_logical_id",
+]
