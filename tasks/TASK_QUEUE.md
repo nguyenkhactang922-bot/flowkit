@@ -2990,3 +2990,23 @@ NEXT_EXACT_ACTION = "STAGE EXACT IMP-055 SCOPE EXCLUDING .tmp -> VERIFY STAGED D
 - [ ] Claim next dependency-ready task.
 
 NEXT_EXACT_ACTION = "COMMIT GOVERNANCE-ONLY STATE SYNC -> PUSH BRANCH -> CREATE PR -> VERIFY CI"
+
+
+---
+
+## IMP-055 FEATURE MAIN VERIFIED / GOVERNANCE SYNC - 2026-10-07
+
+- [x] Feature commit `d871abaae8ec8e294274d9c0c44390d95dd0196d`.
+- [x] Feature PR #64 exact head `3b69ebbac571b502c81d85959ed6f7a34bdf0d22`.
+- [x] PR CI run `37507839217` SUCCESS Python 3.10 / 3.13 + frozen baseline.
+- [x] Final exact-head review PASS.
+- [x] PR #64 merged at `7ab973b311a3fa2541194a5034781c115006afd6`.
+- [x] Local main fast-forwarded to exact merge SHA.
+- [x] Main push workflow `37509449416` SUCCESS Python 3.10 / 3.13 + frozen baseline exact merge SHA.
+- [x] IMP-055 feature implementation = MAIN VERIFIED.
+- [ ] Commit/push/PR/merge governance-only state sync.
+- [ ] Verify governance merge + push-main CI on exact governance SHA.
+- [ ] Mark IMP-055 governance MAIN VERIFIED.
+- [ ] Read DAG/queue and CLAIM next dependency-ready task.
+
+NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-055 GOVERNANCE-ONLY STATE SYNC -> VERIFY GOVERNANCE MAIN CI -> MARK IMP-055 MAIN VERIFIED -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
