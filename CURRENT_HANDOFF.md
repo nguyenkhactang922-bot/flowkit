@@ -3756,3 +3756,141 @@ PR = #66 MERGED from exact head 927664aa6741ecc765d7bbed36dd4df870944085
 CHECKPOINTS = post-merge targeted 9/9 PASS; post-merge affected 105/105 PASS; Frozen Master guard PASS semantic SHA `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`; main push CI `37590060906` SUCCESS exact merge SHA
 BLOCKER = none
 NEXT_EXACT_ACTION = "CREATE GOVERNANCE BRANCH chatgpt/IMP-060-main-verified-state FROM EXACT MAIN -> COMMIT/PUSH/PR/MERGE STATE-ONLY SYNC -> VERIFY GOVERNANCE MAIN CI -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-060 GOVERNANCE VERIFIED / IMP-061 CLAIMED - 2026-10-07
+
+STATUS = IMP-060 COMPLETE / IMP-061 CLAIMED
+BRANCH = chatgpt/IMP-061-motion-video-qa
+BASE_HEAD = 56906ffd2dc4b282a5e8d6802cd939fe1a2b8537
+IMP060_GOVERNANCE = PR #67 merged; governance main CI `37596114723` SUCCESS Python 3.10/3.13 + Frozen guard on exact SHA `56906ffd2dc4b282a5e8d6802cd939fe1a2b8537`
+IMP061_DEPENDENCIES = IMP-032 + IMP-042 + IMP-055 MAIN VERIFIED
+DUPLICATE_GUARD = no local/remote branch or PR existed before claim
+BLOCKER = none
+NEXT_EXACT_ACTION = "READ IMP-061 FROZEN MOTION/VIDEO QA AUTHORITY + AUDIT CURRENT VIDEO REVIEW DONOR / GENERATIONJOB / ARTIFACT / SHOTIR SURFACES -> LOCK CONTRACT -> CODE"
+
+
+## IMP-061 AUTHORITY + CURRENT-SURFACE AUDIT PASS - 2026-10-07
+
+STATUS = AUDIT PASS / CODE NEXT
+BRANCH = chatgpt/IMP-061-motion-video-qa
+BASE_HEAD = 56906ffd2dc4b282a5e8d6802cd939fe1a2b8537
+AUTHORITY = Frozen Master §75 Video/Motion QA + FM2-003 local contract completeness
+KEEP_EXTEND_DONOR = `agent/services/video_reviewer.py` frame/contact-sheet extraction + time-range semantics only; weighted legacy score/provider CLI/SDK/live-URL flow is non-canonical
+CANONICAL_BOUNDARY = READY video artifact bytes + exact ShotIR/MotionDeltaSpec/FullShotSpec/StaticKeyframeSpec/StateSnapshot/reference/profile -> provider-neutral evaluator -> immutable time-bound MotionQAResult -> existing creative-axis transitions
+HARD_RULES = provider success != QA pass; evaluator/tool failure -> QA_ERROR; blocking finding cannot be averaged away; accepted output immutable; exact provenance/version bindings; no provider side effect in QA transaction
+BLOCKER = none
+NEXT_EXACT_ACTION = "CODE agent/studio/motion_qa.py + EXPORTS + TARGETED TESTS -> PYCOMPILE/IMPORT -> RUN TARGETED IMP-061"
+
+
+## IMP-061 TARGETED RUNNING - 2026-10-07
+
+STATUS = RUNNING
+BRANCH = chatgpt/IMP-061-motion-video-qa
+HEAD = 56906ffd2dc4b282a5e8d6802cd939fe1a2b8537
+PTY_SESSION = pty_74534fa4f00996a377efc16c36855a37f27e
+ROOT_PID = 59116
+COMMAND = targeted `tests/unit/test_studio_motion_qa.py` under uv isolated Python 3.13; JUnit `.tmp/imp061-targeted.xml`; basetemp `.tmp/pytest-imp061-targeted`
+CHECKPOINT_LAST_PASS = authority/surface audit PASS + py_compile/public-import/diff gate PASS
+RESULT_MARKER = pending; first pytest marker PASS
+BLOCKER = none
+NEXT_EXACT_ACTION = "MONITOR EXISTING PTY pty_74534fa4f00996a377efc16c36855a37f27e; DO NOT RESTART -> FINAL JUNIT/EXIT -> FIX/RERUN ONLY FAILING CASES IF ANY"
+
+
+## IMP-061 TARGETED PASS / EXACT-HEAD REVIEW NEXT - 2026-10-07
+
+STATUS = TARGETED PASS / REVIEW NEXT
+BRANCH = chatgpt/IMP-061-motion-video-qa
+HEAD = 56906ffd2dc4b282a5e8d6802cd939fe1a2b8537
+PROCESS = none; prior PTY expired after completion and recorded PID tree is absent
+CHECKPOINT_LAST_PASS = Motion QA targeted 8/8 PASS + prior py_compile/public-import/diff gate PASS
+EVIDENCE = `.tmp/imp061-targeted.xml`: tests=8 failures=0 errors=0 skipped=0 time=129.280; final timestamp 2026-10-07 16:08:51 local
+BLOCKER = none
+NEXT_EXACT_ACTION = "EXACT-HEAD REVIEW motion_qa.py + exports/tests -> FIX ONLY REAL DEFECTS IF ANY -> RUN AFFECTED REGRESSION WITHOUT RERUNNING TARGETED 8/8"
+
+
+## IMP-061 REVIEW-FIX TARGETED PASS / AFFECTED NEXT - 2026-10-07
+
+STATUS = REVIEW-FIX TARGETED PASS / AFFECTED NEXT
+BRANCH = chatgpt/IMP-061-motion-video-qa
+HEAD = 56906ffd2dc4b282a5e8d6802cd939fe1a2b8537
+REVIEW_FIX = bind canonical visible EntityVersion refs directly in Motion QA evaluator subject/result/provenance/source graph
+HARNESS_NOTE = first review-targeted retry failed before tests because pytest requirements were omitted; canonical repo command was then used
+CHECKPOINT_LAST_PASS = review-fix targeted 8/8 PASS, exit 0; py_compile/public import/diff gate PASS
+EVIDENCE = `.tmp/imp061-review-targeted.xml`: tests=8 failures=0 errors=0 skipped=0 time=234.031; PTY `pty_16a5f4e0d4eadd32f00ec19f614047ddc2b8` final `8 passed in 234.10s`
+BLOCKER = none
+NEXT_EXACT_ACTION = "RUN AFFECTED 8-FILE AUTHORITY REGRESSION ONLY (EXCLUDE MOTION QA TARGETED) -> FINAL JUNIT/EXIT -> BROADER VALID REGRESSION -> FROZEN GUARD"
+
+
+## IMP-061 AFFECTED REGRESSION RUNNING - 2026-10-07
+
+STATUS = RUNNING
+BRANCH = chatgpt/IMP-061-motion-video-qa
+HEAD = 56906ffd2dc4b282a5e8d6802cd939fe1a2b8537
+PROCESS = PTY `pty_77852684c4110c63d0ca723e89852d24f5f7`; root PID `62760`
+COMMAND_SCOPE = affected existing authority only: generation_job + artifact_lifecycle + shot_realization + production_compiler + state_continuity + reference + versioning + invalidation; Motion QA targeted excluded
+EVIDENCE_PENDING = `.tmp/imp061-affected.xml`; basetemp `.tmp/pytest-imp061-affected`
+CHECKPOINT_LAST_PASS = review-fix targeted 8/8 PASS, exit 0
+BLOCKER = none
+NEXT_EXACT_ACTION = "MONITOR EXISTING PTY pty_77852684c4110c63d0ca723e89852d24f5f7; DO NOT RESTART -> FINAL JUNIT/EXIT -> BROADER VALID REGRESSION"
+
+
+## IMP-061 AFFECTED REGRESSION PASS / BROADER NEXT - 2026-10-07
+
+STATUS = PASS / BROADER VALID WINDOWS REGRESSION NEXT
+BRANCH = chatgpt/IMP-061-motion-video-qa
+HEAD = 56906ffd2dc4b282a5e8d6802cd939fe1a2b8537
+PROCESS = none; prior affected PTY expired after completion and recorded PID tree is absent
+CHECKPOINT_LAST_PASS = review-fix targeted 8/8 PASS + affected authority regression 105/105 PASS
+EVIDENCE = `.tmp/imp061-review-targeted.xml`: tests=8 failures=0 errors=0; `.tmp/imp061-affected.xml`: tests=105 failures=0 errors=0 skipped=0 time=1425.690
+BLOCKER = none
+NEXT_EXACT_ACTION = "RUN NON-OVERLAPPING BROADER VALID WINDOWS REGRESSION WITH KNOWN PLATFORM EXCLUSIONS AND IGNORE CURRENT TARGETED/AFFECTED FILES -> FINAL JUNIT/EXIT -> FROZEN MASTER GUARD"
+
+
+## IMP-061 BROADER VALID WINDOWS REGRESSION RUNNING - 2026-10-07
+
+STATUS = RUNNING
+BRANCH = chatgpt/IMP-061-motion-video-qa
+HEAD = 56906ffd2dc4b282a5e8d6802cd939fe1a2b8537
+PROCESS = PTY `pty_dc88b5d28e4050d8ce7f26a896fef4d437df`; root PID `59912`
+COMMAND = established Windows exclusion envelope + ignore current IMP-061 affected 8 files and `test_studio_motion_qa.py`; JUnit `.tmp/imp061-broader-valid.xml`; basetemp `.tmp/pytest-imp061-broader-valid`
+CHECKPOINT_LAST_PASS = review-fix targeted 8/8 PASS + affected 105/105 PASS
+RESULT_MARKER = pending
+BLOCKER = none
+NEXT_EXACT_ACTION = "MONITOR EXISTING PTY pty_dc88b5d28e4050d8ce7f26a896fef4d437df; DO NOT RESTART -> FINAL JUNIT/EXIT -> FROZEN MASTER GUARD"
+
+
+## IMP-061 BROADER VALID WINDOWS REGRESSION PASS - 2026-10-07
+
+STATUS = PASS / FROZEN MASTER GUARD NEXT
+BRANCH = chatgpt/IMP-061-motion-video-qa
+HEAD = 56906ffd2dc4b282a5e8d6802cd939fe1a2b8537
+PROCESS = none; PTY `pty_dc88b5d28e4050d8ce7f26a896fef4d437df` exited 0
+CHECKPOINT_LAST_PASS = review-fix targeted 8/8 PASS + affected 105/105 PASS + broader valid Windows regression 663/663 PASS / 3 deselected
+EVIDENCE = `.tmp/imp061-broader-valid.xml`: tests=663 failures=0 errors=0 skipped=0 time=1765.918; PTY final `663 passed, 3 deselected in 1766.09s`, exit 0
+BLOCKER = none
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD ON CURRENT IMP-061 WORKTREE -> VERIFY SEMANTIC SHA / STATIC GATES -> EVIDENCE / SIDE-EFFECT GUARD"
+
+
+## IMP-061 FROZEN MASTER GUARD PASS - 2026-10-07
+
+STATUS = LOCAL VERIFICATION GATES PASS / EVIDENCE + SIDE-EFFECT GUARD NEXT
+BRANCH = chatgpt/IMP-061-motion-video-qa
+HEAD = 56906ffd2dc4b282a5e8d6802cd939fe1a2b8537
+CHECKPOINT_LAST_PASS = review-fix targeted 8/8 PASS + affected 105/105 PASS + broader 663/663 PASS / 3 deselected + Frozen Master guard PASS
+FROZEN_SEMANTIC_SHA256 = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+STATIC_GATE = review-fix py_compile/public import/git diff --check PASS; code unchanged since gate
+BLOCKER = none
+NEXT_EXACT_ACTION = "CREATE IMP-061 EVIDENCE -> EXACT-SCOPE / SIDE-EFFECT GUARD -> COMMIT IF CLEAN"
+
+
+## IMP-061 LOCAL VERIFIED / COMMIT NEXT - 2026-10-07
+
+STATUS = LOCAL VERIFIED
+BRANCH = chatgpt/IMP-061-motion-video-qa
+HEAD = 56906ffd2dc4b282a5e8d6802cd939fe1a2b8537
+VERIFICATION = targeted 8/8 PASS; affected 105/105 PASS; broader 663 PASS / 3 deselected; Frozen Master guard PASS; review-fix static gate PASS
+EVIDENCE = `evidence/tests/IMP-061_MOTION_VIDEO_QA_EVIDENCE.md`
+SIDE_EFFECT_GUARD = PASS; no IMP-061 commit, no remote branch, no upstream, no PR; exact non-.tmp scope = 7 files
+BLOCKER = none
+NEXT_EXACT_ACTION = "STAGE EXACT 7 IMP-061 FILES EXCLUDING .tmp -> VERIFY INDEX -> COMMIT FEATURE"
