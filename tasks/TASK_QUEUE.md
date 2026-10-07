@@ -3010,3 +3010,154 @@ NEXT_EXACT_ACTION = "COMMIT GOVERNANCE-ONLY STATE SYNC -> PUSH BRANCH -> CREATE 
 - [ ] Read DAG/queue and CLAIM next dependency-ready task.
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-055 GOVERNANCE-ONLY STATE SYNC -> VERIFY GOVERNANCE MAIN CI -> MARK IMP-055 MAIN VERIFIED -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-055 GOVERNANCE VERIFIED / IMP-060 CLAIMED - 2026-10-07
+
+- [x] IMP-055 governance PR #65 merged at `71e4a36ae79472daf6ceb3faed3a3e248638b510`.
+- [x] Governance push-main workflow `37563172738` SUCCESS Python 3.10 / 3.13 exact governance SHA.
+- [x] IMP-055 = MAIN VERIFIED.
+- [x] Verify IMP-060 dependencies: IMP-032 + IMP-042 + IMP-041 + IMP-055 MAIN VERIFIED.
+- [x] Verify no local/remote branch or PR duplicate for `chatgpt/IMP-060-static-qa`.
+- [x] Claim `chatgpt/IMP-060-static-qa` from clean governance main `71e4a36ae79472daf6ceb3faed3a3e248638b510`.
+- [ ] Read frozen Static QA authority and reviewed policy-spike lineage.
+- [ ] Audit current GenerationJob creative axis, READY artifact evidence, FullShotSpec/StaticKeyframeSpec, StateSnapshot, ReferenceAsset and legacy review donor surfaces.
+- [ ] Implement provider-neutral Static QA contract/repository/evaluator boundary with exact-version evidence binding.
+- [ ] Tests: blocking identity/state defect, evaluator failure -> QA_ERROR, stale/evidence binding, no weighted-average masking.
+- [ ] Targeted + affected + broader regression + frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "READ IMP-060 FROZEN STATIC QA AUTHORITY + AUDIT CURRENT SURFACES -> LOCK CONTRACT/POLICY/EVALUATOR BOUNDARY -> CODE"
+
+
+---
+
+## IMP-060 AUTHORITY + CURRENT-SURFACE AUDIT PASS - 2026-10-07
+
+- [x] Read Frozen Master §74 Static QA + local contract completeness.
+- [x] Read reviewed Static QA policy-spike lineage; treat it as policy evidence, not vision-calibration proof.
+- [x] Audit GenerationJob creative transition authority and READY artifact requirement.
+- [x] Audit IMP-055 immutable artifact identity/materialization evidence.
+- [x] Audit FullShotSpec/StaticKeyframeSpec exact source bindings.
+- [x] Audit StateSnapshot + ReferenceAsset/Resolver exact-version surfaces.
+- [x] Audit legacy `video_reviewer.py`; donor only, no provider-specific canonical authority.
+- [x] Lock blocking policy: BLOCKING FAIL -> overall FAIL independent of aggregate score.
+- [x] Lock failure taxonomy: evaluator failure -> QA_ERROR; artifact defect -> QA_FAILED.
+- [ ] Implement provider-neutral Static QA contract/repository/evaluator orchestration.
+- [ ] Add targeted tests: blocking identity/state, evaluator error, evidence/stale binding, no average masking.
+- [ ] Targeted + affected + broader regression + frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "CODE IMP-060 STATIC QA CONTRACT/REPOSITORY/EVALUATOR BOUNDARY -> RUN TARGETED TESTS"
+
+
+---
+
+## IMP-060 TARGETED STATIC QA CHECKPOINT - 2026-10-07
+
+- [x] Static QA contract/repository/evaluator orchestration implemented in `agent/studio/static_qa.py` with exports.
+- [x] Syntax/import gate PASS.
+- [x] No-average masking policy case PASS.
+- [x] Shared fixture root cause for initial 4 failures isolated; no product-code root cause.
+- [x] Exact failed subset rerun = 4/4 PASS (`.tmp/imp060-failed-rerun.xml`).
+- [x] Exact fixture-affected previous PASS subset rerun = 2/2 PASS (`.tmp/imp060-affected2.xml`).
+- [x] Effective targeted current checkpoint = 7/7 PASS.
+- [ ] Affected existing regression: GenerationJob + artifact lifecycle + shot realization + production compiler + state/reference surfaces.
+- [ ] Exact-head review and fault/authority audit.
+- [ ] Broader regression + frozen guard.
+- [ ] Evidence / verify / side-effect guard / commit / push / PR / CI / exact-head review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "RUN AFFECTED EXISTING REGRESSION ONLY -> EXACT-HEAD REVIEW -> FIX ONLY REAL DEFECTS -> BROADER/FROZEN GUARD"
+
+
+---
+
+## IMP-060 AFFECTED REGRESSION ACTIVE - 2026-10-07
+
+- [x] Targeted effective checkpoint = 7/7 PASS.
+- [~] Affected regression RUNNING under PTY `pty_59740a1745254ebfa0f105108b33a3b185b7`, root PID `67100`, pytest PID `58700`.
+- [ ] Finalize `.tmp/imp060-affected.xml`; classify PASS/FAIL from durable evidence only.
+- [!] Exact-head review finding queued: load/bind actual `ShotIR` and expose `qa_expectations` to evaluator; current subject only exposes `shot_ir_ref` and does not fully satisfy Frozen Master §74 input contract.
+- [ ] After affected run exits, repair only this finding and rerun impacted Static QA cases.
+- [ ] Continue exact-head review -> broader regression -> frozen guard -> evidence/Git/PR lifecycle.
+
+NEXT_EXACT_ACTION = "MONITOR EXISTING AFFECTED RUN; DO NOT RESTART -> FINAL JUNIT -> FIX SHOTIR EXPECTATION-BINDING GAP -> IMPACTED STATIC QA RERUN"
+
+
+---
+
+## IMP-060 AFFECTED REGRESSION PASS / REVIEW FIX - 2026-10-07
+
+- [x] Effective targeted checkpoint = 7/7 PASS.
+- [x] Affected existing regression = **105/105 PASS**, failures=0, errors=0, skipped=0 (`.tmp/imp060-affected.xml`), PTY exit 0.
+- [x] Exact-head review confirms completed StaticQAResult already enforces exactly one finding per 10 canonical dimensions; no repair needed there.
+- [!] Review gap: evaluator must receive exact loaded ShotIR + `qa_expectations`, not only ref.
+- [!] Review gap: QAResult provenance/dependencies must directly pin ActiveProductionProfile and finding-level canonical source refs.
+- [!] Review gap: evaluator id/version response must match evaluator port and evaluator/policy versions must be recorded in provenance evidence.
+- [!] Review gap: auto-approval policy default must be fail-closed; automatic approval only when explicit versioned policy enables it.
+- [ ] Patch only Static QA new surfaces and rerun impacted targeted cases.
+- [ ] Continue exact-head review -> broader valid regression -> frozen guard -> evidence/Git/PR lifecycle.
+
+NEXT_EXACT_ACTION = "PATCH STATIC QA REVIEW GAPS -> PYCOMPILE/IMPORT -> RERUN IMPACTED TARGETED STATIC QA CASES ONLY"
+
+
+---
+
+## IMP-060 REVIEW-FIX TARGETED PASS - 2026-10-07
+
+- [x] Targeted baseline effective 7/7 PASS.
+- [x] Existing affected regression 105/105 PASS; do not rerun.
+- [x] Exact-head review repaired ShotIR expectation binding, exact ShotIR/static/full/state/profile/reference lineage, direct ActiveProductionProfile + finding source provenance, evaluator identity/version matching, evaluator/policy/finding evidence, and fail-closed default auto-approval.
+- [x] Review-fix targeted 9/9 PASS (`.tmp/imp060-review-targeted.xml`, exit 0).
+- [ ] Exact-head static/diff review.
+- [ ] Non-overlapping broader valid Windows regression.
+- [ ] Frozen Master guard.
+- [ ] Evidence / side-effect guard / commit / push / PR / CI / exact-head review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "EXACT-HEAD STATIC REVIEW + GIT DIFF CHECK -> RUN NON-OVERLAPPING BROADER VALID WINDOWS REGRESSION (DO NOT RERUN AFFECTED 105/105) -> FROZEN MASTER GUARD -> EVIDENCE/SIDE-EFFECT GUARD"
+
+
+## IMP-060 BROADER VALID WINDOWS REGRESSION RUNNING - 2026-10-07
+
+- [x] Exact-head static/diff review PASS.
+- [~] Non-overlapping broader valid Windows regression RUNNING under PTY `pty_9eda7f0a9e5e1e13e72aa1f4781661c69006`, PID `66700`.
+- [ ] Finalize `.tmp/imp060-broader-valid.xml` and classify from final exit/JUnit only.
+- [ ] Frozen Master guard.
+- [ ] Evidence / side-effect guard / commit / push / PR / CI / review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "MONITOR EXISTING PTY pty_9eda7f0a9e5e1e13e72aa1f4781661c69006; DO NOT RESTART -> FINAL JUNIT/EXIT -> FROZEN MASTER GUARD"
+
+
+## IMP-060 BROADER VALID WINDOWS REGRESSION PASS - 2026-10-07
+
+- [x] Exact-head static/diff review PASS.
+- [x] Non-overlapping broader valid Windows regression = 654 PASS / 3 deselected (`.tmp/imp060-broader-valid.xml`, exit 0).
+- [ ] Frozen Master guard.
+- [ ] Evidence / side-effect guard / commit / push / PR / CI / exact-head review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD -> VERIFY SEMANTIC SHA/STATIC GATES -> EVIDENCE/SIDE-EFFECT GUARD"
+
+
+## IMP-060 FROZEN MASTER GUARD PASS - 2026-10-07
+
+- [x] Frozen Master guard PASS.
+- [x] Frozen semantic SHA unchanged: `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
+- [ ] Final static verification.
+- [ ] Evidence / side-effect guard / commit / push / PR / CI / exact-head review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "RUN FINAL STATIC VERIFICATION WITHOUT RERUNNING TEST STAGES -> WRITE IMP-060 EVIDENCE -> SIDE-EFFECT GUARD"
+
+
+## IMP-060 LOCAL VERIFIED / SIDE-EFFECT GUARD PASS - 2026-10-07
+
+- [x] Final static verification PASS: py_compile, compileall, import gate, diff-check, leakage scan, TODO scan.
+- [x] Evidence = `evidence/tests/IMP-060_STATIC_QA_EVIDENCE.md`.
+- [x] Side-effect guard PASS: no existing IMP-060 commit, remote branch or PR; staged index empty; `.tmp` excluded.
+- [ ] Stage exact IMP-060 source/test/evidence/state scope.
+- [ ] Commit / push / PR.
+- [ ] CI Python 3.10 / 3.13 + frozen guard.
+- [ ] Exact-head review / merge main / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "STAGE EXACT IMP-060 SCOPE -> VERIFY INDEX -> COMMIT -> PUSH -> CREATE PR"

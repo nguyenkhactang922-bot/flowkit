@@ -3541,3 +3541,154 @@ BASE_HEAD = 7ab973b311a3fa2541194a5034781c115006afd6
 BLOCKER = none
 
 NEXT_EXACT_ACTION = "COMMIT/PUSH/PR/MERGE IMP-055 GOVERNANCE-ONLY STATE SYNC -> VERIFY GOVERNANCE MAIN CI -> MARK IMP-055 MAIN VERIFIED -> READ DAG/QUEUE -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+---
+
+## IMP-055 GOVERNANCE VERIFIED / IMP-060 CLAIMED - 2026-10-07
+
+IMP-055 governance PR #65 merged at `71e4a36ae79472daf6ceb3faed3a3e248638b510`.
+Governance push-main workflow `37563172738` SUCCESS Python 3.10 / 3.13 exact governance SHA.
+
+ACTIVE_TASK = IMP-060 STATIC QA
+STATUS = CLAIMED / AUTHORITY + CURRENT SURFACE AUDIT
+BRANCH = `chatgpt/IMP-060-static-qa`
+BASE_HEAD = `71e4a36ae79472daf6ceb3faed3a3e248638b510`
+DEPENDS = IMP-032 + IMP-042 + IMP-041 + IMP-055 MAIN VERIFIED
+BLOCKER = none
+
+NEXT_EXACT_ACTION = "READ FROZEN STATIC QA AUTHORITY + AUDIT CURRENT QA/REVIEW/GENERATIONJOB/ARTIFACT/SHOT/STATE/REFERENCE SURFACES BEFORE CODE"
+
+
+---
+
+## IMP-060 AUTHORITY + SURFACE AUDIT PASS - 2026-10-07
+
+STATUS = AUTHORITY + CURRENT SURFACE AUDIT PASS / CODE NEXT
+BRANCH = `chatgpt/IMP-060-static-qa`
+BASE_HEAD = `71e4a36ae79472daf6ceb3faed3a3e248638b510`
+
+Authority lock:
+- Static QA is provider-neutral and evaluates actual READY artifact against exact canonical Shot/State/Reference expectations.
+- QAResult is immutable/versioned evidence; no second Shot/State/Artifact authority.
+- BLOCKING finding cannot be averaged away.
+- evaluator/tool failure = creative `QA_ERROR`; artifact defect = creative `QA_FAILED`.
+- accepted downstream QA refs require a PASS QAResult current pointer; non-pass/error remains REVIEW.
+- legacy video review remains donor only.
+
+NEXT_EXACT_ACTION = "IMPLEMENT STATIC QA CONTRACT/REPOSITORY/EVALUATOR ORCHESTRATOR + TARGETED FAULT/POLICY TESTS"
+
+
+---
+
+## IMP-060 TARGETED CHECKPOINT VERIFIED - 2026-10-07
+
+STATUS = TARGETED STATIC QA PASS
+BRANCH = `chatgpt/IMP-060-static-qa`
+HEAD_BASE = `71e4a36ae79472daf6ceb3faed3a3e248638b510`
+PROCESS = none
+BLOCKER = none
+
+Evidence:
+- initial targeted JUnit: 3 PASS / 4 FAIL; one shared fixture-only cross-axis root cause identified.
+- failed-only rerun: 4/4 PASS (`.tmp/imp060-failed-rerun.xml`).
+- fixture-affected prior PASS rerun: 2/2 PASS (`.tmp/imp060-affected2.xml`).
+- untouched pure policy case remains valid PASS; no product-code change after its PASS.
+- effective targeted checkpoint = 7/7 PASS.
+
+NEXT_EXACT_ACTION = "AFFECTED REGRESSION -> EXACT-HEAD REVIEW -> BROADER/FROZEN GUARD"
+
+
+---
+
+## IMP-060 AFFECTED REGRESSION RUNTIME - 2026-10-07
+
+STATUS = RUNNING
+PTY = `pty_59740a1745254ebfa0f105108b33a3b185b7`
+ROOT_PID = 67100
+PYTEST_PID = 58700
+JUNIT = `.tmp/imp060-affected.xml` pending finalization
+BLOCKER = none
+
+Review finding queued after run: evaluator subject must carry loaded exact `ShotIR`/`qa_expectations`, not only `shot_ir_ref`, to satisfy Frozen Master §74.
+
+NEXT_EXACT_ACTION = "MONITOR EXISTING AFFECTED RUN; DO NOT RESTART -> CLASSIFY FINAL JUNIT -> FIX EXACT SHOTIR EXPECTATION-BINDING GAP -> IMPACTED TARGETED RERUN"
+
+
+---
+
+## IMP-060 AFFECTED REGRESSION PASS - 2026-10-07
+
+STATUS = AFFECTED REGRESSION PASS / REVIEW FIX NEXT
+EVIDENCE = `.tmp/imp060-affected.xml`: 105/105 PASS, failures=0, errors=0, skipped=0; PTY exit 0.
+PROCESS = none
+BLOCKER = none
+
+Exact-head review fix is constrained to new Static QA surfaces: exact ShotIR/qa_expectations binding, direct profile/finding provenance, evaluator identity/version proof, and fail-closed auto-approval default. Existing 10-dimension result invariant already exists and needs no repair.
+
+NEXT_EXACT_ACTION = "STATIC QA REVIEW PATCH -> IMPACTED TARGETED RERUN -> REVIEW/BROADER/FROZEN"
+
+
+---
+
+## IMP-060 REVIEW-FIX TARGETED VERIFIED - 2026-10-07
+
+TASK = IMP-060 STATIC QA
+STATUS = REVIEW-FIX TARGETED PASS
+BRANCH = chatgpt/IMP-060-static-qa
+HEAD = 71e4a36ae79472daf6ceb3faed3a3e248638b510
+CHECKPOINTS = targeted baseline 7/7 PASS; affected regression 105/105 PASS; review-fix targeted 9/9 PASS
+EVIDENCE = `.tmp/imp060-review-targeted.xml`; 9/9 PASS; exit 0
+PROCESS = none
+BLOCKER = none
+
+NEXT_EXACT_ACTION = "EXACT-HEAD STATIC REVIEW + GIT DIFF CHECK -> RUN NON-OVERLAPPING BROADER VALID WINDOWS REGRESSION (DO NOT RERUN AFFECTED 105/105) -> FROZEN MASTER GUARD -> EVIDENCE/SIDE-EFFECT GUARD"
+
+
+## IMP-060 BROADER VALID WINDOWS REGRESSION ACTIVE - 2026-10-07
+
+STATUS = RUNNING
+PROCESS = PTY `pty_9eda7f0a9e5e1e13e72aa1f4781661c69006`; root PID `66700`
+EVIDENCE_PENDING = `.tmp/imp060-broader-valid.xml`
+CHECKPOINT_LAST_PASS = targeted 7/7; affected 105/105; review-fix targeted 9/9; exact-head static/diff review PASS
+BLOCKER = none
+NEXT_EXACT_ACTION = "MONITOR EXISTING BROADER PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> FROZEN MASTER GUARD"
+
+
+## IMP-060 BROADER VALID WINDOWS REGRESSION PASS - 2026-10-07
+
+TASK = IMP-060 STATIC QA
+STATUS = BROADER PASS / FROZEN GUARD NEXT
+BRANCH = chatgpt/IMP-060-static-qa
+HEAD = 71e4a36ae79472daf6ceb3faed3a3e248638b510
+CHECKPOINTS = targeted 7/7 PASS; affected 105/105 PASS; review-fix targeted 9/9 PASS; exact-head static/diff review PASS; broader 654/654 PASS / 3 deselected
+EVIDENCE = `.tmp/imp060-broader-valid.xml`; failures=0; errors=0; PTY exit 0
+PROCESS = none
+BLOCKER = none
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD -> VERIFY SEMANTIC SHA/STATIC GATES -> EVIDENCE/SIDE-EFFECT GUARD"
+
+
+## IMP-060 FROZEN MASTER GUARD PASS - 2026-10-07
+
+TASK = IMP-060 STATIC QA
+STATUS = FROZEN GUARD PASS / FINAL STATIC + EVIDENCE NEXT
+BRANCH = chatgpt/IMP-060-static-qa
+HEAD = 71e4a36ae79472daf6ceb3faed3a3e248638b510
+CHECKPOINTS = targeted 7/7; affected 105/105; review-fix targeted 9/9; broader 654/654 PASS / 3 deselected; Frozen Master guard PASS
+FROZEN_MASTER_SHA256 = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+PROCESS = none
+BLOCKER = none
+NEXT_EXACT_ACTION = "FINAL STATIC VERIFICATION -> IMP-060 EVIDENCE -> SIDE-EFFECT GUARD"
+
+
+## IMP-060 LOCAL VERIFIED / SIDE-EFFECT GUARD PASS - 2026-10-07
+
+TASK = IMP-060 STATIC QA
+STATUS = LOCAL VERIFIED / COMMIT NEXT
+BRANCH = chatgpt/IMP-060-static-qa
+HEAD = 71e4a36ae79472daf6ceb3faed3a3e248638b510
+CHECKPOINTS = targeted 7/7; affected 105/105; review-fix targeted 9/9; broader 654 PASS / 3 deselected; Frozen Master guard PASS; final static verification PASS
+EVIDENCE = `evidence/tests/IMP-060_STATIC_QA_EVIDENCE.md`
+SIDE_EFFECT_GUARD = PASS; no commit/remote branch/PR; staged index empty; `.tmp` excluded
+BLOCKER = none
+NEXT_EXACT_ACTION = "STAGE EXACT IMP-060 SCOPE -> VERIFY INDEX -> COMMIT -> PUSH -> PR"
