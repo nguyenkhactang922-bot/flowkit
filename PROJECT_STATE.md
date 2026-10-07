@@ -3907,3 +3907,15 @@ evidence = `evidence/tests/IMP-061_MOTION_VIDEO_QA_EVIDENCE.md`
 side_effect_guard = PASS; no commit/remote/upstream/PR duplicate
 blocker = none
 NEXT_EXACT_ACTION = "STAGE EXACT 7 IMP-061 FILES EXCLUDING .tmp -> VERIFY INDEX -> COMMIT FEATURE"
+
+
+## IMP-061 FEATURE COMMIT CREATED - 2026-10-07
+
+active_task = IMP-061 MOTION / VIDEO QA
+status = FEATURE COMMIT CREATED / GOVERNANCE SYNC NEXT
+branch = chatgpt/IMP-061-motion-video-qa
+feature_commit = 4b8c1143792ee2118449799f124dc96c96faac85
+verification = LOCAL VERIFIED; targeted 8/8 PASS; affected 105/105 PASS; broader 663/663 PASS / 3 deselected; Frozen guard PASS; static gates PASS
+worktree = clean except `.tmp/`
+blocker = none
+NEXT_EXACT_ACTION = "SYNC EXACT FEATURE COMMIT INTO STATE -> GOVERNANCE-ONLY COMMIT -> SIDE-EFFECT GUARD -> PUSH/PR"

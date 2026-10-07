@@ -3894,3 +3894,14 @@ EVIDENCE = `evidence/tests/IMP-061_MOTION_VIDEO_QA_EVIDENCE.md`
 SIDE_EFFECT_GUARD = PASS; no IMP-061 commit, no remote branch, no upstream, no PR; exact non-.tmp scope = 7 files
 BLOCKER = none
 NEXT_EXACT_ACTION = "STAGE EXACT 7 IMP-061 FILES EXCLUDING .tmp -> VERIFY INDEX -> COMMIT FEATURE"
+
+
+## IMP-061 FEATURE COMMIT CREATED - 2026-10-07
+
+STATUS = FEATURE COMMIT CREATED / GOVERNANCE SYNC NEXT
+BRANCH = chatgpt/IMP-061-motion-video-qa
+FEATURE_COMMIT = 4b8c1143792ee2118449799f124dc96c96faac85 `feat(studio): add motion video qa gate`
+WORKTREE = clean except untracked `.tmp/`
+CHECKPOINT_LAST_PASS = LOCAL VERIFIED; targeted 8/8 + affected 105/105 + broader 663/663 / 3 deselected + Frozen guard + static gates PASS
+BLOCKER = none
+NEXT_EXACT_ACTION = "SYNC EXACT FEATURE COMMIT INTO 3 STATE FILES -> GOVERNANCE-ONLY COMMIT -> SIDE-EFFECT GUARD -> PUSH/PR"
