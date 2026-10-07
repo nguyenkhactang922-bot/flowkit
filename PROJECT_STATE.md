@@ -3919,3 +3919,82 @@ verification = LOCAL VERIFIED; targeted 8/8 PASS; affected 105/105 PASS; broader
 worktree = clean except `.tmp/`
 blocker = none
 NEXT_EXACT_ACTION = "SYNC EXACT FEATURE COMMIT INTO STATE -> GOVERNANCE-ONLY COMMIT -> SIDE-EFFECT GUARD -> PUSH/PR"
+
+
+## IMP-061 POST-MERGE MAIN TARGETED RUNNING - 2026-10-07
+
+active_task = IMP-061 MOTION / VIDEO QA
+status = MAIN TARGETED RUNNING
+branch = main
+head = 74789c209ef57983405726607af4e28c1d3c5ff4
+process = PTY pty_db4db4a3fe79b02652c669619e5f76a745ed / PID 58648
+scope = post-merge `tests/unit/test_studio_motion_qa.py` only
+push_main_ci = 37614346927 exact merge SHA; monitor only
+evidence_pending = `.tmp/imp061-main-targeted.xml`
+checkpoint_last_pass = PR #68 merge + exact-head PR CI/review PASS
+blocker = none
+NEXT_EXACT_ACTION = "MONITOR EXISTING MAIN TARGETED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> MAIN AFFECTED IF PASS"
+
+
+## IMP-061 POST-MERGE MAIN TARGETED PASS - 2026-10-07
+
+active_task = IMP-061 MOTION / VIDEO QA
+status = MAIN TARGETED PASS / MAIN AFFECTED NEXT
+branch = main
+head = 74789c209ef57983405726607af4e28c1d3c5ff4
+checkpoint_last_pass = post-merge Motion QA targeted 8/8 PASS
+evidence = `.tmp/imp061-main-targeted.xml`: tests=8 failures=0 errors=0 skipped=0 time=141.401; exit 0
+push_main_ci = 37614346927 still RUNNING exact merge SHA
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "RUN POST-MERGE MAIN AFFECTED 8-FILE AUTHORITY REGRESSION -> FINAL JUNIT/EXIT -> MAIN FROZEN GUARD"
+
+
+## IMP-061 POST-MERGE MAIN AFFECTED RUNNING - 2026-10-07
+
+active_task = IMP-061 MOTION / VIDEO QA
+status = MAIN AFFECTED RUNNING
+branch = main
+head = 74789c209ef57983405726607af4e28c1d3c5ff4
+process = PTY pty_88b6b2bef57e105af6cb98f4c9d4641e3c27 / PID 63016
+scope = 8 existing authority files; Motion QA targeted excluded
+checkpoint_last_pass = post-merge Motion QA targeted 8/8 PASS
+evidence_pending = `.tmp/imp061-main-affected.xml`
+push_main_ci = 37614346927 exact merge SHA; monitor only
+blocker = none
+NEXT_EXACT_ACTION = "MONITOR EXISTING MAIN AFFECTED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> MAIN FROZEN GUARD IF PASS"
+
+
+## IMP-061 PUSH-MAIN CI PASS / MAIN AFFECTED RUNNING - 2026-10-07
+
+push_main_ci = 37614346927 SUCCESS on exact merge SHA 74789c209ef57983405726607af4e28c1d3c5ff4; Python 3.10 + 3.13 unit + Frozen guard PASS
+status = MAIN AFFECTED RUNNING
+process = PTY pty_88b6b2bef57e105af6cb98f4c9d4641e3c27 / PID 63016
+checkpoint_last_pass = main targeted 8/8 PASS; push-main CI SUCCESS
+blocker = none
+NEXT_EXACT_ACTION = "MONITOR EXISTING MAIN AFFECTED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> MAIN FROZEN GUARD"
+
+
+## IMP-061 POST-MERGE MAIN AFFECTED PASS - 2026-10-07
+
+active_task = IMP-061 MOTION / VIDEO QA
+status = MAIN AFFECTED PASS / MAIN FROZEN GUARD NEXT
+branch = main
+head = 74789c209ef57983405726607af4e28c1d3c5ff4
+checkpoint_last_pass = main targeted 8/8 PASS; main affected 105/105 PASS; push-main CI 37614346927 SUCCESS
+evidence = `.tmp/imp061-main-affected.xml`: tests=105 failures=0 errors=0 skipped=0 time=1060.323
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD ON EXACT MAIN SHA -> MARK IMP-061 FEATURE MAIN VERIFIED -> GOVERNANCE-ONLY STATE SYNC"
+
+
+## IMP-061 FEATURE MAIN VERIFIED - 2026-10-07
+
+active_task = IMP-061 MOTION / VIDEO QA
+status = FEATURE MAIN VERIFIED; governance sync next
+branch = main
+head = 74789c209ef57983405726607af4e28c1d3c5ff4
+feature_pr = 68 merged; exact PR head 11f624b4e83eb0af73fa019175d148c46b57240c
+verification = main targeted 8/8 PASS; main affected 105/105 PASS; Frozen Master guard PASS; main CI 37614346927 SUCCESS on exact merge SHA
+blocker = none
+NEXT_EXACT_ACTION = "create governance branch chatgpt/IMP-061-main-verified-state and persist state-only sync"
