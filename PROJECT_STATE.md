@@ -4225,3 +4225,78 @@ feature_commit = 6d4ce9a7abdb6289bad3a7c7e6f8e6fe8b1fd9d5
 worktree = only `.tmp/` remains untracked after feature commit
 blocker = none
 NEXT_EXACT_ACTION = "commit governance-only state sync with exact feature SHA -> side-effect guard -> push/PR"
+
+
+## IMP-062 POST-MERGE TARGETED RUNNING - 2026-10-08
+
+active_task = IMP-062 CONTINUITY QA + SEQUENCE QA
+status = MAIN VERIFICATION / TARGETED RUNNING
+branch = main
+head = 849b2c993ac1078e0ba162b2de5da369026d9d34
+process = PTY `pty_ae8149f43ee65bdb6c34ca1084eb12a8e9f2` / PID `79080`
+evidence_pending = `.tmp/imp062-main-targeted.xml`
+push_main_ci = run `37749047293` RUNNING on exact merge SHA
+checkpoint_last_pass = PR #70 merged; pre-merge CI/review PASS
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing targeted PTY; do not restart -> final JUnit/exit -> affected main regression if PASS"
+
+
+## IMP-062 POST-MERGE TARGETED PASS - 2026-10-08
+
+active_task = IMP-062 CONTINUITY QA + SEQUENCE QA
+status = MAIN VERIFICATION / TARGETED PASS / AFFECTED NEXT
+branch = main
+head = 849b2c993ac1078e0ba162b2de5da369026d9d34
+checkpoint_last_pass = post-merge targeted IMP-062 9/9 PASS
+process = none
+evidence = `.tmp/imp062-main-targeted.xml`: tests=9 failures=0 errors=0 skipped=0; exit 0
+blocker = none
+NEXT_EXACT_ACTION = "run post-merge affected 8-file authority regression -> final JUnit/exit -> Frozen guard"
+
+
+## IMP-062 POST-MERGE AFFECTED RUNNING - 2026-10-08
+
+active_task = IMP-062 CONTINUITY QA + SEQUENCE QA
+status = MAIN VERIFICATION / AFFECTED RUNNING
+branch = main
+head = 849b2c993ac1078e0ba162b2de5da369026d9d34
+process = PTY `pty_acbcee2095fdab51cfe2a9145e6a423fad51` / PID `70836`
+checkpoint_last_pass = post-merge targeted IMP-062 9/9 PASS
+evidence_pending = `.tmp/imp062-main-affected.xml`
+push_main_ci = run `37749047293`; Python 3.13 SUCCESS, Python 3.10 still running at launch
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing affected PTY; do not restart -> final JUnit/exit -> Frozen guard if PASS"
+
+
+## IMP-062 PUSH-MAIN CI PASS / AFFECTED STILL RUNNING - 2026-10-08
+
+push_main_ci = run `37749047293` SUCCESS on exact main SHA `849b2c993ac1078e0ba162b2de5da369026d9d34`; Python 3.10 + 3.13 PASS
+active_runtime = affected PTY `pty_acbcee2095fdab51cfe2a9145e6a423fad51` / PID `70836` RUNNING
+checkpoint_last_pass = push-main CI SUCCESS; post-merge targeted 9/9 PASS
+NEXT_EXACT_ACTION = "monitor existing affected PTY; do not restart -> final JUnit/exit -> Frozen guard if PASS"
+
+
+## IMP-062 POST-MERGE AFFECTED PASS - 2026-10-08
+
+active_task = IMP-062 CONTINUITY QA + SEQUENCE QA
+status = MAIN VERIFICATION / AFFECTED PASS / FROZEN GUARD NEXT
+branch = main
+head = 849b2c993ac1078e0ba162b2de5da369026d9d34
+checkpoint_last_pass = post-merge targeted 9/9 PASS; affected 89/89 PASS; push-main CI SUCCESS
+process = none
+evidence = `.tmp/imp062-main-affected.xml`: tests=89 failures=0 errors=0 skipped=0; exit 0
+blocker = none
+NEXT_EXACT_ACTION = "run Frozen Master guard on exact main SHA -> if PASS mark feature MAIN VERIFIED"
+
+
+## IMP-062 FEATURE MAIN VERIFIED - 2026-10-08
+
+active_task = IMP-062 CONTINUITY QA + SEQUENCE QA
+status = MAIN VERIFIED / GOVERNANCE SYNC NEXT
+branch = main
+head = 849b2c993ac1078e0ba162b2de5da369026d9d34
+pr = #70 MERGED
+checkpoint_last_pass = post-merge targeted 9/9 PASS; affected 89/89 PASS; push-main CI `37749047293` SUCCESS Python 3.10/3.13; Frozen Master guard PASS
+frozen_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+blocker = none
+NEXT_EXACT_ACTION = "governance-only MAIN VERIFIED sync -> side-effect guard -> branch/commit/push/PR/CI/merge -> verify governance main"

@@ -3684,3 +3684,66 @@ NEXT_EXACT_ACTION = "STAGE EXACT 7 IMP-062 FILES EXCLUDING .tmp -> VERIFY INDEX 
 - [ ] Push / PR / CI / exact-head review / merge / main verification.
 
 NEXT_EXACT_ACTION = "COMMIT GOVERNANCE-ONLY STATE SYNC WITH EXACT FEATURE SHA -> SIDE-EFFECT GUARD -> PUSH/PR"
+
+
+## IMP-062 POST-MERGE TARGETED RUNNING - 2026-10-08
+
+- [x] PR #70 merged to main SHA `849b2c993ac1078e0ba162b2de5da369026d9d34`.
+- [~] Post-merge targeted IMP-062 running under PTY `pty_ae8149f43ee65bdb6c34ca1084eb12a8e9f2`, PID `79080`.
+- [~] Push-main CI run `37749047293` running on exact merge SHA.
+- [ ] Finalize `.tmp/imp062-main-targeted.xml` from final JUnit/exit only.
+- [ ] Main affected regression -> Frozen guard -> MAIN VERIFIED if push-main CI also PASS.
+
+NEXT_EXACT_ACTION = "MONITOR EXISTING TARGETED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> MAIN AFFECTED REGRESSION IF PASS"
+
+
+## IMP-062 POST-MERGE TARGETED PASS / AFFECTED NEXT - 2026-10-08
+
+- [x] Post-merge targeted IMP-062 = 9/9 PASS (`.tmp/imp062-main-targeted.xml`, exit 0).
+- [ ] Post-merge affected 8-file authority regression.
+- [ ] Frozen Master guard + push-main CI SUCCESS -> feature MAIN VERIFIED.
+
+NEXT_EXACT_ACTION = "RUN POST-MERGE AFFECTED 8-FILE AUTHORITY REGRESSION -> FROZEN GUARD"
+
+
+## IMP-062 POST-MERGE AFFECTED RUNNING - 2026-10-08
+
+- [x] Post-merge targeted IMP-062 = 9/9 PASS.
+- [~] Post-merge affected 8-file authority regression RUNNING under PTY `pty_acbcee2095fdab51cfe2a9145e6a423fad51`, PID `70836`.
+- [ ] Finalize `.tmp/imp062-main-affected.xml` from final JUnit/exit only.
+- [ ] Frozen Master guard + push-main CI SUCCESS -> feature MAIN VERIFIED.
+
+NEXT_EXACT_ACTION = "MONITOR EXISTING AFFECTED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> FROZEN GUARD IF PASS"
+
+
+## IMP-062 PUSH-MAIN CI PASS / AFFECTED RUNNING - 2026-10-08
+
+- [x] Push-main CI run `37749047293` SUCCESS on exact merge SHA; Python 3.10 + 3.13 PASS.
+- [x] Post-merge targeted = 9/9 PASS.
+- [~] Post-merge affected regression still RUNNING under PTY `pty_acbcee2095fdab51cfe2a9145e6a423fad51`, PID `70836`.
+- [ ] Frozen Master guard -> feature MAIN VERIFIED after affected PASS.
+
+NEXT_EXACT_ACTION = "MONITOR EXISTING AFFECTED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> FROZEN GUARD IF PASS"
+
+
+## IMP-062 POST-MERGE AFFECTED PASS / FROZEN GUARD NEXT - 2026-10-08
+
+- [x] Post-merge targeted IMP-062 = 9/9 PASS.
+- [x] Post-merge affected authority regression = 89/89 PASS (`.tmp/imp062-main-affected.xml`, exit 0).
+- [x] Push-main CI run `37749047293` SUCCESS on exact merge SHA.
+- [ ] Frozen Master guard -> feature MAIN VERIFIED.
+
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD ON EXACT MAIN SHA -> IF PASS MARK FEATURE MAIN VERIFIED"
+
+
+## IMP-062 FEATURE MAIN VERIFIED / GOVERNANCE SYNC NEXT - 2026-10-08
+
+- [x] PR #70 merged at main SHA `849b2c993ac1078e0ba162b2de5da369026d9d34`.
+- [x] Post-merge targeted IMP-062 = 9/9 PASS.
+- [x] Post-merge affected authority regression = 89/89 PASS.
+- [x] Push-main CI run `37749047293` SUCCESS Python 3.10 + 3.13.
+- [x] Frozen Master guard PASS; semantic SHA unchanged.
+- [x] IMP-062 feature = MAIN VERIFIED.
+- [ ] Governance-only MAIN VERIFIED state sync lifecycle.
+
+NEXT_EXACT_ACTION = "GOVERNANCE-ONLY MAIN VERIFIED SYNC -> SIDE-EFFECT GUARD -> BRANCH/COMMIT/PUSH/PR/CI/MERGE -> VERIFY GOVERNANCE MAIN"
