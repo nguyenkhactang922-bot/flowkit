@@ -4185,3 +4185,13 @@ EVIDENCE = `evidence/tests/IMP-062_CONTINUITY_SEQUENCE_QA_EVIDENCE.md`
 SIDE_EFFECT_GUARD = PASS; no existing feature commit/remote branch/PR; staged index empty; `.tmp` untracked only
 BLOCKER = none
 NEXT_EXACT_ACTION = "STAGE EXACT 7 IMP-062 FILES EXCLUDING .tmp -> VERIFY INDEX -> COMMIT FEATURE"
+
+
+## IMP-062 FEATURE COMMIT CREATED - 2026-10-08
+
+STATUS = LOCAL VERIFIED / FEATURE COMMITTED / GOVERNANCE SYNC NEXT
+BRANCH = chatgpt/IMP-062-continuity-sequence-qa
+FEATURE_COMMIT = 6d4ce9a7abdb6289bad3a7c7e6f8e6fe8b1fd9d5 (`feat(studio): add continuity sequence qa gates`)
+WORKTREE = only `.tmp/` remains untracked after feature commit
+BLOCKER = none
+NEXT_EXACT_ACTION = "COMMIT GOVERNANCE-ONLY STATE SYNC WITH EXACT FEATURE SHA -> SIDE-EFFECT GUARD -> PUSH/PR"
