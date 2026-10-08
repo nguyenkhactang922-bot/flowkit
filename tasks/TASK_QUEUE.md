@@ -3475,3 +3475,202 @@ NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD ON EXACT MAIN SHA -> IF PASS MARK I
 - [ ] Read DAG/queue and CLAIM next dependency-ready task.
 
 NEXT_EXACT_ACTION = "CREATE GOVERNANCE BRANCH chatgpt/IMP-061-main-verified-state -> STATE-ONLY COMMIT -> PUSH/PR/MERGE -> VERIFY GOVERNANCE MAIN CI -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-061 GOVERNANCE VERIFIED / IMP-062 CLAIMED - 2026-10-07
+
+- [x] IMP-061 governance PR #69 merged at `742a50a76920003f598207f117b6919606d7c760`.
+- [x] Governance push-main CI `37646746349` SUCCESS Python 3.10 / 3.13 + Frozen guard on exact governance SHA.
+- [x] IMP-061 = MAIN VERIFIED.
+- [x] Verify IMP-062 dependencies: IMP-060 + IMP-061 + IMP-042 + IMP-025 MAIN VERIFIED.
+- [x] Verify no local/remote branch or PR duplicate for `chatgpt/IMP-062-continuity-sequence-qa`.
+- [x] Claim `chatgpt/IMP-062-continuity-sequence-qa` from clean governance main `742a50a76920003f598207f117b6919606d7c760`.
+- [ ] Read Frozen Continuity QA + Sequence QA authority and audit current canonical/donor surfaces.
+- [ ] Implement provider-neutral Continuity QA + Sequence QA contracts/services/repositories.
+- [ ] Tests: state contradiction over visual similarity; adjacent shot drift; sequence causality/coverage; stale/evaluator failure/provenance.
+- [ ] Targeted + affected + broader valid regression + Frozen guard.
+- [ ] Evidence / verify / commit / push / PR / CI / exact-head review / merge / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "READ FROZEN MASTER §76 CONTINUITY QA + §77 SEQUENCE QA -> AUDIT STATIC/MOTION QA, STATE CONTINUITY, STORY HIERARCHY, APPROVED ARTIFACT SURFACES -> LOCK CONTRACT -> CODE"
+
+
+## IMP-062 AUTHORITY AUDIT PASS / CODE NEXT - 2026-10-07
+
+- [x] Read Frozen Master §76 Continuity QA and §77 Sequence QA.
+- [x] Audit StaticQA/MotionQA, StateSnapshot/ContinuityLedger, Sequence/Scene, ShotListManifest and SetupPayoffLink authority surfaces.
+- [x] Lock reuse strategy = KEEP+EXTEND; no second Story/Shot/State authority; no schema migration.
+- [x] Lock hard invariants: canonical state contradiction beats visual similarity; per-shot PASS cannot guarantee Sequence PASS; findings localize exact shot/scene/transition spans; stale exact versions fail closed.
+- [ ] Implement provider-neutral Continuity QA + Sequence QA immutable contracts/services/repositories.
+- [ ] Targeted tests: contradiction, adjacent drift, sequence causality/coverage, stale input, evaluator error, provenance/dependency binding.
+- [ ] Affected/broader regression + Frozen guard -> evidence/verify/Git lifecycle.
+
+NEXT_EXACT_ACTION = "IMPLEMENT IMP-062 CONTINUITY QA + SEQUENCE QA + TARGETED TESTS"
+
+
+## IMP-062 TARGETED PASS / AFFECTED NEXT - 2026-10-07
+
+- [x] Implementation module + public exports + targeted contract tests added.
+- [x] Static compile + `git diff --check` PASS.
+- [x] Targeted `tests/unit/test_studio_continuity_sequence_qa.py` = 7/7 PASS (`.tmp/imp062-targeted.xml`, exit 0).
+- [ ] Affected 8-file authority regression: static_qa + motion_qa + state_continuity + narrative_hierarchy + shot_planning + screenplay_realization + invalidation + versioning.
+- [ ] Broader valid regression + Frozen guard.
+- [ ] Evidence / review / Git lifecycle / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "RUN IMP-062 AFFECTED 8-FILE AUTHORITY REGRESSION ONLY -> FINAL JUNIT/EXIT -> BROADER VALID REGRESSION"
+
+
+## IMP-062 AFFECTED PASS / BROADER NEXT - 2026-10-08
+
+- [x] IMP-062 targeted = 7/7 PASS.
+- [x] Affected authority regression = 89/89 PASS (`.tmp/imp062-affected.xml`, failures=0, errors=0, skipped=0).
+- [ ] Broader valid Windows regression excluding targeted + affected files and known platform-only exclusions.
+- [ ] Frozen Master guard.
+- [ ] Evidence / exact-head review / Git lifecycle / main verify / governance sync.
+
+NEXT_EXACT_ACTION = "RUN BROADER VALID WINDOWS REGRESSION -> FINAL JUNIT/EXIT -> FROZEN MASTER GUARD"
+
+
+## IMP-062 BROADER VALID WINDOWS REGRESSION RUNNING - 2026-10-08
+
+- [x] Targeted 7/7 PASS.
+- [x] Affected authority regression 89/89 PASS.
+- [~] Broader valid Windows regression RUNNING under PTY `pty_6a22c39de77c2170502480d3b8e4d38218ac`, PID `43308`; targeted + affected files excluded.
+- [ ] Finalize `.tmp/imp062-broader-valid.xml` from final JUnit/exit only.
+- [ ] Frozen Master guard -> evidence/review/Git lifecycle.
+
+NEXT_EXACT_ACTION = "MONITOR EXISTING BROADER PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> FROZEN MASTER GUARD IF PASS"
+
+
+## IMP-062 BROADER PASS / FROZEN GUARD NEXT - 2026-10-08
+
+- [x] Targeted IMP-062 = 7/7 PASS.
+- [x] Affected authority regression = 89/89 PASS.
+- [x] Broader valid Windows regression = 687/687 PASS / 3 deselected (`.tmp/imp062-broader-valid.xml`, exit 0).
+- [ ] Frozen Master guard.
+- [ ] Exact-head static/import/diff/leakage review -> evidence/verify/Git lifecycle.
+
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD ON CURRENT IMP-062 WORKTREE -> STATIC REVIEW -> EVIDENCE / SIDE-EFFECT GUARD"
+
+
+## IMP-062 EXACT-HEAD REVIEW FIX / REVALIDATION - 2026-10-08
+
+- [x] Exact-head review found policy wiring defect: `not_evaluated_requires_review` ignored.
+- [x] Fix verdict aggregation to consume request policy; add policy=false targeted regression.
+- [x] Post-fix py_compile/import/diff-check PASS.
+- [!] Pre-fix targeted 7/7, affected 89/89, broader 687/687 are historical/stale for modified implementation.
+- [ ] Rerun targeted IMP-062 only.
+- [ ] If targeted PASS: rerun affected authority regression.
+- [ ] If affected PASS: rerun broader valid Windows regression.
+- [ ] Frozen guard -> evidence/review/Git lifecycle.
+
+NEXT_EXACT_ACTION = "RUN POST-FIX TARGETED IMP-062 -> AFFECTED -> BROADER -> FROZEN GUARD"
+
+
+## IMP-062 REVIEW-FIX TARGETED PASS / AFFECTED REVALIDATION NEXT - 2026-10-08
+
+- [x] Review defect fixed: cross-boundary verdict honors `not_evaluated_requires_review` policy.
+- [x] Post-fix static/import/diff gate PASS.
+- [x] Post-fix targeted IMP-062 = 8/8 PASS (`.tmp/imp062-review-targeted.xml`, exit 0).
+- [ ] Rerun affected authority regression on modified exact head.
+- [ ] Rerun broader valid Windows regression.
+- [ ] Frozen guard -> final evidence/review/Git lifecycle.
+
+NEXT_EXACT_ACTION = "RUN POST-FIX AFFECTED AUTHORITY REGRESSION -> BROADER -> FROZEN GUARD"
+
+
+## IMP-062 REVIEW-FIX AFFECTED REVALIDATION RUNNING - 2026-10-08
+
+- [x] Post-fix targeted IMP-062 = 8/8 PASS.
+- [~] Affected authority regression revalidation RUNNING under PTY `pty_cd1b515d9c6274d55426a4e762d68642c53e`, PID `66836`.
+- [ ] Finalize `.tmp/imp062-review-affected.xml` from final JUnit/exit only.
+- [ ] Broader revalidation -> Frozen guard -> evidence/Git lifecycle.
+
+NEXT_EXACT_ACTION = "MONITOR EXISTING AFFECTED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> BROADER REVALIDATION IF PASS"
+
+
+## IMP-062 REVIEW-FIX AFFECTED PASS / BROADER REVALIDATION NEXT - 2026-10-08
+
+- [x] Post-fix targeted IMP-062 = 8/8 PASS.
+- [x] Post-fix affected authority regression = 89/89 PASS (`.tmp/imp062-review-affected.xml`, exit 0).
+- [ ] Rerun broader valid Windows regression on modified exact head.
+- [ ] Frozen guard -> final static/review gates -> evidence/Git lifecycle.
+
+NEXT_EXACT_ACTION = "RUN POST-FIX BROADER VALID WINDOWS REGRESSION -> FROZEN GUARD -> FINAL REVIEW/EVIDENCE"
+
+
+## IMP-062 REVIEW-FIX BROADER REVALIDATION PASS / FROZEN GUARD NEXT - 2026-10-08
+
+- [x] Post-fix targeted IMP-062 = 8/8 PASS.
+- [x] Post-fix affected authority regression = 89/89 PASS.
+- [x] Post-fix broader valid Windows regression = 687/687 PASS (`.tmp/imp062-broader-valid.xml`).
+- [ ] Run Frozen Master guard on exact current head.
+- [ ] Final static/review/evidence -> commit/PR/merge/main verification.
+
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD -> FINAL REVIEW/EVIDENCE -> GIT LIFECYCLE"
+
+
+## IMP-062 FROZEN MASTER GUARD PASS / FINAL REVIEW NEXT - 2026-10-08
+
+- [x] Post-fix targeted IMP-062 = 8/8 PASS.
+- [x] Post-fix affected authority regression = 89/89 PASS.
+- [x] Post-fix broader valid Windows regression = 687/687 PASS.
+- [x] Frozen Master guard PASS (`1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`).
+- [ ] Final static/import/diff/leakage review -> evidence -> Git lifecycle.
+
+NEXT_EXACT_ACTION = "RUN FINAL STATIC/IMPORT/DIFF/LEAKAGE REVIEW -> EVIDENCE -> SIDE-EFFECT GUARD -> COMMIT/PR"
+
+
+## IMP-062 FINAL REVIEW TARGETED PASS / AFFECTED REVALIDATION NEXT - 2026-10-08
+
+- [x] Final-review static/diff gate PASS.
+- [x] Final-review targeted IMP-062 = 9/9 PASS (`.tmp/imp062-final-review-targeted.xml`, exit 0).
+- [ ] Revalidate affected authority regression on final-review exact head.
+- [ ] Revalidate broader valid Windows regression.
+- [ ] Frozen guard -> final evidence -> Git lifecycle.
+
+NEXT_EXACT_ACTION = "RUN FINAL-REVIEW AFFECTED AUTHORITY REGRESSION -> BROADER -> FROZEN GUARD"
+
+
+## IMP-062 FINAL REVIEW AFFECTED PASS / BROADER REVALIDATION NEXT - 2026-10-08
+
+- [x] Final-review targeted IMP-062 = 9/9 PASS.
+- [x] Final-review affected authority regression = 89/89 PASS (`.tmp/imp062-final-review-affected.xml`).
+- [ ] Revalidate broader valid Windows regression on final-review exact head.
+- [ ] Frozen guard -> final evidence -> Git lifecycle.
+
+NEXT_EXACT_ACTION = "RUN FINAL-REVIEW BROADER VALID WINDOWS REGRESSION -> FROZEN GUARD -> FINAL EVIDENCE/GIT"
+
+
+## IMP-062 FINAL REVIEW BROADER REVALIDATION RUNNING - 2026-10-08
+
+- [x] Final-review targeted IMP-062 = 9/9 PASS.
+- [x] Final-review affected authority regression = 89/89 PASS.
+- [~] Final-review broader valid Windows regression RUNNING under PTY `pty_adf6814d27dd1a18c065fee42ea64390a1a2`, PID `72496`.
+- [ ] Finalize `.tmp/imp062-final-review-broader.xml` from final JUnit/exit only.
+- [ ] Frozen guard -> final evidence -> Git lifecycle.
+
+NEXT_EXACT_ACTION = "MONITOR EXISTING BROADER PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> FROZEN GUARD IF PASS"
+
+
+## IMP-062 FINAL REVIEW BROADER PASS / FROZEN GUARD NEXT - 2026-10-08
+
+- [x] Final-review targeted IMP-062 = 9/9 PASS.
+- [x] Final-review affected authority regression = 89/89 PASS.
+- [x] Final-review broader valid Windows regression = 687/687 PASS, 3 deselected (`.tmp/imp062-final-review-broader.xml`, exit 0).
+- [ ] Frozen Master guard -> final static/evidence -> Git lifecycle.
+
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD -> FINAL STATIC/EVIDENCE -> SIDE-EFFECT GUARD/GIT"
+
+
+## IMP-062 LOCAL VERIFIED / GIT NEXT - 2026-10-08
+
+- [x] Final targeted = 9/9 PASS.
+- [x] Final affected authority regression = 89/89 PASS.
+- [x] Final broader valid Windows regression = 687/687 PASS, 3 deselected.
+- [x] Frozen Master guard PASS; semantic SHA unchanged.
+- [x] Final static/import/diff/leakage gate PASS.
+- [x] Evidence written: `evidence/tests/IMP-062_CONTINUITY_SEQUENCE_QA_EVIDENCE.md`.
+- [x] Side-effect guard PASS: no duplicate commit/remote branch/PR; `.tmp` untracked only.
+- [ ] Exact-scope feature commit -> governance sync -> push/PR/CI/review/merge/main verify.
+
+NEXT_EXACT_ACTION = "STAGE EXACT 7 IMP-062 FILES EXCLUDING .tmp -> VERIFY INDEX -> COMMIT FEATURE"

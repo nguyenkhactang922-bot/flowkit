@@ -3998,3 +3998,219 @@ feature_pr = 68 merged; exact PR head 11f624b4e83eb0af73fa019175d148c46b57240c
 verification = main targeted 8/8 PASS; main affected 105/105 PASS; Frozen Master guard PASS; main CI 37614346927 SUCCESS on exact merge SHA
 blocker = none
 NEXT_EXACT_ACTION = "create governance branch chatgpt/IMP-061-main-verified-state and persist state-only sync"
+
+
+## IMP-062 CLAIMED - 2026-10-07
+
+active_task = IMP-062 CONTINUITY QA + SEQUENCE QA
+status = CLAIMED; authority audit next
+branch = chatgpt/IMP-062-continuity-sequence-qa
+base_head = 742a50a76920003f598207f117b6919606d7c760
+dependencies = IMP-060, IMP-061, IMP-042, IMP-025 MAIN VERIFIED
+blocker = none
+NEXT_EXACT_ACTION = "read Frozen Master sections 76 and 77, audit canonical surfaces, then implement"
+
+
+## IMP-062 AUTHORITY AUDIT PASS - 2026-10-07
+
+active_task = IMP-062 CONTINUITY QA + SEQUENCE QA
+status = RUNNING / CONTRACT LOCKED / CODE NEXT
+branch = chatgpt/IMP-062-continuity-sequence-qa
+head = 742a50a76920003f598207f117b6919606d7c760
+checkpoint_last_pass = Frozen §76/§77 + current QA/state/narrative/shot/setup-payoff surfaces audited; exact base Frozen guard PASS via governance CI 37646746349
+architecture = KEEP+EXTEND existing canonical repositories; immutable exact-version QA results; no new truth store; no migration
+blocker = none
+NEXT_EXACT_ACTION = "implement continuity/sequence QA module + exports + targeted tests"
+
+
+## IMP-062 TARGETED PASS - 2026-10-07
+
+active_task = IMP-062 CONTINUITY QA + SEQUENCE QA
+status = RUNNING / TARGETED PASS / AFFECTED NEXT
+branch = chatgpt/IMP-062-continuity-sequence-qa
+head = 742a50a76920003f598207f117b6919606d7c760
+checkpoint_last_pass = py_compile + diff-check + targeted 7/7 PASS
+process = none
+evidence = `.tmp/imp062-targeted.xml`: 7/7 PASS, failures=0 errors=0 skipped=0, exit 0
+blocker = none
+NEXT_EXACT_ACTION = "run affected 8-file authority regression only"
+
+
+## IMP-062 AFFECTED PASS - 2026-10-08
+
+active_task = IMP-062 CONTINUITY QA + SEQUENCE QA
+status = RUNNING / AFFECTED PASS / BROADER NEXT
+branch = chatgpt/IMP-062-continuity-sequence-qa
+head = 742a50a76920003f598207f117b6919606d7c760
+checkpoint_last_pass = targeted 7/7 PASS; affected authority regression 89/89 PASS
+evidence = `.tmp/imp062-affected.xml`: tests=89 failures=0 errors=0 skipped=0 time=805.572
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "run broader valid Windows regression excluding already-PASS IMP-062 targeted/affected scope; then Frozen guard"
+
+
+## IMP-062 BROADER VALID WINDOWS REGRESSION RUNNING - 2026-10-08
+
+active_task = IMP-062 CONTINUITY QA + SEQUENCE QA
+status = RUNNING / BROADER VALID WINDOWS REGRESSION
+branch = chatgpt/IMP-062-continuity-sequence-qa
+head = 742a50a76920003f598207f117b6919606d7c760
+process = PTY pty_6a22c39de77c2170502480d3b8e4d38218ac / PID 43308
+checkpoint_last_pass = targeted 7/7 PASS; affected 89/89 PASS
+evidence_pending = `.tmp/imp062-broader-valid.xml`
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing broader PTY; do not restart -> final JUnit/exit -> Frozen guard if PASS"
+
+
+## IMP-062 BROADER PASS - 2026-10-08
+
+active_task = IMP-062 CONTINUITY QA + SEQUENCE QA
+status = RUNNING / BROADER PASS / FROZEN GUARD NEXT
+branch = chatgpt/IMP-062-continuity-sequence-qa
+head = 742a50a76920003f598207f117b6919606d7c760
+checkpoint_last_pass = targeted 7/7 PASS; affected 89/89 PASS; broader valid Windows regression 687/687 PASS / 3 deselected
+process = none
+evidence = `.tmp/imp062-broader-valid.xml`: tests=687 failures=0 errors=0 skipped=0 time=2929.428; PTY exit 0
+blocker = none
+NEXT_EXACT_ACTION = "run Frozen Master guard on current IMP-062 worktree, then exact-head static/review gates"
+
+
+## IMP-062 REVIEW FIX / TARGETED REVALIDATION NEXT - 2026-10-08
+
+active_task = IMP-062 CONTINUITY QA + SEQUENCE QA
+status = RUNNING / EXACT-HEAD REVIEW FIX APPLIED / TARGETED REVALIDATION NEXT
+branch = chatgpt/IMP-062-continuity-sequence-qa
+head = 742a50a76920003f598207f117b6919606d7c760
+defect = not_evaluated_requires_review policy was ignored by cross-boundary verdict aggregation
+fix = verdict helpers now consume request policy; targeted policy=false coverage added
+checkpoint_last_pass = Frozen Master guard PASS; post-fix py_compile/import/diff-check PASS
+stale = pre-fix targeted/affected/broader results do not verify modified implementation
+blocker = none
+NEXT_EXACT_ACTION = "rerun targeted IMP-062 only; then affected, broader, Frozen guard on exact modified head"
+
+
+## IMP-062 REVIEW-FIX TARGETED PASS - 2026-10-08
+
+active_task = IMP-062 CONTINUITY QA + SEQUENCE QA
+status = RUNNING / REVIEW-FIX TARGETED PASS / AFFECTED REVALIDATION NEXT
+branch = chatgpt/IMP-062-continuity-sequence-qa
+head = 742a50a76920003f598207f117b6919606d7c760
+checkpoint_last_pass = post-fix py_compile/import/diff-check; targeted 8/8 PASS
+process = none
+evidence = `.tmp/imp062-review-targeted.xml`: tests=8 failures=0 errors=0 skipped=0 time=23.113; exit 0
+blocker = none
+NEXT_EXACT_ACTION = "run affected authority regression on modified exact head; then broader revalidation"
+
+
+## IMP-062 REVIEW-FIX AFFECTED REVALIDATION RUNNING - 2026-10-08
+
+active_task = IMP-062 CONTINUITY QA + SEQUENCE QA
+status = RUNNING / AFFECTED REVALIDATION
+branch = chatgpt/IMP-062-continuity-sequence-qa
+head = 742a50a76920003f598207f117b6919606d7c760
+process = PTY pty_cd1b515d9c6274d55426a4e762d68642c53e / PID 66836
+checkpoint_last_pass = post-fix static/import/diff-check; targeted 8/8 PASS
+evidence_pending = `.tmp/imp062-review-affected.xml`
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing affected PTY; do not restart -> final JUnit/exit -> broader revalidation if PASS"
+
+
+## IMP-062 REVIEW-FIX AFFECTED PASS - 2026-10-08
+
+active_task = IMP-062 CONTINUITY QA + SEQUENCE QA
+status = RUNNING / REVIEW-FIX AFFECTED PASS / BROADER REVALIDATION NEXT
+branch = chatgpt/IMP-062-continuity-sequence-qa
+head = 742a50a76920003f598207f117b6919606d7c760
+checkpoint_last_pass = post-fix targeted 8/8 PASS; affected authority regression 89/89 PASS
+process = none
+evidence = `.tmp/imp062-review-affected.xml`: tests=89 failures=0 errors=0 skipped=0 time=461.947; exit 0
+blocker = none
+NEXT_EXACT_ACTION = "run broader valid Windows regression on modified exact head; then Frozen guard"
+
+
+## IMP-062 REVIEW-FIX BROADER REVALIDATION PASS - 2026-10-08
+
+active_task = IMP-062 CONTINUITY QA + SEQUENCE QA
+status = RUNNING / REVIEW-FIX BROADER PASS / FROZEN GUARD NEXT
+branch = chatgpt/IMP-062-continuity-sequence-qa
+head = 742a50a76920003f598207f117b6919606d7c760
+checkpoint_last_pass = post-fix targeted 8/8 PASS; affected authority regression 89/89 PASS; broader valid Windows regression 687/687 PASS
+evidence = `.tmp/imp062-broader-valid.xml`: tests=687 failures=0 errors=0 skipped=0
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "run Frozen Master guard on exact current head; then final static/review/evidence and Git lifecycle"
+
+
+## IMP-062 FROZEN MASTER GUARD PASS - 2026-10-08
+
+active_task = IMP-062 CONTINUITY QA + SEQUENCE QA
+status = RUNNING / FROZEN GUARD PASS / FINAL STATIC-REVIEW-EVIDENCE NEXT
+branch = chatgpt/IMP-062-continuity-sequence-qa
+head = 742a50a76920003f598207f117b6919606d7c760
+checkpoint_last_pass = targeted 8/8; affected 89/89; broader valid 687/687; Frozen Master guard PASS
+frozen_sha256 = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+blocker = none
+NEXT_EXACT_ACTION = "final static/import/diff/leakage review -> evidence -> side-effect guard -> commit/PR"
+
+
+## IMP-062 FINAL REVIEW TARGETED PASS - 2026-10-08
+
+active_task = IMP-062 CONTINUITY QA + SEQUENCE QA
+status = RUNNING / FINAL REVIEW TARGETED PASS / AFFECTED REVALIDATION NEXT
+branch = chatgpt/IMP-062-continuity-sequence-qa
+head = 742a50a76920003f598207f117b6919606d7c760
+checkpoint_last_pass = post-review static/diff gate; targeted IMP-062 9/9 PASS
+evidence = `.tmp/imp062-final-review-targeted.xml`: tests=9 failures=0 errors=0 skipped=0; exit 0
+blocker = none
+NEXT_EXACT_ACTION = "run affected authority regression on final-review exact head; then broader revalidation"
+
+
+## IMP-062 FINAL REVIEW AFFECTED PASS - 2026-10-08
+
+active_task = IMP-062 CONTINUITY QA + SEQUENCE QA
+status = RUNNING / FINAL REVIEW AFFECTED PASS / BROADER REVALIDATION NEXT
+branch = chatgpt/IMP-062-continuity-sequence-qa
+head = 742a50a76920003f598207f117b6919606d7c760
+checkpoint_last_pass = final-review targeted 9/9 PASS; affected authority regression 89/89 PASS
+evidence = `.tmp/imp062-final-review-affected.xml`: tests=89 failures=0 errors=0 skipped=0
+blocker = none
+NEXT_EXACT_ACTION = "run final-review broader valid Windows regression excluding targeted + affected; then Frozen guard"
+
+
+## IMP-062 FINAL REVIEW BROADER REVALIDATION RUNNING - 2026-10-08
+
+active_task = IMP-062 CONTINUITY QA + SEQUENCE QA
+status = RUNNING / FINAL REVIEW BROADER REVALIDATION
+branch = chatgpt/IMP-062-continuity-sequence-qa
+head = 742a50a76920003f598207f117b6919606d7c760
+process = PTY pty_adf6814d27dd1a18c065fee42ea64390a1a2 / PID 72496
+checkpoint_last_pass = final-review targeted 9/9 PASS; affected authority regression 89/89 PASS
+evidence_pending = `.tmp/imp062-final-review-broader.xml`
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing broader PTY; do not restart -> final JUnit/exit -> Frozen guard if PASS"
+
+
+## IMP-062 FINAL REVIEW BROADER PASS - 2026-10-08
+
+active_task = IMP-062 CONTINUITY QA + SEQUENCE QA
+status = RUNNING / FINAL REVIEW BROADER PASS / FROZEN GUARD NEXT
+branch = chatgpt/IMP-062-continuity-sequence-qa
+head = 742a50a76920003f598207f117b6919606d7c760
+checkpoint_last_pass = final-review targeted 9/9 PASS; affected 89/89 PASS; broader valid Windows regression 687/687 PASS, 3 deselected
+process = none
+evidence = `.tmp/imp062-final-review-broader.xml`: tests=687 failures=0 errors=0 skipped=0; exit 0
+blocker = none
+NEXT_EXACT_ACTION = "run Frozen Master guard -> final static/evidence -> side-effect guard/Git lifecycle"
+
+
+## IMP-062 LOCAL VERIFIED / SIDE-EFFECT GUARD PASS - 2026-10-08
+
+active_task = IMP-062 CONTINUITY QA + SEQUENCE QA
+status = LOCAL VERIFIED / GIT COMMIT NEXT
+branch = chatgpt/IMP-062-continuity-sequence-qa
+head = 742a50a76920003f598207f117b6919606d7c760
+checkpoint_last_pass = targeted 9/9; affected 89/89; broader 687/687 + 3 deselected; Frozen Master guard PASS; final static/import/diff/leakage PASS
+evidence = `evidence/tests/IMP-062_CONTINUITY_SEQUENCE_QA_EVIDENCE.md`
+side_effect_guard = PASS; no existing feature commit/remote branch/PR; staged index empty; `.tmp` untracked only
+blocker = none
+NEXT_EXACT_ACTION = "stage exact 7 IMP-062 files excluding .tmp -> verify index -> commit feature"
