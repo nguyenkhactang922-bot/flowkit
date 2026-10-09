@@ -4654,3 +4654,194 @@ checkpoint_last_pass = IMP-063 feature MAIN VERIFIED
 process = none
 blocker = none
 NEXT_EXACT_ACTION = "governance-only branch from exact main -> commit 3 state files -> push/PR/CI/merge/verify main"
+
+
+## IMP-063 GOVERNANCE MAIN VERIFIED / IMP-064 CLAIMED - 2026-10-09
+previous_task = IMP-063 Defect Localization + Targeted Production Repair
+previous_status = governance MAIN VERIFIED
+previous_governance_sha = 83303da08c89106dc45d9d3addc92db23e787724
+previous_governance_ci = 37880708072 SUCCESS; Python 3.10 + 3.13 + Frozen baseline PASS
+active_task = IMP-064 Approval / Canonical State Commit
+status = CLAIMED
+branch = chatgpt/IMP-064-approval-state-commit
+base_sha = 83303da08c89106dc45d9d3addc92db23e787724
+dependencies = IMP-063 MAIN VERIFIED; IMP-042 MAIN VERIFIED
+blocker = none
+NEXT_EXACT_ACTION = "read Frozen approval/canonical state commit authority + audit state/QA/repair surfaces before code"
+
+
+## IMP-064 AUTHORITY + SURFACE AUDIT PASS - 2026-10-09
+active_task = IMP-064 Approval / Canonical State Commit
+status = PASS / authority + surface audit; contract frozen before code
+authority = Frozen Master creative acceptance axis + Approval/State Commit; IMP-042 StateSnapshot/ApprovedEndState
+keep_extend = StateSnapshotRepository commit owner; GenerationJob creative APPROVED/LOCKED approval authority; typed Static/Motion QA results QA truth
+new_boundary = provider-neutral ApprovalStateCommitService validates exact creative approval + typed QA COMPLETED/PASS + current policy/source outcome + candidate snapshot/CAS then delegates state commit
+anti_duplicate = no new State store; no duplicate ApprovedEndState payload; no provider call in transaction
+test_plan = no QA approval -> no commit; non-PASS QA rejected; stale candidate rejected; designation exact StateSnapshot; approved path succeeds
+NEXT_EXACT_ACTION = "implement ApprovalStateCommitService + exports + targeted tests -> static gate -> targeted only"
+
+
+## IMP-064 TARGETED RUNNING - 2026-10-09
+active_task = IMP-064 Approval / Canonical State Commit
+status = RUNNING / targeted tests
+process = PTY `pty_f540a7cf729496ee0321a7b05267809d5a7b`, PID `25464`
+artifact_pending = `.tmp/imp064-targeted.xml`
+checkpoint_last_pass = authority/surface audit; static/import gate PASS
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing targeted PTY; do not restart -> final JUnit/exit -> fix only failed targeted cases if needed"
+
+
+## IMP-064 TARGETED PASS / REVIEW NEXT - 2026-10-09
+active_task = IMP-064 Approval / Canonical State Commit
+status = PASS / targeted tests locked
+artifact = `.tmp/imp064-targeted.xml`: 5/5 PASS; failures=0 errors=0 skipped=0; PTY exit 0
+checkpoint_last_pass = authority/surface audit; static/import gate; targeted 5/5 PASS
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "exact-head authority review -> affected authority regression if no code change; targeted MUST NOT rerun"
+
+
+## IMP-064 HUMAN-APPROVAL REVIEW FIX TARGETED RUNNING - 2026-10-09
+active_task = IMP-064 Approval / Canonical State Commit
+status = RUNNING / exact-head targeted revalidation after human-approval fix
+process = PTY `pty_efeec3c4be017d1421e1554cd08cceef185b`, PID `90044`
+artifact_pending = `.tmp/imp064-review-targeted.xml`
+preserve = prior targeted 5/5 PASS is historical evidence only; code changed
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing review targeted PTY; do not restart -> final JUnit/exit -> affected only if PASS"
+
+
+## IMP-064 HUMAN-APPROVAL REVIEW FIX TARGETED PASS / AFFECTED NEXT - 2026-10-09
+active_task = IMP-064 Approval / Canonical State Commit
+status = PASS / exact-head targeted locked
+artifact = `.tmp/imp064-review-targeted.xml`: 6/6 PASS; failures=0 errors=0 skipped=0; PTY exit 0
+checkpoint_last_pass = post-review static/import gate; exact-head targeted 6/6 PASS
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "anti-duplicate guard -> run 6-file affected authority regression; targeted MUST NOT rerun"
+
+
+## IMP-064 AFFECTED AUTHORITY REGRESSION RUNNING - 2026-10-09
+active_task = IMP-064 Approval / Canonical State Commit
+status = RUNNING / 6-file affected authority regression
+process = PTY `pty_2ecc7d2799413965bb9493ec787a228015b1`, PID `2000`
+scope = state_continuity; generation_job; static_qa; motion_qa; versioning; invalidation; targeted excluded
+artifact_pending = `.tmp/imp064-affected.xml`
+checkpoint_last_pass = post-review static/import gate; targeted 6/6 PASS
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing affected PTY; do not restart -> final JUnit/exit -> broader only if PASS"
+
+
+## IMP-064 AFFECTED AUTHORITY REGRESSION PASS / BROADER NEXT - 2026-10-09
+active_task = IMP-064 Approval / Canonical State Commit
+status = PASS / affected authority regression locked
+artifact = `.tmp/imp064-affected.xml`: 69/69 PASS; failures=0 errors=0 skipped=0
+checkpoint_last_pass = exact-head targeted 6/6 PASS; affected 69/69 PASS
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "anti-duplicate guard -> run broader valid Windows regression excluding targeted + affected; do not rerun targeted/affected"
+
+
+## IMP-064 BROADER VALID WINDOWS RUNNING - 2026-10-09
+active_task = IMP-064 Approval / Canonical State Commit
+status = RUNNING / broader valid Windows regression
+process = PTY `pty_4ca4854018b702c18205a3b0341a856392dc`, PID `82176`
+scope = tests/unit excluding IMP-064 targeted + 6 affected authority files + known Windows exclusions
+artifact_pending = `.tmp/imp064-broader-valid.xml`; basetemp `.tmp/pytest-imp064-broader-valid`
+checkpoint_last_pass = targeted 6/6 PASS; affected 69/69 PASS
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing broader PTY; do not restart -> final JUnit/exit -> Frozen Master guard if PASS"
+
+
+## IMP-064 BROADER VALID WINDOWS PASS / EXACT-HEAD REVIEW - 2026-10-09
+active_task = IMP-064 Approval / Canonical State Commit
+status = PASS / broader valid Windows regression locked
+artifact = `.tmp/imp064-broader-valid.xml`: 725/725 PASS; failures=0 errors=0 skipped=0; PTY exit 0; 3 deselected
+checkpoint_last_pass = targeted 6/6 PASS; affected 69/69 PASS; broader 725/725 PASS
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "complete exact-head authority/transaction review -> Frozen Master guard if code unchanged; otherwise fix only confirmed IMP-064 defect and revalidate changed head"
+
+
+## IMP-064 INTERRUPTED AUTO-APPROVAL REVIEW FIX TARGETED RUNNING - 2026-10-09
+active_task = IMP-064 Approval / Canonical State Commit
+status = RUNNING / exact-head targeted revalidation after transition-history hardening
+review_defect = REVIEW QA could be promoted without proving HUMAN_APPROVE, masking interrupted auto-approval finalize
+fix = require latest durable creative approval command HUMAN_APPROVE before REVIEW QA promotion
+process = PTY `pty_65ec7e16057dec5e1896188109431cb286a8`, PID `92876`
+artifact_pending = `.tmp/imp064-final-review-targeted.xml`
+preserve = prior 6/6 targeted; 69/69 affected; 725/725 broader historical only because code changed
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing final-review targeted PTY; do not restart -> final JUnit/exit -> affected only if PASS"
+
+
+## IMP-064 INTERRUPTED AUTO-APPROVAL REVIEW FIX TARGETED PASS / AFFECTED NEXT - 2026-10-09
+active_task = IMP-064 Approval / Canonical State Commit
+status = PASS / exact-head targeted locked
+artifact = `.tmp/imp064-final-review-targeted.xml`: 7/7 PASS; failures=0 errors=0 skipped=0; PTY exit 0
+checkpoint_last_pass = post-review static/import gate; exact-head targeted 7/7 PASS
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "anti-duplicate guard -> run 6-file affected authority regression; targeted MUST NOT rerun"
+
+
+## IMP-064 FINAL-REVIEW AFFECTED AUTHORITY REGRESSION RUNNING - 2026-10-09
+active_task = IMP-064 Approval / Canonical State Commit
+status = RUNNING / 6-file affected authority regression after transition-history hardening
+process = PTY `pty_a483a4b59bef9cb8aeebb51a5b2ce76ffc9d`, PID `94568`
+scope = state_continuity; generation_job; static_qa; motion_qa; versioning; invalidation; targeted excluded
+artifact_pending = `.tmp/imp064-final-review-affected.xml`
+checkpoint_last_pass = exact-head targeted 7/7 PASS
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing final-review affected PTY; do not restart -> final JUnit/exit -> broader only if PASS"
+
+
+## IMP-064 FINAL-REVIEW AFFECTED PASS / BROADER REVALIDATION NEXT - 2026-10-09
+active_task = IMP-064 Approval / Canonical State Commit
+status = PASS / exact-head affected authority regression after transition-history hardening
+artifact = `.tmp/imp064-final-review-affected.xml`: 69/69 PASS; failures=0 errors=0 skipped=0
+checkpoint_last_pass = exact-head targeted 7/7 PASS; affected 69/69 PASS
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "anti-duplicate guard -> run broader valid Windows regression on current review head excluding targeted + 6 affected files; targeted/affected MUST NOT rerun"
+
+
+## IMP-064 FINAL-REVIEW BROADER VALID WINDOWS RUNNING - 2026-10-09
+active_task = IMP-064 Approval / Canonical State Commit
+status = RUNNING / broader revalidation on exact review head
+process = PTY `pty_a2773b32a6dbf9af50c2981a45a5c69cc468`, PID `54484`
+scope = tests/unit excluding targeted + 6 affected authority files + known Windows exclusions
+artifact_pending = `.tmp/imp064-final-review-broader.xml`; basetemp `.tmp/pytest-imp064-final-review-broader`
+checkpoint_last_pass = exact-head targeted 7/7 PASS; affected 69/69 PASS
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing final-review broader PTY; do not restart -> final JUnit/exit -> Frozen Master guard if PASS"
+
+
+## IMP-064 FINAL-REVIEW BROADER PASS / FROZEN NEXT - 2026-10-09
+active_task = IMP-064 Approval / Canonical State Commit
+status = PASS / exact-head broader valid Windows regression locked
+artifact = `.tmp/imp064-final-review-broader.xml`: 725/725 PASS; failures=0 errors=0 skipped=0; PTY exit 0; 3 deselected
+checkpoint_last_pass = exact-head targeted 7/7 PASS; affected 69/69 PASS; broader 725/725 PASS
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "run Frozen Master guard on current review head; targeted/affected/broader MUST NOT rerun"
+
+
+## IMP-064 FINAL-REVIEW FROZEN MASTER GUARD PASS - 2026-10-09
+active_task = IMP-064 Approval / Canonical State Commit
+status = PASS / Frozen Master guard locked on exact review head
+artifact = `python tools/frozen_master_guard.py` -> PASS; semantic SHA256 `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`
+checkpoint_last_pass = targeted 7/7 PASS; affected 69/69 PASS; broader 725/725 PASS; Frozen Master guard PASS
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "run final static/import/diff gate + exact-head authority/transaction review; targeted/affected/broader MUST NOT rerun"
+
+
+## IMP-064 LOCAL VERIFIED / SIDE-EFFECT GUARD NEXT - 2026-10-09
+active_task = IMP-064 Approval / Canonical State Commit
+status = LOCAL VERIFIED
+evidence_file = `evidence/tests/IMP-064_APPROVAL_STATE_COMMIT_EVIDENCE.md`
+checkpoint_last_pass = targeted 7/7 PASS; affected 69/69 PASS; broader 725/725 PASS; Frozen Master guard PASS; final static/import/diff + exact-head authority review PASS
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "run Git side-effect guard -> stage exact IMP-064 scope only -> verify index -> commit; test stages MUST NOT rerun"
