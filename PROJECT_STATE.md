@@ -4855,3 +4855,63 @@ branch = `chatgpt/IMP-064-approval-state-commit`
 process = none
 blocker = none
 NEXT_EXACT_ACTION = "stage only 3 state files -> verify index -> commit governance sync -> side-effect guard -> push/PR"
+
+
+## IMP-064 POST-MERGE TARGETED RUNNING - 2026-10-09
+active_task = IMP-064 Approval / Canonical State Commit
+status = RUNNING / post-merge targeted verification
+main_sha = `259d0f48a7d80d042eb62a971e3308991f341547`
+push_main_ci = run `37924356391` SUCCESS on exact merge SHA; Python 3.10 + 3.13 PASS
+process = PTY `pty_17462f780da6f2bd4721043719107a9af179` / root PID `98492`
+artifact_pending = `.tmp/imp064-main-targeted.xml`
+checkpoint_last_pass = pre-merge exact-head verification + PR #74 CI + push-main CI SUCCESS
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing post-merge targeted PTY; do not restart -> final JUnit/exit -> affected only if PASS"
+
+
+## IMP-064 POST-MERGE TARGETED PASS / AFFECTED NEXT - 2026-10-09
+active_task = IMP-064 Approval / Canonical State Commit
+status = PASS / post-merge targeted locked
+main_sha = `259d0f48a7d80d042eb62a971e3308991f341547`
+artifact = `.tmp/imp064-main-targeted.xml`: 7/7 PASS; failures=0 errors=0 skipped=0; exit 0
+push_main_ci = run `37924356391` SUCCESS
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "anti-duplicate guard -> run 6-file post-merge affected authority regression; targeted MUST NOT rerun"
+
+
+## IMP-064 POST-MERGE AFFECTED RUNNING - 2026-10-09
+active_task = IMP-064 Approval / Canonical State Commit
+status = RUNNING / 6-file post-merge affected authority regression
+main_sha = `259d0f48a7d80d042eb62a971e3308991f341547`
+process = PTY `pty_2149bba73a9f7d94a7c9f9dc68ce3567e6b6` / root PID `91476`
+scope = state_continuity; generation_job; static_qa; motion_qa; versioning; invalidation; targeted excluded
+artifact_pending = `.tmp/imp064-main-affected.xml`
+checkpoint_last_pass = post-merge targeted 7/7 PASS; push-main CI SUCCESS
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing post-merge affected PTY; do not restart -> final JUnit/exit -> Frozen Master guard if PASS"
+
+
+## IMP-064 POST-MERGE AFFECTED PASS / FROZEN NEXT - 2026-10-09
+active_task = IMP-064 Approval / Canonical State Commit
+status = PASS / post-merge affected authority regression locked
+main_sha = `259d0f48a7d80d042eb62a971e3308991f341547`
+artifact = `.tmp/imp064-main-affected.xml`: 69/69 PASS; failures=0 errors=0 skipped=0; recorded PID `91476` absent after completion
+push_main_ci = run `37924356391` SUCCESS
+checkpoint_last_pass = post-merge targeted 7/7 PASS; affected 69/69 PASS; push-main CI SUCCESS
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "run Frozen Master guard on exact main SHA; targeted/affected/CI MUST NOT rerun"
+
+
+## IMP-064 FEATURE MAIN VERIFIED / GOVERNANCE SYNC NEXT - 2026-10-09
+active_task = IMP-064 Approval / Canonical State Commit
+status = MAIN VERIFIED / feature implementation
+main_sha = `259d0f48a7d80d042eb62a971e3308991f341547`
+pr = #74 merged
+push_main_ci = run `37924356391` SUCCESS; Python 3.10 + 3.13 PASS
+post_merge_evidence = targeted 7/7 PASS; affected 69/69 PASS; Frozen Master guard PASS
+frozen_sha256 = `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "governance side-effect guard -> create state-only branch from exact main -> commit only 3 state files -> push/PR/CI/review/merge"

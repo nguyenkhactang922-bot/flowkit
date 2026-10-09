@@ -4791,3 +4791,58 @@ BRANCH = `chatgpt/IMP-064-approval-state-commit`
 PROCESS = none
 BLOCKER = none
 NEXT_EXACT_ACTION = "STAGE ONLY 3 STATE FILES -> VERIFY INDEX -> COMMIT GOVERNANCE SYNC -> SIDE-EFFECT GUARD -> PUSH/PR"
+
+
+## IMP-064 POST-MERGE TARGETED RUNNING - 2026-10-09
+STATUS = RUNNING / post-merge targeted verification on exact main merge SHA
+MAIN_SHA = `259d0f48a7d80d042eb62a971e3308991f341547`
+PUSH_MAIN_CI = run `37924356391` SUCCESS on exact merge SHA; Python 3.10 + 3.13 PASS
+PROCESS = PTY `pty_17462f780da6f2bd4721043719107a9af179`, root PID `98492`
+ARTIFACT_PENDING = `.tmp/imp064-main-targeted.xml`; basetemp `.tmp/pytest-imp064-main-targeted`
+PRESERVE = pre-merge targeted 7/7 + affected 69/69 + broader 725/725 + Frozen guard remain historical PASS; post-merge targeted is a distinct main-verification stage
+BLOCKER = none
+NEXT_EXACT_ACTION = "MONITOR EXISTING POST-MERGE TARGETED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> AFFECTED ONLY IF PASS"
+
+
+## IMP-064 POST-MERGE TARGETED PASS / AFFECTED NEXT - 2026-10-09
+STATUS = PASS / post-merge targeted locked
+MAIN_SHA = `259d0f48a7d80d042eb62a971e3308991f341547`
+EVIDENCE = `.tmp/imp064-main-targeted.xml`: 7/7 PASS; failures=0 errors=0 skipped=0; PTY `pty_17462f780da6f2bd4721043719107a9af179` exit 0
+PUSH_MAIN_CI = run `37924356391` SUCCESS
+PROCESS = none
+BLOCKER = none
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RUN 6-FILE POST-MERGE AFFECTED AUTHORITY REGRESSION; TARGETED MUST NOT RERUN"
+
+
+## IMP-064 POST-MERGE AFFECTED RUNNING - 2026-10-09
+STATUS = RUNNING / 6-file post-merge affected authority regression
+MAIN_SHA = `259d0f48a7d80d042eb62a971e3308991f341547`
+PROCESS = PTY `pty_2149bba73a9f7d94a7c9f9dc68ce3567e6b6`, root PID `91476`
+SCOPE = state_continuity + generation_job + static_qa + motion_qa + versioning + invalidation; post-merge targeted excluded
+ARTIFACT_PENDING = `.tmp/imp064-main-affected.xml`; basetemp `.tmp/pytest-imp064-main-affected`
+CHECKPOINT_LAST_PASS = post-merge targeted 7/7 PASS + push-main CI `37924356391` SUCCESS
+BLOCKER = none
+NEXT_EXACT_ACTION = "MONITOR EXISTING POST-MERGE AFFECTED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> FROZEN MASTER GUARD IF PASS"
+
+
+## IMP-064 POST-MERGE AFFECTED PASS / FROZEN NEXT - 2026-10-09
+STATUS = PASS / post-merge affected authority regression locked
+MAIN_SHA = `259d0f48a7d80d042eb62a971e3308991f341547`
+EVIDENCE = `.tmp/imp064-main-affected.xml`: 69/69 PASS; failures=0 errors=0 skipped=0; recorded PID `91476` absent after completion
+PUSH_MAIN_CI = run `37924356391` SUCCESS on exact merge SHA
+CHECKPOINT_LAST_PASS = post-merge targeted 7/7 PASS + affected 69/69 PASS + push-main CI SUCCESS
+PROCESS = none
+BLOCKER = none
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD ON EXACT MAIN SHA; TARGETED/AFFECTED/CI MUST NOT RERUN"
+
+
+## IMP-064 FEATURE MAIN VERIFIED / GOVERNANCE SYNC NEXT - 2026-10-09
+STATUS = MAIN VERIFIED / feature implementation
+MAIN_SHA = `259d0f48a7d80d042eb62a971e3308991f341547`
+PR = #74 merged
+PUSH_MAIN_CI = run `37924356391` SUCCESS; Python 3.10 + 3.13 PASS
+POST_MERGE_EVIDENCE = targeted 7/7 PASS; affected 69/69 PASS; Frozen Master guard PASS
+FROZEN_SHA256 = `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`
+PROCESS = none
+BLOCKER = none
+NEXT_EXACT_ACTION = "GOVERNANCE SIDE-EFFECT GUARD -> CREATE STATE-ONLY BRANCH FROM EXACT MAIN -> COMMIT ONLY 3 STATE FILES -> PUSH/PR/CI/REVIEW/MERGE"

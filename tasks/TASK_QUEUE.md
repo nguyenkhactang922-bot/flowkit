@@ -4233,3 +4233,39 @@ NEXT_EXACT_ACTION = "RUN GIT SIDE-EFFECT GUARD -> STAGE EXACT IMP-064 SCOPE ONLY
 - [ ] Stage only `CURRENT_HANDOFF.md`, `PROJECT_STATE.md`, `tasks/TASK_QUEUE.md`.
 - [ ] Commit governance sync, then side-effect guard before push/PR.
 NEXT_EXACT_ACTION = "STAGE ONLY 3 STATE FILES -> VERIFY INDEX -> COMMIT GOVERNANCE SYNC -> SIDE-EFFECT GUARD -> PUSH/PR"
+
+
+## IMP-064 POST-MERGE TARGETED PASS / AFFECTED NEXT - 2026-10-09
+- [x] PR #74 merged to exact main SHA `259d0f48a7d80d042eb62a971e3308991f341547`.
+- [x] Push-main CI run `37924356391` SUCCESS; Python 3.10 + 3.13 PASS.
+- [x] Post-merge targeted = 7/7 PASS; `.tmp/imp064-main-targeted.xml`; PTY exit 0; DO NOT rerun.
+- [ ] Run 6-file post-merge affected authority regression only.
+- [ ] Run Frozen Master guard only after affected PASS.
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RUN 6-FILE POST-MERGE AFFECTED AUTHORITY REGRESSION; TARGETED MUST NOT RERUN"
+
+
+## IMP-064 POST-MERGE AFFECTED RUNNING - 2026-10-09
+- [x] Post-merge targeted = 7/7 PASS; DO NOT rerun.
+- [x] Push-main CI run `37924356391` SUCCESS on exact merge SHA.
+- [~] 6-file post-merge affected authority regression RUNNING under PTY `pty_2149bba73a9f7d94a7c9f9dc68ce3567e6b6`, root PID `91476`.
+- [ ] Finalize `.tmp/imp064-main-affected.xml` from final JUnit/exit only.
+- [ ] Frozen Master guard only after affected PASS.
+NEXT_EXACT_ACTION = "MONITOR EXISTING POST-MERGE AFFECTED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT"
+
+
+## IMP-064 POST-MERGE AFFECTED PASS / FROZEN NEXT - 2026-10-09
+- [x] Push-main CI run `37924356391` SUCCESS on exact main SHA `259d0f48a7d80d042eb62a971e3308991f341547`.
+- [x] Post-merge targeted = 7/7 PASS; DO NOT rerun.
+- [x] Post-merge affected authority regression = 69/69 PASS; `.tmp/imp064-main-affected.xml`; failures=0 errors=0 skipped=0; recorded PID `91476` absent after completion; DO NOT rerun.
+- [ ] Run Frozen Master guard on exact main SHA.
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD; TARGETED/AFFECTED/CI MUST NOT RERUN"
+
+
+## IMP-064 FEATURE MAIN VERIFIED / GOVERNANCE SYNC NEXT - 2026-10-09
+- [x] PR #74 merged to exact main SHA `259d0f48a7d80d042eb62a971e3308991f341547`.
+- [x] Push-main CI run `37924356391` SUCCESS; Python 3.10 + 3.13 PASS.
+- [x] Post-merge targeted = 7/7 PASS; DO NOT rerun.
+- [x] Post-merge affected = 69/69 PASS; DO NOT rerun.
+- [x] Frozen Master guard PASS; semantic SHA256 `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
+- [ ] Governance-only state sync lifecycle.
+NEXT_EXACT_ACTION = "GOVERNANCE SIDE-EFFECT GUARD -> STATE-ONLY BRANCH/COMMIT -> PUSH/PR/CI/REVIEW/MERGE"
