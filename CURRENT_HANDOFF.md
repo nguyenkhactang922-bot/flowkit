@@ -4541,3 +4541,13 @@ EVIDENCE = `evidence/tests/IMP-063_DEFECT_LOCALIZATION_REPAIR_EVIDENCE.md`
 SIDE_EFFECT_GUARD = PASS; no existing IMP-063 commit/remote branch/PR; staged index empty; `.tmp` untracked only
 BLOCKER = none
 NEXT_EXACT_ACTION = "STAGE EXACT 7 FILES -> VERIFY INDEX/DIFF-CHECK -> COMMIT FEATURE"
+
+
+## IMP-063 FEATURE COMMIT CREATED - 2026-10-09
+STATUS = FEATURE COMMIT CREATED
+FEATURE_COMMIT = `c6d7e5455d01f5c77765640c9e9f0d64e8bba01b`
+BRANCH = `chatgpt/IMP-063-defect-localization-repair`
+CHECKPOINT_LAST_PASS = LOCAL VERIFIED exact head before commit; commit contains exactly 7 IMP-063 files
+WORKTREE = `.tmp/` untracked only after commit
+BLOCKER = none
+NEXT_EXACT_ACTION = "STAGE ONLY 3 STATE FILES -> GOVERNANCE SYNC COMMIT -> SIDE-EFFECT GUARD -> PUSH/PR"

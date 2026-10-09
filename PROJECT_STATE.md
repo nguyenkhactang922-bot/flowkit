@@ -4577,3 +4577,14 @@ evidence = `evidence/tests/IMP-063_DEFECT_LOCALIZATION_REPAIR_EVIDENCE.md`
 side_effect_guard = PASS; no existing IMP-063 commit/remote branch/PR; staged index empty; `.tmp` untracked only
 blocker = none
 NEXT_EXACT_ACTION = "stage exact 7 files -> verify index/diff-check -> commit feature"
+
+
+## IMP-063 FEATURE COMMIT CREATED - 2026-10-09
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = FEATURE COMMIT CREATED
+feature_commit = c6d7e5455d01f5c77765640c9e9f0d64e8bba01b
+branch = chatgpt/IMP-063-defect-localization-repair
+checkpoint_last_pass = LOCAL VERIFIED exact head before commit; exact 7-file scope committed
+worktree = `.tmp/` untracked only
+blocker = none
+NEXT_EXACT_ACTION = "stage only 3 state files -> governance sync commit -> side-effect guard -> push/PR"

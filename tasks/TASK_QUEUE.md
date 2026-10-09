@@ -4005,3 +4005,13 @@ NEXT_EXACT_ACTION = "FINAL STATIC/IMPORT/DIFF/LEAKAGE REVIEW -> EVIDENCE -> SIDE
 - [x] Side-effect guard PASS: no duplicate commit/remote branch/PR; `.tmp` untracked only.
 - [ ] Stage exact 7 files -> verify index -> feature commit.
 NEXT_EXACT_ACTION = "STAGE EXACT 7 FILES -> VERIFY INDEX/DIFF-CHECK -> COMMIT FEATURE"
+
+
+## IMP-063 FEATURE COMMIT CREATED / GOVERNANCE SYNC NEXT - 2026-10-09
+- [x] Feature commit created: `c6d7e5455d01f5c77765640c9e9f0d64e8bba01b`.
+- [x] Feature commit scope = exact 7 IMP-063 files.
+- [x] Worktree after feature commit = `.tmp/` untracked only.
+- [ ] Stage only `CURRENT_HANDOFF.md`, `PROJECT_STATE.md`, `tasks/TASK_QUEUE.md`.
+- [ ] Governance-only sync commit.
+- [ ] Side-effect guard -> push branch -> PR.
+NEXT_EXACT_ACTION = "STAGE ONLY 3 STATE FILES -> GOVERNANCE SYNC COMMIT -> SIDE-EFFECT GUARD -> PUSH/PR"
