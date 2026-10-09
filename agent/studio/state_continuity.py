@@ -661,8 +661,10 @@ class StateSnapshotRepository:
             raise StateApprovalBlocked("candidate StateSnapshot exact version does not exist")
         snapshot = snapshot_artifact.value
         await self._assert_not_invalidated(snapshot_ref)
-        if not qa_result_ref.logical_id.root.startswith("qa-result:"):
-            raise StateApprovalBlocked("qa_result_ref must identify canonical QAResult evidence")
+        if not qa_result_ref.logical_id.root.startswith(("qa-result:", "motion-qa-result:")):
+            raise StateApprovalBlocked(
+                "qa_result_ref must identify canonical Static or Motion QA evidence"
+            )
         await self._assert_exact_current_accepted(qa_result_ref, "QA result")
         await self._assert_exact_current_accepted(approval_policy_ref, "approval policy")
         await self._assert_exact_current_accepted(source_outcome_ref, "source outcome")

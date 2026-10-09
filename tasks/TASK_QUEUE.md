@@ -4065,3 +4065,171 @@ NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD; DO NOT RERUN TARGETED/AFFECTED/CI"
 - [x] Frozen Master guard PASS; semantic SHA unchanged.
 - [ ] Governance-only sync branch/commit/PR/CI/merge/verify main.
 NEXT_EXACT_ACTION = "CREATE GOVERNANCE-ONLY BRANCH FROM EXACT MAIN -> COMMIT 3 STATE FILES -> PUSH/PR/CI/MERGE/VERIFY MAIN"
+
+
+## IMP-063 GOVERNANCE MAIN VERIFIED / IMP-064 CLAIMED - 2026-10-09
+- [x] IMP-063 governance PR #73 merged at `83303da08c89106dc45d9d3addc92db23e787724`.
+- [x] Governance push-main CI run `37880708072` SUCCESS; Python 3.10 + 3.13 + Frozen baseline PASS.
+- [x] Verify IMP-064 dependencies: IMP-063 + IMP-042 MAIN VERIFIED.
+- [x] Duplicate guard PASS for `chatgpt/IMP-064-approval-state-commit`.
+- [x] Claim branch from exact main `83303da08c89106dc45d9d3addc92db23e787724`.
+- [ ] Read Frozen approval / canonical State commit authority.
+- [ ] Audit current QA approval, ApprovedEndState, repair/invalidation and state propagation surfaces.
+- [ ] Implement explicit approval/state-commit boundary.
+- [ ] Tests: NO QA APPROVAL -> NO STATE COMMIT; stale candidate approval rejected; designation references exact StateSnapshot.
+NEXT_EXACT_ACTION = "READ FROZEN APPROVAL/CANONICAL STATE COMMIT AUTHORITY + AUDIT STATE/QA/REPAIR SURFACES BEFORE CODE"
+
+
+## IMP-064 AUTHORITY + SURFACE AUDIT PASS - 2026-10-09
+- [x] Frozen Master creative acceptance + Approval/State Commit authority read.
+- [x] Audit GenerationJob creative axis, Static/Motion QA typed results, StateSnapshotRepository, ApprovedEndState, repair/invalidation surfaces.
+- [x] KEEP+EXTEND: existing StateSnapshotRepository remains sole canonical State commit owner.
+- [x] Lock new thin `ApprovalStateCommitService`: exact GenerationJob creative APPROVED/LOCKED + exact current typed QA COMPLETED/PASS + current approval policy/source outcome + snapshot CAS -> delegate State commit.
+- [x] No duplicate State store / no copied state payload / no provider call in transaction.
+- [ ] Implement service + exports + targeted tests.
+- [ ] Targeted -> affected -> broader valid Windows -> Frozen guard -> evidence/Git lifecycle.
+NEXT_EXACT_ACTION = "IMPLEMENT APPROVAL_STATE_COMMIT SERVICE + EXPORTS + TARGETED TESTS -> STATIC GATE -> TARGETED ONLY"
+
+
+## IMP-064 TARGETED RUNNING - 2026-10-09
+- [x] Authority/surface audit PASS; contract frozen before code.
+- [x] Implement thin ApprovalStateCommitService + Static/Motion QA identity bridge + public exports.
+- [x] Static/import/diff gate PASS.
+- [~] Targeted tests RUNNING under PTY `pty_f540a7cf729496ee0321a7b05267809d5a7b`, PID `25464`.
+- [ ] Finalize `.tmp/imp064-targeted.xml` from final JUnit/exit only.
+- [ ] Affected regression only after targeted PASS.
+NEXT_EXACT_ACTION = "MONITOR EXISTING TARGETED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT"
+
+
+## IMP-064 TARGETED PASS / REVIEW NEXT - 2026-10-09
+- [x] Static/import gate PASS.
+- [x] Targeted approval/state-commit tests = 5/5 PASS; JUnit `.tmp/imp064-targeted.xml`; PTY exit 0.
+- [ ] Exact-head authority review; targeted must not rerun unless code changes.
+- [ ] Affected authority regression after review PASS.
+NEXT_EXACT_ACTION = "EXACT-HEAD AUTHORITY REVIEW -> AFFECTED AUTHORITY REGRESSION IF NO CODE CHANGE"
+
+
+## IMP-064 HUMAN-APPROVAL REVIEW FIX TARGETED RUNNING - 2026-10-09
+- [x] Exact-head review found valid HUMAN_APPROVE path blocked by QA lifecycle REVIEW.
+- [x] Patch: typed PASS + creative APPROVED may CAS-promote exact current QA REVIEW -> APPROVED before State commit.
+- [x] Added human-approval targeted case; post-fix static/import gate PASS.
+- [~] Exact-head targeted RUNNING under PTY `pty_efeec3c4be017d1421e1554cd08cceef185b`, PID `90044`.
+- [ ] Affected regression only after targeted PASS.
+NEXT_EXACT_ACTION = "MONITOR EXISTING REVIEW TARGETED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT"
+
+
+## IMP-064 HUMAN-APPROVAL REVIEW FIX TARGETED PASS / AFFECTED NEXT - 2026-10-09
+- [x] Human-approval review fix implemented and static/import gate PASS.
+- [x] Exact-head targeted = 6/6 PASS; JUnit `.tmp/imp064-review-targeted.xml`; PTY exit 0.
+- [ ] Run affected authority regression only; targeted must not rerun.
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RUN 6-FILE AFFECTED AUTHORITY REGRESSION; TARGETED MUST NOT RERUN"
+
+
+## IMP-064 AFFECTED AUTHORITY REGRESSION RUNNING - 2026-10-09
+- [x] Exact-head targeted = 6/6 PASS; excluded from affected stage.
+- [~] 6-file affected authority regression RUNNING under PTY `pty_2ecc7d2799413965bb9493ec787a228015b1`, PID `2000`.
+- [ ] Finalize `.tmp/imp064-affected.xml` from final JUnit/exit only.
+- [ ] Broader valid Windows only after affected PASS.
+NEXT_EXACT_ACTION = "MONITOR EXISTING AFFECTED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT"
+
+
+## IMP-064 AFFECTED AUTHORITY REGRESSION PASS / BROADER NEXT - 2026-10-09
+- [x] Exact-head targeted = 6/6 PASS; DO NOT rerun.
+- [x] Affected authority regression = 69/69 PASS; `.tmp/imp064-affected.xml`; DO NOT rerun.
+- [ ] Run broader valid Windows regression excluding targeted + affected authority files and known platform exclusions.
+- [ ] Frozen Master guard only after broader PASS.
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RUN BROADER VALID WINDOWS REGRESSION; TARGETED/AFFECTED MUST NOT RERUN"
+
+
+## IMP-064 BROADER VALID WINDOWS RUNNING - 2026-10-09
+- [x] Targeted exact head = 6/6 PASS; excluded.
+- [x] Affected authority regression = 69/69 PASS; excluded.
+- [~] Broader valid Windows RUNNING under PTY `pty_4ca4854018b702c18205a3b0341a856392dc`, PID `82176`.
+- [ ] Finalize `.tmp/imp064-broader-valid.xml` from final JUnit/exit only.
+- [ ] Frozen Master guard only after broader PASS.
+NEXT_EXACT_ACTION = "MONITOR EXISTING IMP-064 BROADER PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> FROZEN GUARD IF PASS"
+
+
+## IMP-064 BROADER VALID WINDOWS PASS / EXACT-HEAD REVIEW - 2026-10-09
+- [x] Exact-head targeted = 6/6 PASS; DO NOT rerun.
+- [x] Affected authority regression = 69/69 PASS; DO NOT rerun.
+- [x] Broader valid Windows regression = 725/725 PASS; 3 deselected; `.tmp/imp064-broader-valid.xml`; PTY exit 0; DO NOT rerun.
+- [ ] Complete exact-head authority/transaction review.
+- [ ] If code unchanged, run Frozen Master guard; if defect confirmed, fix only IMP-064 and revalidate changed head.
+NEXT_EXACT_ACTION = "COMPLETE EXACT-HEAD AUTHORITY/TRANSACTION REVIEW -> FROZEN GUARD IF UNCHANGED; OTHERWISE FIX/REVALIDATE CHANGED HEAD"
+
+
+## IMP-064 INTERRUPTED AUTO-APPROVAL REVIEW FIX TARGETED RUNNING - 2026-10-09
+- [x] Exact-head review found REVIEW QA promotion could mask interrupted `QA_PASS_AND_AUTO_APPROVE` finalize.
+- [x] Patch requires durable latest creative approval command `HUMAN_APPROVE` before State Commit promotes REVIEW QA.
+- [x] Added regression test for auto-approval crash window; static/import/diff gate PASS.
+- [~] Exact-head targeted revalidation RUNNING under PTY `pty_65ec7e16057dec5e1896188109431cb286a8`, PID `92876`.
+- [ ] Affected authority regression only after targeted PASS.
+NEXT_EXACT_ACTION = "MONITOR EXISTING FINAL-REVIEW TARGETED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT"
+
+
+## IMP-064 INTERRUPTED AUTO-APPROVAL REVIEW FIX TARGETED PASS / AFFECTED NEXT - 2026-10-09
+- [x] Transition-history hardening implemented; regression test added.
+- [x] Exact-head targeted = 7/7 PASS; `.tmp/imp064-final-review-targeted.xml`; PTY exit 0.
+- [ ] Run 6-file affected authority regression only; targeted MUST NOT rerun.
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RUN 6-FILE AFFECTED AUTHORITY REGRESSION; TARGETED MUST NOT RERUN"
+
+
+## IMP-064 FINAL-REVIEW AFFECTED AUTHORITY REGRESSION RUNNING - 2026-10-09
+- [x] Exact-head targeted = 7/7 PASS; excluded from affected stage.
+- [~] 6-file affected authority regression RUNNING under PTY `pty_a483a4b59bef9cb8aeebb51a5b2ce76ffc9d`, PID `94568`.
+- [ ] Finalize `.tmp/imp064-final-review-affected.xml` from final JUnit/exit only.
+- [ ] Broader valid Windows only after affected PASS.
+NEXT_EXACT_ACTION = "MONITOR EXISTING FINAL-REVIEW AFFECTED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT"
+
+
+## IMP-064 FINAL-REVIEW AFFECTED PASS / BROADER REVALIDATION NEXT - 2026-10-09
+- [x] Exact-head targeted = 7/7 PASS; DO NOT rerun.
+- [x] Final-review affected authority regression = 69/69 PASS; `.tmp/imp064-final-review-affected.xml`; DO NOT rerun.
+- [ ] Run broader valid Windows regression on current review head excluding targeted + 6 affected authority files and known platform exclusions.
+- [ ] Frozen Master guard only after broader PASS.
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RUN BROADER VALID WINDOWS REGRESSION ON CURRENT REVIEW HEAD; TARGETED/AFFECTED MUST NOT RERUN"
+
+
+## IMP-064 FINAL-REVIEW BROADER VALID WINDOWS RUNNING - 2026-10-09
+- [x] Exact-head targeted = 7/7 PASS; excluded.
+- [x] Final-review affected = 69/69 PASS; excluded.
+- [~] Broader valid Windows revalidation RUNNING under PTY `pty_a2773b32a6dbf9af50c2981a45a5c69cc468`, PID `54484`.
+- [ ] Finalize `.tmp/imp064-final-review-broader.xml` from final JUnit/exit only.
+- [ ] Frozen Master guard only after broader PASS.
+NEXT_EXACT_ACTION = "MONITOR EXISTING FINAL-REVIEW BROADER PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> FROZEN MASTER GUARD IF PASS"
+
+
+## IMP-064 FINAL-REVIEW BROADER PASS / FROZEN NEXT - 2026-10-09
+- [x] Exact-head targeted = 7/7 PASS; DO NOT rerun.
+- [x] Final-review affected authority regression = 69/69 PASS; DO NOT rerun.
+- [x] Final-review broader valid Windows regression = 725/725 PASS; 3 deselected; PTY exit 0; DO NOT rerun.
+- [ ] Run Frozen Master guard on current review head.
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD; TARGETED/AFFECTED/BROADER MUST NOT RERUN"
+
+
+## IMP-064 FINAL-REVIEW FROZEN MASTER GUARD PASS - 2026-10-09
+- [x] Exact-head targeted = 7/7 PASS; DO NOT rerun.
+- [x] Final-review affected authority regression = 69/69 PASS; DO NOT rerun.
+- [x] Final-review broader valid Windows regression = 725/725 PASS; 3 deselected; DO NOT rerun.
+- [x] Frozen Master guard = PASS; semantic SHA256 `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
+- [ ] Run final static/import/diff gate + exact-head authority/transaction review.
+NEXT_EXACT_ACTION = "RUN FINAL STATIC/IMPORT/DIFF GATE + EXACT-HEAD AUTHORITY/TRANSACTION REVIEW; TARGETED/AFFECTED/BROADER MUST NOT RERUN"
+
+
+## IMP-064 LOCAL VERIFIED / SIDE-EFFECT GUARD NEXT - 2026-10-09
+- [x] Exact-head targeted = 7/7 PASS.
+- [x] Final-review affected authority regression = 69/69 PASS.
+- [x] Final-review broader valid Windows regression = 725/725 PASS; 3 deselected.
+- [x] Frozen Master guard PASS; final static/import/diff + exact-head authority review PASS.
+- [x] Evidence file: `evidence/tests/IMP-064_APPROVAL_STATE_COMMIT_EVIDENCE.md`.
+- [ ] Git side-effect guard -> exact-scope stage/commit/push/PR lifecycle.
+NEXT_EXACT_ACTION = "RUN GIT SIDE-EFFECT GUARD -> STAGE EXACT IMP-064 SCOPE ONLY -> VERIFY INDEX -> COMMIT; DO NOT RERUN TEST STAGES"
+
+
+## IMP-064 FEATURE COMMIT CREATED / GOVERNANCE SYNC NEXT - 2026-10-09
+- [x] Local verification complete; evidence committed in feature snapshot.
+- [x] Feature commit = `6f29c6c32e7baea3890e9b379f74a44d5b6ef25e`.
+- [ ] Stage only `CURRENT_HANDOFF.md`, `PROJECT_STATE.md`, `tasks/TASK_QUEUE.md`.
+- [ ] Commit governance sync, then side-effect guard before push/PR.
+NEXT_EXACT_ACTION = "STAGE ONLY 3 STATE FILES -> VERIFY INDEX -> COMMIT GOVERNANCE SYNC -> SIDE-EFFECT GUARD -> PUSH/PR"
