@@ -3747,3 +3747,271 @@ NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD ON EXACT MAIN SHA -> IF PASS MARK F
 - [ ] Governance-only MAIN VERIFIED state sync lifecycle.
 
 NEXT_EXACT_ACTION = "GOVERNANCE-ONLY MAIN VERIFIED SYNC -> SIDE-EFFECT GUARD -> BRANCH/COMMIT/PUSH/PR/CI/MERGE -> VERIFY GOVERNANCE MAIN"
+
+
+## IMP-062 GOVERNANCE VERIFIED / IMP-063 CLAIMED - 2026-10-08
+
+- [x] IMP-062 governance PR #71 merged to main SHA `7e9b30e0d2ab2785279642762feaefa3b2946a19`.
+- [x] Governance push-main CI run `37752708366` SUCCESS; Python 3.10 + 3.13 PASS unit tests + Frozen Master guard.
+- [x] IMP-063 hard dependencies verified: IMP-060 + IMP-061 + IMP-062 + IMP-005.
+- [~] IMP-063 Defect Localization + Targeted Production Repair CLAIMED on `chatgpt/IMP-063-defect-localization-repair`.
+- [ ] Read frozen authority/task decomposition and audit current QA/invalidation/repair surfaces.
+- [ ] Implement stable defect localization + minimum-scope RepairPlan preserve/patch/invalidate/recheck contracts.
+- [ ] Targeted/negative + affected + broader valid regression + Frozen guard -> evidence/Git lifecycle/main verify.
+
+NEXT_EXACT_ACTION = "READ IMP-063 FROZEN AUTHORITY + TASK DECOMPOSITION -> AUDIT CURRENT QA/INVALIDATION/REPAIR SURFACES -> LOCK CONTRACT/TEST PLAN -> IMPLEMENT"
+
+
+## IMP-063 TARGETED RUNNING - 2026-10-08
+
+- [x] Frozen authority/task decomposition read; current QA/invalidation/story-repair donor surfaces audited.
+- [x] Contract locked: evidence-backed earliest responsible layer; stable defect code/version; preserve/patch/invalidate/recheck; provider-neutral/no direct state commit.
+- [x] `agent/studio/production_repair.py` implemented and public import/compile PASS.
+- [x] `tests/unit/test_studio_production_repair.py` implemented with wrong-layer, preserve-set, mandatory re-QA, stale-QA and positive minimum-scope fixtures.
+- [~] Targeted test RUNNING under PTY `pty_57d118ca0b7cf4ee6ae9263e1a860f01305f`, PID `85684`.
+- [ ] Finalize `.tmp/imp063-targeted.xml` from final JUnit/exit only.
+- [ ] Affected regression only after targeted PASS.
+
+NEXT_EXACT_ACTION = "MONITOR EXISTING IMP-063 TARGETED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> FIX ONLY TARGETED FAILURES OR RUN AFFECTED IF PASS"
+
+
+## IMP-063 TARGETED FAIL / FIXED - 2026-10-08
+
+- [x] Targeted first run classified FAIL at collection; zero tests executed.
+- [x] Exact root cause: new fixture used positional `VersionRef(...)`; Pydantic requires keyword arguments.
+- [x] Fixed only fixture construction; production implementation untouched.
+- [ ] Rerun only IMP-063 targeted under standard uv/Python 3.13 runner.
+
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RERUN ONLY IMP-063 TARGETED TO `.tmp/imp063-targeted-rerun1.xml`"
+
+
+## IMP-063 TARGETED RERUN1 RUNNING - 2026-10-08
+
+- [~] Targeted rerun1 RUNNING under PTY `pty_94e351a324408ff3c3593a9b83b092138052`, PID `18176`.
+- [ ] Final JUnit `.tmp/imp063-targeted-rerun1.xml` + PTY exit required before classification.
+
+NEXT_EXACT_ACTION = "MONITOR EXISTING TARGETED RERUN1; DO NOT RESTART -> FINAL JUNIT/EXIT"
+
+
+## IMP-063 TARGETED PASS - 2026-10-08
+
+- [x] Targeted rerun1 final = 7/7 PASS; PTY exit 0; JUnit `.tmp/imp063-targeted-rerun1.xml` has 0 fail/error/skip.
+- [x] Wrong-layer, schema layer identity, preserve-set, mandatory originating re-QA, minimum-scope positive path and stale-QA rejection covered.
+- [ ] Run affected authority regression only; do not rerun targeted.
+
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RUN AFFECTED AUTHORITY REGRESSION ONLY; DO NOT RERUN TARGETED"
+
+
+## IMP-063 AFFECTED RUNNING - 2026-10-08
+
+- [x] Targeted checkpoint remains 7/7 PASS and is not rerun.
+- [~] Affected authority regression RUNNING under PTY `pty_f8d4e8ca99de6ca0bb1205e115fec3bed64d`, PID `83564`.
+- [ ] Final JUnit `.tmp/imp063-affected.xml` + PTY exit required.
+
+NEXT_EXACT_ACTION = "MONITOR EXISTING AFFECTED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT"
+
+
+## IMP-063 AFFECTED PASS / BROADER NEXT - 2026-10-08
+
+- [x] Targeted IMP-063 = 7/7 PASS; locked and must not rerun.
+- [x] Affected authority regression = 55/55 PASS (`.tmp/imp063-affected.xml`; 0 fail/error/skip).
+- [ ] Broader valid Windows regression excluding IMP-063 targeted + affected files.
+- [ ] Frozen Master guard -> final static/import/diff/leakage review -> evidence/Git lifecycle/main verify.
+
+NEXT_EXACT_ACTION = "DERIVE PRIOR BROADER VALID WINDOWS COMMAND -> ANTI-DUPLICATE GUARD -> RUN BROADER REGRESSION EXCLUDING TARGETED+AFFECTED -> FINAL JUNIT/EXIT -> FROZEN MASTER GUARD"
+
+
+## IMP-063 BROADER VALID WINDOWS RUNNING - 2026-10-08
+
+- [x] Targeted IMP-063 = 7/7 PASS; excluded from broader run.
+- [x] Affected authority regression = 55/55 PASS; excluded from broader run.
+- [~] Broader valid Windows regression RUNNING under PTY `pty_25e864daa1be0743ea7f47e6a211d1dad377`, PID `84456`.
+- [ ] Finalize `.tmp/imp063-broader-valid.xml` from final JUnit/exit only.
+- [ ] Frozen Master guard -> final static/import/diff/leakage review -> evidence/Git lifecycle/main verify.
+
+NEXT_EXACT_ACTION = "MONITOR EXISTING IMP-063 BROADER PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> FROZEN MASTER GUARD IF PASS"
+
+
+## IMP-063 BROADER VALID WINDOWS PASS / FROZEN GUARD NEXT - 2026-10-08
+
+- [x] IMP-063 targeted rerun1 = 7/7 PASS.
+- [x] Affected authority regression = 55/55 PASS.
+- [x] Broader valid Windows regression = 730/730 PASS (`.tmp/imp063-broader-valid.xml`; 0 fail/error/skip).
+- [ ] Frozen Master guard on exact IMP-063 head.
+- [ ] Final static/import/diff/leakage review -> evidence/Git lifecycle/main verify.
+
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD ON EXACT IMP-063 HEAD -> FINAL STATIC/IMPORT/DIFF REVIEW -> EVIDENCE/GIT LIFECYCLE"
+
+
+## IMP-063 FROZEN MASTER GUARD PASS / FINAL REVIEW NEXT - 2026-10-08
+
+- [x] Targeted = 7/7 PASS.
+- [x] Affected authority regression = 55/55 PASS.
+- [x] Broader valid Windows regression = 730/730 PASS.
+- [x] Frozen Master guard PASS; semantic SHA unchanged.
+- [ ] Final static/import/diff/leakage review -> evidence -> side-effect guard -> Git lifecycle.
+
+NEXT_EXACT_ACTION = "RUN FINAL STATIC/IMPORT/DIFF/LEAKAGE REVIEW -> CREATE EVIDENCE -> SIDE-EFFECT GUARD -> COMMIT/PUSH/PR"
+
+
+## IMP-063 FINAL REVIEW FIX / REVALIDATION - 2026-10-08
+
+- [x] Frozen §78-79 review found provenance-version evidence gap before commit.
+- [x] Patch: auto-pin defect-registry + detector or repair-planner version markers in provenance; reject missing markers.
+- [x] Targeted tests extended to assert persisted markers and fail closed on manual provenance without them.
+- [ ] Post-review targeted exact head.
+- [ ] Affected authority regression only after targeted PASS.
+- [ ] Broader valid Windows + Frozen guard only after affected PASS.
+
+NEXT_EXACT_ACTION = "POST-REVIEW STATIC GATE -> TARGETED ONLY -> AFFECTED IF PASS -> BROADER VALID -> FROZEN GUARD"
+
+
+## IMP-063 POST-REVIEW TARGETED PASS / AFFECTED NEXT - 2026-10-08
+
+- [x] Review-fix static/import/leakage gate PASS.
+- [x] Exact review head targeted = 8/8 PASS (`.tmp/imp063-final-targeted.xml`, exit 0).
+- [ ] Affected authority regression only; targeted must not rerun.
+- [ ] Broader valid Windows only after affected PASS.
+- [ ] Frozen guard + final evidence/Git lifecycle after broader PASS.
+
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RUN IMP-063 AFFECTED AUTHORITY REGRESSION ONLY; DO NOT RERUN TARGETED"
+
+
+## IMP-063 POST-REVIEW AFFECTED RUNNING - 2026-10-08
+
+- [x] Post-review targeted exact head = 8/8 PASS; excluded from affected.
+- [~] Affected authority regression RUNNING under PTY `pty_98da4510d8d9b84203ca3afbf352d27d32e0`, PID `74388`.
+- [ ] Finalize `.tmp/imp063-final-affected.xml` from final JUnit/exit only.
+- [ ] Broader valid Windows only after affected PASS.
+
+NEXT_EXACT_ACTION = "MONITOR EXISTING AFFECTED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT"
+
+
+## IMP-063 POST-REVIEW AFFECTED PASS / BROADER NEXT - 2026-10-08
+- [x] Exact review targeted = 8/8 PASS.
+- [x] Exact review affected authority regression = 55/55 PASS.
+- [ ] Broader valid Windows regression excluding targeted+affected.
+- [ ] Frozen Master guard after broader PASS.
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RUN BROADER VALID WINDOWS EXCLUDING TARGETED+AFFECTED -> FROZEN GUARD IF PASS"
+
+
+## IMP-063 FINAL BROADER REVALIDATION RUNNING - 2026-10-08
+- [x] Post-review targeted = 8/8 PASS.
+- [x] Post-review affected = 55/55 PASS.
+- [~] Broader valid Windows exact review head RUNNING under PTY `pty_771f797281354318cb7c04ae16f3202e9965`, PID `84416`.
+- [ ] Final JUnit `.tmp/imp063-final-broader-valid.xml` + PTY exit required.
+- [ ] Frozen guard after broader PASS.
+NEXT_EXACT_ACTION = "MONITOR EXISTING BROADER PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> FROZEN GUARD IF PASS"
+
+
+## IMP-063 FINAL BROADER REVALIDATION PASS / FROZEN NEXT - 2026-10-08
+- [x] Post-review targeted exact head = 8/8 PASS.
+- [x] Post-review affected authority regression = 55/55 PASS.
+- [x] Broader valid Windows exact review head = 730/730 PASS; 3 deselected; PTY exit 0.
+- [ ] Frozen Master guard on exact review head.
+- [ ] Final evidence / side-effect guard / Git lifecycle after Frozen PASS.
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD; DO NOT RERUN TARGETED/AFFECTED/BROADER"
+
+
+## IMP-063 FROZEN MASTER GUARD PASS / FINAL REVIEW NEXT - 2026-10-08
+- [x] Post-review targeted = 8/8 PASS.
+- [x] Post-review affected = 55/55 PASS.
+- [x] Post-review broader valid Windows = 730/730 PASS; 3 deselected.
+- [x] Frozen Master guard PASS; semantic SHA unchanged.
+- [ ] Final static/import/diff/leakage review.
+- [ ] Evidence + side-effect guard + Git lifecycle.
+NEXT_EXACT_ACTION = "FINAL STATIC/IMPORT/DIFF/LEAKAGE REVIEW -> EVIDENCE -> SIDE-EFFECT GUARD -> COMMIT"
+
+
+## IMP-063 FINAL REVIEW FIX 2 / REVALIDATION - 2026-10-08
+- [x] Frozen §78 review found connected downstream manifestation could still be selected as responsible layer.
+- [x] Patch: responsible_ref must be a cited finding source or exact ancestor of one.
+- [x] Added negative test for connected-but-too-late FullShotSpec localization.
+- [x] Post-fix static/import/diff/leakage gate PASS.
+- [ ] Rerun only IMP-063 targeted exact head.
+- [ ] Affected only after targeted PASS.
+- [ ] Broader valid Windows + Frozen guard only after affected PASS.
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RUN IMP-063 TARGETED EXACT HEAD ONLY -> IF PASS AFFECTED -> BROADER VALID -> FROZEN GUARD"
+
+
+## IMP-063 FINAL REVIEW FIX 2 TARGETED PASS / AFFECTED NEXT - 2026-10-08
+- [x] Post-fix static/import/diff/leakage gate PASS.
+- [x] Composite targeted exact head = 9/9 PASS (8 PASS in full run + corrected failed case rerun 1/1 PASS).
+- [ ] Run affected authority regression only; targeted must not rerun.
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RUN IMP-063 AFFECTED AUTHORITY REGRESSION ONLY"
+
+
+## IMP-063 FINAL REVIEW FIX 2 AFFECTED PASS / BROADER NEXT - 2026-10-08
+- [x] Post-fix targeted exact head = composite 9/9 PASS.
+- [x] Post-fix affected authority regression = 55/55 PASS (`.tmp/imp063-final2-affected.xml`).
+- [ ] Run broader valid Windows exact head excluding targeted+affected; do not rerun either PASS stage.
+- [ ] Frozen Master guard only after broader PASS.
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RUN BROADER VALID WINDOWS EXACT HEAD EXCLUDING TARGETED+AFFECTED -> FROZEN MASTER GUARD IF PASS"
+
+
+## IMP-063 FINAL REVIEW FIX 2 BROADER RUNNING - 2026-10-08
+- [x] Post-fix targeted exact head = composite 9/9 PASS.
+- [x] Post-fix affected authority regression = 55/55 PASS.
+- [~] Broader valid Windows exact head RUNNING under PTY `pty_113b2fa5b62b63c89204d9653ffd6479f34b`, PID `79884`.
+- [ ] Finalize `.tmp/imp063-final2-broader-valid.xml` from final JUnit/exit only.
+- [ ] Frozen Master guard only after broader PASS.
+NEXT_EXACT_ACTION = "MONITOR EXISTING BROADER PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> FROZEN MASTER GUARD IF PASS"
+
+
+## IMP-063 FINAL REVIEW FIX 2 BROADER INTERRUPTED / RESUME - 2026-10-09
+- [x] Post-fix targeted exact head = composite 9/9 PASS; DO NOT rerun.
+- [x] Post-fix affected authority regression = 55/55 PASS; DO NOT rerun.
+- [!] Prior broader PTY/PID disappeared after FileMCP workspace restart with no final JUnit/result marker: classify INTERRUPTED, not PASS/FAIL.
+- [ ] Resume only broader valid Windows stage using proven exclusion envelope and new JUnit/basetemp.
+- [ ] Frozen Master guard only after resumed broader PASS.
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RESUME ONLY BROADER VALID WINDOWS STAGE -> FINAL JUNIT/EXIT -> FROZEN MASTER GUARD IF PASS"
+
+
+## IMP-063 FINAL REVIEW FIX 2 BROADER RESUME1 RUNNING - 2026-10-09
+- [x] Post-fix targeted exact head = composite 9/9 PASS; excluded.
+- [x] Post-fix affected authority regression = 55/55 PASS; excluded.
+- [~] Resumed broader valid Windows stage RUNNING under PTY `pty_c911544d958047bcf754e8d9f4d935f0fb9e`, PID `77848` after prior broader interruption.
+- [ ] Finalize `.tmp/imp063-final2-broader-resume1.xml` from final JUnit/exit only.
+- [ ] Frozen Master guard only after resumed broader PASS.
+NEXT_EXACT_ACTION = "MONITOR EXISTING RESUME1 BROADER PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> FROZEN MASTER GUARD IF PASS"
+
+
+## IMP-063 FINAL REVIEW FIX 2 BROADER RESUME1 PASS / FROZEN NEXT - 2026-10-09
+- [x] Post-fix targeted exact head = composite 9/9 PASS; DO NOT rerun.
+- [x] Post-fix affected authority regression = 55/55 PASS; DO NOT rerun.
+- [x] Resumed broader valid Windows exact head = 730/730 PASS; failures=0 errors=0 skipped=0.
+- [ ] Run Frozen Master guard on exact current head.
+- [ ] Final static/evidence/side-effect Git lifecycle only after Frozen PASS.
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD; DO NOT RERUN TARGETED/AFFECTED/BROADER"
+
+
+## IMP-063 FINAL REVIEW FIX 2 FROZEN MASTER GUARD PASS / FINAL REVIEW NEXT - 2026-10-09
+- [x] Targeted exact head = composite 9/9 PASS; DO NOT rerun.
+- [x] Affected authority regression = 55/55 PASS; DO NOT rerun.
+- [x] Broader valid Windows exact head = 730/730 PASS; DO NOT rerun.
+- [x] Frozen Master guard PASS; semantic SHA unchanged.
+- [ ] Final static/import/diff/leakage review.
+- [ ] Evidence + side-effect guard + Git lifecycle.
+NEXT_EXACT_ACTION = "FINAL STATIC/IMPORT/DIFF/LEAKAGE REVIEW -> EVIDENCE -> SIDE-EFFECT GUARD -> COMMIT"
+
+
+## IMP-063 LOCAL VERIFIED / COMMIT NEXT - 2026-10-09
+- [x] Targeted exact head = composite 9/9 PASS.
+- [x] Affected authority regression = 55/55 PASS.
+- [x] Broader valid Windows exact head = 730/730 PASS.
+- [x] Frozen Master guard PASS.
+- [x] Final static/import/diff/leakage gate PASS.
+- [x] Evidence written: `evidence/tests/IMP-063_DEFECT_LOCALIZATION_REPAIR_EVIDENCE.md`.
+- [x] Side-effect guard PASS: no duplicate commit/remote branch/PR; `.tmp` untracked only.
+- [ ] Stage exact 7 files -> verify index -> feature commit.
+NEXT_EXACT_ACTION = "STAGE EXACT 7 FILES -> VERIFY INDEX/DIFF-CHECK -> COMMIT FEATURE"
+
+
+## IMP-063 FEATURE COMMIT CREATED / GOVERNANCE SYNC NEXT - 2026-10-09
+- [x] Feature commit created: `c6d7e5455d01f5c77765640c9e9f0d64e8bba01b`.
+- [x] Feature commit scope = exact 7 IMP-063 files.
+- [x] Worktree after feature commit = `.tmp/` untracked only.
+- [ ] Stage only `CURRENT_HANDOFF.md`, `PROJECT_STATE.md`, `tasks/TASK_QUEUE.md`.
+- [ ] Governance-only sync commit.
+- [ ] Side-effect guard -> push branch -> PR.
+NEXT_EXACT_ACTION = "STAGE ONLY 3 STATE FILES -> GOVERNANCE SYNC COMMIT -> SIDE-EFFECT GUARD -> PUSH/PR"

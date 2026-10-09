@@ -1481,3 +1481,38 @@ __all__ += [
     "decide_sequence_qa_verdict",
     "sequence_qa_result_logical_id",
 ]
+
+
+from .production_repair import (
+    DefectLocalization,
+    ProductionRepairArtifact,
+    ProductionRepairError,
+    ProductionRepairGateBlocked,
+    ProductionRepairIdentityError,
+    ProductionRepairMode,
+    ProductionRepairRepository,
+    ProductionResponsibleLayer,
+    QASourceKind,
+    RepairPlan,
+    RepairRecheckRequirement,
+    build_production_repair_provenance,
+    defect_localization_logical_id,
+    production_repair_plan_logical_id,
+)
+
+__all__ += [
+    "DefectLocalization",
+    "ProductionRepairArtifact",
+    "ProductionRepairError",
+    "ProductionRepairGateBlocked",
+    "ProductionRepairIdentityError",
+    "ProductionRepairMode",
+    "ProductionRepairRepository",
+    "ProductionResponsibleLayer",
+    "QASourceKind",
+    "RepairPlan",
+    "RepairRecheckRequirement",
+    "build_production_repair_provenance",
+    "defect_localization_logical_id",
+    "production_repair_plan_logical_id",
+]
