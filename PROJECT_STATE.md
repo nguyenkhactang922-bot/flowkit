@@ -4300,3 +4300,280 @@ checkpoint_last_pass = post-merge targeted 9/9 PASS; affected 89/89 PASS; push-m
 frozen_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
 blocker = none
 NEXT_EXACT_ACTION = "governance-only MAIN VERIFIED sync -> side-effect guard -> branch/commit/push/PR/CI/merge -> verify governance main"
+
+
+## IMP-062 GOVERNANCE MAIN VERIFIED / IMP-063 CLAIMED - 2026-10-08
+
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = CLAIMED / AUTHORITY + SURFACE AUDIT NEXT
+branch = chatgpt/IMP-063-defect-localization-repair
+base_main = 7e9b30e0d2ab2785279642762feaefa3b2946a19
+imp062_governance = PR #71 MERGED; push-main CI `37752708366` SUCCESS Python 3.10/3.13 on exact main SHA
+hard_dependencies = IMP-060 + IMP-061 + IMP-062 + IMP-005 VERIFIED
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "read IMP-063 frozen authority/task decomposition -> audit QA/invalidation/repair surfaces -> lock contract/test plan -> implement"
+
+
+## IMP-063 TARGETED RUNNING - 2026-10-08
+
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = RUNNING / TARGETED
+checkpoint = authority audit + implementation + compile/public import PASS
+process = PTY `pty_57d118ca0b7cf4ee6ae9263e1a860f01305f`, PID `85684`
+artifact = `.tmp/imp063-targeted.xml` pending
+note = system-Python pytest attempt executed zero tests because pytest module absent; not a test failure
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing targeted PTY; do not restart -> final JUnit/exit -> fix only targeted failure or affected regression if PASS"
+
+
+## IMP-063 TARGETED FAIL / FIXED - 2026-10-08
+
+status = FAIL at collection / fixture root cause fixed
+failed_stage = IMP-063 targeted collection only; zero tests executed
+root_cause = positional VersionRef construction in new test fixture
+fix = keyword VersionRef construction only; production implementation unchanged
+last_pass = compile/public import PASS
+blocker = none
+NEXT_EXACT_ACTION = "anti-duplicate guard -> rerun only IMP-063 targeted to `.tmp/imp063-targeted-rerun1.xml`"
+
+
+## IMP-063 TARGETED RERUN1 RUNNING - 2026-10-08
+
+status = RUNNING / targeted rerun1
+process = PTY `pty_94e351a324408ff3c3593a9b83b092138052`, PID `18176`
+artifact = `.tmp/imp063-targeted-rerun1.xml` pending
+last_pass = compile/public import PASS
+NEXT_EXACT_ACTION = "monitor existing targeted rerun1; do not restart -> final JUnit/exit"
+
+
+## IMP-063 TARGETED PASS - 2026-10-08
+
+status = PASS / targeted locked
+checkpoint = 7/7 PASS; 0 fail/error/skip; PTY exit 0
+artifact = `.tmp/imp063-targeted-rerun1.xml`
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "anti-duplicate guard -> run affected authority regression only; targeted MUST NOT rerun"
+
+
+## IMP-063 AFFECTED RUNNING - 2026-10-08
+
+status = RUNNING / affected authority regression
+process = PTY `pty_f8d4e8ca99de6ca0bb1205e115fec3bed64d`, PID `83564`
+scope = versioning + invalidation + story_quality + static_qa + motion_qa + continuity_sequence_qa
+targeted = 7/7 PASS locked and omitted
+artifact = `.tmp/imp063-affected.xml` pending
+NEXT_EXACT_ACTION = "monitor existing affected PTY; do not restart -> final JUnit/exit"
+
+
+## IMP-063 AFFECTED PASS - 2026-10-08
+
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = PASS / affected checkpoint locked
+process = none
+checkpoint_last_pass = targeted 7/7 PASS; affected authority regression 55/55 PASS
+artifact = `.tmp/imp063-affected.xml`: tests=55 failures=0 errors=0 skipped=0; duration=533.729s
+blocker = none
+NEXT_EXACT_ACTION = "derive prior broader valid Windows command -> anti-duplicate guard -> run broader regression excluding targeted+affected -> final JUnit/exit -> Frozen Master guard"
+
+
+## IMP-063 BROADER VALID WINDOWS RUNNING - 2026-10-08
+
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = RUNNING / broader valid Windows regression
+process = PTY `pty_25e864daa1be0743ea7f47e6a211d1dad377` / PID `84456`
+checkpoint_last_pass = targeted 7/7 PASS; affected 55/55 PASS
+artifact_pending = `.tmp/imp063-broader-valid.xml`; basetemp `.tmp/pytest-imp063-broader-valid`
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing IMP-063 broader PTY; do not restart -> final JUnit/exit -> Frozen Master guard if PASS"
+
+
+## IMP-063 BROADER VALID WINDOWS PASS - 2026-10-08
+
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = PASS / broader checkpoint locked
+process = none
+checkpoint_last_pass = targeted 7/7 PASS; affected 55/55 PASS; broader valid Windows 730/730 PASS
+artifact = `.tmp/imp063-broader-valid.xml`: tests=730 failures=0 errors=0 skipped=0; duration=3348.858s
+blocker = none
+NEXT_EXACT_ACTION = "run Frozen Master guard on exact IMP-063 head -> final static/import/diff review -> evidence/Git lifecycle"
+
+
+## IMP-063 FROZEN MASTER GUARD PASS - 2026-10-08
+
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = PASS / Frozen Master unchanged
+frozen_sha = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+checkpoint_last_pass = targeted 7/7; affected 55/55; broader 730/730; Frozen guard PASS
+blocker = none
+NEXT_EXACT_ACTION = "final static/import/diff/leakage review -> evidence -> side-effect guard -> Git lifecycle"
+
+
+## IMP-063 FINAL REVIEW FIX APPLIED - 2026-10-08
+
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = REVIEW FIX APPLIED / exact-head revalidation required
+review_finding = Frozen §78-79 provenance must pin rule/evaluator/planner version evidence; prior payload-only version fields were insufficient.
+fix = production-repair provenance now includes defect-registry/detector or repair-planner markers and repository rejects missing markers.
+checkpoint_note = previous targeted 7/7, affected 55/55, broader 730/730 are historical for pre-review head only.
+blocker = none
+NEXT_EXACT_ACTION = "post-review static gate -> targeted only -> affected if PASS -> broader valid -> Frozen guard"
+
+
+## IMP-063 POST-REVIEW TARGETED PASS - 2026-10-08
+
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = PASS / exact review head targeted locked
+artifact = `.tmp/imp063-final-targeted.xml`: tests=8 failures=0 errors=0 skipped=0; exit 0
+checkpoint_last_pass = post-review static gate PASS; targeted 8/8 PASS
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "anti-duplicate guard -> affected authority regression only; targeted MUST NOT rerun"
+
+
+## IMP-063 POST-REVIEW AFFECTED RUNNING - 2026-10-08
+
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = RUNNING / affected authority regression
+process = PTY `pty_98da4510d8d9b84203ca3afbf352d27d32e0` / PID `74388`
+scope = versioning + invalidation + story_quality + static_qa + motion_qa + continuity_sequence_qa; targeted excluded
+checkpoint_last_pass = post-review targeted 8/8 PASS
+artifact_pending = `.tmp/imp063-final-affected.xml`
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing affected PTY; do not restart -> final JUnit/exit"
+
+
+## IMP-063 POST-REVIEW AFFECTED PASS - 2026-10-08
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = PASS / affected checkpoint locked
+artifact = `.tmp/imp063-final-affected.xml`: 55/55 PASS; exit 0
+checkpoint_last_pass = targeted 8/8; affected 55/55
+NEXT_EXACT_ACTION = "anti-duplicate guard -> broader valid Windows excluding targeted+affected -> Frozen guard if PASS"
+
+
+## IMP-063 FINAL BROADER REVALIDATION RUNNING - 2026-10-08
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = RUNNING / broader valid Windows exact review head
+process = PTY `pty_771f797281354318cb7c04ae16f3202e9965` / PID `84416`
+checkpoint_last_pass = post-review targeted 8/8 PASS; affected 55/55 PASS
+artifact_pending = `.tmp/imp063-final-broader-valid.xml`
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing broader PTY; do not restart -> final JUnit/exit -> Frozen guard if PASS"
+
+
+## IMP-063 FINAL BROADER REVALIDATION PASS - 2026-10-08
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = PASS / exact review head broader locked
+artifact = `.tmp/imp063-final-broader-valid.xml`: 730/730 PASS; failures=0 errors=0 skipped=0; 3 deselected; PTY exit 0
+checkpoint_last_pass = targeted 8/8; affected 55/55; broader 730/730
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "Frozen Master guard on exact review head; targeted/affected/broader MUST NOT rerun"
+
+
+## IMP-063 FROZEN MASTER GUARD PASS - 2026-10-08
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = PASS / Frozen Master guard
+checkpoint_last_pass = targeted 8/8; affected 55/55; broader 730/730; Frozen guard PASS
+semantic_frozen_sha256 = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+blocker = none
+NEXT_EXACT_ACTION = "final static/import/diff/leakage review -> evidence -> side-effect guard -> commit"
+
+
+## IMP-063 FINAL REVIEW FIX 2 APPLIED - 2026-10-08
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = REVIEW FIX APPLIED / exact-head revalidation required
+review_finding = Frozen §78 earliest-responsible-layer invariant was not strong enough for connected downstream manifestation sources.
+fix = responsible_ref must be finding source or exact ancestor of cited finding source; negative regression added.
+static_gate = PASS
+checkpoint_note = earlier 8/55/730/Frozen PASS apply to pre-fix head only.
+blocker = none
+NEXT_EXACT_ACTION = "targeted exact head only -> affected if PASS -> broader valid -> Frozen guard"
+
+
+## IMP-063 FINAL REVIEW FIX 2 TARGETED PASS - 2026-10-08
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = PASS / composite exact-head targeted locked
+checkpoint_last_pass = post-fix static gate; targeted 9/9 PASS (8 prior PASS + corrected failed case 1/1 PASS)
+blocker = none
+NEXT_EXACT_ACTION = "affected authority regression only; targeted MUST NOT rerun"
+
+
+## IMP-063 FINAL REVIEW FIX 2 AFFECTED RUNNING - 2026-10-08
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = RUNNING / affected authority regression
+process = PTY `pty_694b224fa4f14af0c9478ee6965174270241`, PID `61028`
+checkpoint_last_pass = post-fix static gate; targeted 9/9 PASS
+artifact_pending = `.tmp/imp063-final2-affected.xml`
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing affected PTY; do not restart -> final JUnit/exit"
+
+
+## IMP-063 FINAL REVIEW FIX 2 AFFECTED PASS - 2026-10-08
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = PASS / affected authority regression locked
+artifact = `.tmp/imp063-final2-affected.xml`: 55/55 PASS; failures=0 errors=0 skipped=0
+checkpoint_last_pass = post-fix static gate; targeted composite 9/9 PASS; affected 55/55 PASS
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "anti-duplicate guard -> broader valid Windows exact head excluding targeted+affected -> Frozen Master guard if PASS"
+
+
+## IMP-063 FINAL REVIEW FIX 2 BROADER RUNNING - 2026-10-08
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = RUNNING / broader valid Windows exact head
+process = PTY `pty_113b2fa5b62b63c89204d9653ffd6479f34b`, PID `79884`
+checkpoint_last_pass = post-fix static gate; targeted composite 9/9 PASS; affected 55/55 PASS
+artifact_pending = `.tmp/imp063-final2-broader-valid.xml`
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing broader PTY; do not restart -> final JUnit/exit -> Frozen Master guard if PASS"
+
+
+## IMP-063 FINAL REVIEW FIX 2 BROADER INTERRUPTED / RESUME - 2026-10-09
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = INTERRUPTED / broader stage only
+runtime_evidence = PID 79884 absent; prior PTY absent from current registry after FileMCP workspace restart; no final2 broader JUnit/result marker exists
+checkpoint_last_pass = post-fix static gate; targeted composite 9/9 PASS; affected 55/55 PASS
+preserve = targeted and affected MUST NOT rerun
+blocker = none
+NEXT_EXACT_ACTION = "resume only broader valid Windows stage using proven envelope with new JUnit/basetemp -> Frozen Master guard if PASS"
+
+
+## IMP-063 FINAL REVIEW FIX 2 BROADER RESUME1 RUNNING - 2026-10-09
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = RUNNING / resumed broader stage only after interruption
+process = PTY `pty_c911544d958047bcf754e8d9f4d935f0fb9e`, PID `77848`
+checkpoint_last_pass = post-fix static gate; targeted composite 9/9 PASS; affected 55/55 PASS
+artifact_pending = `.tmp/imp063-final2-broader-resume1.xml`
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing resume1 broader PTY; do not restart -> final JUnit/exit -> Frozen Master guard if PASS"
+
+
+## IMP-063 FINAL REVIEW FIX 2 BROADER RESUME1 PASS - 2026-10-09
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = PASS / resumed broader stage locked
+artifact = `.tmp/imp063-final2-broader-resume1.xml`: 730/730 PASS; failures=0 errors=0 skipped=0
+checkpoint_last_pass = post-fix static gate; targeted composite 9/9 PASS; affected 55/55 PASS; broader resume1 730/730 PASS
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "run Frozen Master guard on exact current head; targeted/affected/broader MUST NOT rerun"
+
+
+## IMP-063 FINAL REVIEW FIX 2 FROZEN MASTER GUARD PASS - 2026-10-09
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = PASS / Frozen Master guard on exact current head
+checkpoint_last_pass = post-fix static gate; targeted composite 9/9 PASS; affected 55/55 PASS; broader 730/730 PASS; Frozen guard PASS
+semantic_frozen_sha256 = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+blocker = none
+NEXT_EXACT_ACTION = "final static/import/diff/leakage review -> evidence -> side-effect guard -> commit"
+
+
+## IMP-063 LOCAL VERIFIED / SIDE-EFFECT GUARD PASS - 2026-10-09
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = LOCAL VERIFIED
+checkpoint_last_pass = targeted composite 9/9 PASS; affected 55/55 PASS; broader 730/730 PASS; Frozen guard PASS; final static/import/diff/leakage PASS
+evidence = `evidence/tests/IMP-063_DEFECT_LOCALIZATION_REPAIR_EVIDENCE.md`
+side_effect_guard = PASS; no existing IMP-063 commit/remote branch/PR; staged index empty; `.tmp` untracked only
+blocker = none
+NEXT_EXACT_ACTION = "stage exact 7 files -> verify index/diff-check -> commit feature"
