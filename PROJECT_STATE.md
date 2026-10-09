@@ -4845,3 +4845,13 @@ checkpoint_last_pass = targeted 7/7 PASS; affected 69/69 PASS; broader 725/725 P
 process = none
 blocker = none
 NEXT_EXACT_ACTION = "run Git side-effect guard -> stage exact IMP-064 scope only -> verify index -> commit; test stages MUST NOT rerun"
+
+
+## IMP-064 FEATURE COMMIT CREATED / GOVERNANCE SYNC NEXT - 2026-10-09
+active_task = IMP-064 Approval / Canonical State Commit
+status = feature commit created; local verification preserved
+feature_commit = `6f29c6c32e7baea3890e9b379f74a44d5b6ef25e`
+branch = `chatgpt/IMP-064-approval-state-commit`
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "stage only 3 state files -> verify index -> commit governance sync -> side-effect guard -> push/PR"

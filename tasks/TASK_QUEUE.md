@@ -4225,3 +4225,11 @@ NEXT_EXACT_ACTION = "RUN FINAL STATIC/IMPORT/DIFF GATE + EXACT-HEAD AUTHORITY/TR
 - [x] Evidence file: `evidence/tests/IMP-064_APPROVAL_STATE_COMMIT_EVIDENCE.md`.
 - [ ] Git side-effect guard -> exact-scope stage/commit/push/PR lifecycle.
 NEXT_EXACT_ACTION = "RUN GIT SIDE-EFFECT GUARD -> STAGE EXACT IMP-064 SCOPE ONLY -> VERIFY INDEX -> COMMIT; DO NOT RERUN TEST STAGES"
+
+
+## IMP-064 FEATURE COMMIT CREATED / GOVERNANCE SYNC NEXT - 2026-10-09
+- [x] Local verification complete; evidence committed in feature snapshot.
+- [x] Feature commit = `6f29c6c32e7baea3890e9b379f74a44d5b6ef25e`.
+- [ ] Stage only `CURRENT_HANDOFF.md`, `PROJECT_STATE.md`, `tasks/TASK_QUEUE.md`.
+- [ ] Commit governance sync, then side-effect guard before push/PR.
+NEXT_EXACT_ACTION = "STAGE ONLY 3 STATE FILES -> VERIFY INDEX -> COMMIT GOVERNANCE SYNC -> SIDE-EFFECT GUARD -> PUSH/PR"
