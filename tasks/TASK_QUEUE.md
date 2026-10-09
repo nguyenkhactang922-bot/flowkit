@@ -4015,3 +4015,53 @@ NEXT_EXACT_ACTION = "STAGE EXACT 7 FILES -> VERIFY INDEX/DIFF-CHECK -> COMMIT FE
 - [ ] Governance-only sync commit.
 - [ ] Side-effect guard -> push branch -> PR.
 NEXT_EXACT_ACTION = "STAGE ONLY 3 STATE FILES -> GOVERNANCE SYNC COMMIT -> SIDE-EFFECT GUARD -> PUSH/PR"
+
+
+## IMP-063 POST-MERGE TARGETED RUNNING - 2026-10-09
+- [x] PR #72 merged at `d8899957372d9765be4391ee77af9c293192e79f`.
+- [~] Post-merge targeted RUNNING under PTY `pty_25536e856e98d610dfadf8ba1482494b8903`, PID `82352`.
+- [~] Push-main CI run `37877711999` RUNNING on exact merge SHA.
+- [ ] Finalize `.tmp/imp063-main-targeted.xml` from final JUnit/exit only.
+- [ ] Affected authority regression only after targeted PASS.
+- [ ] Frozen Master guard only after affected PASS.
+NEXT_EXACT_ACTION = "MONITOR EXISTING TARGETED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT"
+
+
+## IMP-063 POST-MERGE TARGETED PASS / AFFECTED NEXT - 2026-10-09
+- [x] Post-merge targeted exact main SHA = 9/9 PASS; DO NOT rerun.
+- [ ] Run affected authority regression only: versioning + invalidation + story_quality + static_qa + motion_qa + continuity_sequence_qa.
+- [ ] Frozen Master guard only after affected PASS.
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RUN 6-FILE AFFECTED AUTHORITY REGRESSION; TARGETED MUST NOT RERUN"
+
+
+## IMP-063 POST-MERGE AFFECTED RUNNING - 2026-10-09
+- [x] Post-merge targeted = 9/9 PASS; excluded.
+- [~] Affected authority regression RUNNING under PTY `pty_c7cef733b1ad96a2cb85fd5696afa0adb1de`, PID `89448`.
+- [ ] Finalize `.tmp/imp063-main-affected.xml` from final JUnit/exit only.
+- [ ] Frozen Master guard only after affected PASS.
+NEXT_EXACT_ACTION = "MONITOR EXISTING AFFECTED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT"
+
+
+## IMP-063 PUSH-MAIN CI PASS / AFFECTED STILL RUNNING - 2026-10-09
+- [x] Push-main CI run `37877711999` SUCCESS on exact merge SHA; Python 3.10 + 3.13 + Frozen baseline PASS.
+- [x] Post-merge targeted = 9/9 PASS.
+- [~] Existing affected PTY `pty_c7cef733b1ad96a2cb85fd5696afa0adb1de` still owns current stage; DO NOT restart.
+NEXT_EXACT_ACTION = "MONITOR EXISTING AFFECTED PTY -> FINAL JUNIT/EXIT -> FROZEN GUARD IF PASS"
+
+
+## IMP-063 POST-MERGE AFFECTED PASS / FROZEN NEXT - 2026-10-09
+- [x] Post-merge targeted = 9/9 PASS; DO NOT rerun.
+- [x] Post-merge affected authority regression = 55/55 PASS; DO NOT rerun.
+- [x] Push-main CI run `37877711999` = SUCCESS on exact merge SHA.
+- [ ] Run Frozen Master guard on exact main SHA.
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD; DO NOT RERUN TARGETED/AFFECTED/CI"
+
+
+## IMP-063 FEATURE MAIN VERIFIED / GOVERNANCE SYNC NEXT - 2026-10-09
+- [x] PR #72 merged at `d8899957372d9765be4391ee77af9c293192e79f`.
+- [x] Post-merge targeted = 9/9 PASS.
+- [x] Post-merge affected authority regression = 55/55 PASS.
+- [x] Push-main CI run `37877711999` = SUCCESS.
+- [x] Frozen Master guard PASS; semantic SHA unchanged.
+- [ ] Governance-only sync branch/commit/PR/CI/merge/verify main.
+NEXT_EXACT_ACTION = "CREATE GOVERNANCE-ONLY BRANCH FROM EXACT MAIN -> COMMIT 3 STATE FILES -> PUSH/PR/CI/MERGE/VERIFY MAIN"

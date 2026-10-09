@@ -4588,3 +4588,69 @@ checkpoint_last_pass = LOCAL VERIFIED exact head before commit; exact 7-file sco
 worktree = `.tmp/` untracked only
 blocker = none
 NEXT_EXACT_ACTION = "stage only 3 state files -> governance sync commit -> side-effect guard -> push/PR"
+
+
+## IMP-063 POST-MERGE TARGETED RUNNING - 2026-10-09
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = RUNNING / post-merge targeted verification
+main_sha = d8899957372d9765be4391ee77af9c293192e79f
+process = PTY `pty_25536e856e98d610dfadf8ba1482494b8903`, PID `82352`
+artifact_pending = `.tmp/imp063-main-targeted.xml`
+push_main_ci = run 37877711999 RUNNING on exact main SHA
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing targeted PTY; do not restart -> final JUnit/exit -> affected only if PASS"
+
+
+## IMP-063 POST-MERGE TARGETED PASS - 2026-10-09
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = PASS / post-merge targeted locked
+main_sha = d8899957372d9765be4391ee77af9c293192e79f
+artifact = `.tmp/imp063-main-targeted.xml`: 9/9 PASS; failures=0 errors=0 skipped=0; PTY exit 0
+checkpoint_last_pass = post-merge targeted 9/9 PASS
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "anti-duplicate guard -> 6-file affected authority regression; targeted MUST NOT rerun"
+
+
+## IMP-063 POST-MERGE AFFECTED RUNNING - 2026-10-09
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = RUNNING / post-merge affected authority regression
+main_sha = d8899957372d9765be4391ee77af9c293192e79f
+process = PTY `pty_c7cef733b1ad96a2cb85fd5696afa0adb1de`, PID `89448`
+scope = 6 authority files; IMP-063 targeted excluded
+artifact_pending = `.tmp/imp063-main-affected.xml`
+checkpoint_last_pass = post-merge targeted 9/9 PASS
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing affected PTY; do not restart -> final JUnit/exit"
+
+
+## IMP-063 PUSH-MAIN CI PASS - 2026-10-09
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = PASS / push-main CI exact merge SHA
+main_sha = d8899957372d9765be4391ee77af9c293192e79f
+evidence = GitHub Actions run 37877711999: Python 3.10 SUCCESS; Python 3.13 SUCCESS; Frozen baseline PASS in both jobs
+checkpoint_last_pass = post-merge targeted 9/9 PASS; push-main CI SUCCESS
+NEXT_EXACT_ACTION = "continue monitoring existing affected PTY; do not restart"
+
+
+## IMP-063 POST-MERGE AFFECTED PASS / FROZEN NEXT - 2026-10-09
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = PASS / post-merge affected authority regression locked
+main_sha = d8899957372d9765be4391ee77af9c293192e79f
+artifact = `.tmp/imp063-main-affected.xml`: 55/55 PASS; failures=0 errors=0 skipped=0
+checkpoint_last_pass = post-merge targeted 9/9 PASS; affected 55/55 PASS; push-main CI SUCCESS
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "run Frozen Master guard on exact main SHA; targeted/affected/CI MUST NOT rerun"
+
+
+## IMP-063 FEATURE MAIN VERIFIED / GOVERNANCE SYNC NEXT - 2026-10-09
+active_task = IMP-063 Defect Localization + Targeted Production Repair
+status = MAIN VERIFIED / feature implementation
+main_sha = d8899957372d9765be4391ee77af9c293192e79f
+evidence = PR #72 merged; post-merge targeted 9/9 PASS; affected 55/55 PASS; push-main CI run 37877711999 SUCCESS; Frozen Master guard PASS
+semantic_frozen_sha256 = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+checkpoint_last_pass = IMP-063 feature MAIN VERIFIED
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "governance-only branch from exact main -> commit 3 state files -> push/PR/CI/merge/verify main"
