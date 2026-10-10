@@ -5182,3 +5182,28 @@ checkpoint_last_pass = local verification complete; code/test bytes unchanged af
 worktree = `.tmp/` untracked only
 blocker = none
 NEXT_EXACT_ACTION = "sync feature commit SHA into governance state -> governance-only commit -> side-effect guard -> push/PR"
+
+
+## IMP-071 POST-MERGE TARGETED PASS / AFFECTED NEXT - 2026-10-10
+active_task = IMP-071 Typed IPC / Production Utility Bridge
+status = PASS / post-merge targeted locked
+main_sha = `7ed4c28cd2010d5338e1b13232715eaab05ad3d6`
+pr = #78 merged
+targeted = Node 12/12 PASS + `.tmp/imp071-main-targeted.xml` Python 7/7 PASS; failures=0 errors=0 skipped=0; PTY exit 0
+push_main_ci = run `38051480412` RUNNING on exact merge SHA
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "anti-duplicate guard -> run only post-merge affected service-boundary regression; targeted MUST NOT rerun"
+
+
+## IMP-071 FEATURE MAIN VERIFIED / GOVERNANCE SYNC NEXT - 2026-10-10
+active_task = IMP-071 Typed IPC / Production Utility Bridge
+status = MAIN VERIFIED / feature implementation
+main_sha = `7ed4c28cd2010d5338e1b13232715eaab05ad3d6`
+pr = #78 merged
+push_main_ci = run `38051480412` SUCCESS; Python 3.10 + 3.13 PASS
+post_merge_evidence = Node targeted 12/12 + Python targeted 7/7 PASS; affected 9/9 PASS; Frozen Master guard PASS
+frozen_sha256 = `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "governance side-effect guard -> state-only branch/commit -> push/PR/CI/review/merge"
