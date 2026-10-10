@@ -4997,3 +4997,13 @@ final_static_gate = PASS
 process = none
 blocker = none
 NEXT_EXACT_ACTION = "run Git side-effect guard -> stage exact IMP-070 scope -> verify index -> commit; test stages MUST NOT rerun"
+
+
+## IMP-070 FEATURE COMMIT CREATED / GOVERNANCE SYNC NEXT - 2026-10-10
+active_task = IMP-070 Electron Host Shell Security Baseline
+status = feature commit created; local verification preserved
+feature_commit = `6fdc06087bfa36d31dc1c9a600f4b5c391dd6b24`
+branch = `chatgpt/IMP-070-electron-host-shell-security`
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "stage only 3 state files -> verify index -> commit governance sync -> side-effect guard -> push/PR"
