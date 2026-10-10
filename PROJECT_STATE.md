@@ -5007,3 +5007,64 @@ branch = `chatgpt/IMP-070-electron-host-shell-security`
 process = none
 blocker = none
 NEXT_EXACT_ACTION = "stage only 3 state files -> verify index -> commit governance sync -> side-effect guard -> push/PR"
+
+
+## IMP-070 POST-MERGE TARGETED RUNNING - 2026-10-10
+active_task = IMP-070 Electron Host Shell Security Baseline
+status = RUNNING / post-merge targeted security verification
+main_sha = `f41a1b8d7409dc3f58e844f4c2f91eee226c37a4`
+pr = #76 merged
+push_main_ci = run `38041456564` RUNNING
+process = PTY `pty_9f34696ce8268570171ea648d20430410cb9` / root PID `104824`
+artifact_pending = `.tmp/imp070-main-targeted.xml`
+checkpoint_last_pass = pre-merge local verification + PR #76 CI SUCCESS
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing post-merge targeted PTY; do not restart -> final result -> affected only if PASS"
+
+
+## IMP-070 POST-MERGE TARGETED PASS / AFFECTED NEXT - 2026-10-10
+active_task = IMP-070 Electron Host Shell Security Baseline
+status = PASS / post-merge targeted locked
+main_sha = `f41a1b8d7409dc3f58e844f4c2f91eee226c37a4`
+artifact = Node security 3/3 PASS; `.tmp/imp070-main-targeted.xml` pytest 6/6 PASS; PTY exit 0
+push_main_ci = run `38041456564` RUNNING; Frozen baseline PASS both jobs
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "anti-duplicate guard -> run post-merge affected service-boundary regression only; targeted MUST NOT rerun"
+
+
+## IMP-070 POST-MERGE AFFECTED RUNNING - 2026-10-10
+active_task = IMP-070 Electron Host Shell Security Baseline
+status = RUNNING / post-merge affected service-boundary regression
+main_sha = `f41a1b8d7409dc3f58e844f4c2f91eee226c37a4`
+process = PTY `pty_27796d73d0ad986666e292e9733d0014cb66` / root PID `104556`
+scope = `test_flow_project_session.py` + `test_flow_upload_api.py`; targeted excluded
+artifact_pending = `.tmp/imp070-main-affected.xml`
+checkpoint_last_pass = post-merge targeted Node 3/3 + pytest 6/6 PASS
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing post-merge affected PTY; do not restart -> final JUnit/exit -> Frozen Master guard if PASS"
+
+
+## IMP-070 POST-MERGE AFFECTED PASS / FROZEN NEXT - 2026-10-10
+active_task = IMP-070 Electron Host Shell Security Baseline
+status = PASS / post-merge affected service-boundary regression locked
+main_sha = `f41a1b8d7409dc3f58e844f4c2f91eee226c37a4`
+artifact = `.tmp/imp070-main-affected.xml`: 9/9 PASS; failures=0 errors=0 skipped=0; PTY exit 0
+checkpoint_last_pass = post-merge targeted Node 3/3 + pytest 6/6 PASS; affected 9/9 PASS
+push_main_ci = run `38041456564`: Python 3.13 SUCCESS; Python 3.10 still RUNNING at checkpoint
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "run Frozen Master guard on exact main SHA; targeted/affected MUST NOT rerun; continue monitoring existing push-main CI"
+
+
+## IMP-070 FEATURE MAIN VERIFIED / GOVERNANCE SYNC NEXT - 2026-10-10
+active_task = IMP-070 Electron Host Shell Security Baseline
+status = MAIN VERIFIED / feature implementation
+main_sha = `f41a1b8d7409dc3f58e844f4c2f91eee226c37a4`
+pr = #76 merged
+push_main_ci = run `38041456564` SUCCESS; Python 3.10 + 3.13 PASS
+post_merge_evidence = targeted Node 3/3 + pytest 6/6 PASS; affected 9/9 PASS; Frozen Master guard PASS
+frozen_sha256 = `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "governance side-effect guard -> create state-only branch from exact main -> commit only 3 state files -> push/PR/CI/review/merge"
