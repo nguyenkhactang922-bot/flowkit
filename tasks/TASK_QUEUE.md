@@ -4347,3 +4347,47 @@ NEXT_EXACT_ACTION = "RUN GIT SIDE-EFFECT GUARD -> STAGE EXACT IMP-070 SCOPE ONLY
 - [ ] Stage only `CURRENT_HANDOFF.md`, `PROJECT_STATE.md`, `tasks/TASK_QUEUE.md`.
 - [ ] Commit governance sync, then side-effect guard before push/PR.
 NEXT_EXACT_ACTION = "STAGE ONLY 3 STATE FILES -> VERIFY INDEX -> COMMIT GOVERNANCE SYNC -> SIDE-EFFECT GUARD -> PUSH/PR"
+
+
+## IMP-070 POST-MERGE TARGETED RUNNING - 2026-10-10
+- [x] PR #76 merged at exact main SHA `f41a1b8d7409dc3f58e844f4c2f91eee226c37a4`.
+- [~] Push-main CI run `38041456564` RUNNING on exact merge SHA.
+- [~] Post-merge targeted security RUNNING under PTY `pty_9f34696ce8268570171ea648d20430410cb9`, PID `104824`.
+- [ ] Finalize Node security + pytest targeted evidence without restart.
+- [ ] Run affected service-boundary regression only after targeted PASS.
+NEXT_EXACT_ACTION = "MONITOR EXISTING POST-MERGE TARGETED PTY; DO NOT RESTART -> FINAL RESULT -> AFFECTED ONLY IF PASS"
+
+
+## IMP-070 POST-MERGE TARGETED PASS / AFFECTED NEXT - 2026-10-10
+- [x] PR #76 merged at exact main SHA `f41a1b8d7409dc3f58e844f4c2f91eee226c37a4`.
+- [x] Post-merge targeted security = Node 3/3 PASS + pytest 6/6 PASS; PTY exit 0; DO NOT rerun.
+- [~] Push-main CI run `38041456564` RUNNING; Frozen baseline PASS both jobs.
+- [ ] Run affected service-boundary regression only.
+- [ ] Run Frozen Master guard after affected PASS.
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RUN POST-MERGE AFFECTED SERVICE-BOUNDARY REGRESSION ONLY; TARGETED MUST NOT RERUN"
+
+
+## IMP-070 POST-MERGE AFFECTED RUNNING - 2026-10-10
+- [x] Post-merge targeted = Node 3/3 + pytest 6/6 PASS; DO NOT rerun.
+- [~] Post-merge affected service-boundary regression RUNNING under PTY `pty_27796d73d0ad986666e292e9733d0014cb66`, PID `104556`.
+- [ ] Finalize `.tmp/imp070-main-affected.xml` from final JUnit/exit only.
+- [ ] Run Frozen Master guard only after affected PASS.
+NEXT_EXACT_ACTION = "MONITOR EXISTING POST-MERGE AFFECTED PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> FROZEN GUARD IF PASS"
+
+
+## IMP-070 POST-MERGE AFFECTED PASS / FROZEN NEXT - 2026-10-10
+- [x] Post-merge targeted = Node 3/3 + pytest 6/6 PASS; DO NOT rerun.
+- [x] Post-merge affected service-boundary regression = 9/9 PASS; `.tmp/imp070-main-affected.xml`; DO NOT rerun.
+- [~] Push-main CI run `38041456564`: Python 3.13 SUCCESS; Python 3.10 still RUNNING at checkpoint.
+- [ ] Run Frozen Master guard on exact main SHA.
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD; TARGETED/AFFECTED MUST NOT RERUN; CONTINUE MONITORING EXISTING PUSH-MAIN CI"
+
+
+## IMP-070 FEATURE MAIN VERIFIED / GOVERNANCE SYNC NEXT - 2026-10-10
+- [x] PR #76 merged at exact main SHA `f41a1b8d7409dc3f58e844f4c2f91eee226c37a4`.
+- [x] Push-main CI run `38041456564` SUCCESS; Python 3.10 + 3.13 PASS.
+- [x] Post-merge targeted = Node 3/3 + pytest 6/6 PASS; DO NOT rerun.
+- [x] Post-merge affected = 9/9 PASS; DO NOT rerun.
+- [x] Frozen Master guard PASS; semantic SHA unchanged.
+- [ ] Governance-only state sync lifecycle.
+NEXT_EXACT_ACTION = "GOVERNANCE SIDE-EFFECT GUARD -> STATE-ONLY BRANCH/COMMIT -> PUSH/PR/CI/REVIEW/MERGE"
