@@ -1,4 +1,4 @@
-"""IMP-070 Electron host shell security baseline tests."""
+"""IMP-070/IMP-071 Electron host shell and typed IPC security tests."""
 
 from __future__ import annotations
 
@@ -27,7 +27,12 @@ def test_desktop_package_pins_supported_electron_and_packaging_skeleton():
     assert set(package["build"]["files"]) == {
         "main.cjs",
         "preload.cjs",
+        "preload-api.cjs",
         "security-policy.cjs",
+        "ipc-contract.cjs",
+        "ipc-main.cjs",
+        "production-utility-bridge.cjs",
+        "utility-entry.cjs",
         "renderer/**/*",
     }
 
@@ -59,15 +64,25 @@ def test_main_uses_custom_secure_protocol_and_not_file_loading_or_external_shell
     assert "require('shell')" not in source
 
 
-def test_preload_exposes_no_generic_privileged_bridge():
-    source = _text("preload.cjs")
-    assert "contextBridge" in source
-    assert "ipcRenderer" not in source
-    assert "child_process" not in source
-    assert "require('fs')" not in source
-    assert "require(\"fs\")" not in source
-    assert "shell" not in source
-    assert "flowkitHost" in source
+def test_preload_exposes_only_bounded_typed_ipc_capability():
+    preload = _text("preload.cjs")
+    api = _text("preload-api.cjs")
+    contract = _text("ipc-contract.cjs")
+
+    assert "contextBridge.exposeInMainWorld('flowkitHost', rendererApi)" in preload
+    assert "ipcRenderer.invoke(channel, request)" in preload
+    assert "flowkitHost', ipcRenderer" not in preload
+    assert "exposeInMainWorld('ipcRenderer'" not in preload
+    assert 'exposeInMainWorld("ipcRenderer"' not in preload
+
+    assert "getBridgeStatus" in api
+    assert "ipcRenderer" not in api
+    assert "child_process" not in api
+    assert "require('fs')" not in api
+    assert 'require("fs")' not in api
+    assert "shell" not in api
+    assert "flowkit:generic:invoke" not in contract
+    assert "flowkit:utility:get-bridge-status" in contract
 
 
 def test_renderer_declares_restrictive_csp():
@@ -85,6 +100,18 @@ def test_renderer_declares_restrictive_csp():
 def test_navigation_window_and_webview_policy_behavior():
     completed = subprocess.run(
         ["node", "--test", "desktop/tests/security-policy.test.cjs"],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+        timeout=30,
+    )
+    assert completed.returncode == 0, completed.stdout + completed.stderr
+
+
+def test_typed_ipc_negative_contract_behavior():
+    completed = subprocess.run(
+        ["node", "--test", "desktop/tests/ipc-contract.test.cjs"],
         cwd=ROOT,
         check=False,
         capture_output=True,

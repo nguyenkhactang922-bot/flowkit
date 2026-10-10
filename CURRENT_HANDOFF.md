@@ -4986,3 +4986,99 @@ FROZEN_SHA256 = `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c7728
 PROCESS = none
 BLOCKER = none
 NEXT_EXACT_ACTION = "GOVERNANCE SIDE-EFFECT GUARD -> CREATE STATE-ONLY BRANCH FROM EXACT MAIN -> COMMIT ONLY 3 STATE FILES -> PUSH/PR/CI/REVIEW/MERGE"
+
+
+## IMP-070 GOVERNANCE MAIN VERIFIED / IMP-071 CLAIMED - 2026-10-10
+STATUS = IMP-070 governance MAIN VERIFIED; IMP-071 CLAIMED
+IMP070_GOVERNANCE_MAIN_SHA = `e21b5132cec0c92eff0e67c22ea4309d359091a2`
+IMP070_GOVERNANCE_PR = #77 merged
+IMP070_GOVERNANCE_PUSH_MAIN_CI = run `38044348637` SUCCESS; Python 3.10 + 3.13 PASS; Frozen Master baseline PASS both jobs
+CURRENT_TASK = IMP-071 Typed IPC / Production Utility Bridge
+BRANCH = `chatgpt/IMP-071-typed-ipc-utility-bridge`
+BASE_SHA = `e21b5132cec0c92eff0e67c22ea4309d359091a2`
+CHECKPOINT_LAST_PASS = IMP-070 governance lifecycle MAIN VERIFIED
+PROCESS = none
+BLOCKER = none
+NEXT_EXACT_ACTION = "READ FROZEN MASTER IMP-071 SECURITY AUTHORITY + AUDIT CURRENT DESKTOP MAIN/PRELOAD/RENDERER SURFACES -> LOCK TYPED IPC CONTRACT/ALLOWLIST/NEGATIVE TEST PLAN -> IMPLEMENT; DO NOT REOPEN IMP-070"
+
+
+## IMP-071 AUTHORITY AUDIT LOCKED / CODE NEXT - 2026-10-10
+STATUS = ANALYZE/PASS; implementation contract locked
+AUTHORITY = Frozen Master §84 Security + target topology Renderer -> narrow contextBridge -> Main/Host Security Broker -> typed IPC/MessagePort -> Production Utility
+KEEP = IMP-070 hardened BrowserWindow/custom app protocol/navigation policy; existing renderer/service authority unchanged
+NEW_SCOPE = typed channel contracts + sender/origin/main-frame validation + strict versioned request/response schema + redacted error surface + Production Utility transport + narrow preload wrappers
+FORBIDDEN = generic invoke bridge; raw ipcRenderer; fs; child_process; shell; unrestricted filesystem/process capability; renderer secret access
+TEST_PLAN = invalid sender/origin/frame denied; invalid schema/version denied; unknown channel absent/denied; utility response versioned; renderer bridge exposes bounded method only; no raw privileged primitives
+PROCESS = none
+BLOCKER = none
+NEXT_EXACT_ACTION = "IMPLEMENT PURE IPC CONTRACT + MAIN HANDLER + PRODUCTION UTILITY TRANSPORT/ENTRY + NARROW PRELOAD WRAPPER + TARGETED NODE TESTS; KEEP IMP-070 SECURITY BASELINE UNCHANGED"
+
+
+## IMP-071 NODE TARGETED PASS / PYTHON STATIC GATE NEXT - 2026-10-10
+STATUS = PASS / Node typed IPC + security targeted checkpoint locked
+EVIDENCE = `node --test desktop/tests/security-policy.test.cjs desktop/tests/ipc-contract.test.cjs`: 12/12 PASS, fail=0
+NOTE = `npm run test:security` failed before tests because local npm bootstrap was broken; direct Node command executed the exact script payload and passed
+CODE_CHANGED_AFTER_NODE_PASS = no
+PROCESS = none
+BLOCKER = none
+NEXT_EXACT_ACTION = "RUN ONLY tests/unit/test_electron_host_security.py IN REPO UV ENV; NODE TARGETED MUST NOT RERUN -> IF PASS, DEFINE/RUN AFFECTED SERVICE-BOUNDARY REGRESSION"
+
+
+## IMP-071 TARGETED PASS / AFFECTED NEXT - 2026-10-10
+STATUS = PASS / targeted typed IPC + Electron security gate locked
+NODE_TARGETED = 12/12 PASS; `desktop/tests/security-policy.test.cjs` + `desktop/tests/ipc-contract.test.cjs`; DO NOT rerun unless code changes
+PYTHON_TARGETED = `.tmp/imp071-targeted.xml`: 7/7 PASS; failures=0 errors=0 skipped=0; PTY exit 0; DO NOT rerun unless code/test changes
+CHECKPOINT_LAST_PASS = targeted Node 12/12 + Python 7/7 PASS
+PROCESS = none
+BLOCKER = none
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RUN AFFECTED SERVICE-BOUNDARY REGRESSION ONLY: tests/unit/test_flow_project_session.py + tests/unit/test_flow_upload_api.py; TARGETED MUST NOT RERUN"
+
+
+## IMP-071 AFFECTED PASS / BROADER NEXT - 2026-10-10
+STATUS = PASS / affected service-boundary regression locked
+TARGETED = Node 12/12 PASS + Python 7/7 PASS; DO NOT rerun unless code/test changes
+AFFECTED = `.tmp/imp071-affected.xml`: 9/9 PASS; failures=0 errors=0 skipped=0; PTY exit 0
+CHECKPOINT_LAST_PASS = targeted Node 12/12 + Python 7/7 + affected 9/9 PASS
+PROCESS = none
+BLOCKER = none
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RUN BROADER VALID WINDOWS REGRESSION EXCLUDING IMP-071 TARGETED+AFFECTED, test_setup.py, test_video_reviewer.py, AND ESTABLISHED 3 POSIX-PATH DESELECTIONS; TARGETED/AFFECTED MUST NOT RERUN"
+
+
+## IMP-071 BROADER VALID WINDOWS RUNNING - 2026-10-10
+STATUS = RUNNING / broader valid Windows regression
+PROCESS = PTY `pty_faec2ae1e4f7ba1e6c4df090d90cb1fbb84b`, root PID `104796`
+SCOPE = `tests/unit` excluding `test_electron_host_security.py`, `test_flow_project_session.py`, `test_flow_upload_api.py`, `test_setup.py`, `test_video_reviewer.py`; established 3 POSIX-path assertions deselected by exact historical `-k` expression
+ARTIFACT_PENDING = `.tmp/imp071-broader-valid.xml`; basetemp `.tmp/pytest-imp071-broader-valid`
+CHECKPOINT_LAST_PASS = targeted Node 12/12 + Python 7/7 + affected 9/9 PASS
+BLOCKER = none
+NEXT_EXACT_ACTION = "MONITOR EXISTING IMP-071 BROADER PTY/PID; DO NOT RESTART -> FINAL JUNIT/EXIT -> FROZEN MASTER GUARD ONLY IF PASS"
+
+
+## IMP-071 BROADER VALID WINDOWS PASS / FROZEN GUARD NEXT - 2026-10-10
+STATUS = PASS / broader valid Windows regression locked
+TARGETED = Node 12/12 PASS + Python 7/7 PASS; DO NOT rerun unless code/test changes
+AFFECTED = 9/9 PASS; DO NOT rerun
+BROADER = `.tmp/imp071-broader-valid.xml`: 792/792 PASS; failures=0 errors=0 skipped=0; durable final JUnit, prior PTY expired after completion
+PROCESS = none
+BLOCKER = none
+NEXT_EXACT_ACTION = "RUN ONLY python tools/frozen_master_guard.py ON CURRENT IMP-071 WORKTREE; TARGETED/AFFECTED/BROADER MUST NOT RERUN"
+
+
+## IMP-071 FROZEN MASTER GUARD PASS / EXACT-HEAD REVIEW NEXT - 2026-10-10
+STATUS = PASS / all local verification gates locked
+TARGETED = Node 12/12 + Python 7/7 PASS; DO NOT rerun unless code/test changes
+AFFECTED = 9/9 PASS; DO NOT rerun
+BROADER = 792/792 PASS; DO NOT rerun
+FROZEN_MASTER_GUARD = PASS; SHA256=1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+PROCESS = none
+BLOCKER = none
+NEXT_EXACT_ACTION = "EXACT-HEAD STATIC/SECURITY REVIEW + EVIDENCE -> SIDE-EFFECT GUARD -> COMMIT; NO TEST STAGE RERUN"
+
+
+## IMP-071 LOCAL VERIFIED / COMMIT NEXT - 2026-10-10
+STATUS = PASS / locally verified
+EVIDENCE = `evidence/tests/IMP-071_TYPED_IPC_UTILITY_BRIDGE_EVIDENCE.md`
+CHECKPOINT_LAST_PASS = Node 12/12 + Python targeted 7/7 + affected 9/9 + broader 792/792 + Frozen guard PASS + exact-head static/security review PASS
+SIDE_EFFECT_GUARD = PASS; no feature commit/remote branch/PR; staged index empty; `.tmp` untracked only
+BLOCKER = none
+NEXT_EXACT_ACTION = "STAGE EXACT IMP-071 SCOPE -> VERIFY INDEX -> FEATURE COMMIT; DO NOT RERUN TESTS"

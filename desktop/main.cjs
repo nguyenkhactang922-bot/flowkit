@@ -1,8 +1,10 @@
 'use strict';
 
-const { app, BrowserWindow, net, protocol } = require('electron');
+const { app, BrowserWindow, ipcMain, net, protocol, utilityProcess } = require('electron');
 const path = require('path');
 const { pathToFileURL } = require('url');
+const { installProductionIpcHandlers } = require('./ipc-main.cjs');
+const { ProductionUtilityBridge } = require('./production-utility-bridge.cjs');
 const {
   APP_SCHEME,
   APP_ORIGIN,
@@ -25,6 +27,9 @@ protocol.registerSchemesAsPrivileged([
 ]);
 
 const RENDERER_ROOT = path.join(__dirname, 'renderer');
+const UTILITY_ENTRY = path.join(__dirname, 'utility-entry.cjs');
+let productionUtilityBridge = null;
+let ipcRegistration = null;
 
 function registerAppProtocol() {
   protocol.handle(APP_SCHEME, async (request) => {
@@ -60,6 +65,22 @@ function createMainWindow() {
   });
 
   installNavigationGuards(win.webContents);
+  if (ipcRegistration) {
+    ipcRegistration.dispose();
+  }
+  ipcRegistration = installProductionIpcHandlers({
+    ipcMain,
+    webContents: win.webContents,
+    appOrigin: APP_ORIGIN,
+    bridge: productionUtilityBridge,
+  });
+
+  win.once('closed', () => {
+    if (ipcRegistration) {
+      ipcRegistration.dispose();
+      ipcRegistration = null;
+    }
+  });
   win.once('ready-to-show', () => win.show());
   win.loadURL(`${APP_ORIGIN}/index.html`);
   return win;
@@ -67,6 +88,10 @@ function createMainWindow() {
 
 app.whenReady().then(() => {
   registerAppProtocol();
+  productionUtilityBridge = new ProductionUtilityBridge({
+    utilityProcess,
+    entryPath: UTILITY_ENTRY,
+  });
   createMainWindow();
 
   app.on('activate', () => {
@@ -74,6 +99,17 @@ app.whenReady().then(() => {
       createMainWindow();
     }
   });
+});
+
+app.on('before-quit', () => {
+  if (ipcRegistration) {
+    ipcRegistration.dispose();
+    ipcRegistration = null;
+  }
+  if (productionUtilityBridge) {
+    productionUtilityBridge.close();
+    productionUtilityBridge = null;
+  }
 });
 
 app.on('window-all-closed', () => {
