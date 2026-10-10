@@ -1,11 +1,14 @@
 'use strict';
 
-const { contextBridge } = require('electron');
+const { contextBridge, ipcRenderer } = require('electron');
+const { randomUUID } = require('node:crypto');
+const { createRendererApi } = require('./preload-api.cjs');
 
-contextBridge.exposeInMainWorld(
-  'flowkitHost',
-  Object.freeze({
-    apiVersion: 1,
-    securityBaseline: 'imp-070-v1',
-  })
-);
+const rendererApi = createRendererApi({
+  invoke(channel, request) {
+    return ipcRenderer.invoke(channel, request);
+  },
+  randomUUID,
+});
+
+contextBridge.exposeInMainWorld('flowkitHost', rendererApi);

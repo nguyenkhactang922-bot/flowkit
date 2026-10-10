@@ -7,7 +7,7 @@
   "main": "main.cjs",
   "scripts": {
     "start": "electron .",
-    "test:security": "node --test tests/security-policy.test.cjs",
+    "test:security": "node --test tests/security-policy.test.cjs tests/ipc-contract.test.cjs",
     "pack": "electron-builder --dir",
     "dist:win": "electron-builder --win nsis"
   },
@@ -21,7 +21,12 @@
     "files": [
       "main.cjs",
       "preload.cjs",
+      "preload-api.cjs",
       "security-policy.cjs",
+      "ipc-contract.cjs",
+      "ipc-main.cjs",
+      "production-utility-bridge.cjs",
+      "utility-entry.cjs",
       "renderer/**/*"
     ],
     "directories": {

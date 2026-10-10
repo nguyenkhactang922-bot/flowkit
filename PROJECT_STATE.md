@@ -5068,3 +5068,117 @@ frozen_sha256 = `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c7728
 process = none
 blocker = none
 NEXT_EXACT_ACTION = "governance side-effect guard -> create state-only branch from exact main -> commit only 3 state files -> push/PR/CI/review/merge"
+
+
+## IMP-070 GOVERNANCE MAIN VERIFIED / IMP-071 CLAIMED - 2026-10-10
+active_task = IMP-071 Typed IPC / Production Utility Bridge
+status = CLAIMED / authority audit next
+imp070_governance_main_sha = `e21b5132cec0c92eff0e67c22ea4309d359091a2`
+imp070_governance_pr = #77 merged
+imp070_governance_push_main_ci = run `38044348637` SUCCESS; Python 3.10 + 3.13 PASS; Frozen Master baseline PASS
+branch = `chatgpt/IMP-071-typed-ipc-utility-bridge`
+base_sha = `e21b5132cec0c92eff0e67c22ea4309d359091a2`
+checkpoint_last_pass = IMP-070 governance lifecycle MAIN VERIFIED
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "read Frozen Master IMP-071 security authority + audit current desktop main/preload/renderer surfaces -> lock typed IPC contract/allowlist/negative test plan -> implement; do not reopen IMP-070"
+
+
+## IMP-071 AUTHORITY AUDIT LOCKED / CODE NEXT - 2026-10-10
+active_task = IMP-071 Typed IPC / Production Utility Bridge
+status = ANALYZE/PASS; implementation contract locked
+authority = Frozen Master §84 Security + target topology Renderer -> narrow contextBridge -> Main/Host Security Broker -> typed IPC/MessagePort -> Production Utility
+keep = IMP-070 hardened host shell/security policy; no reopening of verified BrowserWindow/navigation baseline
+new_scope = typed channel contracts; sender/origin/main-frame validation; strict versioned request/response schemas; redacted errors; utility-process transport; narrow preload wrappers
+forbidden = generic invoke; raw ipcRenderer/fs/child_process/shell; unrestricted OS/filesystem bridge; renderer long-lived secret access
+test_plan = invalid sender/schema/version denied; unknown channel not registered; utility result versioned/redacted; preload exposes bounded method only
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "implement IPC contract/main handler/utility transport/entry/preload wrapper + targeted Node tests; keep IMP-070 security baseline unchanged"
+
+
+## IMP-071 NODE TARGETED PASS / PYTHON STATIC GATE NEXT - 2026-10-10
+active_task = IMP-071 Typed IPC / Production Utility Bridge
+status = PASS / Node targeted checkpoint locked
+node_targeted = 12/12 PASS; `security-policy.test.cjs` + `ipc-contract.test.cjs`
+npm_note = npm bootstrap failed before tests; direct Node command executed exact test payload and passed
+code_changed_after_node_pass = no
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "run only tests/unit/test_electron_host_security.py in repo uv environment; Node targeted MUST NOT rerun -> affected regression if PASS"
+
+
+## IMP-071 TARGETED PASS / AFFECTED NEXT - 2026-10-10
+active_task = IMP-071 Typed IPC / Production Utility Bridge
+status = PASS / targeted locked
+node_targeted = 12/12 PASS; DO NOT rerun unless code changes
+python_targeted = `.tmp/imp071-targeted.xml`: 7/7 PASS; failures=0 errors=0 skipped=0; PTY exit 0
+checkpoint_last_pass = Node 12/12 + Python 7/7 PASS
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "anti-duplicate guard -> run only tests/unit/test_flow_project_session.py + tests/unit/test_flow_upload_api.py; targeted MUST NOT rerun"
+
+
+## IMP-071 AFFECTED PASS / BROADER NEXT - 2026-10-10
+active_task = IMP-071 Typed IPC / Production Utility Bridge
+status = PASS / affected locked
+targeted = Node 12/12 + Python 7/7 PASS; DO NOT rerun unless code/test changes
+affected = `.tmp/imp071-affected.xml`: 9/9 PASS; failures=0 errors=0 skipped=0; PTY exit 0
+checkpoint_last_pass = targeted Node 12/12 + Python 7/7 + affected 9/9 PASS
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "anti-duplicate guard -> broader valid Windows regression excluding IMP-071 targeted+affected, test_setup.py, test_video_reviewer.py, and established 3 POSIX-path deselections; targeted/affected MUST NOT rerun"
+
+
+## IMP-071 BROADER VALID WINDOWS RUNNING - 2026-10-10
+active_task = IMP-071 Typed IPC / Production Utility Bridge
+status = RUNNING / broader valid Windows regression
+process = PTY `pty_faec2ae1e4f7ba1e6c4df090d90cb1fbb84b` / root PID `104796`
+scope = tests/unit excluding IMP-071 targeted + affected files, test_setup.py, test_video_reviewer.py; established 3 POSIX-path assertions deselected
+artifact_pending = `.tmp/imp071-broader-valid.xml`; basetemp `.tmp/pytest-imp071-broader-valid`
+checkpoint_last_pass = targeted Node 12/12 + Python 7/7 + affected 9/9 PASS
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing IMP-071 broader PTY/PID; do not restart -> final JUnit/exit -> Frozen Master guard only if PASS"
+
+
+## IMP-071 BROADER VALID WINDOWS PASS / FROZEN GUARD NEXT - 2026-10-10
+active_task = IMP-071 Typed IPC / Production Utility Bridge
+status = PASS / broader locked
+targeted = Node 12/12 + Python 7/7 PASS; DO NOT rerun
+affected = 9/9 PASS; DO NOT rerun
+broader = `.tmp/imp071-broader-valid.xml`: 792/792 PASS; failures=0 errors=0 skipped=0
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "run only python tools/frozen_master_guard.py on current IMP-071 worktree; no test stage rerun"
+
+
+## IMP-071 FROZEN MASTER GUARD PASS / EXACT-HEAD REVIEW NEXT - 2026-10-10
+active_task = IMP-071 Typed IPC / Production Utility Bridge
+status = PASS / all local verification gates locked
+targeted = Node 12/12 + Python 7/7 PASS; DO NOT rerun
+affected = 9/9 PASS; DO NOT rerun
+broader = 792/792 PASS; DO NOT rerun
+frozen_master_guard = PASS; semantic_sha256=1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "exact-head static/security review + evidence -> side-effect guard -> commit; no test stage rerun"
+
+
+## IMP-071 LOCAL VERIFIED / COMMIT NEXT - 2026-10-10
+active_task = IMP-071 Typed IPC / Production Utility Bridge
+status = PASS / locally verified
+evidence = `evidence/tests/IMP-071_TYPED_IPC_UTILITY_BRIDGE_EVIDENCE.md`
+checkpoint_last_pass = Node 12/12 + Python targeted 7/7 + affected 9/9 + broader 792/792 + Frozen guard PASS + exact-head static/security review PASS
+side_effect_guard = PASS; no feature commit/remote branch/PR; staged index empty; `.tmp` untracked only
+blocker = none
+NEXT_EXACT_ACTION = "stage exact IMP-071 scope -> verify index -> feature commit; do not rerun tests"
+
+
+## IMP-071 FEATURE COMMIT CREATED / GOVERNANCE SYNC NEXT - 2026-10-10
+active_task = IMP-071 Typed IPC / Production Utility Bridge
+status = PASS / feature commit created
+feature_commit = `af6dbc84786504eef4f883b40adfbd01bbf8a3ec`
+checkpoint_last_pass = local verification complete; code/test bytes unchanged after commit
+worktree = `.tmp/` untracked only
+blocker = none
+NEXT_EXACT_ACTION = "sync feature commit SHA into governance state -> governance-only commit -> side-effect guard -> push/PR"
