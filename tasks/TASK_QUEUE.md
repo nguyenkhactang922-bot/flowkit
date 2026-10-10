@@ -4493,3 +4493,23 @@ NEXT_EXACT_ACTION = "STAGE EXACT IMP-071 SCOPE -> VERIFY INDEX -> FEATURE COMMIT
 - [ ] Governance-only state sync commit.
 - [ ] Side-effect guard -> push/PR/CI/review/merge/main verify.
 NEXT_EXACT_ACTION = "SYNC FEATURE SHA -> GOVERNANCE-ONLY COMMIT -> SIDE-EFFECT GUARD -> PUSH/PR"
+
+
+## IMP-071 POST-MERGE TARGETED PASS / AFFECTED NEXT - 2026-10-10
+- [x] PR #78 merged at exact main SHA `7ed4c28cd2010d5338e1b13232715eaab05ad3d6`.
+- [x] Post-merge Node targeted 12/12 PASS; DO NOT rerun.
+- [x] Post-merge Python Electron security targeted 7/7 PASS; `.tmp/imp071-main-targeted.xml`; DO NOT rerun.
+- [~] Push-main CI run `38051480412` RUNNING on exact merge SHA.
+- [ ] Run post-merge affected service-boundary regression only.
+- [ ] Frozen Master guard after affected PASS.
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RUN ONLY POST-MERGE AFFECTED REGRESSION; TARGETED MUST NOT RERUN"
+
+
+## IMP-071 FEATURE MAIN VERIFIED / GOVERNANCE SYNC NEXT - 2026-10-10
+- [x] PR #78 merged at exact main SHA `7ed4c28cd2010d5338e1b13232715eaab05ad3d6`.
+- [x] Push-main CI run `38051480412` SUCCESS; Python 3.10 + 3.13 PASS.
+- [x] Post-merge targeted Node 12/12 + Python 7/7 PASS; DO NOT rerun.
+- [x] Post-merge affected 9/9 PASS; DO NOT rerun.
+- [x] Frozen Master guard PASS; semantic SHA unchanged.
+- [ ] Governance-only state sync lifecycle.
+NEXT_EXACT_ACTION = "GOVERNANCE SIDE-EFFECT GUARD -> STATE-ONLY BRANCH/COMMIT -> PUSH/PR/CI/REVIEW/MERGE"
