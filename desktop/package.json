@@ -1,0 +1,36 @@
+{
+  "name": "flowkit-studio-desktop",
+  "productName": "FlowKit Studio",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Hardened Electron host shell for the FlowKit Studio target desktop topology.",
+  "main": "main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "test:security": "node --test tests/security-policy.test.cjs",
+    "pack": "electron-builder --dir",
+    "dist:win": "electron-builder --win nsis"
+  },
+  "devDependencies": {
+    "electron": "44.7.0",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "appId": "com.flowkit.studio",
+    "asar": true,
+    "files": [
+      "main.cjs",
+      "preload.cjs",
+      "security-policy.cjs",
+      "renderer/**/*"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    }
+  }
+}
