@@ -4269,3 +4269,81 @@ NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD; TARGETED/AFFECTED/CI MUST NOT RERU
 - [x] Frozen Master guard PASS; semantic SHA256 `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
 - [ ] Governance-only state sync lifecycle.
 NEXT_EXACT_ACTION = "GOVERNANCE SIDE-EFFECT GUARD -> STATE-ONLY BRANCH/COMMIT -> PUSH/PR/CI/REVIEW/MERGE"
+
+
+## IMP-064 GOVERNANCE MAIN VERIFIED / IMP-070 CLAIMED - 2026-10-09
+- [x] IMP-064 governance PR #75 merged at `39ad22e016ed8e4ad977679989401020183eb459`.
+- [x] Governance push-main CI run `37960919678` SUCCESS; Python 3.10 + 3.13 + Frozen baseline PASS.
+- [x] Verify IMP-070 dependencies: IMP-003 + IMP-006 MAIN VERIFIED.
+- [x] Duplicate guard PASS for `chatgpt/IMP-070-electron-host-shell-security`.
+- [x] Claim branch from exact governance main `39ad22e016ed8e4ad977679989401020183eb459`.
+- [ ] Read Frozen Electron Host Shell Security authority.
+- [ ] Audit current Electron main/preload/packaging/security surfaces.
+- [ ] Freeze KEEP+EXTEND implementation contract before code.
+- [ ] Implement config/static security tests + navigation/new-window denial.
+NEXT_EXACT_ACTION = "READ FROZEN ELECTRON HOST SHELL SECURITY AUTHORITY + AUDIT CURRENT ELECTRON/MAIN/PRELOAD/PACKAGING SURFACES BEFORE CODE"
+
+
+## IMP-070 AUTHORITY + SURFACE AUDIT PASS - 2026-10-09
+- [x] Read Frozen Master Security §84 authority.
+- [x] Confirm Electron host is NEW target layer; current React/Vite + FastAPI runtime is not Electron evidence.
+- [x] Audit tracked Electron/main/preload/package surfaces: production target absent; V0.16 spike is donor-only.
+- [x] Lock KEEP+EXTEND boundary: existing dashboard/service authority unchanged.
+- [x] Lock NEW `desktop/` shell with hardened BrowserWindow flags, custom `flowkit://app`, deny cross-origin navigation/new-window/webview.
+- [x] Lock IMP-070 preload to no generic ipcRenderer/fs/child_process/shell bridge; IMP-071 owns typed IPC.
+- [x] Supply-chain check: Electron 44.7.0 MIT; electron-builder 26.15.3 MIT.
+- [ ] Implement shell/preload/security policy/package skeleton.
+- [ ] Targeted static/behavior tests -> affected regression -> broader valid regression -> Frozen guard -> evidence/Git lifecycle.
+NEXT_EXACT_ACTION = "IMPLEMENT DESKTOP HOST SHELL + PRELOAD + SECURITY POLICY/PACKAGING SKELETON + TARGETED TESTS"
+
+
+## IMP-070 TARGETED SECURITY TESTS PASS - 2026-10-10
+- [x] Node security-policy behavior tests = 3/3 PASS.
+- [x] Python static/security targeted tests = 6/6 PASS; `.tmp/imp070-targeted.xml`.
+- [ ] Run affected service-boundary regression only; targeted MUST NOT rerun.
+- [ ] Run broader valid Windows regression after affected PASS.
+- [ ] Run Frozen Master guard after broader PASS.
+NEXT_EXACT_ACTION = "RUN AFFECTED SERVICE-BOUNDARY REGRESSION ONLY; TARGETED MUST NOT RERUN"
+
+
+## IMP-070 AFFECTED SERVICE-BOUNDARY REGRESSION PASS - 2026-10-10
+- [x] Targeted security: Node 3/3 PASS + pytest 6/6 PASS; DO NOT rerun.
+- [x] Affected service-boundary regression: `test_flow_project_session.py` + `test_flow_upload_api.py` = 9/9 PASS; `.tmp/imp070-affected.xml`.
+- [ ] Run broader valid Windows regression excluding targeted + affected files and known Windows/POSIX exclusions.
+- [ ] Run Frozen Master guard after broader PASS.
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RUN BROADER VALID WINDOWS REGRESSION; TARGETED/AFFECTED MUST NOT RERUN"
+
+
+## IMP-070 BROADER VALID WINDOWS RUNNING - 2026-10-10
+- [x] Targeted security gate PASS; DO NOT rerun.
+- [x] Affected service-boundary regression 9/9 PASS; DO NOT rerun.
+- [~] Broader valid Windows regression RUNNING under PTY `pty_4e16c0eb9b2dc88564bdb2aabe40afca534f`, PID `99208`.
+- [ ] Finalize `.tmp/imp070-broader-valid.xml` from final JUnit/exit only.
+- [ ] Run Frozen Master guard only after broader PASS.
+NEXT_EXACT_ACTION = "MONITOR EXISTING IMP-070 BROADER PTY; DO NOT RESTART -> FINAL JUNIT/EXIT -> FROZEN GUARD IF PASS"
+
+
+## IMP-070 BROADER VALID WINDOWS PASS / FROZEN NEXT - 2026-10-10
+- [x] Targeted security gate: Node 3/3 PASS + pytest 6/6 PASS; DO NOT rerun.
+- [x] Affected service-boundary regression: 9/9 PASS; DO NOT rerun.
+- [x] Broader valid Windows regression: 792/792 PASS; failures=0 errors=0 skipped=0; `.tmp/imp070-broader-valid.xml`; DO NOT rerun.
+- [ ] Run Frozen Master guard on current IMP-070 worktree.
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD; TARGETED/AFFECTED/BROADER MUST NOT RERUN"
+
+
+## IMP-070 LOCAL VERIFIED / GIT SIDE-EFFECT GUARD NEXT - 2026-10-10
+- [x] Targeted security: Node 3/3 PASS + pytest 6/6 PASS; DO NOT rerun.
+- [x] Affected service-boundary regression: 9/9 PASS; DO NOT rerun.
+- [x] Broader valid Windows regression: 792/792 PASS; DO NOT rerun.
+- [x] Frozen Master guard PASS; semantic SHA unchanged.
+- [x] Final static/security review PASS; evidence `evidence/tests/IMP-070_ELECTRON_HOST_SECURITY_EVIDENCE.md`.
+- [ ] Git side-effect guard -> exact-scope stage/commit/push/PR lifecycle.
+NEXT_EXACT_ACTION = "RUN GIT SIDE-EFFECT GUARD -> STAGE EXACT IMP-070 SCOPE ONLY -> VERIFY INDEX -> COMMIT; DO NOT RERUN TEST STAGES"
+
+
+## IMP-070 FEATURE COMMIT CREATED / GOVERNANCE SYNC NEXT - 2026-10-10
+- [x] Local verification complete; evidence committed in feature snapshot.
+- [x] Feature commit = `6fdc06087bfa36d31dc1c9a600f4b5c391dd6b24`.
+- [ ] Stage only `CURRENT_HANDOFF.md`, `PROJECT_STATE.md`, `tasks/TASK_QUEUE.md`.
+- [ ] Commit governance sync, then side-effect guard before push/PR.
+NEXT_EXACT_ACTION = "STAGE ONLY 3 STATE FILES -> VERIFY INDEX -> COMMIT GOVERNANCE SYNC -> SIDE-EFFECT GUARD -> PUSH/PR"

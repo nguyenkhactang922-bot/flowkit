@@ -27,3 +27,7 @@ extension/_metadata/
 .omc/
 .agent/
 flow_session_project.json
+
+# Electron desktop target build/install output
+desktop/node_modules/
+desktop/dist/

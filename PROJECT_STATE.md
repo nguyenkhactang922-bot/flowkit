@@ -4915,3 +4915,95 @@ frozen_sha256 = `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c7728
 process = none
 blocker = none
 NEXT_EXACT_ACTION = "governance side-effect guard -> create state-only branch from exact main -> commit only 3 state files -> push/PR/CI/review/merge"
+
+
+## IMP-064 GOVERNANCE MAIN VERIFIED / IMP-070 CLAIMED - 2026-10-09
+active_task = IMP-070 Electron Host Shell Security Baseline
+status = CLAIMED / authority audit next
+imp064_governance_main_sha = `39ad22e016ed8e4ad977679989401020183eb459`
+imp064_governance_pr = #75 merged
+imp064_governance_ci = run `37960919678` SUCCESS; Python 3.10 + 3.13 + Frozen baseline PASS
+branch = `chatgpt/IMP-070-electron-host-shell-security`
+dependencies = IMP-003 + IMP-006 MAIN VERIFIED
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "read Frozen Electron host-shell security authority; audit current Electron/main/preload/packaging surfaces; freeze KEEP+EXTEND contract before code"
+
+
+## IMP-070 AUTHORITY + SURFACE AUDIT PASS - 2026-10-09
+active_task = IMP-070 Electron Host Shell Security Baseline
+status = PASS / implementation contract frozen before code
+frozen_authority = Security §84; Electron host is NEW target layer
+keep_extend = existing React/Vite dashboard + FastAPI/service authority unchanged; historical Electron spike donor-only
+new_surface = `desktop/` host shell + preload + custom `flowkit://app` + packaging skeleton
+security_baseline = nodeIntegration=false; contextIsolation=true; sandbox=true; webSecurity=true; allowRunningInsecureContent=false; experimentalFeatures=false; deny webview/new-window/cross-origin navigation
+ipc_scope = no generic IPC bridge in IMP-070; IMP-071 owns typed IPC
+supply_chain = Electron 44.7.0 MIT; electron-builder 26.15.3 MIT
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "implement desktop shell/preload/security policy/package skeleton + targeted static/behavior tests; do not modify current web/service authority"
+
+
+## IMP-070 TARGETED SECURITY TESTS PASS - 2026-10-10
+active_task = IMP-070 Electron Host Shell Security Baseline
+status = PASS / targeted security gate locked
+artifact = Node security-policy tests 3/3 PASS; pytest `tests/unit/test_electron_host_security.py` 6/6 PASS; `.tmp/imp070-targeted.xml`
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "run affected service-boundary regression only; targeted MUST NOT rerun -> broader valid Windows -> Frozen guard"
+
+
+## IMP-070 AFFECTED SERVICE-BOUNDARY REGRESSION PASS - 2026-10-10
+active_task = IMP-070 Electron Host Shell Security Baseline
+status = PASS / affected service-boundary regression locked
+artifact = `test_flow_project_session.py` + `test_flow_upload_api.py` -> 9/9 PASS; `.tmp/imp070-affected.xml`
+checkpoint_last_pass = targeted Node 3/3 + pytest 6/6 PASS; affected 9/9 PASS
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "anti-duplicate guard -> broader valid Windows regression excluding targeted+affected+known Windows exclusions; targeted/affected MUST NOT rerun"
+
+
+## IMP-070 BROADER VALID WINDOWS RUNNING - 2026-10-10
+active_task = IMP-070 Electron Host Shell Security Baseline
+status = RUNNING / broader valid Windows regression
+process = PTY `pty_4e16c0eb9b2dc88564bdb2aabe40afca534f` / root PID `99208`
+scope = tests/unit excluding IMP-070 targeted + affected files, `test_setup.py`, `test_video_reviewer.py`, established POSIX-path deselections
+artifact_pending = `.tmp/imp070-broader-valid.xml`
+checkpoint_last_pass = targeted Node 3/3 + pytest 6/6 PASS; affected 9/9 PASS
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing IMP-070 broader PTY; do not restart -> final JUnit/exit -> Frozen Master guard if PASS"
+
+
+## IMP-070 BROADER VALID WINDOWS PASS / FROZEN NEXT - 2026-10-10
+active_task = IMP-070 Electron Host Shell Security Baseline
+status = PASS / broader valid Windows regression locked
+branch = `chatgpt/IMP-070-electron-host-shell-security`
+head = `39ad22e016ed8e4ad977679989401020183eb459`
+artifact = `.tmp/imp070-broader-valid.xml`: 792/792 PASS; failures=0 errors=0 skipped=0; recorded PID `99208` absent after completion
+checkpoint_last_pass = targeted Node 3/3 + pytest 6/6 PASS; affected 9/9 PASS; broader 792/792 PASS
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "run Frozen Master guard on current IMP-070 worktree; targeted/affected/broader MUST NOT rerun"
+
+
+## IMP-070 LOCAL VERIFIED / GIT SIDE-EFFECT GUARD NEXT - 2026-10-10
+active_task = IMP-070 Electron Host Shell Security Baseline
+status = LOCAL VERIFIED
+branch = `chatgpt/IMP-070-electron-host-shell-security`
+evidence = `evidence/tests/IMP-070_ELECTRON_HOST_SECURITY_EVIDENCE.md`
+tests = Node 3/3 PASS; pytest targeted 6/6 PASS; affected 9/9 PASS; broader 792/792 PASS
+frozen_master_guard = PASS; SHA256 `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`
+final_static_gate = PASS
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "run Git side-effect guard -> stage exact IMP-070 scope -> verify index -> commit; test stages MUST NOT rerun"
+
+
+## IMP-070 FEATURE COMMIT CREATED / GOVERNANCE SYNC NEXT - 2026-10-10
+active_task = IMP-070 Electron Host Shell Security Baseline
+status = feature commit created; local verification preserved
+feature_commit = `6fdc06087bfa36d31dc1c9a600f4b5c391dd6b24`
+branch = `chatgpt/IMP-070-electron-host-shell-security`
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "stage only 3 state files -> verify index -> commit governance sync -> side-effect guard -> push/PR"
