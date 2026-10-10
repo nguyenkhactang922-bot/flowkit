@@ -5172,3 +5172,13 @@ checkpoint_last_pass = Node 12/12 + Python targeted 7/7 + affected 9/9 + broader
 side_effect_guard = PASS; no feature commit/remote branch/PR; staged index empty; `.tmp` untracked only
 blocker = none
 NEXT_EXACT_ACTION = "stage exact IMP-071 scope -> verify index -> feature commit; do not rerun tests"
+
+
+## IMP-071 FEATURE COMMIT CREATED / GOVERNANCE SYNC NEXT - 2026-10-10
+active_task = IMP-071 Typed IPC / Production Utility Bridge
+status = PASS / feature commit created
+feature_commit = `af6dbc84786504eef4f883b40adfbd01bbf8a3ec`
+checkpoint_last_pass = local verification complete; code/test bytes unchanged after commit
+worktree = `.tmp/` untracked only
+blocker = none
+NEXT_EXACT_ACTION = "sync feature commit SHA into governance state -> governance-only commit -> side-effect guard -> push/PR"
