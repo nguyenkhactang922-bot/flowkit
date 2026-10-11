@@ -29,6 +29,7 @@ def test_desktop_package_pins_supported_electron_and_packaging_skeleton():
         "preload.cjs",
         "preload-api.cjs",
         "security-policy.cjs",
+        "credential-broker.cjs",
         "ipc-contract.cjs",
         "ipc-main.cjs",
         "production-utility-bridge.cjs",
@@ -117,5 +118,41 @@ def test_typed_ipc_negative_contract_behavior():
         capture_output=True,
         text=True,
         timeout=30,
+    )
+    assert completed.returncode == 0, completed.stdout + completed.stderr
+
+
+def test_main_owns_safe_storage_credential_broker_and_renderer_surface_stays_secret_free():
+    main = _text("main.cjs")
+    preload_api = _text("preload-api.cjs")
+    contract = _text("ipc-contract.cjs")
+    broker = _text("credential-broker.cjs")
+    utility_bridge = _text("production-utility-bridge.cjs")
+
+    assert "SafeStorageCredentialBroker" in main
+    assert "safeStorage" in main
+    assert "app.getPath('userData')" in main
+    assert "credential-vault-v1.json" in main
+    assert "credentialBroker.close()" in main
+    assert "credentialBroker," in main
+    assert "credential-broker.cjs" in broker or "SafeStorageCredentialBroker" in broker
+    assert "authorizeCredentialScope" in utility_bridge
+    assert "host-security:credential-lease:issue" in utility_bridge
+    assert "host-security:credential-lease:redeem" in utility_bridge
+
+    for forbidden in ("credentials", "credentialBroker", "getSecret", "decrypt", "exportRaw", "dumpVault"):
+        assert forbidden not in preload_api
+    assert "flowkit:credential" not in contract
+    assert "flowkit:secret" not in contract
+
+
+def test_credential_broker_negative_contract_behavior():
+    completed = subprocess.run(
+        ["node", "--test", "desktop/tests/credential-broker.test.cjs"],
+        cwd=ROOT,
+        check=False,
+        capture_output=True,
+        text=True,
+        timeout=60,
     )
     assert completed.returncode == 0, completed.stdout + completed.stderr

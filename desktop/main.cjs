@@ -1,8 +1,9 @@
 'use strict';
 
-const { app, BrowserWindow, ipcMain, net, protocol, utilityProcess } = require('electron');
+const { app, BrowserWindow, ipcMain, net, protocol, safeStorage, utilityProcess } = require('electron');
 const path = require('path');
 const { pathToFileURL } = require('url');
+const { SafeStorageCredentialBroker } = require('./credential-broker.cjs');
 const { installProductionIpcHandlers } = require('./ipc-main.cjs');
 const { ProductionUtilityBridge } = require('./production-utility-bridge.cjs');
 const {
@@ -28,6 +29,7 @@ protocol.registerSchemesAsPrivileged([
 
 const RENDERER_ROOT = path.join(__dirname, 'renderer');
 const UTILITY_ENTRY = path.join(__dirname, 'utility-entry.cjs');
+let credentialBroker = null;
 let productionUtilityBridge = null;
 let ipcRegistration = null;
 
@@ -88,9 +90,14 @@ function createMainWindow() {
 
 app.whenReady().then(() => {
   registerAppProtocol();
+  credentialBroker = new SafeStorageCredentialBroker({
+    safeStorage,
+    vaultPath: path.join(app.getPath('userData'), 'credential-vault-v1.json'),
+  });
   productionUtilityBridge = new ProductionUtilityBridge({
     utilityProcess,
     entryPath: UTILITY_ENTRY,
+    credentialBroker,
   });
   createMainWindow();
 
@@ -109,6 +116,10 @@ app.on('before-quit', () => {
   if (productionUtilityBridge) {
     productionUtilityBridge.close();
     productionUtilityBridge = null;
+  }
+  if (credentialBroker) {
+    credentialBroker.close();
+    credentialBroker = null;
   }
 });
 
