@@ -4931,3 +4931,59 @@ NEXT_EXACT_ACTION = "STAGE EXACT 7 FILES -> VERIFY INDEX -> FEATURE COMMIT"
 - [ ] Governance-only commit recording exact feature SHA.
 - [ ] Side-effect guard -> push branch once -> create PR once -> exact-head CI/review.
 NEXT_EXACT_ACTION = "STAGE ONLY 3 STATE FILES -> GOVERNANCE SYNC COMMIT -> SIDE-EFFECT GUARD -> PUSH/PR"
+
+
+## IMP-080 POST-MERGE MAIN TARGETED RUNNING — 2026-10-11
+- [x] PR #84 merged at exact main SHA `0c14106121639e90af143715477ec00dd8b1ab6e`.
+- [~] Push-main CI `38150493334` RUNNING exact merge SHA; do not retrigger.
+- [~] Post-merge targeted `tests/unit/test_studio_legacy_import.py` RUNNING under PTY `pty_26d6ca0a3681446105504064401b6fc2413e`, PID `122104`.
+- JUnit: `.tmp/imp080-main-targeted.xml`.
+- [ ] On targeted PASS: run six-owner affected main regression only (Entity, ShotPlanning, GenerationJob, VersionRepository, Invalidation, Persistence).
+- [ ] After affected PASS + push-main CI SUCCESS: Frozen Master guard -> feature MAIN VERIFIED -> governance-only sync.
+NEXT_EXACT_ACTION = "MONITOR EXISTING IMP-080 MAIN TARGETED PTY/JUNIT; DO NOT RESTART"
+
+
+## IMP-080 POST-MERGE TARGETED PASS / AFFECTED NEXT — 2026-10-11
+- [x] PR #84 merged at exact main SHA `0c14106121639e90af143715477ec00dd8b1ab6e`.
+- [x] Post-merge targeted = 9/9 PASS; `.tmp/imp080-main-targeted.xml`, failures/errors/skips = 0; prior PID ended.
+- [~] Push-main CI `38150493334` still RUNNING exact merge SHA; both jobs passed Frozen baseline and are in unit tests.
+- [ ] Post-merge six-owner affected regression only: Entity / ShotPlanning / GenerationJob / VersionRepository / Invalidation / Persistence.
+- [ ] After affected PASS + CI SUCCESS: Frozen Master guard -> feature MAIN VERIFIED -> governance-only sync.
+NEXT_EXACT_ACTION = "RUN SIX-OWNER POST-MERGE AFFECTED REGRESSION ONLY; TARGETED MUST NOT RERUN"
+
+
+## IMP-080 POST-MERGE AFFECTED RUNNING — 2026-10-11
+- [x] Post-merge targeted 9/9 PASS on exact main SHA `0c14106121639e90af143715477ec00dd8b1ab6e`; do not rerun.
+- [~] Six-owner affected regression RUNNING under PTY `pty_e0a686fb9cc48664f93592c953069787d74f`, PID `123476`.
+- JUnit: `.tmp/imp080-main-affected.xml`.
+- Scope: Entity / ShotPlanning / GenerationJob / VersionRepository / Invalidation / Persistence only.
+- [~] Push-main CI `38150493334` RUNNING exact merge SHA; do not retrigger.
+- [ ] After affected PASS + CI SUCCESS: Frozen Master guard -> feature MAIN VERIFIED -> governance-only sync.
+NEXT_EXACT_ACTION = "MONITOR EXISTING IMP-080 MAIN AFFECTED PTY/JUNIT; DO NOT RESTART"
+
+
+## IMP-080 PUSH-MAIN CI PASS / AFFECTED STILL RUNNING — 2026-10-11
+- [x] Push-main CI `38150493334` SUCCESS on exact main SHA `0c14106121639e90af143715477ec00dd8b1ab6e`; Python 3.10 + 3.13 + Frozen baseline PASS.
+- [x] Main targeted 9/9 PASS retained.
+- [~] Main six-owner affected regression remains RUNNING under PTY `pty_e0a686fb9cc48664f93592c953069787d74f`, PID `123476`.
+- [ ] On affected PASS: run Frozen Master guard -> feature MAIN VERIFIED -> governance-only sync.
+NEXT_EXACT_ACTION = "MONITOR EXISTING MAIN AFFECTED PTY/JUNIT; DO NOT RESTART"
+
+
+## IMP-080 POST-MERGE AFFECTED PASS / FROZEN NEXT — 2026-10-11
+- [x] Main targeted = 9/9 PASS.
+- [x] Main six-owner affected = 72/72 PASS; `.tmp/imp080-main-affected.xml`, failures/errors/skips = 0; PTY exit 0.
+- [x] Push-main CI `38150493334` SUCCESS on exact merge SHA `0c14106121639e90af143715477ec00dd8b1ab6e`; Python 3.10 + 3.13 + Frozen baseline PASS.
+- [ ] Run Frozen Master guard on exact main SHA.
+- [ ] On guard PASS: feature MAIN VERIFIED -> governance-only state sync -> governance PR/CI/merge/main verify.
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD ON EXACT MAIN; DO NOT RERUN TARGETED/AFFECTED/CI"
+
+
+## IMP-080 FEATURE MAIN VERIFIED — 2026-10-11
+- [x] PR #84 merged at exact main SHA `0c14106121639e90af143715477ec00dd8b1ab6e`.
+- [x] Post-merge targeted = 9/9 PASS.
+- [x] Post-merge six-owner affected = 72/72 PASS.
+- [x] Push-main CI `38150493334` SUCCESS; Python 3.10 + 3.13 + Frozen baseline PASS.
+- [x] Post-merge Frozen Master guard PASS; semantic SHA unchanged `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
+- [ ] Governance-only MAIN VERIFIED sync -> PR/CI/merge/main verify.
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD FOR chatgpt/IMP-080-main-verified-state; IF ABSENT CREATE GOVERNANCE-ONLY BRANCH/COMMIT -> PUSH/PR/CI/MERGE/VERIFY MAIN"
