@@ -6,7 +6,9 @@ const {
   IPC_ERROR_CODES,
   IpcContractError,
   toUtilityBridgeStatusRequest,
+  toUtilityStudioApplicationReadModelRequest,
   validateBridgeStatusResponse,
+  validateStudioApplicationReadModelResponse,
 } = require('./ipc-contract.cjs');
 
 const UTILITY_CREDENTIAL_MESSAGE_TYPES = Object.freeze({
@@ -155,6 +157,15 @@ class ProductionUtilityBridge {
     return this._sendAndWait(utilityRequest);
   }
 
+  async getApplicationReadModel(rendererRequest) {
+    const utilityRequest = toUtilityStudioApplicationReadModelRequest(rendererRequest);
+    this.start();
+    return this._sendAndWait(
+      utilityRequest,
+      (response) => validateStudioApplicationReadModelResponse(response, utilityRequest.projectId)
+    );
+  }
+
   authorizeCredentialScope({ allowedProviders, allowedOperations }) {
     if (!this.credentialBroker) {
       throw new IpcContractError(IPC_ERROR_CODES.ACCESS_DENIED, 'credential broker unavailable');
@@ -195,7 +206,7 @@ class ProductionUtilityBridge {
     );
   }
 
-  _sendAndWait(request) {
+  _sendAndWait(request, responseValidator = validateBridgeStatusResponse) {
     if (!this.child) {
       throw new IpcContractError(IPC_ERROR_CODES.UTILITY_UNAVAILABLE, 'utility process unavailable');
     }
@@ -209,7 +220,7 @@ class ProductionUtilityBridge {
         reject(new IpcContractError(IPC_ERROR_CODES.UTILITY_TIMEOUT, 'utility request timed out'));
       }, this.requestTimeoutMs);
 
-      this.pending.set(request.requestId, { resolve, reject, timeout });
+      this.pending.set(request.requestId, { resolve, reject, timeout, responseValidator });
       try {
         this.child.postMessage(request);
       } catch (error) {
@@ -235,31 +246,28 @@ class ProductionUtilityBridge {
       return;
     }
 
+    const requestId = message && typeof message.requestId === 'string' ? message.requestId : null;
+    if (!requestId || !this.pending.has(requestId)) {
+      return;
+    }
+    const pending = this.pending.get(requestId);
     let validated;
     try {
-      validated = validateBridgeStatusResponse(message);
+      validated = pending.responseValidator(message);
     } catch (error) {
-      const requestId = message && typeof message.requestId === 'string' ? message.requestId : null;
-      if (requestId && this.pending.has(requestId)) {
-        const pending = this.pending.get(requestId);
-        clearTimeout(pending.timeout);
-        this.pending.delete(requestId);
-        pending.reject(
-          new IpcContractError(
-            IPC_ERROR_CODES.INVALID_RESPONSE,
-            error instanceof Error ? error.message : 'invalid utility response'
-          )
-        );
-      }
+      clearTimeout(pending.timeout);
+      this.pending.delete(requestId);
+      pending.reject(
+        new IpcContractError(
+          IPC_ERROR_CODES.INVALID_RESPONSE,
+          error instanceof Error ? error.message : 'invalid utility response'
+        )
+      );
       return;
     }
 
-    const pending = this.pending.get(validated.requestId);
-    if (!pending) {
-      return;
-    }
     clearTimeout(pending.timeout);
-    this.pending.delete(validated.requestId);
+    this.pending.delete(requestId);
     pending.resolve(validated);
   }
 

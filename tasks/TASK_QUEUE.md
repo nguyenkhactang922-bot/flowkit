@@ -4673,3 +4673,65 @@ NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD; DO NOT RERUN TARGETED/AFFECTED/CI"
 - [x] Frozen Master guard PASS; semantic SHA unchanged `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
 - [ ] Read queue/DAG and claim next dependency-ready task.
 NEXT_EXACT_ACTION = "READ TASK_QUEUE/DAG -> CLAIM NEXT DEPENDENCY-READY TASK; DO NOT RERUN IMP-072 VERIFIED STAGES"
+
+
+## IMP-073 RENDERER / DASHBOARD ADAPTATION — CLAIMED + CODE CHECKPOINT 2026-10-11
+- [x] Base exact main `9368a1ce4696e80752bb830481b7c0735da05756` (IMP-072 governance merge PR #81).
+- [x] Hard dependencies IMP-071 + IMP-013 + IMP-023 + IMP-031 + IMP-052 + IMP-064 MAIN VERIFIED.
+- [x] Authority audit locked to Frozen Master §93 + §84 and UX-001..004; no second UI truth store.
+- [x] Typed versioned Studio read-model contract with all 8 required view groups implemented.
+- [x] Narrow Utility/Main/preload capability; strict sender/schema validation; canonical-provider-unavailable fail-closed.
+- [x] Electron renderer consumes bounded bridge only; no generic invoke/fs/child_process/shell/secret surface.
+- [x] React/Vite donor adapter + Project Overview Studio panel implemented; web fallback explicitly `LEGACY_COMPATIBILITY`.
+- [x] Desktop Node syntax gate PASS.
+- [x] Desktop security/IPC/credential targeted suite PASS 25/25.
+- [x] `npm ci` failure classified harness/bootstrap only: package-lock missing transitive `@emnapi/*`; build never started.
+- [x] Corrected dependency bootstrap `npm install --no-package-lock --no-audit --no-fund` PASS; 532 packages materialized.
+- [ ] Dashboard TypeScript/Vite build.
+- [ ] Exact-head authority/security/backward-compat review, Frozen guard, evidence, commit/PR/main verification.
+NEXT_EXACT_ACTION = "RUN DASHBOARD BUILD; DO NOT RERUN DESKTOP 25/25 UNLESS CODE CHANGES"
+
+
+## IMP-073 DASHBOARD BUILD CHECKPOINT — 2026-10-11
+- [x] Dashboard dependency materialization PASS using no-package-lock retry after pre-existing lock mismatch.
+- [x] Dashboard production build `tsc -b && vite build` PASS, exit 0.
+- [x] package-lock remains unchanged.
+- [x] Desktop targeted 25/25 PASS retained.
+- [ ] Changed-file lint + exact-head authority/security review.
+- [ ] Frozen Master guard -> evidence -> Git/PR/main verification.
+NEXT_EXACT_ACTION = "RUN CHANGED-FILE LINT + EXACT-HEAD SECURITY/AUTHORITY REVIEW; DO NOT RERUN PASSED DESKTOP OR DASHBOARD BUILD STAGES"
+
+
+## IMP-073 EXACT-HEAD REVIEW FIX VERIFIED - 2026-10-11
+- [x] Changed-file dashboard ESLint PASS after fixing synchronous effect state reset.
+- [x] Exact dashboard production build PASS via direct local `tsc -b` + Vite; npm wrapper failure occurred before build and is environment-only.
+- [x] Exact-head review found and fixed wrong-project canonical read-model acceptance: response now binds to requested projectId at Utility bridge/Main/preload.
+- [x] Added wrong-project negative coverage.
+- [x] Desktop static gate PASS.
+- [x] Direct desktop security/IPC/credential targeted suite = 27/27 PASS.
+- [x] `git diff --check` + renderer leakage/generic-invoke scan PASS.
+- [ ] Frozen Master guard.
+- [ ] Evidence + Git/PR/main verification lifecycle.
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD; DO NOT RERUN VERIFIED LINT/BUILD/DESKTOP TARGETED UNLESS CODE CHANGES"
+
+
+## IMP-073 LOCAL VERIFIED / GIT SIDE-EFFECT GUARD NEXT - 2026-10-11
+- [x] Dashboard changed-file ESLint PASS.
+- [x] Exact dashboard TypeScript/Vite build PASS.
+- [x] Exact-head project-binding security fix implemented + negative tests.
+- [x] Desktop affected static gate PASS.
+- [x] Desktop security/IPC/credential targeted = 27/27 PASS.
+- [x] Exact-head diff/security/authority review PASS.
+- [x] Frozen Master guard PASS; semantic SHA unchanged `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
+- [x] Evidence: `evidence/tests/IMP-073_RENDERER_DASHBOARD_ADAPTATION_EVIDENCE.md`.
+- [ ] Git side-effect guard -> exact-scope commit/push/PR lifecycle.
+NEXT_EXACT_ACTION = "RUN GIT SIDE-EFFECT GUARD -> STAGE EXACT IMP-073 SCOPE EXCLUDING .tmp -> VERIFY INDEX -> COMMIT; DO NOT RERUN VERIFIED STAGES"
+
+
+## IMP-073 FEATURE COMMIT CREATED / GOVERNANCE SYNC NEXT - 2026-10-11
+- [x] Exact feature commit `ff3d236258c4655c658d45a4ce99dd85890bcc21` created from locally verified IMP-073 scope.
+- [x] Dashboard lint/build, desktop static + 27/27 targeted, authority/security review and Frozen Master guard remain PASS; do not rerun unless code changes.
+- [x] Worktree outside committed scope is `.tmp/` untracked only.
+- [ ] Commit only the three state files recording the exact feature SHA.
+- [ ] Side-effect guard -> push branch once -> create PR once -> exact-head CI/review.
+NEXT_EXACT_ACTION = "STAGE ONLY 3 STATE FILES -> GOVERNANCE SYNC COMMIT -> SIDE-EFFECT GUARD -> PUSH/PR"

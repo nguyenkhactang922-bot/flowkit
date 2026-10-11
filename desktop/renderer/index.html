@@ -8,11 +8,28 @@
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FlowKit Studio</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./app.js" defer></script>
   </head>
   <body>
     <main>
-      <h1>FlowKit Studio</h1>
-      <p>Electron host security baseline is active. Renderer adaptation arrives in IMP-073.</p>
+      <header class="header">
+        <div class="header-copy">
+          <span class="eyebrow">Renderer / Application boundary</span>
+          <h1>FlowKit Studio</h1>
+          <p class="muted">Typed application read models only. Renderer state is presentation-only and never canonical authority.</p>
+        </div>
+        <span id="bridge-status" class="badge">Checking Utility…</span>
+      </header>
+
+      <form id="project-form" class="controls">
+        <label class="muted" for="project-id">Canonical project ID</label>
+        <input id="project-id" name="projectId" autocomplete="off" placeholder="project:film" required />
+        <button type="submit">Load Studio view</button>
+      </form>
+
+      <p id="read-model-status" class="status">Enter a project ID to request the canonical application read model.</p>
+      <section id="studio-output" aria-live="polite"></section>
     </main>
   </body>
 </html>

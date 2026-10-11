@@ -4,6 +4,7 @@ const {
   CHANNELS,
   IPC_PROTOCOL_VERSION,
   validateBridgeStatusResponse,
+  validateStudioApplicationReadModelResponse,
 } = require('./ipc-contract.cjs');
 
 function createRendererApi({ invoke, randomUUID }) {
@@ -24,11 +25,23 @@ function createRendererApi({ invoke, randomUUID }) {
     },
   });
 
+  const studio = Object.freeze({
+    async getApplicationReadModel(projectId) {
+      const response = await invoke(CHANNELS.GET_STUDIO_APPLICATION_READ_MODEL, {
+        apiVersion: IPC_PROTOCOL_VERSION,
+        requestId: randomUUID(),
+        projectId,
+      });
+      return validateStudioApplicationReadModelResponse(response, projectId);
+    },
+  });
+
   return Object.freeze({
     apiVersion: IPC_PROTOCOL_VERSION,
     securityBaseline: 'imp-070-v1',
     ipcBaseline: 'imp-071-v1',
     productionUtility,
+    studio,
   });
 }
 

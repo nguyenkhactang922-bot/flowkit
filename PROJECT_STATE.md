@@ -5391,3 +5391,62 @@ frozen_master_guard = PASS; semantic SHA `1ff9383d713dfaab309d3f36cc83cf05e8932c
 process = none
 blocker = none
 NEXT_EXACT_ACTION = "read TASK_QUEUE/DAG -> claim next dependency-ready task; do not rerun IMP-072 verified stages"
+
+
+## IMP-072 GOVERNANCE VERIFIED / IMP-073 RENDERER-DASHBOARD ADAPTATION — recovered 2026-10-11
+status = RUNNING / IMP-073 verification
+base_main_sha = `9368a1ce4696e80752bb830481b7c0735da05756`; merge PR #81 proves IMP-072 governance main base
+branch = `chatgpt/IMP-073-renderer-dashboard-adaptation`
+dependencies = IMP-071, IMP-013, IMP-023, IMP-031, IMP-052, IMP-064 MAIN VERIFIED
+authority_audit = PASS / Frozen §93 + §84 + UX-001..004
+contract = versioned typed Studio read model through bounded preload/Main/Utility bridge; renderer presentation-only; no generic invoke, DB/provider internals, secrets or UI truth store
+legacy = React/Vite `/api/*` projection labelled `LEGACY_COMPATIBILITY` only
+code = desktop contract/IPC/Utility/preload/renderer + dashboard read-model adapter/overview view implemented
+node_static = PASS
+desktop_targeted = 25/25 PASS
+npm_ci = FAIL before build due pre-existing lockfile transitive dependency mismatch
+npm_install_no_lock = PASS; dependency materialization only, no intentional lockfile source change
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "run dashboard TypeScript/Vite build; then exact-head review + Frozen Master guard/evidence/Git lifecycle; preserve desktop 25/25 PASS checkpoint"
+
+
+## IMP-073 DASHBOARD BUILD PASS — 2026-10-11
+status = PASS / dashboard TypeScript+Vite checkpoint locked
+dashboard_build = `npm run build` exit 0 (`tsc -b && vite build`)
+warnings = non-fatal Vite config/chunk-size warnings only
+lockfile = unchanged
+desktop_targeted = 25/25 PASS retained
+NEXT_EXACT_ACTION = "changed-file lint/diff/security exact-head review -> Frozen Master guard"
+
+
+## IMP-073 EXACT-HEAD REVIEW FIX VERIFIED - 2026-10-11
+status = PASS / exact-head verification checkpoint
+review_fix = successful canonical Studio read model must match requested projectId across Utility bridge/Main/preload
+changed_file_lint = PASS
+dashboard_build = direct `tsc -b` + Vite build PASS; npm wrapper failure was pre-build environment/bootstrap only
+desktop_static = PASS
+desktop_targeted = 27/27 PASS
+security_review = PASS; diff-check clean; renderer no generic invoke/fs/process/secret leakage; absent canonical provider fails closed
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "run Frozen Master guard on exact IMP-073 worktree; do not rerun verified stages unless code changes"
+
+
+## IMP-073 LOCAL VERIFIED / GIT SIDE-EFFECT GUARD NEXT - 2026-10-11
+status = PASS / local exact-head verification complete
+checkpoints = dashboard lint PASS; dashboard build PASS; desktop static PASS; desktop targeted 27/27 PASS; exact-head authority/security review PASS; Frozen Master guard PASS
+evidence = `evidence/tests/IMP-073_RENDERER_DASHBOARD_ADAPTATION_EVIDENCE.md`
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "run Git side-effect guard -> stage exact IMP-073 scope excluding .tmp -> verify index -> commit; do not rerun verified stages"
+
+
+## IMP-073 FEATURE COMMIT CREATED / GOVERNANCE SYNC NEXT - 2026-10-11
+status = PASS / feature commit created
+branch = `chatgpt/IMP-073-renderer-dashboard-adaptation`
+feature_sha = `ff3d236258c4655c658d45a4ce99dd85890bcc21`
+local_verification = dashboard lint/build PASS; desktop static PASS; desktop targeted 27/27 PASS; exact-head authority/security review PASS; Frozen Master guard PASS
+worktree = `.tmp/` untracked only after feature commit
+blocker = none
+NEXT_EXACT_ACTION = "commit only 3 state files with exact feature SHA -> side-effect guard -> push branch once -> create PR once; do not rerun verified test/build stages"
