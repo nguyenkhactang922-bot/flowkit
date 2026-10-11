@@ -5390,3 +5390,172 @@ FROZEN_MASTER_GUARD = PASS; semantic SHA `1ff9383d713dfaab309d3f36cc83cf05e8932c
 PROCESS = none
 BLOCKER = none
 NEXT_EXACT_ACTION = "GOVERNANCE-ONLY STATE SYNC BRANCH/COMMIT/PR -> VERIFY GOVERNANCE MAIN -> READ QUEUE/DAG AND CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+## 2026-10-11T16:09+07:00 — IMP-073 GOVERNANCE MAIN VERIFIED → IMP-080 CLAIMED
+- Previous task: IMP-073 governance MAIN VERIFIED on `main` merge SHA `35823eeafbf6f0f8a6c6354b9d874d346d432247`.
+- Evidence: PR #83 merged; push-main CI run `38127454286` SUCCESS on Python 3.10 + 3.13; Frozen Master baseline PASS in both jobs.
+- Current task: `IMP-080 — Legacy Import Anti-Corruption`.
+- Status: CLAIMED / ANALYZE.
+- Branch: `chatgpt/IMP-080-legacy-import-anti-corruption`.
+- Base/HEAD at claim: `35823eeafbf6f0f8a6c6354b9d874d346d432247`.
+- Hard dependencies verified MAIN VERIFIED: IMP-005, IMP-023, IMP-031, IMP-052.
+- Runtime: no IMP-080 test/build process started; worktree only pre-existing `.tmp/` before claim.
+- Blocker: none.
+- NEXT_EXACT_ACTION: read IMP-080 frozen/task authority and audit legacy-import/current canonical surfaces; freeze bounded mapping/`NOT_PROVABLE` contract and targeted acceptance tests before writing feature code.
+
+
+## 2026-10-11 — IMP-080 AUTHORITY + CURRENT-SURFACE AUDIT PASS
+- Status: ANALYZE PASS / CODE NEXT.
+- Frozen authority: Master §90 FlowKit Legacy Anti-Corruption Boundary, §91 FlowKit Current→Canonical Mapping, §92 Persistence Migration Strategy; operational Scene never becomes cinematic Scene authority; prompt prose is derivative; unknown/ambiguous mappings become import findings.
+- Reuse: shared `VersionRepository` / canonical current pointers; existing IMP-040 Entity adapter; existing GenerationJob and ShotListItem authorities. No migration-specific shadow truth store/schema in IMP-080.
+- Locked mapping decisions: project.story = seed-only; Entity = delegate existing canonical adapter; operational Scene may map only to explicitly proven exact-current `ShotListItem` and/or exact `GenerationJob@revision`; media/provider IDs remain lineage/evidence.
+- Hard prohibition: legacy prompt/image_prompt/video_prompt/narrator text/order cannot mint `Scene`, `SceneDramaticBeat`, `FullShotSpec`, `ShotIR` or other creative truth.
+- Failure policy: missing/dangling/stale/forbidden/ambiguous proof => persisted `NOT_PROVABLE` finding, never fabricated target truth.
+- Persistence: raw legacy prose is evaluated ephemerally; mapping evidence persists source schema/id, normalized digest/facts, rule version, explicit target proof and findings only.
+- NEXT_EXACT_ACTION: implement typed `legacy_import.py` mapping/finding evidence service + public exports; add targeted tests for prompt non-authority, forbidden target, explicit shot/job proof, stale/dangling proof, project story seed-only and durable replay/provenance.
+
+
+## IMP-080 TARGETED RUNNING
+- PTY: `pty_11d5a37d403467ddad54525db60aba59ffa2`; root PID `119160`.
+- Command: uv isolated Python 3.13 pytest `tests/unit/test_studio_legacy_import.py` only.
+- JUnit: `.tmp/imp080-targeted.xml`; basetemp `.tmp/pytest-imp080-targeted`.
+- Status: RUNNING; no PASS/FAIL assigned yet.
+- NEXT_EXACT_ACTION: monitor existing PTY/JUnit; DO NOT restart or launch duplicate targeted run.
+
+
+## IMP-080 TARGETED PASS
+- Status: PASS / exact-head self-review next.
+- Durable evidence: `.tmp/imp080-targeted.xml` = 7 tests / 0 failures / 0 errors / 0 skipped; PTY `pty_11d5a37d403467ddad54525db60aba59ffa2` exited 0; pytest summary `7 passed in 55.88s`.
+- Static gate before run: py_compile + public import + `git diff --check` PASS.
+- Process/PID: none; prior root PID `119160` ended normally.
+- Do not rerun targeted unless implementation/test code changes.
+- NEXT_EXACT_ACTION: exact-head authority/provenance review against Master §90–§92; fix only real IMP-080 defects if found, otherwise run affected regression on reused canonical owners.
+
+
+## IMP-080 REVIEW-FIX TARGETED RUNNING
+- Review fix: Shot proof now materializes through `ShotPlanningRepository`; fake prefix-only semantic rows are rejected as `NOT_PROVABLE`.
+- PTY/PID: `pty_fb8ec88ef66aea4198465fe876826f9b52c4` / `107864`.
+- JUnit: `.tmp/imp080-review-targeted.xml`; basetemp `.tmp/pytest-imp080-review-targeted`.
+- Status: RUNNING; no PASS/FAIL assigned yet.
+- NEXT_EXACT_ACTION: monitor existing PTY/JUnit only; do not restart or run affected/broader concurrently.
+
+
+## IMP-080 REVIEW-FIX TARGETED PASS
+- Exact-head review hardened Shot proof through canonical `ShotPlanningRepository`; fake prefix-only row now rejected.
+- Review-targeted JUnit `.tmp/imp080-review-targeted.xml`: 8 tests / 0 failures / 0 errors / 0 skipped; PTY exit 0; `8 passed in 42.17s`.
+- Process: none. Do not rerun targeted unless code/test changes.
+- NEXT_EXACT_ACTION: run affected regression on Entity / ShotPlanning / GenerationJob / Versioning / Invalidation / Persistence only; then broader valid Windows regression.
+
+
+## IMP-080 AFFECTED REGRESSION RUNNING
+- Scope: Entity / ShotPlanning / GenerationJob / Versioning / Invalidation / Persistence existing owner tests only; targeted IMP-080 excluded.
+- PTY/PID: `pty_5a649998908c99da8be3d26db1de3c474f13` / `118704`.
+- JUnit: `.tmp/imp080-affected.xml`; basetemp `.tmp/pytest-imp080-affected`.
+- Status: RUNNING; no PASS/FAIL assigned yet.
+- NEXT_EXACT_ACTION: monitor existing PTY/JUnit; do not restart or launch broader concurrently.
+
+
+## IMP-080 AFFECTED REGRESSION PASS — 2026-10-11
+- Status: PASS; prior PID `118704` absent after normal completion.
+- Durable JUnit: `.tmp/imp080-affected.xml` = 72 tests / 0 failures / 0 errors / 0 skipped; time 412.995s.
+- Targeted exact-head 8/8 PASS retained; do not rerun targeted/affected unless code changes.
+- Process: none for IMP-080 affected.
+- Blocker: none.
+- NEXT_EXACT_ACTION: run broader valid Windows regression excluding IMP-080 targeted + the six affected owner suites already PASS; preserve known platform exclusions; then Frozen Master guard.
+
+
+## IMP-080 BROADER VALID WINDOWS REGRESSION RUNNING — 2026-10-11
+- PTY/PID: `pty_0c64ebe3fad14a6c0f9ed61019d24fb044e4` / `117776`.
+- JUnit: `.tmp/imp080-broader-valid.xml`; basetemp `.tmp/pytest-imp080-broader-valid`.
+- Scope excludes IMP-080 targeted and six affected owner suites already PASS, plus established Windows platform exclusions.
+- Status: RUNNING; no PASS/FAIL assigned yet.
+- NEXT_EXACT_ACTION: monitor existing PTY/JUnit only; DO NOT restart or launch Frozen guard concurrently.
+
+
+## IMP-080 BROADER VALID WINDOWS REGRESSION PASS — 2026-10-11
+- Status: PASS; prior root PID `117776` absent after normal completion.
+- Durable JUnit: `.tmp/imp080-broader-valid.xml` = 738 tests / 0 failures / 0 errors / 0 skipped.
+- Retained checkpoints: exact-head targeted 8/8 PASS; affected owner regression 72/72 PASS; do not rerun unless code/test changes.
+- Blocker: none.
+- NEXT_EXACT_ACTION: run `python tools/frozen_master_guard.py` on current IMP-080 worktree; if PASS, final static/exact-head review -> evidence -> side-effect guard -> commit/push/PR.
+
+
+## IMP-080 FROZEN MASTER GUARD PASS — 2026-10-11
+- `python tools/frozen_master_guard.py` PASS.
+- Frozen semantic SHA unchanged: `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
+- Retained: targeted 8/8 PASS; affected 72/72 PASS; broader 738/738 PASS.
+- NEXT_EXACT_ACTION: final static/public-import/diff/leakage review on exact worktree -> evidence -> side-effect guard -> commit/push/PR.
+
+
+## IMP-080 FINAL-REVIEW TARGETED RUNNING — 2026-10-11
+- Review fix: strict JSON serialization; opaque runtime objects can no longer be stringified into durable import evidence.
+- PTY/PID: `pty_77816cc53aa446b67a9d52b99f7c44a287e5` / `123444`.
+- JUnit: `.tmp/imp080-final-review-targeted.xml`; basetemp `.tmp/pytest-imp080-final-review-targeted`.
+- Status: RUNNING; no PASS/FAIL assigned yet.
+- NEXT_EXACT_ACTION: monitor existing targeted PTY/JUnit only; do not restart or launch affected/broader concurrently.
+
+
+## IMP-080 FINAL-REVIEW TARGETED PASS — 2026-10-11
+- Strict serialization review fix verified.
+- PTY `pty_77816cc53aa446b67a9d52b99f7c44a287e5` exit 0; pytest summary `9 passed in 64.19s`.
+- Durable JUnit `.tmp/imp080-final-review-targeted.xml`: 9 tests / 0 failures / 0 errors / 0 skipped.
+- Process: none. Do not rerun targeted unless code/test changes again.
+- NEXT_EXACT_ACTION: rerun affected six-owner regression only; then broader valid Windows regression and Frozen guard.
+
+
+## IMP-080 FINAL-REVIEW AFFECTED RUNNING — 2026-10-11
+- Scope: Entity / ShotPlanning / GenerationJob / Versioning / Invalidation / Persistence owner suites only; targeted IMP-080 excluded.
+- PTY/PID: `pty_be5a6d986811ba45511ee503a578a49b7fa9` / `119124`.
+- JUnit: `.tmp/imp080-final-review-affected.xml`; basetemp `.tmp/pytest-imp080-final-review-affected`.
+- Status: RUNNING; no PASS/FAIL assigned yet.
+- NEXT_EXACT_ACTION: monitor existing affected PTY/JUnit only; do not restart or launch broader concurrently.
+
+
+## IMP-080 FINAL-REVIEW AFFECTED PASS — 2026-10-11
+- PTY `pty_be5a6d986811ba45511ee503a578a49b7fa9` exit 0; `72 passed in 482.25s`.
+- Durable JUnit `.tmp/imp080-final-review-affected.xml`: 72 tests / 0 failures / 0 errors / 0 skipped.
+- Retained: targeted 9/9 PASS. Do not rerun targeted/affected unless code/test changes again.
+- NEXT_EXACT_ACTION: broader valid Windows regression excluding targeted + six affected owner suites, `test_setup.py`, `test_video_reviewer.py`, and exact historical 3 POSIX-path deselections.
+
+
+## IMP-080 FINAL-REVIEW BROADER VALID WINDOWS RUNNING — 2026-10-11
+- PTY/PID: `pty_76594df9e4bb2075f72a52fa32fbe831ca6d` / `123436`.
+- JUnit: `.tmp/imp080-final-review-broader-valid.xml`; basetemp `.tmp/pytest-imp080-final-review-broader-valid`.
+- Scope: `tests/unit` excluding IMP-080 targeted + six affected owner suites + `test_setup.py` + `test_video_reviewer.py`; exact historical 3 POSIX-path assertions deselected; `PYTHONUTF8=1`.
+- Retained: targeted 9/9 PASS + affected 72/72 PASS.
+- NEXT_EXACT_ACTION: monitor existing broader PTY/JUnit only; do not restart or run Frozen guard concurrently.
+
+
+## IMP-080 FINAL-REVIEW BROADER VALID WINDOWS PASS — 2026-10-11
+- Status: PASS / exact-head broader checkpoint locked.
+- PTY `pty_76594df9e4bb2075f72a52fa32fbe831ca6d` exited 0; pytest summary `738 passed, 3 deselected in 2876.88s`.
+- Durable JUnit `.tmp/imp080-final-review-broader-valid.xml`: 738 tests / 0 failures / 0 errors / 0 skipped; time 2872.710s.
+- Retained checkpoints: final-review targeted 9/9 PASS + final-review affected 72/72 PASS. Do not rerun any of these unless implementation/tests change again.
+- Process/PID: none for IMP-080 broader.
+- Blocker: none.
+- NEXT_EXACT_ACTION: run `python tools/frozen_master_guard.py` on the current IMP-080 worktree; if PASS, perform final static/exact-head review -> evidence -> side-effect guard -> commit/push/PR.
+
+
+## IMP-080 FINAL FROZEN + STATIC GATE PASS — 2026-10-11
+- Frozen Master guard PASS; semantic SHA unchanged `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
+- Final static gate PASS: `py_compile`, `compileall`, `git diff --check`, correct public import (`LegacyImportAntiCorruptionService`) and provider/network/TODO leakage scan.
+- Retained test evidence: targeted 9/9 PASS; affected 72/72 PASS; broader 738/738 PASS.
+- The earlier public-import probe failure was a probe-name error (`LegacyImportService` does not exist); no code changed and no test checkpoint was invalidated.
+- NEXT_EXACT_ACTION: create final IMP-080 evidence -> side-effect guard -> stage exact task scope -> commit -> governance sync -> push/PR -> exact-head CI/review.
+
+
+## IMP-080 LOCAL VERIFIED / SIDE-EFFECT GUARD PASS — 2026-10-11
+- Evidence: `evidence/tests/IMP-080_LEGACY_IMPORT_ANTI_CORRUPTION_EVIDENCE.md`.
+- Exact local verification: targeted 9/9 PASS; affected 72/72 PASS; broader 738/738 PASS; Frozen Master guard PASS; final static/public-import/diff/leakage gate PASS.
+- Side-effect guard: HEAD remains base `35823eeafbf6f0f8a6c6354b9d874d346d432247`; no IMP-080 commit yet; no remote branch; no PR; staged index empty; `.tmp` untracked only.
+- Intended commit scope: `agent/studio/legacy_import.py`, `agent/studio/__init__.py`, `tests/unit/test_studio_legacy_import.py`, IMP-080 evidence, and the three governance state files.
+- Status: LOCAL VERIFIED / COMMIT NEXT.
+- NEXT_EXACT_ACTION: stage exactly the 7 intended files, verify cached diff/check, commit feature snapshot, then governance exact-SHA sync.
+
+
+## IMP-080 FEATURE COMMIT CREATED — 2026-10-11
+- Feature commit: `fcbe193d2be5dd7b5ef46dc6a35f0be836942bfe` (`feat(studio): add legacy import anti-corruption boundary`).
+- Commit contains exactly 7 intended files; `.tmp` remains untracked/outside Git.
+- Verification checkpoints remain valid; no code/test change after commit.
+- NEXT_EXACT_ACTION: commit governance-only exact-SHA sync for CURRENT_HANDOFF / PROJECT_STATE / TASK_QUEUE, then side-effect guard -> push branch -> create PR once.

@@ -4756,3 +4756,178 @@ NEXT_EXACT_ACTION = "MONITOR PUSH-MAIN CI 38125248556; DO NOT RERUN POST-MERGE T
 - [ ] Governance-only state sync branch/commit/PR, then governance main verification.
 - [ ] Read queue/DAG and claim next dependency-ready task.
 NEXT_EXACT_ACTION = "GOVERNANCE-ONLY STATE SYNC -> VERIFY GOVERNANCE MAIN -> CLAIM NEXT TASK"
+
+
+## 2026-10-11T16:09+07:00 — IMP-080 CLAIMED
+- Prior checkpoint: IMP-073 governance MAIN VERIFIED on exact `main` SHA `35823eeafbf6f0f8a6c6354b9d874d346d432247`; CI `38127454286` SUCCESS (Python 3.10 + 3.13; Frozen guard PASS).
+- Task: `IMP-080 — Legacy Import Anti-Corruption`.
+- Status: ACTIVE / CLAIMED / ANALYZE.
+- Branch: `chatgpt/IMP-080-legacy-import-anti-corruption` from exact main SHA `35823eeafbf6f0f8a6c6354b9d874d346d432247`.
+- Hard deps verified: IMP-005, IMP-023, IMP-031, IMP-052 = MAIN VERIFIED.
+- Acceptance focus: bounded/auditable legacy mapping; explicit `NOT_PROVABLE`; legacy prompt/prose MUST NOT auto-create canonical `SceneDramaticBeat` or `FullShotSpec` truth.
+- Process/PID: none.
+- Blocker: none.
+- NEXT_EXACT_ACTION: audit frozen authority + legacy/canonical import surfaces, lock anti-corruption contract and targeted tests, then implement without inventing narrative truth.
+
+
+## 2026-10-11 — IMP-080 AUTHORITY + SURFACE AUDIT PASS
+- [x] Read Master §90 Legacy Anti-Corruption, §91 Current→Canonical Mapping, §92 Migration Strategy.
+- [x] Audit legacy Project.story, Entity adapter, operational Scene prompt/media/chain fields, GenerationJob identity/revision and canonical ShotListItem authority.
+- [x] Lock no-shadow-truth-store rule; shared VersionRepository only for mapping/finding evidence.
+- [x] Lock `project.story = seed-only`, Entity = existing IMP-040 adapter, Scene = compatibility projection only with explicit exact proof.
+- [x] Lock prompt/prose/order/media as derivative evidence; they cannot allocate cinematic Scene/SceneDramaticBeat/FullShotSpec/ShotIR truth.
+- [x] Lock explicit `NOT_PROVABLE` for missing/stale/dangling/forbidden/ambiguous mapping proof.
+- [ ] Implement typed legacy mapping/finding evidence + repository/service + public exports.
+- [ ] Targeted tests: prompt non-authority, forbidden creative target, exact ShotListItem/GenerationJob proof, stale/dangling proof, story seed-only, replay/provenance.
+- [ ] Affected/broader regression + Frozen guard + evidence/Git lifecycle.
+- NEXT_EXACT_ACTION: implement `agent/studio/legacy_import.py`, export API, add targeted tests, run syntax/import then targeted only.
+
+
+## IMP-080 TARGETED PASS
+- [x] Static compile/public-import/diff gate PASS.
+- [x] Targeted IMP-080 = 7/7 PASS; JUnit `.tmp/imp080-targeted.xml`, failures=0/errors=0/skipped=0; PTY exit 0.
+- [x] Prompt prose non-authority, forbidden creative target, dangling target, explicit ShotListItem+GenerationJob proof, stale revision, project.story seed-only and replay/provenance covered.
+- [ ] Exact-head authority/provenance self-review.
+- [ ] Affected regression on reused owners; broader valid Windows regression; Frozen guard.
+- [ ] Evidence / state sync / commit / push / PR / CI / exact-head review / merge / main verify / governance.
+- NEXT_EXACT_ACTION: self-review `legacy_import.py` against Master §90–§92; do not rerun targeted unless code/test changes.
+
+
+## IMP-080 REVIEW-FIX TARGETED RUNNING
+- [x] Exact-head review found and fixed prefix-only Shot proof authority gap.
+- [x] Added fault test: fake semantic row with `shot-list-item:*` prefix is not valid canonical ShotListItem proof.
+- [ ] Review-fix targeted exact-head result pending.
+- PTY/PID: `pty_fb8ec88ef66aea4198465fe876826f9b52c4` / `107864`.
+- JUnit: `.tmp/imp080-review-targeted.xml`.
+- NEXT_EXACT_ACTION: monitor existing run; do not restart or launch affected until targeted final evidence.
+
+
+## IMP-080 REVIEW-FIX TARGETED PASS
+- [x] Harden Shot proof through ShotPlanning owner repository, not prefix-only generic semantic row.
+- [x] Fault test rejects fake `shot-list-item:*` semantic payload.
+- [x] Exact-head targeted = 8/8 PASS, JUnit clean, exit 0.
+- [ ] Affected regression: entity + shot_planning + generation_job + versioning + invalidation + persistence.
+- [ ] Broader valid Windows regression + Frozen guard + evidence/Git lifecycle.
+- NEXT_EXACT_ACTION: run affected six-file regression; do not rerun targeted unless code changes.
+
+
+## IMP-080 AFFECTED REGRESSION RUNNING
+- [x] Targeted exact head 8/8 PASS; excluded from affected command.
+- [ ] Affected six-file regression running.
+- PTY/PID: `pty_5a649998908c99da8be3d26db1de3c474f13` / `118704`.
+- JUnit: `.tmp/imp080-affected.xml`.
+- NEXT_EXACT_ACTION: monitor existing affected run only; do not restart or launch broader until final JUnit/exit.
+
+
+## IMP-080 AFFECTED REGRESSION PASS — 2026-10-11
+- [x] Exact-head targeted 8/8 PASS retained.
+- [x] Affected owner regression `.tmp/imp080-affected.xml` = 72/72 PASS; failures=0 errors=0 skipped=0; prior PID 118704 ended.
+- [ ] Broader valid Windows regression excluding targeted + six affected owner suites already PASS.
+- [ ] Frozen Master guard -> evidence -> Git/PR/main verification.
+NEXT_EXACT_ACTION = "RUN BROADER VALID WINDOWS REGRESSION WITH PASS-SCOPE EXCLUSIONS; DO NOT RERUN TARGETED/AFFECTED"
+
+
+## IMP-080 BROADER VALID WINDOWS REGRESSION RUNNING — 2026-10-11
+- [x] Targeted exact-head 8/8 PASS retained.
+- [x] Affected owner regression 72/72 PASS retained.
+- [~] Broader valid Windows regression RUNNING under PTY `pty_0c64ebe3fad14a6c0f9ed61019d24fb044e4`, PID `117776`; JUnit pending at `.tmp/imp080-broader-valid.xml`.
+- [ ] On broader PASS: Frozen Master guard -> evidence -> Git/PR/main verification.
+NEXT_EXACT_ACTION = "MONITOR EXISTING BROADER PTY/JUNIT; DO NOT RESTART"
+
+
+## IMP-080 BROADER VALID WINDOWS REGRESSION PASS — 2026-10-11
+- [x] Exact-head targeted 8/8 PASS retained.
+- [x] Affected owner regression 72/72 PASS retained.
+- [x] Broader valid Windows regression 738/738 PASS; `.tmp/imp080-broader-valid.xml`, failures/errors/skips = 0.
+- [ ] Frozen Master guard on current IMP-080 worktree.
+- [ ] Final static/exact-head review -> evidence -> state sync -> commit -> push/PR -> CI -> merge/main verify.
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD; DO NOT RERUN TARGETED/AFFECTED/BROADER"
+
+
+## IMP-080 FROZEN MASTER GUARD PASS — 2026-10-11
+- [x] Targeted exact-head 8/8 PASS.
+- [x] Affected owner regression 72/72 PASS.
+- [x] Broader valid Windows regression 738/738 PASS.
+- [x] Frozen Master guard PASS; semantic SHA unchanged `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
+- [ ] Final static/exact-head review -> evidence -> state sync -> commit -> push/PR -> CI -> merge/main verify.
+NEXT_EXACT_ACTION = "FINAL STATIC/EXACT-HEAD REVIEW; DO NOT RERUN PASSED TEST STAGES"
+
+
+## IMP-080 FINAL-REVIEW TARGETED RUNNING — 2026-10-11
+- [x] Review hardened legacy row serialization to fail closed on opaque runtime objects.
+- [~] Exact-head targeted revalidation running under PTY `pty_77816cc53aa446b67a9d52b99f7c44a287e5`, PID `123444`.
+- JUnit: `.tmp/imp080-final-review-targeted.xml`.
+- [ ] On PASS: rerun affected owner regression because code/test changed, then broader valid Windows regression, Frozen guard, evidence/Git lifecycle.
+NEXT_EXACT_ACTION = "MONITOR EXISTING TARGETED RUN; DO NOT RESTART"
+
+
+## IMP-080 FINAL-REVIEW TARGETED PASS — 2026-10-11
+- [x] Strict JSON serialization hardening applied; opaque runtime object fault test added.
+- [x] Exact-head targeted revalidation = 9/9 PASS; JUnit clean; PTY exit 0.
+- [ ] Rerun affected six-owner regression because implementation/test changed after prior 72/72 checkpoint.
+- [ ] Then broader valid Windows regression -> Frozen guard -> evidence/Git lifecycle.
+NEXT_EXACT_ACTION = "RUN AFFECTED SIX-OWNER REGRESSION ONLY; DO NOT RERUN TARGETED"
+
+
+## IMP-080 FINAL-REVIEW AFFECTED RUNNING — 2026-10-11
+- [x] Exact-head targeted 9/9 PASS retained.
+- [~] Affected six-owner regression running under PTY `pty_be5a6d986811ba45511ee503a578a49b7fa9`, PID `119124`.
+- JUnit: `.tmp/imp080-final-review-affected.xml`.
+- [ ] On PASS: broader valid Windows regression -> Frozen guard -> evidence/Git lifecycle.
+NEXT_EXACT_ACTION = "MONITOR EXISTING AFFECTED RUN; DO NOT RESTART OR LAUNCH BROADER"
+
+
+## IMP-080 FINAL-REVIEW AFFECTED PASS — 2026-10-11
+- [x] Targeted exact-head 9/9 PASS retained.
+- [x] Affected six-owner regression 72/72 PASS; JUnit clean; PTY exit 0.
+- [ ] Broader valid Windows regression excluding targeted + six affected files + `test_setup.py` + `test_video_reviewer.py` + exact 3 historical POSIX-path deselections.
+- [ ] Frozen Master guard -> final evidence/Git lifecycle.
+NEXT_EXACT_ACTION = "RUN BROADER VALID WINDOWS REGRESSION; DO NOT RERUN TARGETED/AFFECTED"
+
+
+## IMP-080 FINAL-REVIEW BROADER VALID WINDOWS RUNNING — 2026-10-11
+- [x] Targeted exact-head 9/9 PASS retained.
+- [x] Affected six-owner regression 72/72 PASS retained.
+- [~] Broader valid Windows regression running under PTY `pty_76594df9e4bb2075f72a52fa32fbe831ca6d`, PID `123436`.
+- Scope excludes targeted + six affected + `test_setup.py` + `test_video_reviewer.py`; exact 3 POSIX-path assertions deselected; UTF-8 mode enabled.
+- [ ] On PASS: Frozen Master guard -> final evidence/Git lifecycle.
+NEXT_EXACT_ACTION = "MONITOR EXISTING BROADER RUN; DO NOT RESTART"
+
+
+## IMP-080 FINAL-REVIEW BROADER VALID WINDOWS PASS — 2026-10-11
+- [x] Exact-head targeted 9/9 PASS retained.
+- [x] Affected six-owner regression 72/72 PASS retained.
+- [x] Broader valid Windows regression 738/738 PASS; `.tmp/imp080-final-review-broader-valid.xml`; PTY exit 0; 3 known assertions deselected by established Windows envelope.
+- [ ] Frozen Master guard on exact current worktree.
+- [ ] Final static/exact-head review -> evidence -> state sync -> commit -> push/PR -> CI -> merge/main verification.
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD; DO NOT RERUN TARGETED/AFFECTED/BROADER"
+
+
+## IMP-080 FINAL FROZEN + STATIC PASS — 2026-10-11
+- [x] Exact-head targeted 9/9 PASS.
+- [x] Affected six-owner regression 72/72 PASS.
+- [x] Broader valid Windows regression 738/738 PASS; 3 established assertions deselected by Windows envelope.
+- [x] Frozen Master guard PASS; semantic SHA unchanged `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
+- [x] Final static/public-import/diff/leakage gate PASS; canonical public service export is `LegacyImportAntiCorruptionService`.
+- [ ] Evidence -> side-effect guard -> feature commit -> governance sync -> push/PR -> exact-head CI/review -> merge/main verification.
+NEXT_EXACT_ACTION = "CREATE IMP-080 EVIDENCE -> SIDE-EFFECT GUARD -> COMMIT"
+
+
+## IMP-080 LOCAL VERIFIED / SIDE-EFFECT GUARD PASS — 2026-10-11
+- [x] Final exact-head targeted 9/9 PASS.
+- [x] Final affected six-owner regression 72/72 PASS.
+- [x] Final broader valid Windows regression 738/738 PASS.
+- [x] Frozen Master guard + final static/public-import/diff/leakage gate PASS.
+- [x] Evidence: `evidence/tests/IMP-080_LEGACY_IMPORT_ANTI_CORRUPTION_EVIDENCE.md`.
+- [x] Side-effect guard: no existing feature commit/remote branch/PR; index empty; `.tmp` untracked.
+- [ ] Stage exact 7-file scope -> verify cached diff -> feature commit.
+- [ ] Governance exact-SHA sync -> push/PR -> exact-head CI/review -> merge/main verify.
+NEXT_EXACT_ACTION = "STAGE EXACT 7 FILES -> VERIFY INDEX -> FEATURE COMMIT"
+
+
+## IMP-080 FEATURE COMMIT CREATED — 2026-10-11
+- [x] Feature commit `fcbe193d2be5dd7b5ef46dc6a35f0be836942bfe` created from exact verified 7-file scope.
+- [x] `.tmp` excluded.
+- [ ] Governance-only commit recording exact feature SHA.
+- [ ] Side-effect guard -> push branch once -> create PR once -> exact-head CI/review.
+NEXT_EXACT_ACTION = "STAGE ONLY 3 STATE FILES -> GOVERNANCE SYNC COMMIT -> SIDE-EFFECT GUARD -> PUSH/PR"

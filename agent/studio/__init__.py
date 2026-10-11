@@ -1533,3 +1533,36 @@ __all__ += [
     "ApprovalStateCommitResult",
     "ApprovalStateCommitService",
 ]
+
+
+from .legacy_import import (
+    LegacyImportAntiCorruptionService,
+    LegacyImportArtifact,
+    LegacyImportAssessment,
+    LegacyImportDisposition,
+    LegacyImportError,
+    LegacyImportFinding,
+    LegacyImportFindingCode,
+    LegacyImportIdentityError,
+    LegacyImportMappingRecord,
+    LegacyImportRequest,
+    LegacySourceEvidence,
+    LegacySourceKind,
+    legacy_import_mapping_logical_id,
+)
+
+__all__ += [
+    "LegacyImportAntiCorruptionService",
+    "LegacyImportArtifact",
+    "LegacyImportAssessment",
+    "LegacyImportDisposition",
+    "LegacyImportError",
+    "LegacyImportFinding",
+    "LegacyImportFindingCode",
+    "LegacyImportIdentityError",
+    "LegacyImportMappingRecord",
+    "LegacyImportRequest",
+    "LegacySourceEvidence",
+    "LegacySourceKind",
+    "legacy_import_mapping_logical_id",
+]
