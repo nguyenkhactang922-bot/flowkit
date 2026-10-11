@@ -5297,3 +5297,60 @@ FROZEN_MASTER_GUARD = PASS; semantic SHA `1ff9383d713dfaab309d3f36cc83cf05e8932c
 PROCESS = none
 BLOCKER = none
 NEXT_EXACT_ACTION = "READ TASK_QUEUE/DAG -> CLAIM NEXT DEPENDENCY-READY TASK; DO NOT RERUN IMP-072 VERIFIED STAGES"
+
+
+## IMP-072 GOVERNANCE MAIN VERIFIED / IMP-073 CLAIMED — recovered 2026-10-11
+STATUS = IMP-072 governance MAIN VERIFIED; IMP-073 RUNNING
+BASE_MAIN_SHA = `9368a1ce4696e80752bb830481b7c0735da05756` (Merge PR #81 `chatgpt/IMP-072-main-verified-state`)
+BRANCH = `chatgpt/IMP-073-renderer-dashboard-adaptation`
+TASK = IMP-073 Renderer / Dashboard Adaptation
+DEPENDENCIES = IMP-071 + IMP-013 + IMP-023 + IMP-031 + IMP-052 + IMP-064 MAIN VERIFIED
+AUTHORITY_AUDIT = PASS / locked: Frozen Master §93 UI/Dashboard Adaptation + §84 Renderer security + UX-001..004
+CONTRACT = Renderer consumes versioned typed application read model through narrow preload -> Main sender/origin validation -> Production Utility capability; UI never owns Story/Shot/State/Profile truth; no generic invoke/DB handle/provider payload/secrets
+DONOR_RULE = existing React/Vite dashboard is UX donor only; legacy `/api/*` projection is explicitly `LEGACY_COMPATIBILITY`, never canonical Studio authority
+PERSISTENCE = none / no UI truth store or migration
+
+## IMP-073 CODE / TARGETED DESKTOP PASS / DASHBOARD BOOTSTRAP PASS — 2026-10-11
+STATUS = RUNNING / verification
+CODE = strict Studio application read-model schema with 8 required §93 view sections; Utility/Main/preload capability; Electron target renderer; React/Vite anti-corruption adapter + Studio overview panel
+FAIL_CLOSED = canonical application provider absent -> redacted `APPLICATION_READ_MODEL_UNAVAILABLE`; no fake canonical snapshot
+STATIC_NODE = `node --check` desktop IPC/preload/Utility/renderer/test files PASS
+DESKTOP_TARGETED = direct Node security/IPC/credential suite 25/25 PASS; failures=0
+DASHBOARD_BOOTSTRAP_ATTEMPT_1 = `npm ci` FAIL before build because repository lockfile misses transitive `@emnapi/*`; no product test executed
+DASHBOARD_BOOTSTRAP_ATTEMPT_2 = `npm install --no-package-lock --no-audit --no-fund` PASS; 532 packages materialized; package-lock not intentionally modified
+PROCESS = none
+BLOCKER = none
+NEXT_EXACT_ACTION = "RUN DASHBOARD TYPESCRIPT/VITE BUILD -> exact-head authority/security review -> Frozen Master guard/evidence/Git lifecycle; DO NOT RERUN 25/25 DESKTOP TARGETED UNLESS CODE CHANGES"
+
+
+## IMP-073 DASHBOARD BUILD PASS — 2026-10-11
+STATUS = PASS / dashboard build checkpoint locked
+DASHBOARD_BUILD = `npm run build` PASS, exit 0; TypeScript `tsc -b` + Vite production build completed
+WARNINGS = Vite native-config future warning (`__dirname`) + existing >500KB chunk warning; non-fatal
+LOCKFILE = unchanged by corrected bootstrap/build
+DESKTOP_TARGETED = 25/25 PASS retained; do not rerun unless desktop code changes
+PROCESS = none
+NEXT_EXACT_ACTION = "RUN CHANGED-FILE ESLINT + git diff --check/security leakage scan + exact-head authority review -> Frozen Master guard"
+
+
+## IMP-073 EXACT-HEAD REVIEW FIX VERIFIED - 2026-10-11
+STATUS = PASS / exact-head verification checkpoint
+REVIEW_FIX = bind successful canonical Studio read-model response to requested projectId at Utility bridge + Main + preload; wrong-project canonical response fails closed
+DASHBOARD_LINT = changed-file ESLint PASS after React effect-state fix
+DASHBOARD_BUILD = direct local `tsc -b` + Vite build PASS; npm wrapper failure classified bootstrap-only before build
+DESKTOP_STATIC = node --check affected desktop files PASS
+DESKTOP_TARGETED = direct Node security/IPC/credential suite 27/27 PASS; failures=0
+SECURITY_REVIEW = git diff --check PASS; renderer leakage scan PASS; no generic invoke; canonical provider absence remains redacted fail-closed boundary
+PROCESS = none
+BLOCKER = none
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD ON EXACT IMP-073 WORKTREE; DO NOT RERUN VERIFIED LINT/BUILD/DESKTOP TARGETED UNLESS CODE CHANGES"
+
+
+## IMP-073 LOCAL VERIFIED / GIT SIDE-EFFECT GUARD NEXT - 2026-10-11
+STATUS = PASS / local exact-head verification complete
+CHECKPOINTS = dashboard changed-file lint PASS; exact dashboard build PASS; desktop static PASS; desktop targeted 27/27 PASS; diff/security review PASS; Frozen Master guard PASS
+FROZEN_SHA = `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`
+EVIDENCE = `evidence/tests/IMP-073_RENDERER_DASHBOARD_ADAPTATION_EVIDENCE.md`
+PROCESS = none
+BLOCKER = none
+NEXT_EXACT_ACTION = "RUN GIT SIDE-EFFECT GUARD -> STAGE EXACT IMP-073 SCOPE EXCLUDING .tmp -> VERIFY INDEX -> COMMIT; DO NOT RERUN VERIFIED TEST/BUILD STAGES"

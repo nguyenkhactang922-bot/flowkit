@@ -9,6 +9,8 @@ const {
   safeRequestIdFromUnknown,
   validateBridgeStatusRequest,
   validateBridgeStatusResponse,
+  validateStudioApplicationReadModelRequest,
+  validateStudioApplicationReadModelResponse,
 } = require('./ipc-contract.cjs');
 
 function installProductionIpcHandlers({ ipcMain, webContents, appOrigin, bridge }) {
@@ -21,30 +23,53 @@ function installProductionIpcHandlers({ ipcMain, webContents, appOrigin, bridge 
   if (typeof appOrigin !== 'string' || !appOrigin.trim()) {
     throw new TypeError('appOrigin is required');
   }
-  if (!bridge || typeof bridge.getBridgeStatus !== 'function') {
+  if (
+    !bridge ||
+    typeof bridge.getBridgeStatus !== 'function' ||
+    typeof bridge.getApplicationReadModel !== 'function'
+  ) {
     throw new TypeError('ProductionUtilityBridge is required');
   }
 
-  const channel = CHANNELS.GET_BRIDGE_STATUS;
-  ipcMain.handle(channel, async (event, rawRequest) => {
-    const requestId = safeRequestIdFromUnknown(rawRequest);
-    try {
-      assertTrustedRendererSender(event, webContents, appOrigin);
-      const request = validateBridgeStatusRequest(rawRequest);
-      const response = await bridge.getBridgeStatus(request);
-      return validateBridgeStatusResponse(response);
-    } catch (error) {
-      return createRedactedErrorResponse(
-        requestId,
-        contractErrorCode(error, IPC_ERROR_CODES.UTILITY_UNAVAILABLE)
-      );
-    }
-  });
+  const registrations = [
+    {
+      channel: CHANNELS.GET_BRIDGE_STATUS,
+      validateRequest: validateBridgeStatusRequest,
+      invoke: (request) => bridge.getBridgeStatus(request),
+      validateResponse: validateBridgeStatusResponse,
+    },
+    {
+      channel: CHANNELS.GET_STUDIO_APPLICATION_READ_MODEL,
+      validateRequest: validateStudioApplicationReadModelRequest,
+      invoke: (request) => bridge.getApplicationReadModel(request),
+      validateResponse: (response, request) =>
+        validateStudioApplicationReadModelResponse(response, request.projectId),
+    },
+  ];
+
+  for (const registration of registrations) {
+    ipcMain.handle(registration.channel, async (event, rawRequest) => {
+      const requestId = safeRequestIdFromUnknown(rawRequest);
+      try {
+        assertTrustedRendererSender(event, webContents, appOrigin);
+        const request = registration.validateRequest(rawRequest);
+        const response = await registration.invoke(request);
+        return registration.validateResponse(response, request);
+      } catch (error) {
+        return createRedactedErrorResponse(
+          requestId,
+          contractErrorCode(error, IPC_ERROR_CODES.UTILITY_UNAVAILABLE)
+        );
+      }
+    });
+  }
 
   return Object.freeze({
-    channels: Object.freeze([channel]),
+    channels: Object.freeze(registrations.map((registration) => registration.channel)),
     dispose() {
-      ipcMain.removeHandler(channel);
+      for (const registration of registrations) {
+        ipcMain.removeHandler(registration.channel);
+      }
     },
   });
 }

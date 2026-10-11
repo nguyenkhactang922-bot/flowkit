@@ -4,6 +4,7 @@ import { fetchAPI, patchAPI } from '../api/client'
 import type { Project, Character, Video, Scene, Request } from '../types'
 import EditableText from '../components/projects/EditableText'
 import PipelineView from '../components/pipeline/PipelineView'
+import StudioReadModelPanel from '../components/studio/StudioReadModelPanel'
 import { count, charStatus, videoStageBreakdown, type SceneStage } from '../lib/stageStats'
 import { useTranslation } from '../i18n/useTranslation'
 import { statusLabel, stateLabel, projectStatusLabel, stageLowerLabel } from '../i18n/labels'
@@ -122,7 +123,9 @@ export default function ProjectDetailPage({ projectId, onBack }: Props) {
         </TabsList>
 
         <TabsContent value="overview" className="pt-4">
-          <div className="grid gap-4" style={{ gridTemplateColumns: '1.4fr 1fr' }}>
+          <div className="flex flex-col gap-4">
+            <StudioReadModelPanel projectId={projectId} />
+            <div className="grid gap-4" style={{ gridTemplateColumns: '1.4fr 1fr' }}>
             <Card className="py-4">
               <CardHeader>
                 <CardTitle className="text-xs tracking-widest uppercase">{t('projectDetail.card.projectFields')}</CardTitle>
@@ -179,6 +182,7 @@ export default function ProjectDetailPage({ projectId, onBack }: Props) {
                   </div>
                 </CardContent>
               </Card>
+            </div>
             </div>
           </div>
         </TabsContent>
