@@ -4633,3 +4633,43 @@ NEXT_EXACT_ACTION = "STAGE EXACT IMP-072 SCOPE -> VERIFY CACHED INDEX/DIFF CHECK
 - [ ] Commit only the three state files recording the exact feature SHA.
 - [ ] Side-effect guard -> push branch once -> create PR once -> exact-head CI/review.
 NEXT_EXACT_ACTION = "STAGE ONLY 3 STATE FILES -> GOVERNANCE SYNC COMMIT -> SIDE-EFFECT GUARD -> PUSH/PR"
+
+
+## IMP-072 POST-MERGE TARGETED RUNNING - 2026-10-11
+- [x] PR #80 merged at exact main SHA `ce158039d3d732b8690fae7cacdcd798749f102d`.
+- [x] Post-merge Node full desktop security suite = 22/22 PASS; do not rerun unless code changes.
+- [~] Post-merge Python Electron targeted RUNNING under PTY `pty_2d13284979910771d16c45ea5db676cfc9de`, PID `106592`; JUnit `.tmp/imp072-main-targeted.xml` pending.
+- [~] Push-main CI run `38105680682` RUNNING on exact main SHA.
+- [ ] On Python targeted PASS: run affected 9-test backend regression, then Frozen Master guard; no broader rerun.
+NEXT_EXACT_ACTION = "MONITOR EXISTING PYTHON TARGETED PTY/JUNIT; DO NOT RESTART"
+
+
+## IMP-072 POST-MERGE PYTHON TARGETED PASS / AFFECTED RUNNING - 2026-10-11
+- [x] Exact main SHA `ce158039d3d732b8690fae7cacdcd798749f102d`; PR #80 merged.
+- [x] Post-merge Node desktop security = 22/22 PASS; do not rerun.
+- [x] Post-merge Python Electron targeted = `.tmp/imp072-main-targeted.xml` 9/9 PASS; PTY exit 0; do not rerun.
+- [~] Post-merge affected 9-test regression RUNNING: PTY `pty_60b2044469819f01a10d6c7c44af5df29d65`, PID `110328`; JUnit pending.
+- [~] Push-main CI run `38105680682` tracked on exact merge SHA.
+- [ ] On affected PASS: Frozen Master guard -> verify push-main CI -> feature MAIN VERIFIED.
+NEXT_EXACT_ACTION = "MONITOR EXISTING AFFECTED PTY/JUNIT; DO NOT RESTART"
+
+
+## IMP-072 POST-MERGE AFFECTED PASS / FROZEN GUARD NEXT - 2026-10-11
+- [x] Exact main SHA `ce158039d3d732b8690fae7cacdcd798749f102d`; PR #80 merged.
+- [x] Post-merge Node desktop security = 22/22 PASS; do not rerun.
+- [x] Post-merge Python Electron targeted = 9/9 PASS; do not rerun.
+- [x] Post-merge affected project/session + upload API regression = `.tmp/imp072-main-affected.xml` 9/9 PASS; failures=0 errors=0 skipped=0; PID 110328 absent after completion.
+- [x] Push-main CI run `38105680682` SUCCESS on exact main SHA; Python 3.10 + 3.13 unit tests and Frozen baseline PASS.
+- [ ] Run Frozen Master guard on exact main SHA; then mark IMP-072 feature MAIN VERIFIED if PASS.
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD; DO NOT RERUN TARGETED/AFFECTED/CI"
+
+
+## IMP-072 FEATURE MAIN VERIFIED - 2026-10-11
+- [x] PR #80 merged at exact main SHA `ce158039d3d732b8690fae7cacdcd798749f102d`.
+- [x] Post-merge Node desktop security = 22/22 PASS.
+- [x] Post-merge Python Electron targeted = 9/9 PASS.
+- [x] Post-merge affected project/session + upload API regression = 9/9 PASS.
+- [x] Push-main CI run `38105680682` SUCCESS; Python 3.10 + 3.13 unit tests PASS.
+- [x] Frozen Master guard PASS; semantic SHA unchanged `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
+- [ ] Read queue/DAG and claim next dependency-ready task.
+NEXT_EXACT_ACTION = "READ TASK_QUEUE/DAG -> CLAIM NEXT DEPENDENCY-READY TASK; DO NOT RERUN IMP-072 VERIFIED STAGES"
