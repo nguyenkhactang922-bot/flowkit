@@ -5650,3 +5650,68 @@ message = `feat(studio): add legacy import anti-corruption boundary`
 scope = exact 7-file verified task snapshot; `.tmp` excluded
 verification = unchanged / still valid
 NEXT_EXACT_ACTION = "governance-only exact-SHA sync commit -> side-effect guard -> push/PR"
+
+
+## IMP-080 POST-MERGE MAIN TARGETED RUNTIME — 2026-10-11
+status = RUNNING
+main_sha = `0c14106121639e90af143715477ec00dd8b1ab6e`
+pr = `#84 MERGED`
+push_main_ci = `38150493334` RUNNING; do not retrigger
+targeted_pty = `pty_26d6ca0a3681446105504064401b6fc2413e`
+targeted_pid = `122104`
+targeted_junit = `.tmp/imp080-main-targeted.xml`
+NEXT_EXACT_ACTION = "monitor existing targeted PTY/JUnit; on PASS run six-owner main affected regression, then Frozen guard after push-main CI PASS"
+
+
+## IMP-080 POST-MERGE TARGETED PASS — 2026-10-11
+status = PASS / main-targeted checkpoint locked
+main_sha = `0c14106121639e90af143715477ec00dd8b1ab6e`
+junit = `.tmp/imp080-main-targeted.xml` = 9 tests, failures 0, errors 0, skipped 0
+process = none; prior targeted PID 122104 ended
+push_main_ci = `38150493334` RUNNING exact merge SHA; Frozen baseline already PASS in both matrix jobs
+NEXT_EXACT_ACTION = "run six-owner post-merge affected regression only; do not rerun targeted; after affected PASS + CI SUCCESS run Frozen Master guard"
+
+
+## IMP-080 POST-MERGE AFFECTED RUNTIME — 2026-10-11
+status = RUNNING
+main_sha = `0c14106121639e90af143715477ec00dd8b1ab6e`
+retained_targeted = 9/9 PASS
+pty = `pty_e0a686fb9cc48664f93592c953069787d74f`
+pid = `123476`
+junit = `.tmp/imp080-main-affected.xml`
+scope = Entity + ShotPlanning + GenerationJob + VersionRepository + Invalidation + Persistence
+push_main_ci = `38150493334` RUNNING
+NEXT_EXACT_ACTION = "monitor existing affected PTY/JUnit; do not restart; on PASS verify CI SUCCESS then Frozen Master guard"
+
+
+## IMP-080 PUSH-MAIN CI PASS — 2026-10-11
+push_main_ci = `38150493334` SUCCESS exact main SHA `0c14106121639e90af143715477ec00dd8b1ab6e`
+python_3_10 = PASS
+python_3_13 = PASS
+frozen_baseline_ci = PASS in both jobs
+retained = main targeted 9/9 PASS; main affected still RUNNING under PTY `pty_e0a686fb9cc48664f93592c953069787d74f`, PID `123476`
+NEXT_EXACT_ACTION = "monitor existing main affected PTY/JUnit; on PASS run Frozen Master guard -> feature MAIN VERIFIED"
+
+
+## IMP-080 POST-MERGE AFFECTED PASS — 2026-10-11
+status = PASS / main-affected checkpoint locked
+main_sha = `0c14106121639e90af143715477ec00dd8b1ab6e`
+targeted = 9/9 PASS
+junit = `.tmp/imp080-main-affected.xml` = 72 tests, failures 0, errors 0, skipped 0
+pty_exit = 0; `72 passed in 1324.73s`
+push_main_ci = `38150493334` SUCCESS exact merge SHA; Python 3.10 + 3.13 + Frozen baseline PASS
+process = none
+NEXT_EXACT_ACTION = "run Frozen Master guard on exact main; on PASS mark feature MAIN VERIFIED -> governance-only state sync"
+
+
+## IMP-080 FEATURE MAIN VERIFIED — 2026-10-11
+status = FEATURE MAIN VERIFIED / GOVERNANCE SYNC NEXT
+main_sha = `0c14106121639e90af143715477ec00dd8b1ab6e`
+pr = `#84 MERGED`
+post_merge_targeted = 9/9 PASS
+post_merge_affected = 72/72 PASS
+push_main_ci = `38150493334` SUCCESS; Python 3.10 + 3.13 + Frozen baseline PASS
+frozen_master_guard = PASS; semantic SHA `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "side-effect guard -> governance-only branch/commit for IMP-080 MAIN VERIFIED -> push/PR/CI/merge/main verify"

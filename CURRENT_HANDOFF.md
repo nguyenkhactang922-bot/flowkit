@@ -5559,3 +5559,56 @@ NEXT_EXACT_ACTION = "GOVERNANCE-ONLY STATE SYNC BRANCH/COMMIT/PR -> VERIFY GOVER
 - Commit contains exactly 7 intended files; `.tmp` remains untracked/outside Git.
 - Verification checkpoints remain valid; no code/test change after commit.
 - NEXT_EXACT_ACTION: commit governance-only exact-SHA sync for CURRENT_HANDOFF / PROJECT_STATE / TASK_QUEUE, then side-effect guard -> push branch -> create PR once.
+
+
+## IMP-080 POST-MERGE MAIN TARGETED RUNNING — 2026-10-11
+- PR #84 merged at exact main SHA `0c14106121639e90af143715477ec00dd8b1ab6e`; local `main == origin/main`.
+- Push-main CI run `38150493334` is running on the exact merge SHA; do not retrigger.
+- Post-merge targeted only: `tests/unit/test_studio_legacy_import.py` under PTY `pty_26d6ca0a3681446105504064401b6fc2413e`, root PID `122104`.
+- JUnit: `.tmp/imp080-main-targeted.xml`; basetemp: `.tmp/pytest-imp080-main-targeted`.
+- Retained pre-merge evidence remains historical; this is a new main-verification stage.
+- NEXT_EXACT_ACTION: monitor the existing targeted PTY/JUnit only; do not restart. On PASS, run the six-owner affected main regression, then Frozen Master guard once push-main CI is also PASS.
+
+
+## IMP-080 POST-MERGE TARGETED PASS / AFFECTED NEXT — 2026-10-11
+- Exact main SHA: `0c14106121639e90af143715477ec00dd8b1ab6e`.
+- Post-merge targeted JUnit `.tmp/imp080-main-targeted.xml`: 9 tests / 0 failures / 0 errors / 0 skipped; root PID ended; pytest summary `9 passed in 108.26s`.
+- Targeted checkpoint is locked; do not rerun unless code/test changes.
+- Push-main CI `38150493334` remains RUNNING on the exact merge SHA; both jobs have passed Frozen baseline and are in unit tests.
+- NEXT_EXACT_ACTION: run six-owner post-merge affected regression only (Entity, ShotPlanning, GenerationJob, VersionRepository, Invalidation, Persistence); then Frozen Master guard after affected PASS and push-main CI SUCCESS.
+
+
+## IMP-080 POST-MERGE AFFECTED RUNNING — 2026-10-11
+- Retained: post-merge targeted 9/9 PASS on exact main SHA `0c14106121639e90af143715477ec00dd8b1ab6e`; do not rerun targeted.
+- Six-owner affected regression RUNNING under PTY `pty_e0a686fb9cc48664f93592c953069787d74f`, root PID `123476`.
+- Scope: Entity / ShotPlanning / GenerationJob / VersionRepository / Invalidation / Persistence only.
+- JUnit: `.tmp/imp080-main-affected.xml`; basetemp `.tmp/pytest-imp080-main-affected`.
+- Push-main CI `38150493334` remains RUNNING exact merge SHA; do not retrigger.
+- NEXT_EXACT_ACTION: monitor existing affected PTY/JUnit only; on PASS, wait/verify push-main CI SUCCESS if needed, then run Frozen Master guard.
+
+
+## IMP-080 PUSH-MAIN CI PASS — 2026-10-11
+- GitHub Actions run `38150493334` completed SUCCESS on exact main SHA `0c14106121639e90af143715477ec00dd8b1ab6e`.
+- Python 3.10 + 3.13 unit jobs PASS; Frozen Master baseline PASS in both.
+- Main targeted 9/9 PASS retained; main affected remains RUNNING under PTY `pty_e0a686fb9cc48664f93592c953069787d74f` / PID `123476`.
+- NEXT_EXACT_ACTION: monitor existing main affected PTY/JUnit only; on PASS run Frozen Master guard, then mark feature MAIN VERIFIED.
+
+
+## IMP-080 POST-MERGE AFFECTED PASS — 2026-10-11
+- Exact main SHA: `0c14106121639e90af143715477ec00dd8b1ab6e`.
+- Main targeted retained: 9/9 PASS.
+- Main six-owner affected JUnit `.tmp/imp080-main-affected.xml`: 72 tests / 0 failures / 0 errors / 0 skipped; PTY exit 0; `72 passed in 1324.73s`.
+- Push-main CI `38150493334` SUCCESS on exact merge SHA; Python 3.10 + 3.13 + Frozen baseline PASS.
+- Process: none for affected.
+- NEXT_EXACT_ACTION: run `python tools/frozen_master_guard.py` on exact main SHA; if PASS, mark IMP-080 feature MAIN VERIFIED and start governance-only state sync.
+
+
+## IMP-080 FEATURE MAIN VERIFIED — 2026-10-11
+- Exact main SHA: `0c14106121639e90af143715477ec00dd8b1ab6e` (`main == origin/main`).
+- PR #84 merged; post-merge targeted `9/9 PASS`; six-owner affected `72/72 PASS`.
+- Push-main CI `38150493334` SUCCESS: Python 3.10 + 3.13 unit jobs PASS; Frozen baseline PASS in both.
+- Post-merge Frozen Master guard PASS; semantic SHA unchanged `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
+- Process/PID: none for IMP-080 verification stages.
+- Blocker: none.
+- Status: FEATURE MAIN VERIFIED / GOVERNANCE SYNC NEXT.
+- NEXT_EXACT_ACTION: side-effect guard for `chatgpt/IMP-080-main-verified-state`; if absent, create governance-only branch from exact main, commit only CURRENT_HANDOFF.md + PROJECT_STATE.md + tasks/TASK_QUEUE.md, then push/PR/CI/merge/main-verify.
