@@ -4726,3 +4726,12 @@ NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD; DO NOT RERUN VERIFIED LINT/BUILD/D
 - [x] Evidence: `evidence/tests/IMP-073_RENDERER_DASHBOARD_ADAPTATION_EVIDENCE.md`.
 - [ ] Git side-effect guard -> exact-scope commit/push/PR lifecycle.
 NEXT_EXACT_ACTION = "RUN GIT SIDE-EFFECT GUARD -> STAGE EXACT IMP-073 SCOPE EXCLUDING .tmp -> VERIFY INDEX -> COMMIT; DO NOT RERUN VERIFIED STAGES"
+
+
+## IMP-073 FEATURE COMMIT CREATED / GOVERNANCE SYNC NEXT - 2026-10-11
+- [x] Exact feature commit `ff3d236258c4655c658d45a4ce99dd85890bcc21` created from locally verified IMP-073 scope.
+- [x] Dashboard lint/build, desktop static + 27/27 targeted, authority/security review and Frozen Master guard remain PASS; do not rerun unless code changes.
+- [x] Worktree outside committed scope is `.tmp/` untracked only.
+- [ ] Commit only the three state files recording the exact feature SHA.
+- [ ] Side-effect guard -> push branch once -> create PR once -> exact-head CI/review.
+NEXT_EXACT_ACTION = "STAGE ONLY 3 STATE FILES -> GOVERNANCE SYNC COMMIT -> SIDE-EFFECT GUARD -> PUSH/PR"
