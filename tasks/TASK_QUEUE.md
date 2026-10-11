@@ -4625,3 +4625,11 @@ NEXT_EXACT_ACTION = "CREATE IMP-072 EVIDENCE -> SIDE-EFFECT GUARD -> STAGE EXACT
 - [x] Exact feature scope = 10 files (6 code/test/package + evidence + 3 state files).
 - [ ] Stage exact scope; cached diff-check/index review; create feature commit.
 NEXT_EXACT_ACTION = "STAGE EXACT IMP-072 SCOPE -> VERIFY CACHED INDEX/DIFF CHECK -> FEATURE COMMIT; EXCLUDE .tmp"
+
+
+## IMP-072 FEATURE COMMIT CREATED / GOVERNANCE SYNC NEXT - 2026-10-11
+- [x] Feature commit `710ddf4859290d78cc50ae4e6d2a7e2f0b64befc` created from the exact 10-file verified scope.
+- [x] Worktree outside committed scope is `.tmp/` untracked only.
+- [ ] Commit only the three state files recording the exact feature SHA.
+- [ ] Side-effect guard -> push branch once -> create PR once -> exact-head CI/review.
+NEXT_EXACT_ACTION = "STAGE ONLY 3 STATE FILES -> GOVERNANCE SYNC COMMIT -> SIDE-EFFECT GUARD -> PUSH/PR"

@@ -5331,3 +5331,13 @@ exact_scope = 10 files: 6 code/test/package + 1 evidence + 3 state files
 process = none
 blocker = none
 NEXT_EXACT_ACTION = "stage exact 10-file IMP-072 scope -> verify cached index/diff-check -> feature commit; exclude .tmp"
+
+
+## IMP-072 FEATURE COMMIT CREATED / GOVERNANCE SYNC NEXT - 2026-10-11
+status = PASS / feature commit created
+feature_commit = `710ddf4859290d78cc50ae4e6d2a7e2f0b64befc`
+branch = `chatgpt/IMP-072-credential-broker-leases`
+worktree = `.tmp/` untracked only
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "stage only 3 state files -> governance sync commit -> side-effect guard -> push/PR; do not rerun verified tests"
