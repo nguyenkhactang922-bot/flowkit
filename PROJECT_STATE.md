@@ -5450,3 +5450,29 @@ local_verification = dashboard lint/build PASS; desktop static PASS; desktop tar
 worktree = `.tmp/` untracked only after feature commit
 blocker = none
 NEXT_EXACT_ACTION = "commit only 3 state files with exact feature SHA -> side-effect guard -> push branch once -> create PR once; do not rerun verified test/build stages"
+
+
+## IMP-073 POST-MERGE LOCAL PASS / PUSH-MAIN CI RUNNING - 2026-10-11
+status = RUNNING / post-merge MAIN verification
+main_sha = `706b2bed14e38881d04e9552df1ab5441de8d911`
+pr = #82 MERGED
+post_merge_desktop_targeted = 27/27 PASS; do not rerun unless code changes
+post_merge_dashboard_build = TypeScript `tsc -b` + Vite production build PASS; do not rerun
+post_merge_frozen_master_guard = PASS; semantic SHA `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`
+push_main_ci = run `38125248556` RUNNING on exact main_sha
+process = none local
+blocker = none
+NEXT_EXACT_ACTION = "monitor push-main CI 38125248556 on exact main SHA; do not rerun post-merge targeted/build/Frozen -> on CI success mark IMP-073 feature MAIN VERIFIED"
+
+
+## IMP-073 FEATURE MAIN VERIFIED - 2026-10-11
+status = MAIN VERIFIED
+main_sha = `706b2bed14e38881d04e9552df1ab5441de8d911`
+pr = #82 MERGED
+post_merge_desktop_targeted = 27/27 PASS
+post_merge_dashboard_build = PASS
+push_main_ci = run `38125248556` SUCCESS; Python 3.10 + 3.13 unit tests and Frozen baseline PASS
+frozen_master_guard = PASS; semantic SHA `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "governance-only state sync branch/commit/PR -> verify governance main -> read queue/DAG and claim next dependency-ready task"
