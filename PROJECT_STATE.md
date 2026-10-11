@@ -5341,3 +5341,53 @@ worktree = `.tmp/` untracked only
 process = none
 blocker = none
 NEXT_EXACT_ACTION = "stage only 3 state files -> governance sync commit -> side-effect guard -> push/PR; do not rerun verified tests"
+
+
+## IMP-072 POST-MERGE TARGETED RUNNING - 2026-10-11
+status = RUNNING / post-merge main verification
+main_sha = `ce158039d3d732b8690fae7cacdcd798749f102d`
+pr = #80 MERGED
+node_targeted = exact-main full desktop security suite 22/22 PASS; do not rerun unless code changes
+python_targeted = PTY `pty_2d13284979910771d16c45ea5db676cfc9de`; PID `106592`; `.tmp/imp072-main-targeted.xml` pending
+push_main_ci = run `38105680682` RUNNING on exact main SHA
+process = PTY `pty_2d13284979910771d16c45ea5db676cfc9de`; PID `106592`
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing Python targeted PTY/JUnit; do not restart -> on PASS run main affected 9-test regression -> Frozen guard"
+
+
+## IMP-072 POST-MERGE PYTHON TARGETED PASS / AFFECTED RUNNING - 2026-10-11
+status = RUNNING / post-merge main verification
+main_sha = `ce158039d3d732b8690fae7cacdcd798749f102d`
+node_targeted = 22/22 PASS; do not rerun
+python_targeted = `.tmp/imp072-main-targeted.xml`: 9/9 PASS; PTY exit 0; do not rerun
+affected = PTY `pty_60b2044469819f01a10d6c7c44af5df29d65`; PID `110328`; `.tmp/imp072-main-affected.xml` pending
+push_main_ci = run `38105680682` tracked on exact main SHA
+process = PTY `pty_60b2044469819f01a10d6c7c44af5df29d65`; PID `110328`
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing affected PTY/JUnit; do not restart -> on PASS run Frozen Master guard -> verify push-main CI"
+
+
+## IMP-072 POST-MERGE AFFECTED PASS / FROZEN GUARD NEXT - 2026-10-11
+status = PASS / post-merge affected checkpoint locked
+main_sha = `ce158039d3d732b8690fae7cacdcd798749f102d`
+node_targeted = 22/22 PASS; do not rerun unless code changes
+python_targeted = `.tmp/imp072-main-targeted.xml`: 9/9 PASS; do not rerun
+affected = `.tmp/imp072-main-affected.xml`: 9/9 PASS; failures=0 errors=0 skipped=0; recorded PID 110328 absent after completion
+push_main_ci = run `38105680682` SUCCESS on exact main SHA; Python 3.10 + 3.13 unit tests and Frozen baseline PASS
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "run Frozen Master guard on exact main SHA; do not rerun targeted/affected/CI"
+
+
+## IMP-072 FEATURE MAIN VERIFIED - 2026-10-11
+status = MAIN VERIFIED
+main_sha = `ce158039d3d732b8690fae7cacdcd798749f102d`
+pr = #80 MERGED
+post_merge_node_targeted = 22/22 PASS
+post_merge_python_targeted = 9/9 PASS
+post_merge_affected = 9/9 PASS
+push_main_ci = run `38105680682` SUCCESS; Python 3.10 + 3.13 unit tests PASS
+frozen_master_guard = PASS; semantic SHA `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "read TASK_QUEUE/DAG -> claim next dependency-ready task; do not rerun IMP-072 verified stages"
