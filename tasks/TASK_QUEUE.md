@@ -4735,3 +4735,24 @@ NEXT_EXACT_ACTION = "RUN GIT SIDE-EFFECT GUARD -> STAGE EXACT IMP-073 SCOPE EXCL
 - [ ] Commit only the three state files recording the exact feature SHA.
 - [ ] Side-effect guard -> push branch once -> create PR once -> exact-head CI/review.
 NEXT_EXACT_ACTION = "STAGE ONLY 3 STATE FILES -> GOVERNANCE SYNC COMMIT -> SIDE-EFFECT GUARD -> PUSH/PR"
+
+
+## IMP-073 POST-MERGE LOCAL PASS / PUSH-MAIN CI RUNNING - 2026-10-11
+- [x] PR #82 merged at exact main SHA `706b2bed14e38881d04e9552df1ab5441de8d911`.
+- [x] Post-merge desktop security/IPC/read-model targeted = 27/27 PASS; do not rerun unless code changes.
+- [x] Post-merge dashboard TypeScript `tsc -b` + Vite production build PASS; do not rerun.
+- [x] Post-merge Frozen Master guard PASS; semantic SHA unchanged `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
+- [~] Push-main CI run `38125248556` RUNNING on exact main SHA.
+- [ ] On CI SUCCESS: mark IMP-073 feature MAIN VERIFIED, then run governance-only state lifecycle.
+NEXT_EXACT_ACTION = "MONITOR PUSH-MAIN CI 38125248556; DO NOT RERUN POST-MERGE TARGETED/BUILD/FROZEN"
+
+
+## IMP-073 FEATURE MAIN VERIFIED - 2026-10-11
+- [x] PR #82 merged at exact main SHA `706b2bed14e38881d04e9552df1ab5441de8d911`.
+- [x] Post-merge desktop security/IPC/read-model targeted = 27/27 PASS.
+- [x] Post-merge dashboard TypeScript/Vite production build PASS.
+- [x] Push-main CI run `38125248556` SUCCESS; Python 3.10 + 3.13 unit tests and Frozen baseline PASS.
+- [x] Frozen Master guard PASS; semantic SHA unchanged `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
+- [ ] Governance-only state sync branch/commit/PR, then governance main verification.
+- [ ] Read queue/DAG and claim next dependency-ready task.
+NEXT_EXACT_ACTION = "GOVERNANCE-ONLY STATE SYNC -> VERIFY GOVERNANCE MAIN -> CLAIM NEXT TASK"
