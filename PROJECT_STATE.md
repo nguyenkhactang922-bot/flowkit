@@ -5642,3 +5642,11 @@ side_effect_guard = no feature commit, no remote branch, no PR, staged index emp
 base_head = `35823eeafbf6f0f8a6c6354b9d874d346d432247`
 blocker = none
 NEXT_EXACT_ACTION = "stage exact 7-file task scope -> cached diff/check -> feature commit -> governance exact-SHA sync"
+
+
+## IMP-080 FEATURE COMMIT CREATED — 2026-10-11
+feature_commit = `fcbe193d2be5dd7b5ef46dc6a35f0be836942bfe`
+message = `feat(studio): add legacy import anti-corruption boundary`
+scope = exact 7-file verified task snapshot; `.tmp` excluded
+verification = unchanged / still valid
+NEXT_EXACT_ACTION = "governance-only exact-SHA sync commit -> side-effect guard -> push/PR"

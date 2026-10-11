@@ -4923,3 +4923,11 @@ NEXT_EXACT_ACTION = "CREATE IMP-080 EVIDENCE -> SIDE-EFFECT GUARD -> COMMIT"
 - [ ] Stage exact 7-file scope -> verify cached diff -> feature commit.
 - [ ] Governance exact-SHA sync -> push/PR -> exact-head CI/review -> merge/main verify.
 NEXT_EXACT_ACTION = "STAGE EXACT 7 FILES -> VERIFY INDEX -> FEATURE COMMIT"
+
+
+## IMP-080 FEATURE COMMIT CREATED — 2026-10-11
+- [x] Feature commit `fcbe193d2be5dd7b5ef46dc6a35f0be836942bfe` created from exact verified 7-file scope.
+- [x] `.tmp` excluded.
+- [ ] Governance-only commit recording exact feature SHA.
+- [ ] Side-effect guard -> push branch once -> create PR once -> exact-head CI/review.
+NEXT_EXACT_ACTION = "STAGE ONLY 3 STATE FILES -> GOVERNANCE SYNC COMMIT -> SIDE-EFFECT GUARD -> PUSH/PR"

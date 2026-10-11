@@ -5552,3 +5552,10 @@ NEXT_EXACT_ACTION = "GOVERNANCE-ONLY STATE SYNC BRANCH/COMMIT/PR -> VERIFY GOVER
 - Intended commit scope: `agent/studio/legacy_import.py`, `agent/studio/__init__.py`, `tests/unit/test_studio_legacy_import.py`, IMP-080 evidence, and the three governance state files.
 - Status: LOCAL VERIFIED / COMMIT NEXT.
 - NEXT_EXACT_ACTION: stage exactly the 7 intended files, verify cached diff/check, commit feature snapshot, then governance exact-SHA sync.
+
+
+## IMP-080 FEATURE COMMIT CREATED — 2026-10-11
+- Feature commit: `fcbe193d2be5dd7b5ef46dc6a35f0be836942bfe` (`feat(studio): add legacy import anti-corruption boundary`).
+- Commit contains exactly 7 intended files; `.tmp` remains untracked/outside Git.
+- Verification checkpoints remain valid; no code/test change after commit.
+- NEXT_EXACT_ACTION: commit governance-only exact-SHA sync for CURRENT_HANDOFF / PROJECT_STATE / TASK_QUEUE, then side-effect guard -> push branch -> create PR once.
