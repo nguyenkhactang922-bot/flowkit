@@ -4513,3 +4513,115 @@ NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RUN ONLY POST-MERGE AFFECTED REGRES
 - [x] Frozen Master guard PASS; semantic SHA unchanged.
 - [ ] Governance-only state sync lifecycle.
 NEXT_EXACT_ACTION = "GOVERNANCE SIDE-EFFECT GUARD -> STATE-ONLY BRANCH/COMMIT -> PUSH/PR/CI/REVIEW/MERGE"
+
+
+## IMP-071 GOVERNANCE MAIN VERIFIED / IMP-072 CLAIMED - 2026-10-10
+- [x] IMP-071 governance PR #79 merged at `021cdb068944f69059099b432767cffab4c67e9c`.
+- [x] Governance push-main CI run `38068491662` SUCCESS; Python 3.10 + 3.13 PASS; Frozen Master baseline PASS.
+- [x] IMP-072 dependency `IMP-071` satisfied.
+- [x] Duplicate guard: no prior IMP-072 commit/local branch/remote branch/PR before claim.
+- [x] Claimed `chatgpt/IMP-072-credential-broker-leases` from exact governance main.
+- [ ] Read Frozen Master security authority for Credential Broker / safeStorage / scoped leases.
+- [ ] Audit current typed IPC / Production Utility / preload secret surfaces and lock lease scope/expiry/revocation/rotation contract.
+- [ ] Implement broker + safe storage boundary + scoped short-lived authorization without renderer secret access.
+- [ ] Negative tests: renderer denial, invalid scope/expiry, revocation/rotation, secret scan; then affected/broader/Frozen guard/evidence/Git lifecycle.
+NEXT_EXACT_ACTION = "READ FROZEN MASTER IMP-072 SECURITY/CREDENTIAL AUTHORITY + AUDIT CURRENT IPC/UTILITY/PRELOAD SECRET SURFACES -> LOCK CONTRACT/NEGATIVE TEST PLAN -> IMPLEMENT"
+
+
+## IMP-072 AUTHORITY AUDIT LOCKED / CODE NEXT - 2026-10-10
+- [x] Read Frozen Master §85 + ADR-0016 credential authority.
+- [x] KEEP IMP-070 shell security + IMP-071 typed IPC/Utility bridge; no generic renderer credential bridge.
+- [x] Lock Main/Host Security Broker as long-lived secret owner; safeStorage vault encrypted at rest; project/log/export surfaces metadata-only.
+- [x] Lock utility session + lease scope: utility/session/provider/operation/credential-version/correlation + bounded TTL + single-use.
+- [x] Lock revoke/rotation/utility-exit invalidation and Linux `basic_text` fail-closed policy.
+- [x] Lock browser-session credentials as provider-specific; generic API-key lease semantics must not absorb them.
+- [ ] Implement `credential-broker.cjs` + Main/package wiring.
+- [ ] Targeted Node security tests: renderer denial, vault canary scan, wrong scope, expiry/replay, session revoke, rotation stale, insecure backend denial.
+- [ ] Update Python Electron static-security gate; then affected/broader/Frozen guard/evidence/Git lifecycle.
+NEXT_EXACT_ACTION = "IMPLEMENT MAIN-ONLY CREDENTIAL BROKER + PACKAGE WIRING + TARGETED NODE/PYTHON SECURITY TESTS"
+
+
+## IMP-072 BROKER TARGETED NODE PASS - 2026-10-10
+- [x] `node --test desktop/tests/credential-broker.test.cjs` = 9/9 PASS.
+- [x] Renderer public surface has no credential/secret capability.
+- [x] Vault canary scan confirms plaintext absent; metadata omits encrypted payload/secret.
+- [x] Lease is single-use, TTL-bound and utility/provider/operation/version/correlation scoped.
+- [x] Wrong session/provider/operation, expiry/replay, utility revoke, credential revoke, rotation stale and insecure backend all fail closed.
+- [ ] Run targeted Python Electron static/security gate in standard uv Python 3.13 environment.
+NEXT_EXACT_ACTION = "RUN TARGETED PYTHON ELECTRON SECURITY GATE; DO NOT RERUN STANDALONE NODE BROKER SUITE UNLESS BROKER CODE CHANGES"
+
+
+## IMP-072 TARGETED PYTHON RUNNING - 2026-10-10
+- [x] Broker Node security suite 9/9 PASS.
+- [ ] Targeted Python Electron security gate RUNNING under PTY `pty_23c1dd144b40934a589bddbcbff00d4cf464`, root PID `97488`.
+- JUnit `.tmp/imp072-targeted.xml` pending.
+- Do not restart or create duplicate targeted pytest.
+NEXT_EXACT_ACTION = "MONITOR EXISTING IMP-072 TARGETED PYTHON PTY/PID/JUNIT -> CLASSIFY FINAL RESULT"
+
+
+## IMP-072 TARGETED PASS / AFFECTED NEXT - 2026-10-11
+- [x] Broker Node targeted = 9/9 PASS.
+- [x] Python Electron security targeted = `.tmp/imp072-targeted.xml` 9/9 PASS, no fail/error/skip.
+- [ ] Run affected project/session + upload API regression only; do not rerun targeted unless code/test changes.
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RUN tests/unit/test_flow_project_session.py + tests/unit/test_flow_upload_api.py -> CLASSIFY FINAL RESULT"
+
+
+## IMP-072 AFFECTED PASS / BROADER NEXT - 2026-10-11
+- [x] Node broker targeted = 9/9 PASS.
+- [x] Python Electron security targeted = 9/9 PASS.
+- [x] Affected project/session + upload API regression = 9/9 PASS; `.tmp/imp072-affected.xml`.
+- [ ] Run broader valid Windows regression excluding targeted/affected + `test_setup.py` + `test_video_reviewer.py` + established POSIX deselections.
+- [ ] Frozen Master guard after broader PASS -> exact-head review/evidence/Git lifecycle.
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RUN BROADER VALID WINDOWS REGRESSION; TARGETED/AFFECTED MUST NOT RERUN"
+
+
+## IMP-072 BROADER VALID WINDOWS RUNNING - 2026-10-11
+- [x] Targeted Node 9/9 + Python 9/9 PASS; do not rerun.
+- [x] Affected service-boundary 9/9 PASS; do not rerun.
+- [~] Broader valid Windows regression RUNNING under PTY `pty_2ce6a7d16b8ad605aaf6654eb1a812ddc3a1`, PID `98584`.
+- [x] Scope excludes IMP-072 targeted+affected, `test_setup.py`, `test_video_reviewer.py`; established POSIX deselections unchanged.
+- [ ] Finalize `.tmp/imp072-broader-valid.xml` from final JUnit/exit only.
+- [ ] Frozen Master guard only after broader PASS.
+NEXT_EXACT_ACTION = "MONITOR EXISTING IMP-072 BROADER PTY/PID/JUNIT; DO NOT RESTART"
+
+
+## IMP-072 BROADER VALID WINDOWS PASS / FROZEN GUARD NEXT - 2026-10-11
+- [x] Node broker targeted = 9/9 PASS; do not rerun unless broker code/test changes.
+- [x] Python Electron security targeted = 9/9 PASS; do not rerun unless affected code/test changes.
+- [x] Affected project/session + upload API regression = 9/9 PASS; do not rerun.
+- [x] Broader valid Windows regression = `.tmp/imp072-broader-valid.xml` 792/792 PASS; failures=0 errors=0 skipped=0; recorded PID 98584 absent after completion.
+- [ ] Run Frozen Master guard on current IMP-072 worktree.
+- [ ] Exact-head review/evidence/Git lifecycle only after Frozen guard PASS.
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD; TARGETED/AFFECTED/BROADER MUST NOT RERUN"
+
+
+## IMP-072 EXACT-HEAD REVIEW FIX / PYTHON TARGETED RUNNING - 2026-10-11
+- [x] Exact-head review found missing trusted Utility lease-consumer wiring required by Frozen §85 + ADR-0016.
+- [x] Main now injects Credential Broker into ProductionUtilityBridge; Renderer API remains unchanged/secret-free.
+- [x] Trusted child transport requires Main-authorized provider/operation scope, issues metadata-only lease, redeems once, and revokes session on Utility exit/bridge close.
+- [x] Direct full desktop Node security suite = 22/22 PASS; npm wrapper failure was environment-only and executed no tests.
+- [~] Python Electron security targeted RUNNING under PTY `pty_e14920849cc0dd328e75e9b653c060561249`, PID `111568`; JUnit `.tmp/imp072-review-targeted.xml` pending.
+- [x] Prior broader valid Windows 792/792 PASS retained: it excludes Electron targeted file and does not execute desktop Node tests.
+- [ ] On Python targeted PASS: final Frozen Master guard -> evidence -> side-effect guard -> commit/push/PR lifecycle.
+NEXT_EXACT_ACTION = "MONITOR EXISTING PYTHON TARGETED PTY/JUNIT; DO NOT RESTART"
+
+
+## IMP-072 LOCAL VERIFIED AFTER EXACT-HEAD REVIEW FIX - 2026-10-11
+- [x] Exact-head review fixed the missing trusted Production Utility lease-consumer path required by Frozen §85 + ADR-0016.
+- [x] Renderer remains secret-free; Main owns safeStorage/broker/session; Utility receives only Main-authorized scoped short-lived lease material over internal child transport.
+- [x] Direct full desktop Node security suite = 22/22 PASS. The npm wrapper invocation failed before test execution because local npm bootstrap is broken; not a product failure.
+- [x] Python Electron security targeted `.tmp/imp072-review-targeted.xml` = 9/9 PASS; no failures/errors/skips; PTY exit 0.
+- [x] Affected backend 9/9 PASS retained because review fix does not touch those boundaries.
+- [x] Broader valid Windows `.tmp/imp072-broader-valid.xml` = 792/792 PASS retained because it excludes the Electron targeted file and does not execute desktop Node tests.
+- [x] Frozen Master guard PASS; semantic SHA unchanged `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
+- [ ] Create evidence file, run side-effect guard, stage exact scope and feature commit.
+NEXT_EXACT_ACTION = "CREATE IMP-072 EVIDENCE -> SIDE-EFFECT GUARD -> STAGE EXACT SCOPE/FEATURE COMMIT; DO NOT RERUN VERIFIED TESTS"
+
+
+## IMP-072 EVIDENCE READY / SIDE-EFFECT GUARD PASS / COMMIT NEXT - 2026-10-11
+- [x] Exact-head LOCAL VERIFIED: Node security 22/22 + Python Electron targeted 9/9 + affected 9/9 + broader Windows 792/792 + Frozen Master guard PASS.
+- [x] Evidence: `evidence/tests/IMP-072_CREDENTIAL_BROKER_LEASES_EVIDENCE.md`.
+- [x] Side-effect guard: no feature commit, remote branch or PR; staged index empty; `.tmp` untracked only.
+- [x] Exact feature scope = 10 files (6 code/test/package + evidence + 3 state files).
+- [ ] Stage exact scope; cached diff-check/index review; create feature commit.
+NEXT_EXACT_ACTION = "STAGE EXACT IMP-072 SCOPE -> VERIFY CACHED INDEX/DIFF CHECK -> FEATURE COMMIT; EXCLUDE .tmp"

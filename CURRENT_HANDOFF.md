@@ -5114,3 +5114,126 @@ FROZEN_SHA256 = `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c7728
 PROCESS = none
 BLOCKER = none
 NEXT_EXACT_ACTION = "GOVERNANCE SIDE-EFFECT GUARD -> STATE-ONLY BRANCH/COMMIT -> PUSH/PR/CI/REVIEW/MERGE"
+
+
+## IMP-071 GOVERNANCE MAIN VERIFIED / IMP-072 CLAIMED - 2026-10-10
+STATUS = IMP-071 governance MAIN VERIFIED; IMP-072 CLAIMED
+IMP071_GOVERNANCE_MAIN_SHA = `021cdb068944f69059099b432767cffab4c67e9c`
+IMP071_GOVERNANCE_PR = #79 merged
+IMP071_GOVERNANCE_PUSH_MAIN_CI = run `38068491662` SUCCESS; Python 3.10 + 3.13 PASS; Frozen Master baseline PASS
+CURRENT_TASK = IMP-072 Credential Broker / safeStorage / Leases
+BRANCH = `chatgpt/IMP-072-credential-broker-leases`
+BASE_SHA = `021cdb068944f69059099b432767cffab4c67e9c`
+CHECKPOINT_LAST_PASS = IMP-071 governance lifecycle MAIN VERIFIED
+PROCESS = none
+BLOCKER = none
+NEXT_EXACT_ACTION = "READ FROZEN MASTER IMP-072 SECURITY/CREDENTIAL AUTHORITY + AUDIT CURRENT IPC/UTILITY/PRELOAD SECRET SURFACES -> LOCK BROKER/LEASE/REVOCATION/ROTATION CONTRACT + NEGATIVE TEST PLAN -> IMPLEMENT; DO NOT REOPEN IMP-071"
+
+
+## IMP-072 AUTHORITY AUDIT LOCKED / CODE NEXT - 2026-10-10
+STATUS = ANALYZE/PASS; Credential Broker implementation contract locked
+AUTHORITY = Frozen Master §85 + ADR-0016; Host Security Broker/Main owns long-lived secret lifecycle
+KEEP = IMP-070 hardened Electron shell + IMP-071 typed IPC/Production Utility bridge; Renderer public surface remains secret-free
+NEW_SCOPE = Main-only safeStorage credential vault + metadata/version lifecycle + utility session registry + short-lived single-use leases scoped by utility/provider/operation/credential-version/correlation
+FAIL_CLOSED = missing/insecure safeStorage backend; wrong utility/session/provider/operation; expired/replayed/revoked/stale-after-rotation lease; no renderer plaintext fallback
+SECRET_DISCIPLINE = vault persists encrypted payload only; project/export/log surfaces contain credential IDs/metadata only; browser-session credentials remain provider-specific and are not genericized
+TEST_PLAN = renderer no-secret surface; vault canary scan; scope denial; expiry/replay; utility revocation; rotation invalidates stale lease; Linux basic_text denial; no secret echo in metadata/errors
+PROCESS = none
+BLOCKER = none
+NEXT_EXACT_ACTION = "IMPLEMENT MAIN-ONLY CREDENTIAL BROKER + PACKAGE WIRING + TARGETED NODE/PYTHON SECURITY TESTS; DO NOT REOPEN IMP-071"
+
+
+## IMP-072 BROKER TARGETED NODE PASS - 2026-10-10
+STATUS = RUNNING / targeted checkpoint PASS
+CHECKPOINT_LAST_PASS = credential broker Node security suite 9/9 PASS
+EVIDENCE = `node --test desktop/tests/credential-broker.test.cjs` -> 9 pass / 0 fail
+VERIFIED = renderer no-secret surface; encrypted vault canary clean; one-use redeem; utility/provider/operation scope denial; expiry; utility-session revoke; rotation stale lease; credential revoke; insecure/unavailable safeStorage fail-closed
+PROCESS = none
+BLOCKER = none
+NEXT_EXACT_ACTION = "RUN TARGETED PYTHON ELECTRON SECURITY GATE IN STANDARD UV PYTHON 3.13 ENV; DO NOT RERUN STANDALONE NODE BROKER SUITE UNLESS THIS CODE CHANGES"
+
+
+## IMP-072 TARGETED PYTHON RUNNING - 2026-10-10
+STATUS = RUNNING
+CHECKPOINT_LAST_PASS = broker Node security 9/9 PASS
+PROCESS = PTY `pty_23c1dd144b40934a589bddbcbff00d4cf464`; root PID `97488`
+COMMAND = standard uv Python 3.13 targeted `tests/unit/test_electron_host_security.py`
+JUNIT = `.tmp/imp072-targeted.xml` pending
+BLOCKER = none
+NEXT_EXACT_ACTION = "MONITOR EXISTING PTY/PID/JUNIT; DO NOT RESTART TARGETED PYTHON; ON FINAL PASS SYNC AND RUN AFFECTED REGRESSION"
+
+
+## IMP-072 TARGETED PASS / AFFECTED NEXT - 2026-10-11
+STATUS = PASS / targeted credential security checkpoint locked
+NODE_TARGETED = 9/9 PASS
+PYTHON_TARGETED = `.tmp/imp072-targeted.xml`: 9/9 PASS; failures=0 errors=0 skipped=0; PTY exit 0
+CHECKPOINT_LAST_PASS = Node 9/9 + Python 9/9 targeted PASS
+PROCESS = none
+BLOCKER = none
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RUN AFFECTED SERVICE-BOUNDARY REGRESSION ONLY: tests/unit/test_flow_project_session.py + tests/unit/test_flow_upload_api.py; TARGETED MUST NOT RERUN"
+
+
+## IMP-072 AFFECTED PASS / BROADER NEXT - 2026-10-11
+STATUS = PASS / affected service-boundary checkpoint locked
+TARGETED = Node broker 9/9 + Python Electron security 9/9 PASS; DO NOT rerun unless code/test changes
+AFFECTED = `.tmp/imp072-affected.xml`: 9/9 PASS; failures=0 errors=0 skipped=0; PTY exit 0
+CHECKPOINT_LAST_PASS = targeted Node 9/9 + Python 9/9 + affected 9/9 PASS
+PROCESS = none
+BLOCKER = none
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RUN BROADER VALID WINDOWS REGRESSION EXCLUDING IMP-072 TARGETED+AFFECTED + test_setup.py + test_video_reviewer.py + ESTABLISHED POSIX DESELECTIONS"
+
+
+## IMP-072 BROADER VALID WINDOWS RUNNING - 2026-10-11
+STATUS = RUNNING
+PROCESS = PTY `pty_2ce6a7d16b8ad605aaf6654eb1a812ddc3a1`; root PID `98584`
+SCOPE = tests/unit excluding IMP-072 targeted `test_electron_host_security.py`, affected `test_flow_project_session.py` + `test_flow_upload_api.py`, `test_setup.py`, `test_video_reviewer.py`; established POSIX deselections unchanged
+ARTIFACT_PENDING = `.tmp/imp072-broader-valid.xml`; basetemp `.tmp/pytest-imp072-broader-valid`
+CHECKPOINT_LAST_PASS = targeted Node 9/9 + Python 9/9 + affected 9/9 PASS
+BLOCKER = none
+NEXT_EXACT_ACTION = "MONITOR EXISTING IMP-072 BROADER PTY/PID/JUNIT; DO NOT RESTART -> FINAL JUNIT/EXIT -> FROZEN MASTER GUARD ONLY IF PASS"
+
+
+## IMP-072 BROADER VALID WINDOWS PASS / FROZEN GUARD NEXT - 2026-10-11
+STATUS = PASS / broader regression checkpoint locked
+TARGETED = Node broker 9/9 + Python Electron security 9/9 PASS; DO NOT rerun unless code/test changes
+AFFECTED = 9/9 PASS; DO NOT rerun
+BROADER = `.tmp/imp072-broader-valid.xml`: 792/792 PASS; failures=0 errors=0 skipped=0; durable JUnit final; recorded PID 98584 absent after completion
+PROCESS = none
+BLOCKER = none
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD ON CURRENT IMP-072 WORKTREE; DO NOT RERUN TARGETED/AFFECTED/BROADER"
+
+
+## IMP-072 EXACT-HEAD REVIEW FIX / PYTHON TARGETED RUNNING - 2026-10-11
+STATUS = RUNNING / review-fix targeted revalidation
+REVIEW_FINDING = ProductionUtilityBridge did not yet consume Host Security Broker leases; Frozen §85 + ADR-0016 require trusted Utility scoped short-lived lease consumer path
+FIX = Main injects Credential Broker into ProductionUtilityBridge; internal child transport now supports Main-authorized scope -> lease issue -> one-use redeem; Utility session revoke on exit/close; Renderer surface unchanged
+NODE_SECURITY = direct `node --test` full desktop security suite 22/22 PASS; npm wrapper unavailable locally and did not run tests
+PYTHON_TARGETED = PTY `pty_e14920849cc0dd328e75e9b653c060561249`; root PID `111568`; `.tmp/imp072-review-targeted.xml` pending
+BROADER = prior valid Windows 792/792 PASS retained because scope excludes Electron security targeted and does not execute desktop Node tests
+PROCESS = PTY `pty_e14920849cc0dd328e75e9b653c060561249`; PID `111568`
+BLOCKER = none
+NEXT_EXACT_ACTION = "MONITOR EXISTING PYTHON TARGETED PTY/JUNIT; DO NOT RESTART -> ON PASS RERUN FINAL FROZEN MASTER GUARD + EVIDENCE/SIDE-EFFECT LIFECYCLE"
+
+
+## IMP-072 LOCAL VERIFIED AFTER EXACT-HEAD REVIEW FIX - 2026-10-11
+STATUS = PASS / exact worktree locally verified
+REVIEW_FIX = trusted Production Utility now consumes Main/Host Security Broker scoped short-lived lease via internal child transport; Renderer remains secret-free
+NODE_SECURITY = direct full desktop security suite 22/22 PASS; npm wrapper invocation failed before tests because local npm bootstrap is missing and is not a product failure
+PYTHON_TARGETED = `.tmp/imp072-review-targeted.xml`: 9/9 PASS; failures=0 errors=0 skipped=0; PTY exit 0
+AFFECTED = prior 9/9 PASS retained; review fix does not touch backend project/session/upload boundary
+BROADER = prior `.tmp/imp072-broader-valid.xml` 792/792 PASS retained because broader scope excludes Electron targeted file and does not execute desktop Node tests
+FROZEN_MASTER_GUARD = PASS; semantic SHA `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`
+DIFF_CHECK = PASS
+PROCESS = none
+BLOCKER = none
+NEXT_EXACT_ACTION = "CREATE IMP-072 EVIDENCE -> SIDE-EFFECT GUARD -> STAGE EXACT SCOPE/FEATURE COMMIT; DO NOT RERUN VERIFIED TESTS"
+
+
+## IMP-072 EVIDENCE READY / SIDE-EFFECT GUARD PASS / COMMIT NEXT - 2026-10-11
+STATUS = PASS / locally verified and commit-safe
+EVIDENCE = `evidence/tests/IMP-072_CREDENTIAL_BROKER_LEASES_EVIDENCE.md`
+SIDE_EFFECT_GUARD = PASS; no IMP-072 commit; no remote branch; no PR; staged index empty; `.tmp` untracked only
+EXACT_SCOPE = 10 files: 6 code/test/package + 1 evidence + 3 state files
+PROCESS = none
+BLOCKER = none
+NEXT_EXACT_ACTION = "STAGE EXACT 10-FILE IMP-072 SCOPE -> VERIFY CACHED INDEX/DIFF CHECK -> FEATURE COMMIT; EXCLUDE .tmp"
