@@ -1597,3 +1597,32 @@ __all__ += [
     "OperationalSceneProjectionResult",
     "operational_scene_projection_logical_id",
 ]
+
+
+from .backup_restore import (
+    ArtifactBackupEntry,
+    BackupIdentityConflict,
+    BackupIntegrityError,
+    BackupManifest,
+    BackupRestoreBlocked,
+    BackupRestoreError,
+    BackupRestoreService,
+    BackupVerificationStatus,
+    MigrationHistoryEntry,
+    RestoreStageManifest,
+    RestoreStageStatus,
+)
+
+__all__ += [
+    "ArtifactBackupEntry",
+    "BackupIdentityConflict",
+    "BackupIntegrityError",
+    "BackupManifest",
+    "BackupRestoreBlocked",
+    "BackupRestoreError",
+    "BackupRestoreService",
+    "BackupVerificationStatus",
+    "MigrationHistoryEntry",
+    "RestoreStageManifest",
+    "RestoreStageStatus",
+]
