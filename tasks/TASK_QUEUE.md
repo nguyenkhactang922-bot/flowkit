@@ -5118,3 +5118,107 @@ NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD ON EXACT MAIN; DO NOT RERUN TARGETE
 - [x] Post-merge Frozen Master guard PASS; semantic SHA unchanged.
 - [ ] Governance-only MAIN VERIFIED sync -> PR/CI/merge/main verify.
 NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD FOR chatgpt/IMP-081-main-verified-state; IF ABSENT CREATE GOVERNANCE-ONLY BRANCH/COMMIT -> PUSH/PR/CI/MERGE/VERIFY MAIN"
+
+
+## IMP-081 GOVERNANCE VERIFIED / IMP-082 CLAIMED — 2026-10-12
+- [x] IMP-081 governance PR #87 merged at exact main SHA `dbee0bc784bcbf6ccd164069d8399ce61af1f277`.
+- [x] Governance push-main CI `38202460325` SUCCESS; Python 3.10 + 3.13 + Frozen baseline PASS.
+- [x] IMP-081 governance lifecycle VERIFIED.
+- [x] IMP-082 hard dependencies IMP-003 + IMP-055 + IMP-080 MAIN VERIFIED/governance VERIFIED.
+- [x] No pre-existing local/remote branch or PR for `chatgpt/IMP-082-backup-restore-migration-safety`.
+- [x] Claimed IMP-082 branch from exact governance main `dbee0bc784bcbf6ccd164069d8399ce61af1f277`.
+- [ ] Read frozen/ADR authority and audit persistence/schema migration + artifact backup/restore surfaces.
+- [ ] Lock restart-safe backup manifest/hash/staged-restore contract and negative tests: interrupted migration, unsupported newer schema, manifest/hash mismatch, partial backup never success.
+- [ ] Implement -> targeted -> affected -> broader valid Windows -> Frozen guard -> evidence/Git lifecycle.
+NEXT_EXACT_ACTION = "READ IMP-082 FROZEN/ADR AUTHORITY + AUDIT PERSISTENCE/MIGRATION/ARTIFACT BACKUP-RESTORE SURFACES BEFORE CODE"
+
+
+## IMP-082 AUTHORITY / SURFACE AUDIT LOCKED — 2026-10-12
+- [x] Read update/migration/backup authority + failure/recovery model + Windows persistence evidence.
+- [x] Audit current persistence: keep transactional `ensure_schema_compatibility`; newer/identity-mismatched schemas fail closed; no IMP-082 schema bump.
+- [x] Audit artifact lifecycle: required canonical artifact backup set derives from READY `MATERIALIZE_VALID` path/hash/size evidence.
+- [x] Lock contract: verified atomic backup publication; partial backup never success; deterministic retry; staged restore only; migrate/verify staging before promotion outside this task.
+- [x] Lock negative tests: interrupted migration rollback/resume; unsupported newer schema; manifest/artifact hash mismatch; missing required artifact blocks success; staged restore does not overwrite active project.
+- [ ] Implement module/export/tests -> targeted -> affected -> broader valid Windows -> Frozen guard -> evidence/Git lifecycle.
+NEXT_EXACT_ACTION = "IMPLEMENT MINIMAL IMP-082 BACKUP/RESTORE ORCHESTRATION + TARGETED TESTS; STATIC/IMPORT THEN TARGETED ONLY"
+
+
+## IMP-082 TARGETED RUNNING — 2026-10-12
+- [x] Authority/surface audit locked.
+- [x] Draft backup/restore orchestration + exports + 8 targeted tests written.
+- [x] Static/public-import/diff gate PASS.
+- [~] Targeted pytest RUNNING: PTY `pty_0855d1ea5bbec2d65ce8aa80e96ef6154dcc`, PID `122212`, JUnit `.tmp/imp082-targeted.xml`.
+- [ ] On PASS: exact-head review -> affected regression -> broader valid Windows -> Frozen guard -> evidence/Git lifecycle.
+NEXT_EXACT_ACTION = "MONITOR EXISTING IMP-082 TARGETED PTY/JUNIT; DO NOT RESTART"
+
+
+## IMP-082 EXACT-HEAD TARGETED PASS — 2026-10-12
+- [x] Initial targeted 8/8 PASS historical evidence.
+- [x] Exact-head replay/security hardening applied.
+- [x] Static/public-import/diff gate PASS after hardening.
+- [x] Exact-head targeted revalidation PASS: 8/8, 0 failures/errors/skips, PTY exit 0; JUnit `.tmp/imp082-review-targeted.xml`.
+- [ ] Exact-head review -> affected owner regression -> broader valid Windows -> Frozen guard -> evidence/Git lifecycle.
+NEXT_EXACT_ACTION = "EXACT-HEAD REVIEW -> AFFECTED OWNER REGRESSION; DO NOT RERUN TARGETED"
+
+
+## IMP-082 FINAL EXACT-HEAD TARGETED PASS — 2026-10-12
+- [x] Final review hardening: Windows-safe backup IDs + mandatory canonical migration history.
+- [x] Static/public-import/diff gate PASS.
+- [x] Final targeted PASS: 10/10, 0 failures/errors/skips, PTY exit 0; JUnit `.tmp/imp082-final-targeted.xml`.
+- [ ] Affected owner regression: persistence + GenerationJob + artifact lifecycle only; targeted excluded.
+- [ ] Broader valid Windows -> Frozen guard -> evidence/Git lifecycle.
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RUN AFFECTED OWNER REGRESSION ONLY; DO NOT RERUN TARGETED"
+
+
+## IMP-082 AFFECTED REGRESSION RUNNING — 2026-10-12
+- [x] Final targeted 10/10 PASS locked; excluded from affected run.
+- [~] Affected owner regression RUNNING: PTY `pty_83293ff6e07a97cfdbf77755e15d954cb9b7`, PID `129192`.
+- Scope: persistence + GenerationJob + artifact lifecycle owner tests only; JUnit `.tmp/imp082-affected.xml`.
+- [ ] Broader valid Windows -> Frozen guard -> evidence/Git lifecycle after affected final PASS.
+NEXT_EXACT_ACTION = "MONITOR EXISTING AFFECTED PTY/JUNIT; DO NOT RESTART"
+
+
+## IMP-082 AFFECTED REGRESSION PASS — 2026-10-12
+- [x] Final targeted checkpoint = 10/10 PASS; do not rerun.
+- [x] Affected owner regression PASS: `.tmp/imp082-affected.xml` = 43 tests / 0 failures / 0 errors / 0 skipped; PID `129192` absent after completion.
+- [ ] Broader valid Windows regression excluding targeted + affected owner files; preserve known Windows exclusions.
+- [ ] Frozen Master guard -> evidence -> Git lifecycle.
+NEXT_EXACT_ACTION = "ANTI-DUPLICATE GUARD -> RUN IMP-082 BROADER VALID WINDOWS REGRESSION; DO NOT RERUN TARGETED/AFFECTED"
+
+
+## IMP-082 BROADER VALID WINDOWS REGRESSION RUNNING — 2026-10-12
+- [x] Targeted final 10/10 PASS retained; do not rerun.
+- [x] Affected owner regression 43/43 PASS retained; do not rerun.
+- [~] Broader valid Windows regression RUNNING under PTY `pty_b7862ed163bddc535664c19875199bce7c36`, PID `114276`.
+- Scope excludes IMP-082 targeted + persistence + generation_job + artifact_lifecycle + `test_setup.py` + `test_video_reviewer.py`; historical POSIX deselections retained; `PYTHONUTF8=1`.
+- [ ] Finalize `.tmp/imp082-broader-valid.xml` from final JUnit/exit only.
+- [ ] Frozen Master guard only after broader PASS.
+NEXT_EXACT_ACTION = "MONITOR EXISTING IMP-082 BROADER PTY/JUNIT; DO NOT RESTART"
+
+
+## IMP-082 BROADER VALID WINDOWS REGRESSION PASS — 2026-10-12
+- [x] Targeted final checkpoint 10/10 PASS retained; do not rerun.
+- [x] Affected owner regression 43/43 PASS retained; do not rerun.
+- [x] Broader valid Windows regression PASS: `.tmp/imp082-broader-valid.xml` = 783 tests / 0 failures / 0 errors / 0 skipped; PID `114276` absent after completion.
+- [ ] Frozen Master guard -> final static/review -> evidence/Git lifecycle.
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD ON EXACT IMP-082 WORKTREE; DO NOT RERUN TARGETED/AFFECTED/BROADER"
+
+
+## IMP-082 FROZEN MASTER GUARD PASS — 2026-10-12
+- [x] Targeted final 10/10 PASS retained.
+- [x] Affected owner regression 43/43 PASS retained.
+- [x] Broader valid Windows regression 783/783 PASS retained.
+- [x] Frozen Master guard PASS; semantic SHA unchanged `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
+- [ ] Final static/review -> evidence -> Git lifecycle.
+NEXT_EXACT_ACTION = "FINAL STATIC/IMPORT/DIFF REVIEW -> EVIDENCE -> SIDE-EFFECT GUARD -> GIT LIFECYCLE"
+
+
+## IMP-082 LOCAL VERIFIED / SIDE-EFFECT GUARD PASS — 2026-10-12
+- [x] Targeted 10/10 PASS.
+- [x] Affected owner regression 43/43 PASS.
+- [x] Broader valid Windows regression 783/783 PASS.
+- [x] Frozen Master guard PASS; final static/import/diff review PASS.
+- [x] Evidence created: `evidence/tests/IMP-082_BACKUP_RESTORE_MIGRATION_SAFETY_EVIDENCE.md`.
+- [x] Side-effect guard: no existing commit/remote branch/PR; staged index empty; `.tmp` untracked.
+- [ ] Stage exact 7-file scope -> verify -> commit -> push/PR/CI/review/merge/main verify.
+NEXT_EXACT_ACTION = "STAGE EXACT 7-FILE IMP-082 SCOPE EXCLUDING .tmp -> VERIFY INDEX -> COMMIT"
