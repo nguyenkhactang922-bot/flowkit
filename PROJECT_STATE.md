@@ -5715,3 +5715,97 @@ frozen_master_guard = PASS; semantic SHA `1ff9383d713dfaab309d3f36cc83cf05e8932c
 process = none
 blocker = none
 NEXT_EXACT_ACTION = "side-effect guard -> governance-only branch/commit for IMP-080 MAIN VERIFIED -> push/PR/CI/merge/main verify"
+
+
+## IMP-080 GOVERNANCE VERIFIED / IMP-081 CLAIMED — 2026-10-11
+imp_080_governance = VERIFIED
+imp_080_governance_merge_sha = `126f927cd9386881a47fb1b8e22b9ac3eb4e6454`
+imp_080_governance_push_main_ci = `38154586703` SUCCESS; Python 3.10 + 3.13 + Frozen baseline PASS
+current_task = `IMP-081 — Operational Scene -> Execution Projection`
+status = CLAIMED / ANALYZE
+branch = `chatgpt/IMP-081-operational-scene-execution-projection`
+base_main_sha = `126f927cd9386881a47fb1b8e22b9ac3eb4e6454`
+hard_dependencies = IMP-080 + IMP-031 + IMP-052 MAIN VERIFIED
+duplicate_guard = PASS; no pre-existing local/remote branch or PR before claim
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "read IMP-081 frozen/ADR authority + audit legacy Scene/media/request and canonical ShotListItem/GenerationJob/Artifact surfaces -> lock projection contract/tests before code"
+
+
+## IMP-081 TARGETED RUNNING — 2026-10-11
+current_task = `IMP-081 — Operational Scene -> Execution Projection`
+status = RUNNING / targeted pytest
+branch = `chatgpt/IMP-081-operational-scene-execution-projection`
+base_head = `126f927cd9386881a47fb1b8e22b9ac3eb4e6454`
+static_gate = PASS
+targeted_pty = `pty_eb7c0190c55f5fa507613688a289e44a4178`
+targeted_pid = `124812`
+targeted_junit = `.tmp/imp081-targeted.xml`
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing IMP-081 targeted PTY/JUnit only; do not restart or edit implementation while RUNNING"
+
+
+## IMP-081 TARGETED PASS — 2026-10-11
+status = TARGETED PASS / composite 7/7
+initial_targeted = 6 PASS + 1 test-expectation FAIL
+failed_case_rerun = 1/1 PASS; PTY `pty_e1f5447397e4f51e122adb683e45e77445db`; exit 0; JUnit `.tmp/imp081-failed-rerun.xml`
+static_gate = PASS
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "exact-head authority/security/idempotency review -> affected owner regression; do not rerun targeted unless code/test changes"
+
+
+## IMP-081 AFFECTED REGRESSION RUNNING — 2026-10-11
+status = RUNNING / affected owner regression
+targeted = 7/7 composite PASS retained
+review = PASS / exact-head authority + security + idempotency
+pty = `pty_eb77482fd8159f5d14a7158097de214e5afc`
+pid = `102324`
+junit = `.tmp/imp081-affected.xml`
+scope = legacy import + ShotPlanning + GenerationJob + Versioning + Invalidation + Persistence; targeted excluded
+NEXT_EXACT_ACTION = "monitor existing IMP-081 affected PTY/JUnit only; do not restart or launch broader concurrently"
+
+
+## IMP-081 AFFECTED REGRESSION PASS — 2026-10-12
+status = PASS / affected checkpoint locked
+current_task = `IMP-081 — Operational Scene -> Execution Projection`
+targeted = composite 7/7 PASS retained
+junit = `.tmp/imp081-affected.xml` = 74 tests, failures 0, errors 0, skipped 0, time 1277.537s
+process = none; recorded PID `102324` absent after completion
+scope = LegacyImport + ShotPlanning + GenerationJob + Versioning + Invalidation + Persistence; targeted excluded
+blocker = none
+NEXT_EXACT_ACTION = "run broader valid Windows regression with targeted + affected files excluded; on PASS run Frozen Master guard"
+
+
+## IMP-081 BROADER VALID WINDOWS REGRESSION RUNNING — 2026-10-12
+status = RUNNING / broader valid Windows regression
+targeted = composite 7/7 PASS retained
+affected = 74/74 PASS retained
+pty = `pty_dfe2fa6f3464bbda878215b2872b46cc27c7`
+pid = `125556`
+junit = `.tmp/imp081-broader-valid.xml`
+basetemp = `.tmp/pytest-imp081-broader-valid`
+blocker = none
+NEXT_EXACT_ACTION = "monitor existing broader PTY/JUnit only; do not restart; on PASS run Frozen Master guard"
+
+## IMP-081 BROADER VALID WINDOWS REGRESSION PASS — 2026-10-12
+status = PASS / broader checkpoint locked
+current_task = `IMP-081 — Operational Scene -> Execution Projection`
+targeted = composite 7/7 PASS retained
+affected = 74/74 PASS retained
+junit = `.tmp/imp081-broader-valid.xml` = 745 tests, failures 0, errors 0, skipped 0, time 2032.554s
+process = none; recorded PID `125556` absent after completion
+branch = `chatgpt/IMP-081-operational-scene-execution-projection`
+head = `126f927cd9386881a47fb1b8e22b9ac3eb4e6454` pending task commit
+blocker = none
+NEXT_EXACT_ACTION = "run Frozen Master guard; on PASS final static/exact-head review -> evidence -> side-effect guard -> commit/push/PR; do not rerun passed stages"
+
+## IMP-081 LOCAL VERIFIED — 2026-10-12
+status = LOCAL VERIFIED / SIDE-EFFECT GUARD NEXT
+frozen_master_guard = PASS; semantic SHA unchanged `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`
+static_gate = PASS / py_compile + public import + diff-check + leakage scan
+evidence = `evidence/tests/IMP-081_OPERATIONAL_SCENE_EXECUTION_PROJECTION_EVIDENCE.md`
+targeted = composite 7/7 PASS
+affected = 74/74 PASS
+broader = 745/745 PASS
+NEXT_EXACT_ACTION = "side-effect guard -> exact-scope stage/commit; exclude .tmp; then push/PR exact-head CI/review"
