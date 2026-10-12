@@ -5229,3 +5229,45 @@ NEXT_EXACT_ACTION = "STAGE EXACT 7-FILE IMP-082 SCOPE EXCLUDING .tmp -> VERIFY I
 - [x] Worktree after feature commit only `.tmp/` untracked.
 - [ ] Governance-only exact-SHA sync commit -> side-effect guard -> push/PR/CI/review/merge/main verify.
 NEXT_EXACT_ACTION = "GOVERNANCE-ONLY SYNC EXACT FEATURE SHA IN 3 STATE FILES -> COMMIT STATE-ONLY -> SIDE-EFFECT GUARD -> PUSH/PR"
+
+
+## IMP-082 POST-MERGE TARGETED RUNNING — 2026-10-12
+- [x] PR #88 merged at exact main SHA `71e52c740274db7c537377e7bde9fab42b79db24`.
+- [~] Push-main CI `38227957664` RUNNING on exact merge SHA.
+- [~] Post-merge targeted RUNNING: PTY `pty_34aedc32d392eb3ebd3bbb4d1ef9d19df483`, PID `133220`, JUnit `.tmp/imp082-main-targeted.xml`.
+- [ ] Affected owner main regression -> Frozen guard after targeted PASS.
+NEXT_EXACT_ACTION = "MONITOR EXISTING MAIN TARGETED PTY/JUNIT; DO NOT RESTART"
+
+
+## IMP-082 POST-MERGE TARGETED PASS — 2026-10-12
+- [x] Main targeted PASS: `.tmp/imp082-main-targeted.xml` = 10 tests / 0 failures / 0 errors / 0 skipped; PTY exit 0.
+- [~] Push-main CI `38227957664` still RUNNING; Frozen guard PASS in both matrix jobs.
+- [ ] Run affected owner regression only; targeted locked.
+- [ ] Frozen Master guard after affected PASS.
+NEXT_EXACT_ACTION = "RUN POST-MERGE AFFECTED OWNER REGRESSION ONLY; DO NOT RERUN TARGETED"
+
+
+## IMP-082 POST-MERGE AFFECTED RUNNING — 2026-10-12
+- [x] Main targeted 10/10 PASS locked; do not rerun.
+- [~] Affected owner regression RUNNING: PTY `pty_8ceaf5366c867b9bd3e5d408444ffcbb56e9`, PID `122776`, JUnit `.tmp/imp082-main-affected.xml`.
+- [~] Push-main CI `38227957664` RUNNING on exact main SHA.
+- [ ] Frozen Master guard after affected PASS.
+NEXT_EXACT_ACTION = "MONITOR EXISTING MAIN AFFECTED PTY/JUNIT; DO NOT RESTART"
+
+
+## IMP-082 POST-MERGE AFFECTED PASS — 2026-10-12
+- [x] Main targeted 10/10 PASS locked; do not rerun.
+- [x] Affected owner regression PASS: `.tmp/imp082-main-affected.xml` = 43 tests / 0 failures / 0 errors / 0 skipped; PID `122776` absent after completion.
+- [x] Push-main CI `38227957664` COMPLETED/SUCCESS on exact main SHA; Python 3.10 + 3.13 PASS.
+- [ ] Frozen Master guard on exact main SHA.
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD ON EXACT MAIN SHA; DO NOT RERUN TARGETED/AFFECTED/CI"
+
+
+## IMP-082 MAIN VERIFIED — 2026-10-12
+- [x] Main targeted 10/10 PASS.
+- [x] Main affected owner regression 43/43 PASS.
+- [x] Push-main CI `38227957664` SUCCESS on exact main SHA `71e52c740274db7c537377e7bde9fab42b79db24`.
+- [x] Frozen Master guard PASS; semantic SHA unchanged `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
+- [x] Feature MAIN VERIFIED.
+- [ ] Governance-only state sync lifecycle.
+NEXT_EXACT_ACTION = "GOVERNANCE-ONLY SYNC BRANCH/COMMIT/PR; DO NOT RERUN TARGETED/AFFECTED/CI/FROZEN GUARD"

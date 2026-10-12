@@ -5861,3 +5861,51 @@ NEXT_EXACT_ACTION = "GOVERNANCE-ONLY STATE SYNC BRANCH/COMMIT/PR -> VERIFY GOVER
 - Feature commit: `2df68c0821b95123d5940d6d81a44b2007488e26` (`feat(studio): add backup restore migration safety`).
 - Worktree after feature commit: only `.tmp/` untracked.
 - NEXT_EXACT_ACTION: governance-only sync exact feature SHA in 3 state files -> commit state-only -> side-effect guard -> push/PR.
+
+
+## IMP-082 POST-MERGE TARGETED RUNNING — 2026-10-12
+- PR #88 merged at exact main SHA `71e52c740274db7c537377e7bde9fab42b79db24`; local main == origin/main.
+- Push-main CI `38227957664` RUNNING on exact merge SHA.
+- Post-merge targeted RUNNING under PTY `pty_34aedc32d392eb3ebd3bbb4d1ef9d19df483`, root PID `133220`.
+- JUnit `.tmp/imp082-main-targeted.xml`; basetemp `.tmp/pytest-imp082-main-targeted`.
+- NEXT_EXACT_ACTION: monitor existing targeted PTY/JUnit only; do not restart; affected/Frozen wait for targeted final PASS.
+
+
+## IMP-082 POST-MERGE TARGETED PASS — 2026-10-12
+- Exact main SHA: `71e52c740274db7c537377e7bde9fab42b79db24`.
+- JUnit `.tmp/imp082-main-targeted.xml`: 10 tests / 0 failures / 0 errors / 0 skipped; time 90.006s.
+- PTY `pty_34aedc32d392eb3ebd3bbb4d1ef9d19df483` exit 0; summary `10 passed in 90.14s`.
+- Push-main CI `38227957664` still RUNNING; both jobs already passed Frozen guard.
+- NEXT_EXACT_ACTION: run affected owner regression only; do not rerun targeted.
+
+
+## IMP-082 POST-MERGE AFFECTED RUNNING — 2026-10-12
+- Main targeted 10/10 PASS locked; do not rerun.
+- Affected owner regression RUNNING: PTY `pty_8ceaf5366c867b9bd3e5d408444ffcbb56e9`, root PID `122776`.
+- Scope: persistence + generation_job + artifact_lifecycle owner tests only.
+- JUnit `.tmp/imp082-main-affected.xml`; basetemp `.tmp/pytest-imp082-main-affected`.
+- Push-main CI `38227957664` still RUNNING on exact main SHA.
+- NEXT_EXACT_ACTION: monitor existing affected PTY/JUnit; do not restart; Frozen guard waits for affected PASS.
+
+
+## IMP-082 POST-MERGE AFFECTED PASS — 2026-10-12
+- Exact main SHA: `71e52c740274db7c537377e7bde9fab42b79db24`.
+- Post-merge targeted remains 10/10 PASS; do not rerun.
+- Affected owner regression finalized PASS from durable JUnit `.tmp/imp082-main-affected.xml`: 43 tests / 0 failures / 0 errors / 0 skipped.
+- Recorded PID `122776` absent after completion; classified PASS, not INTERRUPTED.
+- Push-main CI `38227957664` COMPLETED/SUCCESS on exact main SHA; Python 3.10 + 3.13 PASS.
+- Process/PID: none for affected stage.
+- Blocker: none.
+- NEXT_EXACT_ACTION: run Frozen Master guard on exact main SHA; do not rerun targeted/affected/CI.
+
+
+## IMP-082 MAIN VERIFIED — 2026-10-12
+- Exact main SHA: `71e52c740274db7c537377e7bde9fab42b79db24`.
+- Post-merge targeted: 10/10 PASS.
+- Post-merge affected owner regression: 43/43 PASS.
+- Push-main CI `38227957664`: COMPLETED/SUCCESS on exact main SHA; Python 3.10 + 3.13 PASS.
+- Frozen Master guard PASS; semantic SHA `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287` unchanged.
+- Feature status: MAIN VERIFIED.
+- Process/PID: none.
+- Blocker: none.
+- NEXT_EXACT_ACTION: governance-only sync branch/commit/PR for MAIN VERIFIED state; do not rerun targeted/affected/CI/Frozen guard.

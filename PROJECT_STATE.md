@@ -6005,3 +6005,56 @@ status = FEATURE COMMIT CREATED
 feature_commit = `2df68c0821b95123d5940d6d81a44b2007488e26`
 worktree = only `.tmp/` untracked after feature commit
 NEXT_EXACT_ACTION = "governance-only sync exact feature SHA in 3 state files -> commit state-only -> side-effect guard -> push/PR"
+
+
+## IMP-082 POST-MERGE TARGETED RUNNING — 2026-10-12
+status = RUNNING / post-merge targeted
+main_sha = `71e52c740274db7c537377e7bde9fab42b79db24`
+push_main_ci = `38227957664` RUNNING on exact merge SHA
+targeted_pty = `pty_34aedc32d392eb3ebd3bbb4d1ef9d19df483`
+targeted_pid = `133220`
+targeted_junit = `.tmp/imp082-main-targeted.xml`
+NEXT_EXACT_ACTION = "monitor existing targeted PTY/JUnit only; do not restart; affected/Frozen wait for targeted final PASS"
+
+
+## IMP-082 POST-MERGE TARGETED PASS — 2026-10-12
+status = PASS / post-merge targeted
+main_sha = `71e52c740274db7c537377e7bde9fab42b79db24`
+targeted = `.tmp/imp082-main-targeted.xml` = 10 tests / 0 failures / 0 errors / 0 skipped; PTY exit 0; `10 passed in 90.14s`
+push_main_ci = `38227957664` RUNNING; Frozen baseline PASS in both jobs
+NEXT_EXACT_ACTION = "run affected owner regression only; do not rerun targeted"
+
+
+## IMP-082 POST-MERGE AFFECTED RUNNING — 2026-10-12
+status = RUNNING / post-merge affected owner regression
+main_targeted = 10/10 PASS locked; do not rerun
+affected_pty = `pty_8ceaf5366c867b9bd3e5d408444ffcbb56e9`
+affected_pid = `122776`
+affected_scope = persistence + generation_job + artifact_lifecycle owner tests
+affected_junit = `.tmp/imp082-main-affected.xml`
+push_main_ci = `38227957664` RUNNING on exact main SHA
+NEXT_EXACT_ACTION = "monitor existing affected PTY/JUnit; do not restart; Frozen guard waits for affected PASS"
+
+
+## IMP-082 POST-MERGE AFFECTED PASS — 2026-10-12
+status = PASS / post-merge affected owner regression
+main_sha = `71e52c740274db7c537377e7bde9fab42b79db24`
+main_targeted = 10/10 PASS locked; do not rerun
+affected = `.tmp/imp082-main-affected.xml` = 43 tests / 0 failures / 0 errors / 0 skipped
+recorded_pid = `122776` absent after completion; classified PASS, not INTERRUPTED
+push_main_ci = `38227957664` COMPLETED/SUCCESS; Python 3.10 + 3.13 PASS
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "run Frozen Master guard on exact main SHA; do not rerun targeted/affected/CI"
+
+
+## IMP-082 MAIN VERIFIED — 2026-10-12
+status = MAIN VERIFIED
+main_sha = `71e52c740274db7c537377e7bde9fab42b79db24`
+main_targeted = 10/10 PASS
+main_affected = 43/43 PASS
+push_main_ci = `38227957664` COMPLETED/SUCCESS; Python 3.10 + 3.13 PASS
+frozen_guard = PASS; semantic SHA `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`
+process = none
+blocker = none
+NEXT_EXACT_ACTION = "governance-only sync branch/commit/PR for MAIN VERIFIED state; do not rerun targeted/affected/CI/Frozen guard"
