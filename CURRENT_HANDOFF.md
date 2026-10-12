@@ -5612,3 +5612,85 @@ NEXT_EXACT_ACTION = "GOVERNANCE-ONLY STATE SYNC BRANCH/COMMIT/PR -> VERIFY GOVER
 - Blocker: none.
 - Status: FEATURE MAIN VERIFIED / GOVERNANCE SYNC NEXT.
 - NEXT_EXACT_ACTION: side-effect guard for `chatgpt/IMP-080-main-verified-state`; if absent, create governance-only branch from exact main, commit only CURRENT_HANDOFF.md + PROJECT_STATE.md + tasks/TASK_QUEUE.md, then push/PR/CI/merge/main-verify.
+
+
+## IMP-080 GOVERNANCE VERIFIED / IMP-081 CLAIMED — 2026-10-11
+- IMP-080 governance PR #85 merged at exact main SHA `126f927cd9386881a47fb1b8e22b9ac3eb4e6454`.
+- Governance push-main CI `38154586703` SUCCESS: Python 3.10 + 3.13 unit jobs PASS; Frozen baseline PASS in both.
+- IMP-080 governance lifecycle = VERIFIED.
+- Next dependency-ready task: `IMP-081 — Operational Scene -> Execution Projection`.
+- Hard dependencies verified: IMP-080 + IMP-031 + IMP-052 MAIN VERIFIED.
+- Duplicate guard: no local/remote branch or PR for `chatgpt/IMP-081-operational-scene-execution-projection` before claim.
+- Branch claimed from exact governance main `126f927cd9386881a47fb1b8e22b9ac3eb4e6454`.
+- Process/PID: none.
+- Blocker: none.
+- NEXT_EXACT_ACTION: read IMP-081 Frozen/ADR authority and audit current legacy Scene/media/request + canonical ShotListItem/GenerationJob/Artifact compatibility surfaces before code; lock projection contract and negative tests first.
+
+
+## IMP-081 TARGETED RUNNING — 2026-10-11
+- Task: IMP-081 Operational Scene -> Execution Projection.
+- Static/public-import gate PASS for `agent/studio/operational_scene_projection.py` + targeted test module.
+- Targeted pytest RUNNING under PTY `pty_eb7c0190c55f5fa507613688a289e44a4178`, root PID `124812`.
+- JUnit: `.tmp/imp081-targeted.xml`; basetemp: `.tmp/pytest-imp081-targeted`.
+- Process state: RUNNING; no PASS/FAIL assigned yet.
+- Retained checkpoints: IMP-080 governance VERIFIED; IMP-081 branch/claim remains valid.
+- NEXT_EXACT_ACTION: monitor existing targeted PTY/JUnit only; do not restart, do not edit implementation while pytest is running.
+
+
+## IMP-081 TARGETED PASS — 2026-10-11
+- Initial targeted run: 6 PASS / 1 FAIL; the single failure was an over-specific test regex, not implementation behavior.
+- Failed-case rerun only: `test_prompt_only_operational_scene_mapping_cannot_be_projected` = 1/1 PASS, PTY `pty_e1f5447397e4f51e122adb683e45e77445db`, exit 0; JUnit `.tmp/imp081-failed-rerun.xml` = 1 test / 0 failures / 0 errors.
+- Composite targeted checkpoint = 7/7 PASS. Do not rerun targeted unless implementation/test changes again.
+- Retained static/public-import gate PASS.
+- NEXT_EXACT_ACTION: exact-head authority/security/idempotency review -> affected owner regression only; targeted must not rerun.
+
+
+## IMP-081 AFFECTED REGRESSION RUNNING — 2026-10-11
+- Retained targeted checkpoint: 7/7 composite PASS; do not rerun targeted unless code/test changes.
+- Exact-head static/authority/security/idempotency review PASS.
+- Affected owner regression RUNNING under PTY `pty_eb77482fd8159f5d14a7158097de214e5afc`, root PID `102324`.
+- Scope: `test_studio_legacy_import.py` + ShotPlanning + GenerationJob + Versioning + Invalidation + Persistence; targeted IMP-081 excluded.
+- JUnit: `.tmp/imp081-affected.xml`; basetemp: `.tmp/pytest-imp081-affected`.
+- NEXT_EXACT_ACTION: monitor existing affected PTY/JUnit only; do not restart or launch broader concurrently.
+
+
+## IMP-081 AFFECTED REGRESSION PASS — 2026-10-12
+- Task: IMP-081 — Operational Scene -> Execution Projection.
+- Retained targeted checkpoint: composite 7/7 PASS; do not rerun unless implementation/test changes.
+- Affected owner regression final JUnit `.tmp/imp081-affected.xml`: 74 tests / 0 failures / 0 errors / 0 skipped; time 1277.537s.
+- Recorded root PID `102324` is absent after completion; stage classified PASS, not INTERRUPTED.
+- Scope: LegacyImport + ShotPlanning + GenerationJob + Versioning + Invalidation + Persistence; targeted IMP-081 excluded.
+- Blocker: none.
+- NEXT_EXACT_ACTION: run broader valid Windows regression using the established repo envelope while excluding IMP-081 targeted + affected files already PASS; then Frozen Master guard on broader PASS.
+
+
+## IMP-081 BROADER VALID WINDOWS REGRESSION RUNNING — 2026-10-12
+- Retained checkpoints: targeted composite 7/7 PASS; affected owner regression 74/74 PASS.
+- Broader valid Windows regression RUNNING under PTY `pty_dfe2fa6f3464bbda878215b2872b46cc27c7`, root PID `125556`.
+- Envelope: established Windows exclusions + explicit ignores for IMP-081 targeted and affected owner files already PASS.
+- JUnit: `.tmp/imp081-broader-valid.xml`; basetemp `.tmp/pytest-imp081-broader-valid`.
+- Blocker: none.
+- NEXT_EXACT_ACTION: monitor existing broader PTY/JUnit only; do not restart; on PASS run Frozen Master guard.
+
+## IMP-081 BROADER VALID WINDOWS REGRESSION PASS — 2026-10-12
+- Task: IMP-081 — Operational Scene -> Execution Projection.
+- Retained checkpoints: targeted composite 7/7 PASS; affected owner regression 74/74 PASS.
+- Broader valid Windows JUnit `.tmp/imp081-broader-valid.xml`: 745 tests / 0 failures / 0 errors / 0 skipped; time 2032.554s.
+- Recorded root PID `125556` is absent after completion; FileMCP PTY registry was reset, but durable JUnit finalizes the stage as PASS, not INTERRUPTED.
+- Branch: `chatgpt/IMP-081-operational-scene-execution-projection`; base HEAD remains `126f927cd9386881a47fb1b8e22b9ac3eb4e6454` pending task commit.
+- Blocker: none.
+- NEXT_EXACT_ACTION: run `python tools/frozen_master_guard.py`; if PASS, perform final static/exact-head review, evidence, side-effect guard, then commit/push/PR lifecycle. Do not rerun targeted/affected/broader.
+
+## IMP-081 LOCAL VERIFIED — 2026-10-12
+- Frozen Master guard PASS; semantic SHA unchanged `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
+- Final static/public-import/diff/leakage gate PASS.
+- Evidence: `evidence/tests/IMP-081_OPERATIONAL_SCENE_EXECUTION_PROJECTION_EVIDENCE.md`.
+- Retained tests: targeted composite 7/7 PASS; affected 74/74 PASS; broader valid Windows 745/745 PASS.
+- Status: LOCAL VERIFIED / SIDE-EFFECT GUARD NEXT.
+- NEXT_EXACT_ACTION: verify commit/remote branch/PR/staged scope; stage only IMP-081 source/export/test/evidence + 3 state files; exclude `.tmp`; commit exact scope.
+
+## IMP-081 FEATURE COMMIT — 2026-10-12
+- Feature commit: $sha (eat(studio): add operational scene execution projection).
+- Worktree after feature commit: only .tmp/ untracked.
+- Retained verification: targeted composite 7/7 PASS; affected 74/74 PASS; broader 745/745 PASS; Frozen Master guard PASS; final static/public-import gate PASS.
+- NEXT_EXACT_ACTION: governance-only state sync commit on current branch -> side-effect guard -> push/PR exact-head CI/review.

@@ -4987,3 +4987,86 @@ NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD ON EXACT MAIN; DO NOT RERUN TARGETE
 - [x] Post-merge Frozen Master guard PASS; semantic SHA unchanged `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
 - [ ] Governance-only MAIN VERIFIED sync -> PR/CI/merge/main verify.
 NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD FOR chatgpt/IMP-080-main-verified-state; IF ABSENT CREATE GOVERNANCE-ONLY BRANCH/COMMIT -> PUSH/PR/CI/MERGE/VERIFY MAIN"
+
+
+## IMP-080 GOVERNANCE VERIFIED / IMP-081 CLAIMED — 2026-10-11
+- [x] IMP-080 governance PR #85 merged at exact main SHA `126f927cd9386881a47fb1b8e22b9ac3eb4e6454`.
+- [x] Governance push-main CI `38154586703` SUCCESS; Python 3.10 + 3.13 + Frozen baseline PASS.
+- [x] IMP-080 governance lifecycle VERIFIED.
+- [x] IMP-081 hard dependencies IMP-080 + IMP-031 + IMP-052 MAIN VERIFIED.
+- [x] No pre-existing local/remote branch or PR for `chatgpt/IMP-081-operational-scene-execution-projection`.
+- [x] Claimed IMP-081 branch from exact governance main `126f927cd9386881a47fb1b8e22b9ac3eb4e6454`.
+- [ ] Read frozen/ADR authority and audit legacy Scene/media/request + canonical ShotListItem/GenerationJob/Artifact compatibility surfaces.
+- [ ] Lock projection contract + negative tests: legacy scene never becomes cinematic Scene authority; media/results remain reachable.
+- [ ] Implement -> targeted -> affected -> broader valid Windows -> Frozen guard -> evidence/Git lifecycle.
+NEXT_EXACT_ACTION = "READ IMP-081 FROZEN/ADR AUTHORITY + AUDIT LEGACY SCENE/MEDIA/REQUEST AND CANONICAL SHOTLISTITEM/GENERATIONJOB/ARTIFACT SURFACES BEFORE CODE"
+
+
+## IMP-081 TARGETED RUNNING — 2026-10-11
+- [x] Frozen/ADR authority + legacy Scene/media/request + canonical ShotListItem/GenerationJob compatibility audit locked.
+- [x] Draft implementation + public export + 7 targeted tests written.
+- [x] Static/public-import gate PASS.
+- [~] Targeted pytest RUNNING under PTY `pty_eb7c0190c55f5fa507613688a289e44a4178`, PID `124812`; JUnit `.tmp/imp081-targeted.xml`.
+- [ ] On targeted PASS: exact-head review -> affected owner regression -> broader valid Windows -> Frozen guard -> evidence/Git lifecycle.
+NEXT_EXACT_ACTION = "MONITOR EXISTING IMP-081 TARGETED PTY/JUNIT; DO NOT RESTART"
+
+
+## IMP-081 TARGETED PASS — 2026-10-11
+- [x] Static/public-import gate PASS.
+- [x] Targeted composite = 7/7 PASS (initial 6 PASS + 1 expectation-only FAIL; exact failed-case rerun 1/1 PASS, exit 0).
+- [x] No implementation change was needed for the failed case; targeted checkpoint is locked.
+- [ ] Exact-head review -> affected owner regression -> broader valid Windows -> Frozen guard -> evidence/Git lifecycle.
+NEXT_EXACT_ACTION = "EXACT-HEAD REVIEW -> AFFECTED OWNER REGRESSION; DO NOT RERUN TARGETED"
+
+
+## IMP-081 AFFECTED REGRESSION RUNNING — 2026-10-11
+- [x] Targeted composite 7/7 PASS retained.
+- [x] Exact-head authority/security/idempotency review PASS.
+- [~] Affected owner regression RUNNING under PTY `pty_eb77482fd8159f5d14a7158097de214e5afc`, PID `102324`.
+- Scope: LegacyImport + ShotPlanning + GenerationJob + Versioning + Invalidation + Persistence; IMP-081 targeted excluded.
+- [ ] On PASS: broader valid Windows -> Frozen guard -> evidence/Git lifecycle.
+NEXT_EXACT_ACTION = "MONITOR EXISTING IMP-081 AFFECTED PTY/JUNIT; DO NOT RESTART"
+
+
+## IMP-081 AFFECTED REGRESSION PASS — 2026-10-12
+- [x] Targeted composite 7/7 PASS retained; do not rerun unless implementation/test changes.
+- [x] Affected owner regression PASS: `.tmp/imp081-affected.xml` = 74 tests / 0 failures / 0 errors / 0 skipped; time 1277.537s.
+- [x] Recorded PID `102324` absent after completion; classified PASS, not INTERRUPTED.
+- [ ] Run broader valid Windows regression using established exclusions; exclude IMP-081 targeted + affected files already PASS.
+- [ ] On broader PASS: Frozen Master guard -> evidence/Git lifecycle.
+NEXT_EXACT_ACTION = "RUN BROADER VALID WINDOWS REGRESSION WITH TARGETED + AFFECTED FILES EXCLUDED; DO NOT RERUN PASSED STAGES"
+
+
+## IMP-081 BROADER VALID WINDOWS REGRESSION RUNNING — 2026-10-12
+- [x] Targeted composite 7/7 PASS retained.
+- [x] Affected owner regression 74/74 PASS retained.
+- [~] Broader valid Windows regression RUNNING under PTY `pty_dfe2fa6f3464bbda878215b2872b46cc27c7`, PID `125556`.
+- [ ] Finalize `.tmp/imp081-broader-valid.xml` from final JUnit/exit only.
+- [ ] On broader PASS: Frozen Master guard -> evidence/Git lifecycle.
+NEXT_EXACT_ACTION = "MONITOR EXISTING IMP-081 BROADER PTY/JUNIT; DO NOT RESTART"
+
+## IMP-081 BROADER VALID WINDOWS REGRESSION PASS — 2026-10-12
+- [x] Targeted composite 7/7 PASS retained.
+- [x] Affected owner regression 74/74 PASS retained.
+- [x] Broader valid Windows regression PASS: `.tmp/imp081-broader-valid.xml` = 745 tests / 0 failures / 0 errors / 0 skipped; time 2032.554s.
+- [x] Recorded PID `125556` absent after completion; durable JUnit => PASS, not INTERRUPTED.
+- [ ] Run Frozen Master guard on exact current head.
+- [ ] On guard PASS: final review/evidence -> side-effect guard -> commit/push/PR/CI/merge/main verify.
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD; DO NOT RERUN TARGETED/AFFECTED/BROADER"
+
+## IMP-081 LOCAL VERIFIED — 2026-10-12
+- [x] Targeted composite 7/7 PASS.
+- [x] Affected owner regression 74/74 PASS.
+- [x] Broader valid Windows regression 745/745 PASS.
+- [x] Frozen Master guard PASS; semantic SHA unchanged.
+- [x] Final static/public-import/diff/leakage gate PASS.
+- [x] Evidence: `evidence/tests/IMP-081_OPERATIONAL_SCENE_EXECUTION_PROJECTION_EVIDENCE.md`.
+- [ ] Side-effect guard -> stage exact 7-file scope -> commit -> push/PR/CI/review/merge/main verify.
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD; STAGE ONLY IMP-081 SOURCE/EXPORT/TEST/EVIDENCE + 3 STATE FILES; EXCLUDE .tmp"
+
+## IMP-081 FEATURE COMMIT — 2026-10-12
+- [x] Feature commit $sha created.
+- [x] Worktree outside Git = .tmp/ only.
+- [ ] Governance-only sync of exact feature SHA in CURRENT_HANDOFF / PROJECT_STATE / TASK_QUEUE.
+- [ ] Then side-effect guard -> push/PR/CI/review/merge/main verify.
+NEXT_EXACT_ACTION = "CREATE GOVERNANCE-ONLY STATE SYNC COMMIT FOR IMP-081 FEATURE SHA"

@@ -1566,3 +1566,34 @@ __all__ += [
     "LegacySourceKind",
     "legacy_import_mapping_logical_id",
 ]
+
+
+from .operational_scene_projection import (
+    LegacyMediaBinding,
+    LegacyMediaRole,
+    LegacyOrientation,
+    OperationalSceneExecutionProjection,
+    OperationalSceneExecutionProjectionService,
+    OperationalSceneProjectionArtifact,
+    OperationalSceneProjectionError,
+    OperationalSceneProjectionGateBlocked,
+    OperationalSceneProjectionIdentityError,
+    OperationalSceneProjectionRequest,
+    OperationalSceneProjectionResult,
+    operational_scene_projection_logical_id,
+)
+
+__all__ += [
+    "LegacyMediaBinding",
+    "LegacyMediaRole",
+    "LegacyOrientation",
+    "OperationalSceneExecutionProjection",
+    "OperationalSceneExecutionProjectionService",
+    "OperationalSceneProjectionArtifact",
+    "OperationalSceneProjectionError",
+    "OperationalSceneProjectionGateBlocked",
+    "OperationalSceneProjectionIdentityError",
+    "OperationalSceneProjectionRequest",
+    "OperationalSceneProjectionResult",
+    "operational_scene_projection_logical_id",
+]
