@@ -5809,3 +5809,10 @@ targeted = composite 7/7 PASS
 affected = 74/74 PASS
 broader = 745/745 PASS
 NEXT_EXACT_ACTION = "side-effect guard -> exact-scope stage/commit; exclude .tmp; then push/PR exact-head CI/review"
+
+## IMP-081 FEATURE COMMIT — 2026-10-12
+status = FEATURE COMMITTED / GOVERNANCE SYNC NEXT
+feature_commit = $sha
+verification = targeted 7/7 composite PASS; affected 74/74 PASS; broader 745/745 PASS; Frozen guard PASS; static gate PASS
+worktree = .tmp/ only outside Git
+NEXT_EXACT_ACTION = "governance-only state sync commit -> side-effect guard -> push/PR/CI/review"

@@ -5063,3 +5063,10 @@ NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD; DO NOT RERUN TARGETED/AFFECTED/BRO
 - [x] Evidence: `evidence/tests/IMP-081_OPERATIONAL_SCENE_EXECUTION_PROJECTION_EVIDENCE.md`.
 - [ ] Side-effect guard -> stage exact 7-file scope -> commit -> push/PR/CI/review/merge/main verify.
 NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD; STAGE ONLY IMP-081 SOURCE/EXPORT/TEST/EVIDENCE + 3 STATE FILES; EXCLUDE .tmp"
+
+## IMP-081 FEATURE COMMIT — 2026-10-12
+- [x] Feature commit $sha created.
+- [x] Worktree outside Git = .tmp/ only.
+- [ ] Governance-only sync of exact feature SHA in CURRENT_HANDOFF / PROJECT_STATE / TASK_QUEUE.
+- [ ] Then side-effect guard -> push/PR/CI/review/merge/main verify.
+NEXT_EXACT_ACTION = "CREATE GOVERNANCE-ONLY STATE SYNC COMMIT FOR IMP-081 FEATURE SHA"

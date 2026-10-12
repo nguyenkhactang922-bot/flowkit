@@ -5688,3 +5688,9 @@ NEXT_EXACT_ACTION = "GOVERNANCE-ONLY STATE SYNC BRANCH/COMMIT/PR -> VERIFY GOVER
 - Retained tests: targeted composite 7/7 PASS; affected 74/74 PASS; broader valid Windows 745/745 PASS.
 - Status: LOCAL VERIFIED / SIDE-EFFECT GUARD NEXT.
 - NEXT_EXACT_ACTION: verify commit/remote branch/PR/staged scope; stage only IMP-081 source/export/test/evidence + 3 state files; exclude `.tmp`; commit exact scope.
+
+## IMP-081 FEATURE COMMIT — 2026-10-12
+- Feature commit: $sha (eat(studio): add operational scene execution projection).
+- Worktree after feature commit: only .tmp/ untracked.
+- Retained verification: targeted composite 7/7 PASS; affected 74/74 PASS; broader 745/745 PASS; Frozen Master guard PASS; final static/public-import gate PASS.
+- NEXT_EXACT_ACTION: governance-only state sync commit on current branch -> side-effect guard -> push/PR exact-head CI/review.
