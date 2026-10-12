@@ -5694,3 +5694,58 @@ NEXT_EXACT_ACTION = "GOVERNANCE-ONLY STATE SYNC BRANCH/COMMIT/PR -> VERIFY GOVER
 - Worktree after feature commit: only .tmp/ untracked.
 - Retained verification: targeted composite 7/7 PASS; affected 74/74 PASS; broader 745/745 PASS; Frozen Master guard PASS; final static/public-import gate PASS.
 - NEXT_EXACT_ACTION: governance-only state sync commit on current branch -> side-effect guard -> push/PR exact-head CI/review.
+
+## IMP-081 POST-MERGE TARGETED RUNNING — 2026-10-12
+- Exact main SHA: `c16ad1ba555803152f095d8fbba3fba2f540bb47` (`main == origin/main`).
+- PR #86 MERGED.
+- Push-main CI run `38198156256` RUNNING on exact merge SHA; do not retrigger.
+- Post-merge targeted RUNNING under PTY `pty_ea1061336efe3db5a5458e6a74aa5ae8142b`, root PID `128468`.
+- JUnit: `.tmp/imp081-main-targeted.xml`; basetemp `.tmp/pytest-imp081-main-targeted`.
+- NEXT_EXACT_ACTION: monitor existing targeted PTY/JUnit only; do not restart; on PASS launch affected owner regression only.
+
+## IMP-081 POST-MERGE TARGETED PASS — 2026-10-12
+- Exact main SHA: `c16ad1ba555803152f095d8fbba3fba2f540bb47`.
+- Main targeted JUnit `.tmp/imp081-main-targeted.xml`: 7 tests / 0 failures / 0 errors / 0 skipped; time 218.414s.
+- PTY `pty_ea1061336efe3db5a5458e6a74aa5ae8142b` exit 0; pytest summary `7 passed in 218.79s`.
+- Targeted main checkpoint locked; do not rerun.
+- NEXT_EXACT_ACTION: run affected owner regression only; continue monitoring push-main CI `38198156256` read-only.
+
+## IMP-081 POST-MERGE AFFECTED RUNNING — 2026-10-12
+- Exact main SHA: `c16ad1ba555803152f095d8fbba3fba2f540bb47`.
+- Main targeted 7/7 PASS retained; do not rerun.
+- Affected owner regression RUNNING under PTY `pty_f517073f90e95ba5c2a9cd97fd5927d2db29`, root PID `121468`.
+- Scope: LegacyImport + ShotPlanning + GenerationJob + Versioning + Invalidation + Persistence only.
+- JUnit: `.tmp/imp081-main-affected.xml`; basetemp `.tmp/pytest-imp081-main-affected`.
+- Push-main CI `38198156256` still monitored read-only.
+- NEXT_EXACT_ACTION: monitor existing affected PTY/JUnit only; do not restart; on PASS wait/verify push-main CI SUCCESS if needed, then run Frozen Master guard.
+
+## IMP-081 PUSH-MAIN CI PASS — 2026-10-12
+- GitHub Actions run `38198156256` completed SUCCESS on exact main SHA `c16ad1ba555803152f095d8fbba3fba2f540bb47`.
+- Python 3.10 + 3.13 unit jobs PASS; Frozen Master baseline PASS in both.
+- Main targeted 7/7 PASS retained.
+- Main affected remains RUNNING under PTY `pty_f517073f90e95ba5c2a9cd97fd5927d2db29`, PID `121468`.
+- NEXT_EXACT_ACTION: monitor existing main affected PTY/JUnit only; on PASS run Frozen Master guard, then mark feature MAIN VERIFIED.
+
+
+## IMP-081 POST-MERGE AFFECTED PASS — 2026-10-12
+- Exact main SHA: `c16ad1ba555803152f095d8fbba3fba2f540bb47` (`main == origin/main`).
+- Main targeted retained: 7/7 PASS; do not rerun.
+- Main affected owner regression durable JUnit `.tmp/imp081-main-affected.xml`: 74 tests / 0 failures / 0 errors / 0 skipped; time `1121.232s`.
+- Recorded affected PID `121468` is absent after completion; stage classified PASS, not INTERRUPTED.
+- Push-main CI `38198156256` completed SUCCESS on exact merge SHA; Python 3.10 + 3.13 unit jobs PASS; Frozen baseline PASS.
+- Process/PID: none for IMP-081 affected verification.
+- Blocker: none.
+- NEXT_EXACT_ACTION: run `python tools/frozen_master_guard.py` on exact main SHA; if PASS, mark IMP-081 feature MAIN VERIFIED and start governance-only state sync. Do not rerun targeted/affected/CI.
+
+
+## IMP-081 FEATURE MAIN VERIFIED — 2026-10-12
+- Exact main SHA: `c16ad1ba555803152f095d8fbba3fba2f540bb47` (`main == origin/main`).
+- PR #86 merged.
+- Post-merge targeted: 7/7 PASS.
+- Post-merge affected owner regression: 74/74 PASS.
+- Push-main CI `38198156256`: SUCCESS; Python 3.10 + 3.13 unit jobs PASS; Frozen baseline PASS.
+- Post-merge Frozen Master guard: PASS; semantic SHA unchanged `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
+- Process/PID: none for IMP-081 verification.
+- Blocker: none.
+- Status: FEATURE MAIN VERIFIED / GOVERNANCE SYNC NEXT.
+- NEXT_EXACT_ACTION: side-effect guard for `chatgpt/IMP-081-main-verified-state`; if absent, create governance-only branch from exact main, commit only CURRENT_HANDOFF.md + PROJECT_STATE.md + tasks/TASK_QUEUE.md, then push/PR/CI/merge/main-verify.
