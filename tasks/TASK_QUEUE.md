@@ -5222,3 +5222,10 @@ NEXT_EXACT_ACTION = "FINAL STATIC/IMPORT/DIFF REVIEW -> EVIDENCE -> SIDE-EFFECT 
 - [x] Side-effect guard: no existing commit/remote branch/PR; staged index empty; `.tmp` untracked.
 - [ ] Stage exact 7-file scope -> verify -> commit -> push/PR/CI/review/merge/main verify.
 NEXT_EXACT_ACTION = "STAGE EXACT 7-FILE IMP-082 SCOPE EXCLUDING .tmp -> VERIFY INDEX -> COMMIT"
+
+
+## IMP-082 FEATURE COMMIT CREATED — 2026-10-12
+- [x] Feature commit `2df68c0821b95123d5940d6d81a44b2007488e26` created.
+- [x] Worktree after feature commit only `.tmp/` untracked.
+- [ ] Governance-only exact-SHA sync commit -> side-effect guard -> push/PR/CI/review/merge/main verify.
+NEXT_EXACT_ACTION = "GOVERNANCE-ONLY SYNC EXACT FEATURE SHA IN 3 STATE FILES -> COMMIT STATE-ONLY -> SIDE-EFFECT GUARD -> PUSH/PR"

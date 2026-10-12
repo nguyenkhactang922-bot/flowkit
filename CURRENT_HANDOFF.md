@@ -5855,3 +5855,9 @@ NEXT_EXACT_ACTION = "GOVERNANCE-ONLY STATE SYNC BRANCH/COMMIT/PR -> VERIFY GOVER
 - Final verification retained: targeted 10/10 PASS; affected 43/43 PASS; broader 783/783 PASS; Frozen Master guard PASS; final static/import/diff PASS.
 - Side-effect guard PASS: no existing IMP-082 commit, remote branch, or PR; staged index empty; `.tmp` untracked.
 - NEXT_EXACT_ACTION: stage exact 7-file IMP-082 scope excluding `.tmp` -> verify index -> commit.
+
+
+## IMP-082 FEATURE COMMIT CREATED — 2026-10-12
+- Feature commit: `2df68c0821b95123d5940d6d81a44b2007488e26` (`feat(studio): add backup restore migration safety`).
+- Worktree after feature commit: only `.tmp/` untracked.
+- NEXT_EXACT_ACTION: governance-only sync exact feature SHA in 3 state files -> commit state-only -> side-effect guard -> push/PR.

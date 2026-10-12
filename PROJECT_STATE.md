@@ -5998,3 +5998,10 @@ verification = targeted 10/10 PASS; affected 43/43 PASS; broader 783/783 PASS; F
 side_effect_guard = no existing commit/remote branch/PR; staged index empty; `.tmp` untracked
 blocker = none
 NEXT_EXACT_ACTION = "stage exact 7-file IMP-082 scope excluding .tmp -> verify index -> commit"
+
+
+## IMP-082 FEATURE COMMIT CREATED — 2026-10-12
+status = FEATURE COMMIT CREATED
+feature_commit = `2df68c0821b95123d5940d6d81a44b2007488e26`
+worktree = only `.tmp/` untracked after feature commit
+NEXT_EXACT_ACTION = "governance-only sync exact feature SHA in 3 state files -> commit state-only -> side-effect guard -> push/PR"
