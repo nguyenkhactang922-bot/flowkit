@@ -5070,3 +5070,51 @@ NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD; STAGE ONLY IMP-081 SOURCE/EXPORT/TEST/EV
 - [ ] Governance-only sync of exact feature SHA in CURRENT_HANDOFF / PROJECT_STATE / TASK_QUEUE.
 - [ ] Then side-effect guard -> push/PR/CI/review/merge/main verify.
 NEXT_EXACT_ACTION = "CREATE GOVERNANCE-ONLY STATE SYNC COMMIT FOR IMP-081 FEATURE SHA"
+
+## IMP-081 POST-MERGE TARGETED RUNNING — 2026-10-12
+- [x] PR #86 merged at exact main SHA `c16ad1ba555803152f095d8fbba3fba2f540bb47`.
+- [~] Push-main CI `38198156256` RUNNING exact merge SHA; do not retrigger.
+- [~] Main targeted RUNNING under PTY `pty_ea1061336efe3db5a5458e6a74aa5ae8142b`, PID `128468`; JUnit `.tmp/imp081-main-targeted.xml`.
+- [ ] On targeted PASS: affected owner regression -> Frozen guard -> feature MAIN VERIFIED.
+NEXT_EXACT_ACTION = "MONITOR EXISTING IMP-081 MAIN TARGETED PTY/JUNIT; DO NOT RESTART"
+
+## IMP-081 POST-MERGE TARGETED PASS — 2026-10-12
+- [x] Main targeted = 7/7 PASS; PTY exit 0; JUnit `.tmp/imp081-main-targeted.xml`.
+- [ ] Run affected owner regression only (LegacyImport + ShotPlanning + GenerationJob + Versioning + Invalidation + Persistence); targeted excluded.
+- [~] Monitor push-main CI `38198156256` read-only.
+NEXT_EXACT_ACTION = "RUN IMP-081 MAIN AFFECTED OWNER REGRESSION; DO NOT RERUN TARGETED"
+
+## IMP-081 POST-MERGE AFFECTED RUNNING — 2026-10-12
+- [x] Main targeted = 7/7 PASS retained.
+- [~] Main affected owner regression RUNNING under PTY `pty_f517073f90e95ba5c2a9cd97fd5927d2db29`, PID `121468`; JUnit `.tmp/imp081-main-affected.xml`.
+- Scope: LegacyImport + ShotPlanning + GenerationJob + Versioning + Invalidation + Persistence; targeted excluded.
+- [~] Push-main CI `38198156256` monitored read-only.
+- [ ] On affected PASS + CI SUCCESS: Frozen Master guard -> feature MAIN VERIFIED -> governance-only sync.
+NEXT_EXACT_ACTION = "MONITOR EXISTING IMP-081 MAIN AFFECTED PTY/JUNIT; DO NOT RESTART"
+
+## IMP-081 PUSH-MAIN CI PASS / AFFECTED STILL RUNNING — 2026-10-12
+- [x] Push-main CI `38198156256` SUCCESS on exact main SHA `c16ad1ba555803152f095d8fbba3fba2f540bb47`; Python 3.10 + 3.13 + Frozen baseline PASS.
+- [x] Main targeted 7/7 PASS retained.
+- [~] Main affected owner regression remains RUNNING under PTY `pty_f517073f90e95ba5c2a9cd97fd5927d2db29`, PID `121468`.
+- [ ] On affected PASS: Frozen Master guard -> feature MAIN VERIFIED -> governance-only sync.
+NEXT_EXACT_ACTION = "MONITOR EXISTING IMP-081 MAIN AFFECTED PTY/JUNIT; DO NOT RESTART"
+
+
+## IMP-081 POST-MERGE AFFECTED PASS / FROZEN NEXT — 2026-10-12
+- [x] Main targeted = 7/7 PASS; do not rerun.
+- [x] Main affected owner regression PASS: `.tmp/imp081-main-affected.xml` = 74 tests / 0 failures / 0 errors / 0 skipped; time 1121.232s.
+- [x] Recorded PID `121468` absent after completion; classified PASS, not INTERRUPTED.
+- [x] Push-main CI `38198156256` SUCCESS on exact merge SHA `c16ad1ba555803152f095d8fbba3fba2f540bb47`; Python 3.10 + 3.13 + Frozen baseline PASS.
+- [ ] Run Frozen Master guard on exact main SHA.
+- [ ] On guard PASS: feature MAIN VERIFIED -> governance-only state sync -> governance PR/CI/merge/main verify.
+NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD ON EXACT MAIN; DO NOT RERUN TARGETED/AFFECTED/CI"
+
+
+## IMP-081 FEATURE MAIN VERIFIED — 2026-10-12
+- [x] PR #86 merged at exact main SHA `c16ad1ba555803152f095d8fbba3fba2f540bb47`.
+- [x] Post-merge targeted = 7/7 PASS.
+- [x] Post-merge affected owner regression = 74/74 PASS.
+- [x] Push-main CI `38198156256` SUCCESS; Python 3.10 + 3.13 + Frozen baseline PASS.
+- [x] Post-merge Frozen Master guard PASS; semantic SHA unchanged.
+- [ ] Governance-only MAIN VERIFIED sync -> PR/CI/merge/main verify.
+NEXT_EXACT_ACTION = "SIDE-EFFECT GUARD FOR chatgpt/IMP-081-main-verified-state; IF ABSENT CREATE GOVERNANCE-ONLY BRANCH/COMMIT -> PUSH/PR/CI/MERGE/VERIFY MAIN"
