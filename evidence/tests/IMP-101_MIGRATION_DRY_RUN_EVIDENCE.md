@@ -85,3 +85,11 @@ Frozen Master evidence:
 - Post-commit worktree has only untracked `.tmp/` test/runtime artifacts.
 - Remote branch and PR were absent at the last pre-push check; push and PR are not yet claimed complete.
 - NEXT_EXACT_ACTION = `COMMIT POST-COMMIT STATE/EVIDENCE SYNC -> RECHECK REMOTE BRANCH/PR -> PUSH ONCE -> VERIFY REMOTE HEAD -> CREATE PR ONLY IF ABSENT`
+
+
+## Branch push checkpoint
+- `git push --set-upstream origin chatgpt/IMP-101-migration-dry-run` completed with exit 0.
+- Local HEAD and remote branch SHA verified equal: `7f1186634c621050e5d114d17cef2feb50dfc393`.
+- Upstream `origin/chatgpt/IMP-101-migration-dry-run` is configured; GitHub branch search confirms the branch exists.
+- GitHub PR search for IMP-101 returned no PR at this checkpoint; PR creation remains pending and will be guarded by another search.
+- NEXT_EXACT_ACTION = `COMMIT PUSH-CHECKPOINT STATE/EVIDENCE SYNC -> PUSH THE NEW STATE HEAD ONCE -> VERIFY REMOTE HEAD -> RECHECK PR SEARCH -> CREATE PR ONLY IF ABSENT`
