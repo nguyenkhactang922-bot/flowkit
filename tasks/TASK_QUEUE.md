@@ -5510,3 +5510,13 @@ NEXT_EXACT_ACTION = "RECHECK EMPTY INDEX AND EXACT WORKTREE -> STAGE ONLY THE SE
 - [ ] Recheck the exact staged set and commit IMP-101 implementation/evidence/state.
 - [ ] Push once; verify remote head; create PR only if absent; wait for exact-head CI and required review; merge only after gates pass; verify main.
 NEXT_EXACT_ACTION = "RECHECK EXACT SEVEN-FILE STAGED SET AND STAGED DIFF-CHECK -> COMMIT IMP-101 IMPLEMENTATION/EVIDENCE/STATE"
+
+
+
+## IMP-101 IMPLEMENTATION COMMIT VERIFIED — 2026-10-13
+- [x] Implementation commit `ff332976a0f396c92845f178c325b8d1c381b55b` created on `chatgpt/IMP-101-migration-dry-run` from `0c0d977edfc0edfa374d9bc009631516700dab34`.
+- [x] Commit contains exactly seven intended files; commit diff-check PASS; `.tmp/` excluded.
+- [x] Worktree after commit contains only untracked local `.tmp/` test/runtime artifacts.
+- [ ] Commit the post-commit state/evidence sync, then recheck remote branch/PR and push once.
+- [ ] Verify remote HEAD, create PR only if absent, inspect exact-head CI and review, merge only after required gates pass, then verify main.
+NEXT_EXACT_ACTION = "APPEND/VERIFY POST-COMMIT STATE AND EVIDENCE CHECKPOINT -> COMMIT STATE SYNC -> RECHECK REMOTE BRANCH/PR -> PUSH BRANCH ONCE -> VERIFY REMOTE HEAD -> CREATE PR ONLY IF ABSENT"

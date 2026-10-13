@@ -6157,3 +6157,13 @@ NEXT_EXACT_ACTION = "GOVERNANCE-ONLY STATE SYNC BRANCH/COMMIT/PR -> VERIFY GOVER
 - Local `.tmp/` runtime/JUnit artifacts are excluded from the index. Source/test/fixture were reviewed against IMP-101 acceptance and IMP-080's mapping-only authority boundary; no source code changed after the recorded tests.
 - Commit/push/PR/merge have not occurred yet.
 - NEXT_EXACT_ACTION = "RECHECK EXACT SEVEN-FILE STAGED SET AND STAGED DIFF-CHECK -> COMMIT IMP-101 IMPLEMENTATION/EVIDENCE/STATE"
+
+
+
+## IMP-101 IMPLEMENTATION COMMIT VERIFIED — 2026-10-13
+- Implementation/evidence/state commit: `ff332976a0f396c92845f178c325b8d1c381b55b` — `feat(studio): add restart-safe migration dry run`.
+- Parent/base: `0c0d977edfc0edfa374d9bc009631516700dab34`; branch remains `chatgpt/IMP-101-migration-dry-run`.
+- Verified commit contains exactly the seven intended source/test/fixture/evidence/state files; `git diff HEAD^ HEAD --check` exit 0; no `.tmp/` path was committed.
+- Post-commit worktree has only untracked `.tmp/` runtime artifacts; no tracked/untracked task files remain outside the commit.
+- Remote branch and PR were absent at last pre-push check. Task is not MAIN VERIFIED until remote/PR/CI/review/merge/main verification are completed.
+- NEXT_EXACT_ACTION = "APPEND/VERIFY POST-COMMIT STATE AND EVIDENCE CHECKPOINT -> COMMIT STATE SYNC -> RECHECK REMOTE BRANCH/PR -> PUSH BRANCH ONCE -> VERIFY REMOTE HEAD -> CREATE PR ONLY IF ABSENT"

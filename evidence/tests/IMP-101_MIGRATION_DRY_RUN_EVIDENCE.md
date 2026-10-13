@@ -76,3 +76,12 @@ Frozen Master evidence:
 - Finish exact-file review, inspect the staged diff, and commit only the seven intended files.
 - Push the task branch once, verify remote HEAD, create a PR only if absent, inspect CI on the exact PR head, obtain review, merge only after required gates pass, then checkout/pull main and verify the merge commit.
 - After MAIN VERIFIED, read the queue and automatically claim the next dependency-ready task (IMP-102 only if its dependencies are satisfied).
+
+
+## Git commit checkpoint
+- Implementation/evidence/state commit: `ff332976a0f396c92845f178c325b8d1c381b55b` — `feat(studio): add restart-safe migration dry run`.
+- Parent/base SHA: `0c0d977edfc0edfa374d9bc009631516700dab34`.
+- Commit contains exactly the seven intended files; `git diff HEAD^ HEAD --check` passed (exit 0); `.tmp/` is not committed.
+- Post-commit worktree has only untracked `.tmp/` test/runtime artifacts.
+- Remote branch and PR were absent at the last pre-push check; push and PR are not yet claimed complete.
+- NEXT_EXACT_ACTION = `COMMIT POST-COMMIT STATE/EVIDENCE SYNC -> RECHECK REMOTE BRANCH/PR -> PUSH ONCE -> VERIFY REMOTE HEAD -> CREATE PR ONLY IF ABSENT`
