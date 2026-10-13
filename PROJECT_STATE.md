@@ -6210,3 +6210,152 @@ local_junit = 836 tests / 0 failures / 0 errors / 0 skipped; PTY exit metadata u
 frozen_guard = PASS, exit 0
 blocker = none; exact-head CI and independent review pending
 NEXT_EXACT_ACTION = "COMMIT/PUSH THIS PR STATE SYNC -> FETCH PR #90 CURRENT HEAD -> FETCH WORKFLOW RUNS AND JOBS FOR THAT EXACT SHA -> MONITOR UNTIL ALL REQUIRED CHECKS COMPLETE; DO NOT MERGE OR RERUN LOCAL JUNIT"
+
+
+
+## IMP-100 MAIN VERIFIED / IMP-101 CLAIMED — 2026-10-13
+active_task = IMP-101 Migration Dry Run
+status = CLAIMED / ANALYZE
+branch = `chatgpt/IMP-101-migration-dry-run`
+base_main = `0c0d977edfc0edfa374d9bc009631516700dab34`
+IMP_100_PR = #90 MERGED; exact PR head CI `38347617423` SUCCESS (Python 3.10 + 3.13)
+IMP_100_MAIN_CI = `38348297682` SUCCESS on exact merge SHA; Python 3.10 + 3.13; frozen Master verification PASS
+frozen_master_semantic_sha256 = `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`
+runtime = no FlowKit listener on port 8100; no relevant pytest process; PTY registry empty
+legacy_db = no local `flow_agent.db`; use isolated representative SQLite DB based on `agent/db/schema.py`; do not claim live-user migration
+hard_dependencies = IMP-080 + IMP-081 + IMP-082 + IMP-100 MAIN VERIFIED
+goal = real representative legacy SQLite DB/project dry-run into canonical mapping/evidence boundary
+acceptance = no silent narrative inference; restart-safe/idempotent replay; evidence retained
+worktree = pre-existing untracked `.tmp/` only; never stage runtime output
+blocker = none for isolated representative dry-run
+NEXT_EXACT_ACTION = "INSPECT IMP-080/081/082 CONTRACTS AND LEGACY DB SCHEMA -> DESIGN READ-ONLY, RESTART-SAFE IMP-101 DRY-RUN RUNNER/REPORT -> ADD REAL SQLITE FIXTURE INTEGRATION TESTS; DO NOT MUTATE SOURCE DB OR CALL LIVE PROVIDERS"
+
+
+
+## IMP-101 TARGETED CHECKPOINT 1
+status = TARGETED FAIL (2 passed / 1 assertion mismatch)
+command = `uv run --isolated --no-project --python 3.13 --with-requirements requirements.txt --with-requirements requirements-dev.txt python -m pytest tests/unit/test_studio_migration_dry_run.py -q --junitxml=.tmp/imp101-targeted.xml --basetemp=.tmp/pytest-imp101-targeted`
+evidence = `.tmp/imp101-targeted.xml`; exit 1; no process remains
+failure = changed source was correctly refused; diagnostic ordering produced `run_id` mismatch before `source_fingerprint`, while test expects the more specific fingerprint message
+preserved_checkpoints = two targeted tests passed; IMP-100 local JUnit/guard/PR CI/main CI remain PASS and must not be rerun
+NEXT_EXACT_ACTION = "REORDER MANIFEST IDENTITY VALIDATION TO REPORT SOURCE_FINGERPRINT FIRST -> RERUN ONLY tests/unit/test_studio_migration_dry_run.py"
+
+
+
+## IMP-101 TARGETED PASS
+status = targeted PASS
+command = `uv run --isolated --no-project --python 3.13 --with-requirements requirements.txt --with-requirements requirements-dev.txt python -m pytest tests/unit/test_studio_migration_dry_run.py -q --junitxml=.tmp/imp101-targeted-rerun.xml --basetemp=.tmp/pytest-imp101-targeted-rerun`
+evidence = `.tmp/imp101-targeted-rerun.xml`; 3 tests / 0 failures / 0 errors / exit 0
+preserved_failure_history = `.tmp/imp101-targeted.xml` remains the first run (2 pass, 1 assertion mismatch)
+runtime = no relevant process remains
+verified = read-only source unchanged; restart replay idempotent; source mutation rejected; mapping/report redacts raw story/prompt; only mapping evidence, no canonical creative target rows
+NEXT_EXACT_ACTION = "REVIEW IMP-101 DIFF AND MIGRATION CONTRACT -> RUN AFFECTED LEGACY-IMPORT/PROJECTION/BACKUP-RESTORE REGRESSION ONLY -> RECORD DURABLE IMP-101 EVIDENCE"
+
+
+
+## IMP-101 TARGETED CHECKPOINT 2
+status = TARGETED FAIL (1 failed / 2 passed)
+evidence = `.tmp/imp101-targeted-final.xml`; exit 1; no process remains
+failure = report table counts intentionally include synthetic media-lineage records whose source_table is `project`; project table mapping count is 2 (project seed + thumbnail URL lineage), not 1
+classification = test expectation only; runner/report semantics are correct; earlier 3/3 targeted checkpoint retained
+NEXT_EXACT_ACTION = "FIX IMP-101 TABLE-COUNT ASSERTION TO ACCOUNT FOR MEDIA LINEAGE RECORDS -> RERUN ONLY tests/unit/test_studio_migration_dry_run.py"
+
+
+
+## IMP-101 TARGETED PASS — report contract
+status = PASS
+evidence = `.tmp/imp101-targeted-final2.xml`; 3 tests / 0 failures / 0 errors / exit 0
+report = mapping counts by source kind and table are now explicit and contain no source row IDs
+preserved_junit = `.tmp/imp101-targeted.xml`, `.tmp/imp101-targeted-rerun.xml`, `.tmp/imp101-targeted-final.xml`, `.tmp/imp101-targeted-final2.xml`
+runtime = no relevant process remains
+NEXT_EXACT_ACTION = "RUN AFFECTED EXISTING REGRESSION: test_studio_legacy_import.py + test_studio_operational_scene_projection.py + test_studio_backup_restore.py + test_studio_persistence.py; DO NOT RERUN THE IMP-101 TARGETED STAGE OR IMP-100 FULL REGRESSION"
+
+
+
+## IMP-101 AFFECTED REGRESSION INTERRUPTED
+status = INTERRUPTED
+command_scope = four affected existing files: legacy import, operational scene projection, backup/restore, persistence
+runtime = no matching pytest/uv process; no complete `.tmp/imp101-affected.xml`; temp directory contains partial artifacts only
+classification = no final exit/JUnit/result marker; not PASS or FAIL
+preserved_checkpoint = IMP-101 targeted suite 3/3 PASS at `.tmp/imp101-targeted-final2.xml`; do not rerun it unless its source changes again
+NEXT_EXACT_ACTION = "RUN tests/unit/test_studio_legacy_import.py ALONE WITH NEW JUNIT/BASETEMP; THEN RUN REMAINING AFFECTED FILES ONE AT A TIME"
+
+
+
+## IMP-101 AFFECTED CHECKPOINT — LEGACY IMPORT PASS
+legacy_import_regression = PASS; 9 tests / 0 failures / 0 errors / exit 0
+evidence = `.tmp/imp101-legacy-import.xml`
+runtime = no process remains
+NEXT_EXACT_ACTION = "RUN tests/unit/test_studio_operational_scene_projection.py ALONE WITH NEW JUNIT/BASETEMP"
+
+
+
+## IMP-101 AFFECTED CHECKPOINT — OPERATIONAL PROJECTION PASS
+operational_scene_projection_regression = PASS; 7 tests / 0 failures / 0 errors / exit 0
+evidence = `.tmp/imp101-projection.xml`
+runtime = no process remains
+preserved = IMP-101 targeted 3/3; legacy import 9/9
+NEXT_EXACT_ACTION = "RUN tests/unit/test_studio_backup_restore.py ALONE WITH NEW JUNIT/BASETEMP"
+
+
+
+## IMP-101 AFFECTED CHECKPOINT — BACKUP / RESTORE PASS
+backup_restore_regression = PASS; 10 tests / 0 failures / 0 errors / exit 0
+evidence = `.tmp/imp101-backup-restore.xml`
+runtime = no process remains
+preserved = targeted 3/3; legacy import 9/9; operational projection 7/7
+NEXT_EXACT_ACTION = "RUN tests/unit/test_studio_persistence.py ALONE WITH NEW JUNIT/BASETEMP"
+
+
+
+## IMP-101 AFFECTED CHECKPOINT — PERSISTENCE PASS — 2026-10-13
+active_task = IMP-101 Migration Dry Run
+status = targeted + affected regressions PASS; review/frozen guard/Git lifecycle pending
+branch = `chatgpt/IMP-101-migration-dry-run`
+head = `0c0d977edfc0edfa374d9bc009631516700dab34`
+targeted = PASS 3/3; evidence `.tmp/imp101-targeted-final2.xml`
+legacy_import = PASS 9/9; evidence `.tmp/imp101-legacy-import.xml`
+operational_projection = PASS 7/7; evidence `.tmp/imp101-projection.xml`
+backup_restore = PASS 10/10; evidence `.tmp/imp101-backup-restore.xml`
+persistence = PASS 12/12; evidence `.tmp/imp101-persistence.xml`; 0 failures/errors/skips
+runtime = no matching IMP-101 pytest/uv process remains; unrelated Rust PTY belongs to another project and was not touched
+source_data = no local `flow_agent.db`; tests use synthetic legacy SQLite fixture only; no live-user migration claimed
+blocker = none identified for isolated dry-run scope
+NEXT_EXACT_ACTION = "REVIEW IMP-101 MIGRATION CONTRACT/DIFF AND FAILURE PATHS -> RUN FROZEN MASTER GUARD ON CURRENT WORKTREE -> RUN STATIC/SYNTAX/DIFF-CHECK -> SYNC EVIDENCE AND PREPARE EXACT-FILE GIT LIFECYCLE; DO NOT RERUN ANY PASS TEST FILE"
+
+
+
+## IMP-101 CONTRACT REVIEW / FROZEN GUARD PASS — 2026-10-13
+active_task = IMP-101 Migration Dry Run
+status = implementation review + targeted/affected JUnit + frozen guard + syntax/diff checks PASS; Git lifecycle pending
+branch = `chatgpt/IMP-101-migration-dry-run`
+head_before_commit = `0c0d977edfc0edfa374d9bc009631516700dab34`
+evidence = `evidence/tests/IMP-101_MIGRATION_DRY_RUN_EVIDENCE.md`
+targeted = PASS 3/3; `.tmp/imp101-targeted-final2.xml`
+affected = legacy 9/9; projection 7/7; backup/restore 10/10; persistence JUnit 12/12
+persistence_exit_code = unavailable; JUnit has 0 failures/errors/skips; do not infer process exit code
+frozen_guard = PASS, exit 0; canonical semantic SHA-256 `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`
+syntax = PASS, exit 0; `python -m compileall -q agent/studio/migration_dry_run.py tests/unit/test_studio_migration_dry_run.py`
+diff_check = PASS, exit 0
+runtime = no matching IMP-101 pytest/uv process remains; unrelated Rust PTY untouched
+source_data = no local `flow_agent.db`; synthetic fixture only; no live-user migration claimed
+index = empty before stage; exact intended file set = seven task source/test/fixture/evidence/state files; exclude `.tmp/`
+remote = branch search empty; IMP-101 PR search empty at last check
+blocker = none identified; task remains pending commit/push/PR review/CI/merge/main verification
+NEXT_EXACT_ACTION = "RECHECK EMPTY INDEX AND EXACT WORKTREE -> STAGE ONLY THE SEVEN INTENDED IMP-101 FILES (EXCLUDE .tmp) -> REVIEW STAGED DIFF AND DIFF-CHECK -> COMMIT"
+
+
+
+## IMP-101 STAGED DIFF REVIEW PASS — 2026-10-13
+active_task = IMP-101 Migration Dry Run
+status = tests + guard/static + staged review PASS; commit/push/PR/CI/merge/main verification pending
+branch = `chatgpt/IMP-101-migration-dry-run`
+head_before_commit = `0c0d977edfc0edfa374d9bc009631516700dab34`
+staged_files = exactly seven intended source/test/fixture/evidence/state files
+staged_stat = 7 files changed, 1679 insertions
+staged_diff_check = PASS, exit 0
+runtime_outputs = `.tmp/` excluded from index
+index_lock = absent at pre-stage guard
+remote_branch = absent at last branch search; PR = absent at last PR search
+blocker = none identified
+NEXT_EXACT_ACTION = "RECHECK EXACT SEVEN-FILE STAGED SET AND STAGED DIFF-CHECK -> COMMIT IMP-101 IMPLEMENTATION/EVIDENCE/STATE"

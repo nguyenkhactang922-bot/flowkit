@@ -5387,3 +5387,126 @@ NEXT_EXACT_ACTION = "SYNC PR CHECKPOINT -> PUSH STATE UPDATE -> FETCH PR #90 FIN
 - [ ] Push this state sync, fetch the new PR head, and monitor required CI jobs on that exact SHA.
 - [ ] Do not merge until all required checks pass and review is clear; do not rerun the completed local 836-test regression.
 NEXT_EXACT_ACTION = "COMMIT/PUSH THIS PR STATE SYNC -> FETCH PR #90 CURRENT HEAD -> FETCH WORKFLOW RUNS AND JOBS FOR THAT EXACT SHA -> MONITOR UNTIL ALL REQUIRED CHECKS COMPLETE; DO NOT MERGE OR RERUN LOCAL JUNIT"
+
+
+
+## IMP-100 MAIN VERIFIED / IMP-101 CLAIMED — 2026-10-13
+- [x] IMP-100 PR #90 merged at main SHA `0c0d977edfc0edfa374d9bc009631516700dab34`.
+- [x] Exact PR-head CI `38347617423` SUCCESS: Python 3.10 + 3.13; frozen baseline and unit tests PASS.
+- [x] Push-main CI `38348297682` SUCCESS on exact merge SHA: Python 3.10 + 3.13; frozen baseline and unit tests PASS.
+- [x] IMP-100 is MAIN VERIFIED; its 836-test local JUnit stage is retained and not rerun.
+- [x] Anti-duplicate guard: no local/remote `chatgpt/IMP-101-migration-dry-run` branch and no existing IMP-101 PR; new task branch created from exact main SHA.
+- [x] Hard dependencies IMP-080, IMP-081, IMP-082, IMP-100 verified present on main.
+- [~] IMP-101 Migration Dry Run CLAIMED / ANALYZE on `chatgpt/IMP-101-migration-dry-run`.
+- [x] Runtime check: no local `flow_agent.db` and no listener on port 8100; do not represent a synthetic fixture run as live-user migration.
+- [ ] Inspect legacy schema/import/backup contracts; implement read-only source scan, deterministic resumable migration manifest, isolated canonical staging DB, privacy-safe durable report.
+- [ ] Add integration tests using a real temporary SQLite DB populated from the repository legacy schema; prove no narrative inference, idempotent restart/replay, retained evidence, and source DB remains unchanged.
+NEXT_EXACT_ACTION = "INSPECT IMP-080/081/082 CONTRACTS AND LEGACY DB SCHEMA -> DESIGN READ-ONLY, RESTART-SAFE IMP-101 DRY-RUN RUNNER/REPORT -> ADD REAL SQLITE FIXTURE INTEGRATION TESTS; DO NOT MUTATE SOURCE DB OR CALL LIVE PROVIDERS"
+
+
+
+## IMP-101 TARGETED CHECKPOINT 1
+- [x] New module syntax/import succeeded under isolated Python 3.13.
+- [~] Targeted SQLite migration dry-run tests: 2/3 PASS; one assertion mismatch in diagnostic ordering, not in fail-closed behavior.
+- [x] Source-change resume test confirmed the runner refuses to mix changed source snapshots.
+- [ ] Report source fingerprint mismatch before derived run-id mismatch for clearer diagnosis.
+- [ ] Rerun only the IMP-101 targeted test file after that fix; do not rerun IMP-100 stages.
+NEXT_EXACT_ACTION = "REORDER MANIFEST IDENTITY VALIDATION TO REPORT SOURCE_FINGERPRINT FIRST -> RERUN ONLY tests/unit/test_studio_migration_dry_run.py"
+
+
+
+## IMP-101 TARGETED PASS — 2026-10-13
+- [x] New IMP-101 SQLite migration dry-run tests: 3/3 PASS; exit 0.
+- [x] Durable JUnit: `.tmp/imp101-targeted-rerun.xml`; prior failed JUnit `.tmp/imp101-targeted.xml` retained, not overwritten.
+- [x] Source DB remained byte-identical during successful run.
+- [x] Resume/replay is idempotent; changed source snapshot is rejected; raw story/prompt text is absent from mapping/report/staging output.
+- [x] No canonical StoryCore/SceneDramaticBeat/FullShotSpec/ShotIR targets are created by dry-run.
+- [ ] Review code/diff; run affected legacy import, operational projection, backup/restore and persistence regressions.
+- [ ] Capture durable evidence and frozen guard; then proceed to Git lifecycle.
+NEXT_EXACT_ACTION = "REVIEW IMP-101 DIFF AND MIGRATION CONTRACT -> RUN AFFECTED LEGACY-IMPORT/PROJECTION/BACKUP-RESTORE REGRESSION ONLY -> RECORD DURABLE IMP-101 EVIDENCE"
+
+
+
+## IMP-101 TARGETED CHECKPOINT 2 — 2026-10-13
+- [x] Report now exposes mapping counts by source kind and source table without exposing source row IDs.
+- [~] Revised targeted run: 2 passed; 1 assertion mismatch because project-table count includes its media-lineage record.
+- [ ] Adjust test to assert at least one project-table mapping and exact one PROJECT-kind mapping.
+- [ ] Rerun only IMP-101 targeted test file; preserve prior JUnit files.
+NEXT_EXACT_ACTION = "FIX IMP-101 TABLE-COUNT ASSERTION TO ACCOUNT FOR MEDIA LINEAGE RECORDS -> RERUN ONLY tests/unit/test_studio_migration_dry_run.py"
+
+
+
+## IMP-101 TARGETED PASS — 2026-10-13 (report contract)
+- [x] IMP-101 targeted tests: 3/3 PASS; final JUnit `.tmp/imp101-targeted-final2.xml`.
+- [x] Report includes mapping counts by source kind/table; no source row IDs or raw story/prompt/media values.
+- [x] Previous failed-attempt JUnit artifacts remain preserved; final passing JUnit is separate.
+- [ ] Run affected existing legacy-import, operational-scene projection, backup/restore, and persistence regression tests only.
+- [ ] Record evidence, run frozen guard for the changed worktree, review diff, then Git lifecycle.
+NEXT_EXACT_ACTION = "RUN AFFECTED EXISTING REGRESSION: test_studio_legacy_import.py + test_studio_operational_scene_projection.py + test_studio_backup_restore.py + test_studio_persistence.py; DO NOT RERUN THE IMP-101 TARGETED STAGE OR IMP-100 FULL REGRESSION"
+
+
+
+## IMP-101 AFFECTED REGRESSION INTERRUPTED — 2026-10-13
+- [x] Immediate process check after tool failure: no affected pytest/uv process remains.
+- [x] No complete affected JUnit exists; partial basetemp artifacts are not PASS evidence.
+- [~] Affected regression command classified INTERRUPTED.
+- [x] IMP-101 targeted 3/3 PASS checkpoint preserved.
+- [ ] Run existing affected test files one at a time, each with independent JUnit/basetemp; do not rerun IMP-100 full contract regression.
+NEXT_EXACT_ACTION = "RUN tests/unit/test_studio_legacy_import.py ALONE WITH NEW JUNIT/BASETEMP; THEN RUN REMAINING AFFECTED FILES ONE AT A TIME"
+
+
+
+## IMP-101 AFFECTED CHECKPOINT — LEGACY IMPORT PASS
+- [x] Existing `test_studio_legacy_import.py`: 9/9 PASS; JUnit `.tmp/imp101-legacy-import.xml`.
+- [ ] Run `test_studio_operational_scene_projection.py` independently with its own JUnit/basetemp.
+NEXT_EXACT_ACTION = "RUN tests/unit/test_studio_operational_scene_projection.py ALONE WITH NEW JUNIT/BASETEMP"
+
+
+
+## IMP-101 AFFECTED CHECKPOINT — OPERATIONAL PROJECTION PASS
+- [x] Existing `test_studio_operational_scene_projection.py`: 7/7 PASS; JUnit `.tmp/imp101-projection.xml`.
+- [x] Existing `test_studio_legacy_import.py`: 9/9 PASS; JUnit `.tmp/imp101-legacy-import.xml`.
+- [x] New IMP-101 targeted: 3/3 PASS; JUnit `.tmp/imp101-targeted-final2.xml`.
+- [ ] Run `test_studio_backup_restore.py` independently with its own JUnit/basetemp.
+NEXT_EXACT_ACTION = "RUN tests/unit/test_studio_backup_restore.py ALONE WITH NEW JUNIT/BASETEMP"
+
+
+
+## IMP-101 AFFECTED CHECKPOINT — BACKUP / RESTORE PASS
+- [x] Existing `test_studio_backup_restore.py`: 10/10 PASS; JUnit `.tmp/imp101-backup-restore.xml`.
+- [x] Existing legacy import: 9/9 PASS; operational projection: 7/7 PASS; new IMP-101 targeted: 3/3 PASS.
+- [ ] Run `test_studio_persistence.py` independently with its own JUnit/basetemp.
+NEXT_EXACT_ACTION = "RUN tests/unit/test_studio_persistence.py ALONE WITH NEW JUNIT/BASETEMP"
+
+
+
+## IMP-101 AFFECTED CHECKPOINT — PERSISTENCE PASS — 2026-10-13
+- [x] `tests/unit/test_studio_persistence.py`: 12/12 PASS, 0 failures/errors/skips; JUnit `.tmp/imp101-persistence.xml`.
+- [x] Affected regression checkpoints are all complete: targeted 3/3, legacy import 9/9, operational projection 7/7, backup/restore 10/10, persistence 12/12.
+- [ ] Review IMP-101 migration contract, diff, and failure paths.
+- [ ] Run frozen Master guard and static/syntax/diff-check on the current worktree.
+- [ ] Record evidence, stage only intentional source/test/state files (never `.tmp/`), commit and follow required push/PR/review/merge/main-verification lifecycle.
+NEXT_EXACT_ACTION = "REVIEW IMP-101 MIGRATION CONTRACT/DIFF AND FAILURE PATHS -> RUN FROZEN MASTER GUARD ON CURRENT WORKTREE -> RUN STATIC/SYNTAX/DIFF-CHECK -> SYNC EVIDENCE AND PREPARE EXACT-FILE GIT LIFECYCLE; DO NOT RERUN ANY PASS TEST FILE"
+
+
+
+## IMP-101 CONTRACT REVIEW / FROZEN GUARD PASS — 2026-10-13
+- [x] Reviewed IMP-101 acceptance and the migration runner against the IMP-080 mapping-only boundary; no silent narrative inference or canonical creative targets are introduced.
+- [x] Targeted migration dry-run tests: 3/3 PASS; JUnit `.tmp/imp101-targeted-final2.xml`.
+- [x] Affected regression: legacy import 9/9, operational projection 7/7, backup/restore 10/10, persistence JUnit 12/12. Persistence process exit metadata is unavailable and is not inferred from JUnit.
+- [x] Frozen Master guard PASS (exit 0); Python compileall PASS (exit 0); `git diff --check` PASS (exit 0).
+- [x] Durable evidence file created: `evidence/tests/IMP-101_MIGRATION_DRY_RUN_EVIDENCE.md`.
+- [ ] Recheck empty index and exact worktree; stage only the seven intended source/test/fixture/evidence/state files; exclude `.tmp/`.
+- [ ] Inspect staged diff and `git diff --cached --check`; commit only after the exact scope is verified.
+- [ ] Push once, verify remote head, create PR only if absent, review exact PR head and required CI/review gates, merge only after all required gates pass, then verify main.
+NEXT_EXACT_ACTION = "RECHECK EMPTY INDEX AND EXACT WORKTREE -> STAGE ONLY THE SEVEN INTENDED IMP-101 FILES (EXCLUDE .tmp) -> REVIEW STAGED DIFF AND DIFF-CHECK -> COMMIT"
+
+
+
+## IMP-101 STAGED DIFF REVIEW PASS — 2026-10-13
+- [x] Exact staged allowlist contains only seven intended files: migration runner, targeted test, synthetic fixture, durable evidence, and three governance state files.
+- [x] Staged diff reviewed; 7 files / 1,679 insertions; `git diff --cached --check` exit 0.
+- [x] Local `.tmp/` artifacts are not staged.
+- [ ] Recheck the exact staged set and commit IMP-101 implementation/evidence/state.
+- [ ] Push once; verify remote head; create PR only if absent; wait for exact-head CI and required review; merge only after gates pass; verify main.
+NEXT_EXACT_ACTION = "RECHECK EXACT SEVEN-FILE STAGED SET AND STAGED DIFF-CHECK -> COMMIT IMP-101 IMPLEMENTATION/EVIDENCE/STATE"
