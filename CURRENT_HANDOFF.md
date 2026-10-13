@@ -5992,3 +5992,15 @@ NEXT_EXACT_ACTION = "GOVERNANCE-ONLY STATE SYNC BRANCH/COMMIT/PR -> VERIFY GOVER
 - Recovery evidence: zero-byte lock last written 10:11:52; index last written 2026-10-12 17:57:15; no live Git/Git-remote/Git-LFS process existed.
 - Removed only the stale zero-byte lock after verifying no Git process; worktree status is intact and index remains empty.
 - NEXT_EXACT_ACTION = "STAGE EXACT 5 INTENDED FILES EXCLUDING .tmp -> VERIFY STAGED DIFF/DIFF-CHECK -> COMMIT"
+
+
+## IMP-100 ACCEPTANCE EVIDENCE COMMITTED — 2026-10-13
+- Task: SYSTEM ACCEPTANCE LANE / IMP-100 Full Contract Regression.
+- Local regression outcome: PASS from durable `.tmp/imp100-contract-regression.xml` — 836 tests, 0 failures, 0 errors, 0 skipped; original PTY exit code unavailable and not fabricated. Do not rerun this completed local stage.
+- Frozen Master guard: PASS, exit 0; canonical semantic SHA256 `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
+- Branch: `chatgpt/IMP-100-full-contract-regression`; base main: `4f1267010522b9451a88af6f32fdb4fd5b203c11`.
+- Acceptance/evidence commit: `4cd1a51` (`test(acceptance): record IMP-100 contract regression evidence`). Exact staged scope was five intended files; `.tmp/` remains unstaged runtime output.
+- Runtime: no IMP-100 pytest process remains. The only active PTY in FileMCP registry is a separate Tang Video Merge Studio check; it was not touched.
+- Pre-commit side-effect guard found no remote IMP-100 branch and no existing IMP-100 PR. Recheck immediately before push/PR.
+- Blocker: none for local acceptance checkpoint; remote CI still required.
+- NEXT_EXACT_ACTION = "RECHECK GIT/REMOTE/PR -> PUSH IMP-100 BRANCH ONCE -> VERIFY REMOTE HEAD -> CREATE PR ONLY IF NONE EXISTS -> MONITOR FULL UBUNTU PYTHON 3.10 + 3.13 CI"

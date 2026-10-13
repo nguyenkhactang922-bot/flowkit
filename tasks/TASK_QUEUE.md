@@ -5347,3 +5347,14 @@ NEXT_EXACT_ACTION = "VERIFY EMPTY INDEX -> STAGE EXACT 5 INTENDED FILES EXCLUDIN
 - [x] Removed only that stale lock; worktree preserved and index still empty.
 - [ ] Stage exact five intended files excluding `.tmp/`, verify staged diff and diff-check, then commit.
 NEXT_EXACT_ACTION = "STAGE EXACT 5 INTENDED FILES EXCLUDING .tmp -> VERIFY STAGED DIFF/DIFF-CHECK -> COMMIT"
+
+
+## IMP-100 ACCEPTANCE EVIDENCE COMMITTED — 2026-10-13
+- [x] Local provider-neutral regression durable JUnit: 836 tests / 0 failures / 0 errors / 0 skipped; do not rerun this completed stage.
+- [x] Frozen Master guard PASS (exit 0; canonical semantic SHA256 unchanged).
+- [x] Exact-worktree review and `git diff --check` PASS.
+- [x] Five intended files staged and committed as `4cd1a51` (`test(acceptance): record IMP-100 contract regression evidence`); `.tmp/` excluded.
+- [ ] Re-check current remote branch and PR state, push branch once, verify remote HEAD, create PR only if absent.
+- [ ] Obtain full Ubuntu `tests/unit` CI on Python 3.10 and 3.13 without exclusions; inspect exact PR-head checks.
+- [ ] Review, merge only after required gates pass, checkout/pull main, verify main and sync state.
+NEXT_EXACT_ACTION = "RECHECK GIT/REMOTE/PR -> PUSH IMP-100 BRANCH ONCE -> VERIFY REMOTE HEAD -> CREATE PR ONLY IF NONE EXISTS -> MONITOR FULL UBUNTU PYTHON 3.10 + 3.13 CI"

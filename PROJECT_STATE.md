@@ -6148,3 +6148,20 @@ git_lock = stale zero-byte `.git/index.lock`; last write 10:11:52; index last wr
 live_git_processes = 0
 action = removed stale lock after live-process/age/size checks; Git worktree status intact; index still empty
 NEXT_EXACT_ACTION = "stage exact 5 intended files excluding .tmp -> verify staged diff/diff-check -> commit"
+
+
+## IMP-100 ACCEPTANCE EVIDENCE COMMITTED — 2026-10-13
+status = LOCAL ACCEPTANCE PASS; REMOTE CI / PR LIFECYCLE PENDING
+active_task = IMP-100 Full Contract Regression
+branch = `chatgpt/IMP-100-full-contract-regression`
+base_main = `4f1267010522b9451a88af6f32fdb4fd5b203c11`
+acceptance_commit = `4cd1a51` (`test(acceptance): record IMP-100 contract regression evidence`)
+junit = `.tmp/imp100-contract-regression.xml`; 836 tests / 0 failures / 0 errors / 0 skipped; PTY exit metadata unavailable
+frozen_guard = PASS, exit 0; canonical semantic SHA256 `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`
+static_review = PASS; `git diff --check` and staged diff-check exit 0
+committed_scope = exactly 5 intended governance/evidence files; `.tmp/` excluded
+process = no IMP-100 pytest process remains
+remote_branch = absent at pre-commit check; must re-check before push
+pull_request = absent at pre-commit check; must re-check before create
+blocker = none for local checkpoint; full Ubuntu Python 3.10 + 3.13 CI still required
+NEXT_EXACT_ACTION = "RECHECK GIT/REMOTE/PR -> PUSH IMP-100 BRANCH ONCE -> VERIFY REMOTE HEAD -> CREATE PR ONLY IF NONE EXISTS -> MONITOR FULL UBUNTU PYTHON 3.10 + 3.13 CI"
