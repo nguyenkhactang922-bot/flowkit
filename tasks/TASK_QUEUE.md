@@ -5620,3 +5620,21 @@ NEXT_EXACT_ACTION = "COMMIT POST-FIX STATE/EVIDENCE SYNC -> RECHECK REMOTE STILL
 - This state sync will create a new commit and therefore move the PR head; run `38375924080` is PASS evidence only for SHA `5973b75319f21f7b27a114e1755ef512159825fd`, not the next SHA. Do not merge until CI is verified on the final exact PR head.
 - Prior targeted 8/8 PASS and affected regression PASS checkpoints remain preserved; no local test rerun. Worktree had only untracked `.tmp/` runtime artifacts, excluded from Git; no FlowKit process is running.
 - NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md, evidence/tests/IMP-101_MIGRATION_DRY_RUN_EVIDENCE.md -> VERIFY EXACT FOUR-FILE STAGED SET AND git diff --cached --check -> COMMIT CI-PASS STATE SYNC -> RECHECK PR #91 AND REMOTE HEAD -> PUSH NEW STATE HEAD ONCE -> VERIFY NEW EXACT PR SHA -> FETCH WORKFLOW RUNS/JOBS FOR THAT SHA -> UPDATE PR VALIDATION TEXT TO THE EXACT-HEAD RESULT -> MERGE ONLY IF FINAL CI AND ALL REQUIRED GATES PASS -> CHECKOUT/PULL MAIN AND VERIFY MAIN"
+
+
+
+## IMP-101 MAIN VERIFIED / IMP-102 NEXT DEPENDENCY-READY — 2026-10-13
+
+- [x] IMP-101 implementation/evidence commit and manifest-integrity hardening verified; targeted migration suite 8/8 PASS, previous affected regressions retained, frozen Master guard PASS.
+- [x] PR #91 merged from exact head `c0e303c890fd5d07024f8281cf0002e691509064`.
+- [x] PR-head CI run `38377111243` SUCCESS on exact PR head; Python 3.10 and 3.13 jobs PASS, including frozen Master guard and unit tests.
+- [x] Merge SHA `2e3e4c6e4b5b8ceedd5cbb7ab2f0f11de4bb216f`; local `main` fast-forwarded to exact merge SHA and tree matched feature branch.
+- [x] Main push CI run `38381133828` SUCCESS on exact merge SHA; Python 3.10 and 3.13 jobs PASS, including frozen Master guard and unit tests.
+- [x] No local test or frozen-guard stage was rerun after its PASS evidence. Synthetic SQLite only; no live-user migration claim.
+- [x] IMP-101 status = MAIN VERIFIED. Governance-only state sync is in progress.
+- [x] Next task selected from authoritative decomposition: IMP-102 Failure / Recovery Fault Injection.
+- [x] IMP-102 hard dependencies are verified MAIN VERIFIED: IMP-052, IMP-053, IMP-054, IMP-055, IMP-100.
+- [x] Duplicate guard before claim: no local/remote feature branch and no PR for `chatgpt/IMP-102-failure-recovery-fault-injection`.
+- [ ] Commit/push the exact four-file governance state/evidence sync, open PR only if absent, verify exact-head CI, merge after required gates, then verify governance merge on main.
+- [ ] After governance main verification, create the IMP-102 feature branch from the exact updated main SHA, claim it in the state files, audit Frozen Master §§69–71 and current GenerationJob/Scheduler/Recovery/Artifact failure surfaces before code.
+NEXT_EXACT_ACTION = "VERIFY EXACT FOUR-FILE GOVERNANCE STATE/EVIDENCE DIFF -> STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md, evidence/tests/IMP-101_MIGRATION_DRY_RUN_EVIDENCE.md -> git diff --cached --check -> COMMIT GOVERNANCE STATE SYNC -> PUSH BRANCH ONCE -> CREATE PR ONLY IF ABSENT -> VERIFY GOVERNANCE PR CI ON EXACT HEAD -> MERGE ONLY AFTER REQUIRED GATES PASS -> CHECKOUT/PULL MAIN AND VERIFY GOVERNANCE MERGE CI -> CREATE IMP-102 FEATURE BRANCH FROM EXACT UPDATED MAIN SHA -> CLAIM IMP-102 AND AUDIT FROZEN AUTHORITY/CURRENT FAILURE-RECOVERY SURFACES"

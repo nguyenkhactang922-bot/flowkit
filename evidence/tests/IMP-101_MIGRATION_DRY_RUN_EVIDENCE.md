@@ -178,3 +178,14 @@ Frozen Master evidence:
 - This state sync will create a new commit and therefore move the PR head; run `38375924080` is PASS evidence only for SHA `5973b75319f21f7b27a114e1755ef512159825fd`, not the next SHA. Do not merge until CI is verified on the final exact PR head.
 - Prior targeted 8/8 PASS and affected regression PASS checkpoints remain preserved; no local test rerun. Worktree had only untracked `.tmp/` runtime artifacts, excluded from Git; no FlowKit process is running.
 - NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md, evidence/tests/IMP-101_MIGRATION_DRY_RUN_EVIDENCE.md -> VERIFY EXACT FOUR-FILE STAGED SET AND git diff --cached --check -> COMMIT CI-PASS STATE SYNC -> RECHECK PR #91 AND REMOTE HEAD -> PUSH NEW STATE HEAD ONCE -> VERIFY NEW EXACT PR SHA -> FETCH WORKFLOW RUNS/JOBS FOR THAT SHA -> UPDATE PR VALIDATION TEXT TO THE EXACT-HEAD RESULT -> MERGE ONLY IF FINAL CI AND ALL REQUIRED GATES PASS -> CHECKOUT/PULL MAIN AND VERIFY MAIN"
+
+
+
+## PR / main verification — 2026-10-13
+
+- PR #91 merged from exact feature head `c0e303c890fd5d07024f8281cf0002e691509064`.
+- PR-head CI `38377111243`: SUCCESS on that exact head. Python 3.10 and 3.13 jobs both passed `Verify frozen Master baseline` and `Run unit tests`.
+- Merge SHA: `2e3e4c6e4b5b8ceedd5cbb7ab2f0f11de4bb216f`; local `main` and `origin/main` verified at that exact SHA after fast-forward pull. Feature and main trees both equal `d892bfdb93f14adf0d629285270abe97fa6f72da`.
+- Main push CI `38381133828`: SUCCESS on the exact merge SHA. Python 3.10 (6m05s) and Python 3.13 (6m54s) jobs passed, including the Frozen Master guard and full unit-test step.
+- No local tests were rerun after the existing PASS checkpoints. The repository contains no local `flow_agent.db`; only synthetic SQLite migration evidence is claimed.
+- No blocker. Next dependency-ready task is IMP-102 Failure / Recovery Fault Injection, dependent on IMP-052/053/054/055/100 MAIN VERIFIED.

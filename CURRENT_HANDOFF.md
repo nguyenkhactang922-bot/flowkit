@@ -6262,3 +6262,30 @@ NEXT_EXACT_ACTION = "GOVERNANCE-ONLY STATE SYNC BRANCH/COMMIT/PR -> VERIFY GOVER
 - This state sync will create a new commit and therefore move the PR head; run `38375924080` is PASS evidence only for SHA `5973b75319f21f7b27a114e1755ef512159825fd`, not the next SHA. Do not merge until CI is verified on the final exact PR head.
 - Prior targeted 8/8 PASS and affected regression PASS checkpoints remain preserved; no local test rerun. Worktree had only untracked `.tmp/` runtime artifacts, excluded from Git; no FlowKit process is running.
 - NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md, evidence/tests/IMP-101_MIGRATION_DRY_RUN_EVIDENCE.md -> VERIFY EXACT FOUR-FILE STAGED SET AND git diff --cached --check -> COMMIT CI-PASS STATE SYNC -> RECHECK PR #91 AND REMOTE HEAD -> PUSH NEW STATE HEAD ONCE -> VERIFY NEW EXACT PR SHA -> FETCH WORKFLOW RUNS/JOBS FOR THAT SHA -> UPDATE PR VALIDATION TEXT TO THE EXACT-HEAD RESULT -> MERGE ONLY IF FINAL CI AND ALL REQUIRED GATES PASS -> CHECKOUT/PULL MAIN AND VERIFY MAIN"
+
+
+
+## IMP-101 FEATURE MAIN VERIFIED / GOVERNANCE STATE SYNC IN PROGRESS — 2026-10-13
+
+PROJECT_ROOT = E:\FlowKit-Studio-Upgrade
+GIT_ROOT = E:/FlowKit-Studio-Upgrade
+FEATURE_TASK = IMP-101 Migration Dry Run
+FEATURE_PR = #91 (https://github.com/nguyenkhactang922-bot/flowkit/pull/91)
+FEATURE_PR_STATUS = MERGED
+FEATURE_PR_HEAD = c0e303c890fd5d07024f8281cf0002e691509064
+FEATURE_PR_CI = run 38377111243 SUCCESS on exact head c0e303c890fd5d07024f8281cf0002e691509064; Python 3.10 and 3.13 jobs PASS, including Frozen Master guard and unit tests.
+MERGE_SHA = 2e3e4c6e4b5b8ceedd5cbb7ab2f0f11de4bb216f
+MAIN_PUSH_CI = run 38381133828 SUCCESS on exact merge SHA 2e3e4c6e4b5b8ceedd5cbb7ab2f0f11de4bb216f; Python 3.10 and 3.13 jobs PASS, including Frozen Master guard and unit tests.
+MAIN_TREE = d892bfdb93f14adf0d629285270abe97fa6f72da; matches the feature branch tree.
+LOCAL_MAIN = checked out and fast-forwarded to exact merge SHA; origin/main matches. No local test/frozen-guard rerun was started because exact-head CI and main push CI already passed.
+FROZEN_MASTER_SEMANTIC_SHA256 = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287
+MIGRATION_SCOPE = synthetic SQLite fixture only; no local flow_agent.db was present, so no live-user migration is claimed.
+REVIEW = exact-head self-review PASS; no review submissions, inline threads, or PR comments. GitHub main branch is not protected; no required independent review gate was configured.
+WORKTREE = only untracked .tmp/ runtime evidence; excluded from commits.
+STATUS = IMP-101 FEATURE MAIN VERIFIED; governance-only state sync in progress.
+NEXT_DEPENDENCY_READY_TASK = IMP-102 Failure / Recovery Fault Injection.
+IMP-102_DEPENDENCIES = IMP-052 MAIN VERIFIED + IMP-053 MAIN VERIFIED + IMP-054 MAIN VERIFIED + IMP-055 MAIN VERIFIED + IMP-100 MAIN VERIFIED.
+IMP-102_DUPLICATE_GUARD = PASS before claim: no local branch, remote branch, or PR for chatgpt/IMP-102-failure-recovery-fault-injection.
+BLOCKER = none.
+
+NEXT_EXACT_ACTION = "VERIFY EXACT FOUR-FILE GOVERNANCE STATE/EVIDENCE DIFF -> STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md, evidence/tests/IMP-101_MIGRATION_DRY_RUN_EVIDENCE.md -> git diff --cached --check -> COMMIT GOVERNANCE STATE SYNC -> PUSH BRANCH ONCE -> CREATE PR ONLY IF ABSENT -> VERIFY GOVERNANCE PR CI ON EXACT HEAD -> MERGE ONLY AFTER REQUIRED GATES PASS -> CHECKOUT/PULL MAIN AND VERIFY GOVERNANCE MERGE CI -> CREATE IMP-102 FEATURE BRANCH FROM EXACT UPDATED MAIN SHA -> CLAIM IMP-102 AND AUDIT FROZEN AUTHORITY/CURRENT FAILURE-RECOVERY SURFACES"
