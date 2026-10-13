@@ -5271,3 +5271,79 @@ NEXT_EXACT_ACTION = "RUN FROZEN MASTER GUARD ON EXACT MAIN SHA; DO NOT RERUN TAR
 - [x] Feature MAIN VERIFIED.
 - [ ] Governance-only state sync lifecycle.
 NEXT_EXACT_ACTION = "GOVERNANCE-ONLY SYNC BRANCH/COMMIT/PR; DO NOT RERUN TARGETED/AFFECTED/CI/FROZEN GUARD"
+
+
+## TERMINAL QUEUE CHECKPOINT — 2026-10-12
+- [x] IMP-082 governance merged to main SHA `4f1267010522b9451a88af6f32fdb4fd5b203c11`.
+- [x] Governance push-main CI `38238675686` COMPLETED/SUCCESS; Python 3.10 + 3.13 PASS; Frozen baseline PASS.
+- [x] No open PR remains.
+- [x] No `IMP-083+` task is defined; IMP-082 is the last queue task.
+- [x] ALL CURRENTLY DEFINED VALID TASKS DONE / MAIN VERIFIED.
+- Terminal-sync rule: do not create another governance PR solely to record this governance CI result; avoid infinite self-referential governance loop.
+NEXT_EXACT_ACTION = "NONE — QUEUE EXHAUSTED; RE-CHECK REPO/GIT/RUNTIME ONLY WHEN A NEW VALID TASK IS ADDED"
+
+
+## FINAL TERMINAL STATE - 2026-10-12
+- [x] IMP-082 governance main SHA `4f1267010522b9451a88af6f32fdb4fd5b203c11` verified.
+- [x] Governance push-main CI `38238675686` COMPLETED/SUCCESS; Python 3.10 + 3.13 PASS.
+- [x] No open PR remains.
+- [x] No IMP-083+ task exists in the current queue.
+- [x] ALL CURRENTLY DEFINED VALID TASKS DONE / MAIN VERIFIED.
+- terminal_sync: local state checkpoint only; do not create a self-referential governance PR solely to record this final CI result.
+NEXT_EXACT_ACTION = "NONE. QUEUE EXHAUSTED. ON FUTURE RESUME, RE-CHECK REPO/GIT/RUNTIME AND PROCEED ONLY IF A NEW VALID TASK EXISTS."
+
+
+## QUEUE REOPENED / IMP-100 CLAIMED — 2026-10-12
+- [x] User requested IMP-083, but authoritative task decomposition defines no IMP-083–099.
+- [x] Correct next defined task is SYSTEM ACCEPTANCE LANE `IMP-100 — Full Contract Regression`.
+- [x] Global execution law §13A added to govern queue-exhaustion/new-task admission without inventing task IDs/scopes.
+- [x] Hard dependencies verified MAIN VERIFIED: IMP-006, IMP-013, IMP-028, IMP-033, IMP-042, IMP-055, IMP-064, IMP-073, IMP-082.
+- [x] Duplicate guard: no pre-existing IMP-100 local/remote branch or PR.
+- [x] Claimed branch `chatgpt/IMP-100-full-contract-regression` from exact main `4f1267010522b9451a88af6f32fdb4fd5b203c11`.
+- [ ] Audit provider-neutral unit/contract/architecture test surfaces and lock one durable regression command.
+- [ ] Run IMP-100 Full Contract Regression once; zero blocking contract failures required.
+- [ ] Record durable JUnit/evidence -> Frozen guard if required by repo workflow -> Git lifecycle/main verification.
+NEXT_EXACT_ACTION = "AUDIT TEST/CONTRACT/ARCHITECTURE COMMAND SURFACES -> LOCK IMP-100 FULL CONTRACT REGRESSION COMMAND -> ANTI-DUPLICATE GUARD -> RUN ONCE WITH DURABLE JUNIT/EVIDENCE"
+
+
+## IMP-100 FULL CONTRACT REGRESSION RUNNING — 2026-10-12
+- [x] Test-surface audit locked: local Windows-valid provider-neutral `tests/unit` envelope; PR CI will run full `tests/unit` on Ubuntu Python 3.10 + 3.13.
+- [~] Regression RUNNING under PTY `pty_5c13226282aaf615d2a68d9f5ebcc9a5638e`, root PID `139328`.
+- JUnit `.tmp/imp100-contract-regression.xml`; basetemp `.tmp/pytest-imp100-contract-regression`.
+- [ ] Finalize PASS/FAIL from PTY exit + final JUnit only; do not restart.
+NEXT_EXACT_ACTION = "MONITOR EXISTING IMP-100 PTY/JUNIT; DO NOT RESTART"
+
+
+## IMP-100 LOCAL FULL CONTRACT REGRESSION JUNIT PASS — 2026-10-13
+- [x] Complete durable JUnit `.tmp/imp100-contract-regression.xml`: 836 tests / 0 failures / 0 errors / 0 skipped.
+- [x] No matching pytest/IMP-100 process remains; do not restart the completed regression.
+- [~] Original PTY expired/unknown; exit code unavailable. This limitation is recorded, not guessed.
+- [x] `git diff --check` exit 0; no remote IMP-100 branch existed at last check; `.tmp/` must not be staged.
+- [ ] Run Frozen Master guard on current IMP-100 worktree.
+- [ ] Exact-worktree static/import/diff review; create/verify tracked evidence.
+- [ ] Side-effect guard -> stage exact intended files -> commit -> push/PR -> full Ubuntu Python 3.10 + 3.13 CI -> review/merge if required -> verify main.
+NEXT_EXACT_ACTION = "RUN python tools/frozen_master_guard.py ON CURRENT IMP-100 WORKTREE; DO NOT RERUN 836-TEST REGRESSION; THEN EXACT-WORKTREE STATIC/IMPORT/DIFF REVIEW AND GIT LIFECYCLE"
+
+
+## IMP-100 FROZEN MASTER GUARD PASS — 2026-10-13
+- [x] Frozen Master guard exit 0 / PASS on the current IMP-100 worktree.
+- [x] Canonical Master semantic SHA256 unchanged: `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
+- [x] Retain local regression JUnit 836/836; do not rerun it.
+- [ ] Final static/import/diff review -> verify tracked evidence/state -> side-effect guard -> stage exact intended files.
+NEXT_EXACT_ACTION = "FINAL STATIC/IMPORT/DIFF REVIEW -> VERIFY TRACKED EVIDENCE/STATE -> SIDE-EFFECT GUARD -> STAGE ONLY INTENDED FILES"
+
+
+## IMP-100 EXACT-WORKTREE REVIEW PASS — 2026-10-13
+- [x] Frozen Master guard PASS.
+- [x] Final static/diff review PASS; `git diff --check` exit 0; no source/test diff.
+- [x] Side-effect guard: no existing IMP-100 commit, remote branch or PR found.
+- [x] Exact intended scope locked to five files; exclude all `.tmp/` runtime/test outputs.
+- [ ] Verify empty index -> stage exact five files -> verify staged diff/diff-check -> commit.
+NEXT_EXACT_ACTION = "VERIFY EMPTY INDEX -> STAGE EXACT 5 INTENDED FILES EXCLUDING .tmp -> VERIFY STAGED DIFF/DIFF-CHECK -> COMMIT"
+
+
+## IMP-100 STALE GIT LOCK RECOVERY — 2026-10-13
+- [x] Verified zero-byte `.git/index.lock` was stale (age > 10 minutes), index older, and no live Git process existed.
+- [x] Removed only that stale lock; worktree preserved and index still empty.
+- [ ] Stage exact five intended files excluding `.tmp/`, verify staged diff and diff-check, then commit.
+NEXT_EXACT_ACTION = "STAGE EXACT 5 INTENDED FILES EXCLUDING .tmp -> VERIFY STAGED DIFF/DIFF-CHECK -> COMMIT"
