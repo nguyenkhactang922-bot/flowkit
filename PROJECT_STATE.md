@@ -6403,3 +6403,18 @@ commits = 3; changed_files = 7
 PR_state = OPEN, not merged; mergeable = false at creation; required checks/review not yet verified
 blocker = none identified; do not merge until exact-head checks and review satisfy repository gates
 NEXT_EXACT_ACTION = "COMMIT PR-CREATION STATE/EVIDENCE SYNC -> PUSH STATE HEAD -> FETCH PR #91 CURRENT HEAD AND WORKFLOW RUNS/JOBS -> REVIEW EXACT HEAD/REQUIRED CHECKS; DO NOT MERGE WHILE GATES ARE PENDING"
+
+
+
+## IMP-101 PR HEAD / CI CHECKPOINT — 2026-10-13
+active_task = IMP-101 Migration Dry Run
+status = PR open; exact-head CI pending; review/main verification pending
+PR = #91, https://github.com/nguyenkhactang922-bot/flowkit/pull/91
+head_checked = `cf1a5835c12ee54a4c8ddb4d44ff03e96f410158`
+base_main = `0c0d977edfc0edfa374d9bc009631516700dab34`
+workflow = `tests`, run `38368157340`, status PENDING for head_checked
+combined_status = no statuses returned; not PASS
+reviews = none submitted; inline threads = none at time of check
+PR_state = OPEN, not merged, mergeable=true at time of check
+warning = state sync commit will move PR head; fetch and verify CI for the new exact SHA after push
+NEXT_EXACT_ACTION = "COMMIT/PUSH PR HEAD + CI PENDING STATE SYNC -> FETCH PR #91 NEW CURRENT HEAD -> FETCH WORKFLOW RUNS/JOBS FOR THAT EXACT SHA -> REVIEW EXACT PR DIFF AND MONITOR UNTIL REQUIRED GATES COMPLETE"

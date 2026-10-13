@@ -5539,3 +5539,12 @@ NEXT_EXACT_ACTION = "COMMIT PUSH-CHECKPOINT STATE/EVIDENCE SYNC -> PUSH THE NEW 
 - [ ] Commit and push this PR-state sync, then fetch the new exact PR head and its CI runs/jobs.
 - [ ] Review exact PR head and required gates; do not merge while checks/review are pending; verify main after merge.
 NEXT_EXACT_ACTION = "COMMIT PR-CREATION STATE/EVIDENCE SYNC -> PUSH STATE HEAD -> FETCH PR #91 CURRENT HEAD AND WORKFLOW RUNS/JOBS -> REVIEW EXACT HEAD/REQUIRED CHECKS; DO NOT MERGE WHILE GATES ARE PENDING"
+
+
+
+## IMP-101 PR HEAD / CI CHECKPOINT — 2026-10-13
+- [x] PR #91 remains open and unmerged; current exact head at inspection: `cf1a5835c12ee54a4c8ddb4d44ff03e96f410158`.
+- [x] Workflow run `38368157340` for that head is pending; no combined statuses, review submissions, or inline review threads were returned at inspection.
+- [ ] Commit/push this state sync; it will change PR head, so fetch and inspect CI for the new exact SHA.
+- [ ] Review the exact PR diff and wait for required checks/review; do not merge while gates are pending.
+NEXT_EXACT_ACTION = "COMMIT/PUSH PR HEAD + CI PENDING STATE SYNC -> FETCH PR #91 NEW CURRENT HEAD -> FETCH WORKFLOW RUNS/JOBS FOR THAT EXACT SHA -> REVIEW EXACT PR DIFF AND MONITOR UNTIL REQUIRED GATES COMPLETE"

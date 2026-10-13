@@ -6184,3 +6184,12 @@ NEXT_EXACT_ACTION = "GOVERNANCE-ONLY STATE SYNC BRANCH/COMMIT/PR -> VERIFY GOVER
 - PR state: OPEN, not merged; base `main` SHA `0c0d977edfc0edfa374d9bc009631516700dab34`; PR head SHA at creation `4d93ee5bf922cf7802d68e75d51973921a8fb137`; 3 commits / 7 changed files.
 - GitHub reports `mergeable=false` at creation. Required checks/review have not yet been verified for this exact head; do not merge.
 - NEXT_EXACT_ACTION = "COMMIT PR-CREATION STATE/EVIDENCE SYNC -> PUSH STATE HEAD -> FETCH PR #91 CURRENT HEAD AND WORKFLOW RUNS/JOBS -> REVIEW EXACT HEAD/REQUIRED CHECKS; DO NOT MERGE WHILE GATES ARE PENDING"
+
+
+
+## IMP-101 PR HEAD / CI CHECKPOINT — 2026-10-13
+- PR #91 is OPEN, not merged, and currently reports mergeable=true. Current exact head verified through GitHub: `cf1a5835c12ee54a4c8ddb4d44ff03e96f410158`; base main SHA remains `0c0d977edfc0edfa374d9bc009631516700dab34`.
+- Workflow run `38368157340` (workflow `tests`, run #195) is `pending` for that exact head at the time checked. Combined status API returned no statuses; this is not a PASS.
+- Review submissions and inline review threads are empty at the time checked. PR body/diff still requires exact-head review. Do not merge while required checks are pending.
+- This state/evidence sync will change PR head and trigger new exact-head CI; after pushing, fetch the new head and its run/job statuses rather than attributing run `38368157340` to the next head.
+- NEXT_EXACT_ACTION = "COMMIT/PUSH PR HEAD + CI PENDING STATE SYNC -> FETCH PR #91 NEW CURRENT HEAD -> FETCH WORKFLOW RUNS/JOBS FOR THAT EXACT SHA -> REVIEW EXACT PR DIFF AND MONITOR UNTIL REQUIRED GATES COMPLETE"

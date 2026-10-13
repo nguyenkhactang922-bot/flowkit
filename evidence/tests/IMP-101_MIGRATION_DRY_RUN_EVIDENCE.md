@@ -101,3 +101,11 @@ Frozen Master evidence:
 - PR is open and not merged. GitHub reported `mergeable=false` at creation; exact-head CI and review are still pending verification.
 - Do not merge until required checks/review are verified against the current exact PR head.
 - NEXT_EXACT_ACTION = `COMMIT PR-CREATION STATE/EVIDENCE SYNC -> PUSH STATE HEAD -> FETCH PR #91 CURRENT HEAD AND WORKFLOW RUNS/JOBS -> REVIEW EXACT HEAD/REQUIRED CHECKS; DO NOT MERGE WHILE GATES ARE PENDING`
+
+
+## Exact PR head and CI observation
+- PR #91 was verified OPEN and unmerged; exact head at this observation: `cf1a5835c12ee54a4c8ddb4d44ff03e96f410158`; base main SHA `0c0d977edfc0edfa374d9bc009631516700dab34`.
+- Workflow run `38368157340` (`tests`, run #195) was `pending` for that exact head. The combined status endpoint returned no statuses; no PASS is claimed.
+- No review submissions or inline review threads were returned at this observation.
+- The following state-sync commit will move PR head. Always fetch the current head and matching CI after push; do not transfer this pending result to a different SHA.
+- NEXT_EXACT_ACTION = `COMMIT/PUSH PR HEAD + CI PENDING STATE SYNC -> FETCH PR #91 NEW CURRENT HEAD -> FETCH WORKFLOW RUNS/JOBS FOR THAT EXACT SHA -> REVIEW EXACT PR DIFF AND MONITOR UNTIL REQUIRED GATES COMPLETE`
