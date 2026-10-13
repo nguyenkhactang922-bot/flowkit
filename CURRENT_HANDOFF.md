@@ -5909,3 +5909,127 @@ NEXT_EXACT_ACTION = "GOVERNANCE-ONLY STATE SYNC BRANCH/COMMIT/PR -> VERIFY GOVER
 - Process/PID: none.
 - Blocker: none.
 - NEXT_EXACT_ACTION: governance-only sync branch/commit/PR for MAIN VERIFIED state; do not rerun targeted/affected/CI/Frozen guard.
+
+
+## TERMINAL QUEUE CHECKPOINT — 2026-10-12
+- IMP-082 governance merge main SHA: `4f1267010522b9451a88af6f32fdb4fd5b203c11`.
+- Governance push-main CI `38238675686`: COMPLETED/SUCCESS on exact SHA; Python 3.10 + 3.13 PASS; Frozen baseline PASS in both jobs.
+- Git: local `main == origin/main == 4f1267010522b9451a88af6f32fdb4fd5b203c11` before this terminal state append.
+- Open PRs: none.
+- Queue inspection: no `IMP-083+` task exists; IMP-082 is the last defined task.
+- Runtime/process: no project test/build/watch process remains required.
+- Queue status: ALL CURRENTLY DEFINED VALID TASKS DONE / MAIN VERIFIED.
+- Terminal-sync rule: do NOT create another governance PR solely to record this governance CI result; that would create an infinite self-referential governance loop. This local terminal state checkpoint is the final handoff source until a new task is added.
+- Blocker: none.
+- NEXT_EXACT_ACTION: NONE — queue exhausted. On a future chat, first re-check repo/Git/runtime and only resume if a new valid task has been added.
+
+
+## FINAL TERMINAL STATE - 2026-10-12
+- main_sha: `4f1267010522b9451a88af6f32fdb4fd5b203c11`
+- governance_push_main_ci: `38238675686` COMPLETED/SUCCESS; Python 3.10 + 3.13 PASS.
+- open_prs: none.
+- later_tasks: none; no IMP-083+ exists in the current queue.
+- runtime: no FlowKit project process remains required.
+- queue_status: ALL CURRENTLY DEFINED VALID TASKS DONE / MAIN VERIFIED.
+- terminal_sync: local state checkpoint only; do not create a self-referential governance PR solely to record this final CI result.
+- blocker: none.
+- NEXT_EXACT_ACTION: NONE. Queue exhausted. On future resume, re-check repo/Git/runtime and proceed only if a new valid task exists.
+
+
+## NEW-TASK ADMISSION / IMP-100 CLAIMED — 2026-10-12
+- User requested `IMP-083`; repo authority check proved no `IMP-083`–`IMP-099` task exists.
+- `tasks/IMPLEMENTATION_TASK_DECOMPOSITION_V1.md` jumps from IMP-082 to SYSTEM ACCEPTANCE LANE IMP-100.
+- Global execution law updated with §13A queue-exhaustion/new-task admission rule; concrete tasks remain in decomposition/queue, not the law.
+- Hard dependencies for IMP-100 verified: IMP-006, IMP-013, IMP-028, IMP-033, IMP-042, IMP-055, IMP-064, IMP-073, IMP-082 MAIN VERIFIED.
+- Duplicate guard: no local/remote IMP-100 branch and no IMP-100 PR existed before claim.
+- ACTIVE_TASK = IMP-100 Full Contract Regression.
+- BRANCH = `chatgpt/IMP-100-full-contract-regression`.
+- BASE_MAIN = `4f1267010522b9451a88af6f32fdb4fd5b203c11`.
+- Goal: run all provider-neutral unit/contract/architecture tests.
+- Acceptance: zero blocking contract failures.
+- Process/PID: none yet.
+- Blocker: none.
+- NEXT_EXACT_ACTION = "AUDIT TEST/CONTRACT/ARCHITECTURE COMMAND SURFACES -> LOCK IMP-100 FULL CONTRACT REGRESSION COMMAND -> ANTI-DUPLICATE GUARD -> RUN ONCE WITH DURABLE JUNIT/EVIDENCE"
+
+
+## IMP-100 FULL CONTRACT REGRESSION RUNNING — 2026-10-12
+- STATUS = RUNNING.
+- PTY = `pty_5c13226282aaf615d2a68d9f5ebcc9a5638e`; root PID `139328`.
+- Command = Windows-valid provider-neutral `tests/unit` regression via isolated Python 3.13, excluding only established Windows-only `test_setup.py`, `test_video_reviewer.py` and two known POSIX assertions.
+- JUnit = `.tmp/imp100-contract-regression.xml`; basetemp = `.tmp/pytest-imp100-contract-regression`.
+- CI acceptance after PR will still run full `tests/unit` on Ubuntu Python 3.10 + 3.13 with no exclusions.
+- Blocker = none.
+- NEXT_EXACT_ACTION = "MONITOR EXISTING IMP-100 PTY/JUNIT; DO NOT RESTART; CLASSIFY FINAL PASS/FAIL FROM EXIT + JUNIT ONLY"
+
+
+## IMP-100 FULL CONTRACT REGRESSION JUNIT PASS / PTY EXPIRED — 2026-10-13
+- Task: IMP-100 Full Contract Regression; branch `chatgpt/IMP-100-full-contract-regression`; HEAD `4f1267010522b9451a88af6f32fdb4fd5b203c11`.
+- Durable JUnit `.tmp/imp100-contract-regression.xml`: 836 tests / 0 failures / 0 errors / 0 skipped; 6,242.369 seconds; XML is complete and contains no failure/error cases.
+- Runtime: no matching pytest/IMP-100 process remains. Recorded PTY `pty_5c13226282aaf615d2a68d9f5ebcc9a5638e` expired/unknown; its exit code cannot be recovered. Test outcome is classified PASS from final JUnit; exit code remains explicitly unavailable.
+- No rerun of the completed 836-test stage. Required full Ubuntu Python 3.10 + 3.13 CI remains an independent exit-status gate after PR.
+- `git diff --check`: exit 0. No remote IMP-100 branch exists yet. Keep `.tmp/` out of Git staging.
+- Blocker: none for the local JUnit acceptance checkpoint; PTY metadata limitation recorded, not concealed.
+- NEXT_EXACT_ACTION = "RUN python tools/frozen_master_guard.py ON CURRENT IMP-100 WORKTREE; DO NOT RERUN 836-TEST REGRESSION; THEN EXACT-WORKTREE STATIC/IMPORT/DIFF REVIEW AND GIT LIFECYCLE"
+
+
+## IMP-100 FROZEN MASTER GUARD PASS — 2026-10-13
+- `python tools/frozen_master_guard.py`: exit 0; `FROZEN_MASTER_GUARD=PASS`.
+- Canonical Master semantic SHA256 unchanged: `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`; raw SHA256 `abb08e8114be3ace0d81ceccf8a3dea45c78a6268c64fae4c332d0644fa1e303`.
+- Retained local regression checkpoint: JUnit 836/836 PASS; original PTY exit remains unavailable; no rerun.
+- NEXT_EXACT_ACTION = "FINAL STATIC/IMPORT/DIFF REVIEW -> VERIFY TRACKED EVIDENCE/STATE -> SIDE-EFFECT GUARD -> STAGE ONLY INTENDED FILES"
+
+
+## IMP-100 EXACT-WORKTREE REVIEW PASS — 2026-10-13
+- `git diff --check`: exit 0; no source/test diff.
+- Intended scope is exactly 5 files: `docs/CHATCODE_GLOBAL_MULTI_PROJECT_EXECUTION_LAW.md`, `CURRENT_HANDOFF.md`, `PROJECT_STATE.md`, `tasks/TASK_QUEUE.md`, `evidence/tests/IMP-100_FULL_CONTRACT_REGRESSION_EVIDENCE.md`.
+- `.tmp/` is runtime/test output and must not be staged.
+- Side-effect guard: no IMP-100 commit found; remote branch absent; `gh pr list --head chatgpt/IMP-100-full-contract-regression --state all` returned `[]`.
+- NEXT_EXACT_ACTION = "VERIFY EMPTY INDEX -> STAGE EXACT 5 INTENDED FILES EXCLUDING .tmp -> VERIFY STAGED DIFF/DIFF-CHECK -> COMMIT"
+
+
+## IMP-100 STALE GIT LOCK RECOVERED — 2026-10-13
+- First exact-file `git add` was blocked by `.git/index.lock`.
+- Recovery evidence: zero-byte lock last written 10:11:52; index last written 2026-10-12 17:57:15; no live Git/Git-remote/Git-LFS process existed.
+- Removed only the stale zero-byte lock after verifying no Git process; worktree status is intact and index remains empty.
+- NEXT_EXACT_ACTION = "STAGE EXACT 5 INTENDED FILES EXCLUDING .tmp -> VERIFY STAGED DIFF/DIFF-CHECK -> COMMIT"
+
+
+## IMP-100 ACCEPTANCE EVIDENCE COMMITTED — 2026-10-13
+- Task: SYSTEM ACCEPTANCE LANE / IMP-100 Full Contract Regression.
+- Local regression outcome: PASS from durable `.tmp/imp100-contract-regression.xml` — 836 tests, 0 failures, 0 errors, 0 skipped; original PTY exit code unavailable and not fabricated. Do not rerun this completed local stage.
+- Frozen Master guard: PASS, exit 0; canonical semantic SHA256 `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`.
+- Branch: `chatgpt/IMP-100-full-contract-regression`; base main: `4f1267010522b9451a88af6f32fdb4fd5b203c11`.
+- Acceptance/evidence commit: `4cd1a51` (`test(acceptance): record IMP-100 contract regression evidence`). Exact staged scope was five intended files; `.tmp/` remains unstaged runtime output.
+- Runtime: no IMP-100 pytest process remains. The only active PTY in FileMCP registry is a separate Tang Video Merge Studio check; it was not touched.
+- Pre-commit side-effect guard found no remote IMP-100 branch and no existing IMP-100 PR. Recheck immediately before push/PR.
+- Blocker: none for local acceptance checkpoint; remote CI still required.
+- NEXT_EXACT_ACTION = "RECHECK GIT/REMOTE/PR -> PUSH IMP-100 BRANCH ONCE -> VERIFY REMOTE HEAD -> CREATE PR ONLY IF NONE EXISTS -> MONITOR FULL UBUNTU PYTHON 3.10 + 3.13 CI"
+
+
+## IMP-100 BRANCH PUSH VERIFIED — 2026-10-13
+- Push result: exit 0; new remote branch `origin/chatgpt/IMP-100-full-contract-regression` created successfully.
+- Pushed HEAD at that checkpoint: `ae84835e547c3a57e389a1061b1c6d2ec0a35f1e` (contains acceptance/evidence commit `4cd1a514c75a72cfdceb1dea0f7874e3e8d01729`).
+- Upstream now tracks `origin/chatgpt/IMP-100-full-contract-regression`; local worktree contains only ignored-by-scope/untracked `.tmp/` runtime evidence and no tracked changes after the push checkpoint append below.
+- The initial generic push command rejected because no upstream was configured; corrected with explicit `git push --set-upstream origin chatgpt/IMP-100-full-contract-regression`, which succeeded. No duplicate push occurred.
+- Blocker: none.
+- NEXT_EXACT_ACTION = "SYNC PUSH CHECKPOINT -> RECHECK REMOTE HEAD AND ALL PR STATES -> CREATE IMP-100 PR ONLY IF ABSENT -> CAPTURE PR NUMBER/HEAD -> MONITOR EXACT-HEAD CI"
+
+
+## IMP-100 PULL REQUEST OPEN — 2026-10-13
+- Pull request: #90, https://github.com/nguyenkhactang922-bot/flowkit/pull/90; title `IMP-100: Full Contract Regression Evidence`.
+- PR state: OPEN, not merged; base `main` at `4f1267010522b9451a88af6f32fdb4fd5b203c11`.
+- PR head when created: `d554d1a0a53ffb81081473762ad57262857ebd46`; branch `chatgpt/IMP-100-full-contract-regression`; 5 changed files. Any subsequent state-sync push will move the PR head, so verify and run checks on the final exact head.
+- Local acceptance remains PASS by durable JUnit (836/836, 0 failures/errors/skips); original PTY exit code unavailable. Frozen Master guard PASS, exit 0. Do not rerun the completed local regression.
+- Required CI: full Ubuntu `tests/unit` on Python 3.10 and 3.13 without exclusions. Do not merge until exact-head checks pass and review is clear.
+- Blocker: none at present; CI/review pending.
+- NEXT_EXACT_ACTION = "SYNC PR CHECKPOINT -> PUSH STATE UPDATE -> FETCH PR #90 FINAL HEAD -> REVIEW EXACT DIFF AND REQUIRED CHECKS -> WAIT/MONITOR CI WITHOUT RERUNNING LOCAL 836-TEST STAGE"
+
+
+## IMP-100 PR DIFF REVIEW / CI MONITORING — 2026-10-13
+- PR #90 remains OPEN and unmerged: https://github.com/nguyenkhactang922-bot/flowkit/pull/90; base `main` SHA `4f1267010522b9451a88af6f32fdb4fd5b203c11`.
+- Exact PR diff reviewed through GitHub: 5 files (`CURRENT_HANDOFF.md`, `PROJECT_STATE.md`, `docs/CHATCODE_GLOBAL_MULTI_PROJECT_EXECUTION_LAW.md`, `evidence/tests/IMP-100_FULL_CONTRACT_REGRESSION_EVIDENCE.md`, `tasks/TASK_QUEUE.md`); no source/test code changes; added queue-admission law and durable state/evidence only.
+- Review submissions and inline review threads were empty at inspection; GitHub reports mergeable=true, but merge remains prohibited while required CI is pending.
+- PR head before this state-sync commit: `2ca7d5d4dd61b4f6588e0d9901514806ca951634`. Workflow `tests`, run `38347480120`, was `pending` for that head. This state-sync commit will move PR head and may trigger a new run; the new exact head and associated checks must be fetched after push.
+- Local regression evidence remains JUnit PASS 836/836; local PTY exit metadata unavailable; Frozen Master guard PASS. Do not rerun the local regression.
+- Blocker: none; exact-head CI and independent review remain pending.
+- NEXT_EXACT_ACTION = "COMMIT/PUSH THIS PR STATE SYNC -> FETCH PR #90 CURRENT HEAD -> FETCH WORKFLOW RUNS AND JOBS FOR THAT EXACT SHA -> MONITOR UNTIL ALL REQUIRED CHECKS COMPLETE; DO NOT MERGE OR RERUN LOCAL JUNIT"

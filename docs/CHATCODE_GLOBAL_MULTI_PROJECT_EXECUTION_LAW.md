@@ -248,6 +248,21 @@ Stop only for:
 
 ---
 
+## 13A. Queue-exhaustion / new-task admission law
+
+When the current queue is exhausted and a new task is requested:
+1. re-check repo/Git/runtime and confirm no existing valid task is already pending;
+2. search frozen task decomposition, dependency graph and accepted design authority for the requested task ID/scope;
+3. do not invent a missing task ID, scope, dependency, acceptance criterion or evidence requirement;
+4. if the task is already defined outside `TASK_QUEUE.md`, admit it by recording its exact goal, hard dependencies, acceptance and evidence in `tasks/TASK_QUEUE.md` plus `CURRENT_HANDOFF.md` and `PROJECT_STATE.md`;
+5. if the requested ID is undefined but a different dependency-ready task is explicitly defined by higher-authority task decomposition, use the defined task rather than fabricating the requested ID, and record the correction;
+6. CLAIM only after all hard dependencies and acceptance/evidence requirements are verified;
+7. then resume the normal mandatory lifecycle without asking for an extra continue confirmation.
+
+A concrete implementation task belongs in the task decomposition/queue, not in this global law. This law governs admission and execution discipline only.
+
+---
+
 ## 14. No-false-DONE law
 
 The following are not equivalent:
