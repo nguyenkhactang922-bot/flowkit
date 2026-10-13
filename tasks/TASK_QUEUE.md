@@ -5530,3 +5530,12 @@ NEXT_EXACT_ACTION = "APPEND/VERIFY POST-COMMIT STATE AND EVIDENCE CHECKPOINT -> 
 - [ ] Commit this push checkpoint state/evidence sync and push that new state head once.
 - [ ] Verify remote HEAD, recheck PR search, create PR only if absent, inspect exact-head CI/review, merge only after gates pass, and verify main.
 NEXT_EXACT_ACTION = "COMMIT PUSH-CHECKPOINT STATE/EVIDENCE SYNC -> PUSH THE NEW STATE HEAD ONCE -> VERIFY REMOTE HEAD -> RECHECK PR SEARCH -> CREATE PR ONLY IF ABSENT"
+
+
+
+## IMP-101 PR CREATED — 2026-10-13
+- [x] PR #91 created only after remote branch and duplicate-PR checks: https://github.com/nguyenkhactang922-bot/flowkit/pull/91.
+- [x] PR head at creation: `4d93ee5bf922cf7802d68e75d51973921a8fb137`; base main SHA `0c0d977edfc0edfa374d9bc009631516700dab34`.
+- [ ] Commit and push this PR-state sync, then fetch the new exact PR head and its CI runs/jobs.
+- [ ] Review exact PR head and required gates; do not merge while checks/review are pending; verify main after merge.
+NEXT_EXACT_ACTION = "COMMIT PR-CREATION STATE/EVIDENCE SYNC -> PUSH STATE HEAD -> FETCH PR #91 CURRENT HEAD AND WORKFLOW RUNS/JOBS -> REVIEW EXACT HEAD/REQUIRED CHECKS; DO NOT MERGE WHILE GATES ARE PENDING"

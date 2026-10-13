@@ -93,3 +93,11 @@ Frozen Master evidence:
 - Upstream `origin/chatgpt/IMP-101-migration-dry-run` is configured; GitHub branch search confirms the branch exists.
 - GitHub PR search for IMP-101 returned no PR at this checkpoint; PR creation remains pending and will be guarded by another search.
 - NEXT_EXACT_ACTION = `COMMIT PUSH-CHECKPOINT STATE/EVIDENCE SYNC -> PUSH THE NEW STATE HEAD ONCE -> VERIFY REMOTE HEAD -> RECHECK PR SEARCH -> CREATE PR ONLY IF ABSENT`
+
+
+## Pull request checkpoint
+- Created PR #91: https://github.com/nguyenkhactang922-bot/flowkit/pull/91.
+- PR head at creation: `4d93ee5bf922cf7802d68e75d51973921a8fb137`; base main: `0c0d977edfc0edfa374d9bc009631516700dab34`.
+- PR is open and not merged. GitHub reported `mergeable=false` at creation; exact-head CI and review are still pending verification.
+- Do not merge until required checks/review are verified against the current exact PR head.
+- NEXT_EXACT_ACTION = `COMMIT PR-CREATION STATE/EVIDENCE SYNC -> PUSH STATE HEAD -> FETCH PR #91 CURRENT HEAD AND WORKFLOW RUNS/JOBS -> REVIEW EXACT HEAD/REQUIRED CHECKS; DO NOT MERGE WHILE GATES ARE PENDING`

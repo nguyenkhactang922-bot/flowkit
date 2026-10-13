@@ -6390,3 +6390,16 @@ PR = absent at latest GitHub search; not yet created
 worktree = only untracked `.tmp/`
 blocker = none identified
 NEXT_EXACT_ACTION = "COMMIT PUSH-CHECKPOINT STATE/EVIDENCE SYNC -> PUSH THE NEW STATE HEAD ONCE -> VERIFY REMOTE HEAD -> RECHECK PR SEARCH -> CREATE PR ONLY IF ABSENT"
+
+
+
+## IMP-101 PR CREATED — 2026-10-13
+active_task = IMP-101 Migration Dry Run
+status = PR open; exact-head CI/review/merge/main verification pending
+PR = #91; URL = https://github.com/nguyenkhactang922-bot/flowkit/pull/91
+base = main @ `0c0d977edfc0edfa374d9bc009631516700dab34`
+head_at_creation = `4d93ee5bf922cf7802d68e75d51973921a8fb137`
+commits = 3; changed_files = 7
+PR_state = OPEN, not merged; mergeable = false at creation; required checks/review not yet verified
+blocker = none identified; do not merge until exact-head checks and review satisfy repository gates
+NEXT_EXACT_ACTION = "COMMIT PR-CREATION STATE/EVIDENCE SYNC -> PUSH STATE HEAD -> FETCH PR #91 CURRENT HEAD AND WORKFLOW RUNS/JOBS -> REVIEW EXACT HEAD/REQUIRED CHECKS; DO NOT MERGE WHILE GATES ARE PENDING"

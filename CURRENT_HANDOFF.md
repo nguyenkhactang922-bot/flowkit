@@ -6176,3 +6176,11 @@ NEXT_EXACT_ACTION = "GOVERNANCE-ONLY STATE SYNC BRANCH/COMMIT/PR -> VERIFY GOVER
 - GitHub branch search now returns `chatgpt/IMP-101-migration-dry-run`; PR search for IMP-101 remains empty. No PR creation has been attempted yet.
 - Worktree contains only untracked `.tmp/` artifacts; no tracked changes are pending.
 - NEXT_EXACT_ACTION = "COMMIT PUSH-CHECKPOINT STATE/EVIDENCE SYNC -> PUSH THE NEW STATE HEAD ONCE -> VERIFY REMOTE HEAD -> RECHECK PR SEARCH -> CREATE PR ONLY IF ABSENT"
+
+
+
+## IMP-101 PR CREATED — 2026-10-13
+- Pull request created after a fresh duplicate check: [PR #91](https://github.com/nguyenkhactang922-bot/flowkit/pull/91), title “IMP-101: Add restart-safe migration dry run”.
+- PR state: OPEN, not merged; base `main` SHA `0c0d977edfc0edfa374d9bc009631516700dab34`; PR head SHA at creation `4d93ee5bf922cf7802d68e75d51973921a8fb137`; 3 commits / 7 changed files.
+- GitHub reports `mergeable=false` at creation. Required checks/review have not yet been verified for this exact head; do not merge.
+- NEXT_EXACT_ACTION = "COMMIT PR-CREATION STATE/EVIDENCE SYNC -> PUSH STATE HEAD -> FETCH PR #91 CURRENT HEAD AND WORKFLOW RUNS/JOBS -> REVIEW EXACT HEAD/REQUIRED CHECKS; DO NOT MERGE WHILE GATES ARE PENDING"
