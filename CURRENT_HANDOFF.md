@@ -6213,3 +6213,23 @@ NEXT_EXACT_ACTION = "GOVERNANCE-ONLY STATE SYNC BRANCH/COMMIT/PR -> VERIFY GOVER
 - Previous affected regression PASS checkpoints remain recorded; no unrelated test file was rerun. The pending CI run `38368452247` belongs to old PR head `21fba3246956cf7f440aa67f49f027bb222f3f26` and must not be treated as validation of this fix.
 - Status: manifest review finding fixed locally and targeted tests PASS; commit/push and CI on the new exact PR head are pending. Do not merge yet.
 - NEXT_EXACT_ACTION = "VERIFY THE SIX-FILE FIX/STATE DIFF -> STAGE ONLY THE SIX INTENDED FILES (EXCLUDE .tmp) -> STAGED DIFF-CHECK -> COMMIT FIX + STATE/EVIDENCE -> PUSH AND VERIFY NEW PR HEAD/CI"
+
+
+
+## IMP-101 MANIFEST HARDENING FIX COMMITTED — 2026-10-13
+- Fix commit: `9ad0d6fec9d5a9fa1d933a3e2f296906a97c644b` — `fix(studio): validate migration resume checkpoints`, parent `21fba3246956cf7f440aa67f49f027bb222f3f26`.
+- Commit contains exactly six intended files (runner, targeted tests, handoff/project/queue state, evidence); `git diff HEAD^ HEAD --check` exit 0; `.tmp/` is not committed.
+- Targeted manifest-hardening tests: 8/8 PASS, exit 0; JUnit `.tmp/imp101-manifest-hardening.xml`; syntax compile and diff-check PASS. Prior unrelated affected regressions and frozen guard checkpoints remain PASS and were not rerun.
+- Remote branch / PR #91 last verified at old SHA `21fba3246956cf7f440aa67f49f027bb222f3f26`; old-head workflow run `38368452247` is not validation of the fix. Push has not occurred yet for commit `9ad0d6f`.
+- NEXT_EXACT_ACTION = "COMMIT POST-FIX STATE/EVIDENCE SYNC -> RECHECK REMOTE STILL AT 21fba32 AND PR #91 OPEN -> PUSH NEW BRANCH HEAD ONCE -> VERIFY REMOTE/PR EXACT SHA -> FETCH CI RUNS/JOBS FOR THAT SHA"
+
+
+
+## IMP-101 PRE-PUSH RESUME CHECK — 2026-10-13 16:08 +07
+- Source-of-truth recheck: project root `E:\FlowKit-Studio-Upgrade`; Git root `E:/FlowKit-Studio-Upgrade`; branch `chatgpt/IMP-101-migration-dry-run`; local HEAD `9ad0d6fec9d5a9fa1d933a3e2f296906a97c644b` (`fix(studio): validate migration resume checkpoints`).
+- Runtime: no active FlowKit pytest/build/frozen-guard process found. The only workspace PTY reported alive belongs to `E:\Tang-VPN-Tool-Studio`; it is unrelated and was not touched. Do not restart any IMP-101 test checkpoint.
+- Latest targeted evidence `.tmp/imp101-manifest-hardening.xml`: 8 tests, 0 failures, 0 errors, 0 skipped; prior recorded process exit 0. Existing targeted/affected regression and frozen-guard PASS checkpoints remain preserved.
+- Side-effect guard: remote branch is still at `21fba3246956cf7f440aa67f49f027bb222f3f26`; local fix commit is not pushed. PR #91 is OPEN, unmerged, base `main` at `0c0d977edfc0edfa374d9bc009631516700dab34`, PR head still `21fba3246956cf7f440aa67f49f027bb222f3f26`. No submitted reviews or inline review threads were found. Workflow run `38368452247` succeeded for the OLD head only; no workflow run exists yet for local fix SHA `9ad0d6f` because it is not pushed. Do not attribute old-head CI to the fix.
+- Git scope before this state sync: the three governance files have a staged 32-line checkpoint; the evidence file has a matching unstaged 9-line checkpoint; `.tmp/` is untracked local runtime evidence and must remain excluded from Git.
+- Current stage classification: implementation/fix checkpoint PASS; overall IMP-101 lifecycle is IN PROGRESS pending state-sync commit, push, exact-head CI/review, merge, and main verification. No blocker identified; merge is prohibited until new-head gates pass.
+- NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md, evidence/tests/IMP-101_MIGRATION_DRY_RUN_EVIDENCE.md -> VERIFY EXACT FOUR-FILE STAGED SET AND git diff --cached --check -> COMMIT STATE/EVIDENCE SYNC -> RECHECK PR #91 OPEN AND REMOTE STILL AT 21fba324 -> PUSH CURRENT LOCAL BRANCH HEAD ONCE -> VERIFY REMOTE/PR EXACT SHA -> FETCH WORKFLOW RUNS/JOBS FOR THAT SHA -> REVIEW EXACT PR DIFF AND REQUIRED GATES; DO NOT MERGE WHILE CI/REVIEW IS PENDING"
