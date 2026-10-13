@@ -6569,3 +6569,15 @@ production_code_changed = no; only test/evidence/governance files changed
 previous_pass_stages = preserved; no reruns of IMP-052..055/IMP-100 or frozen guard
 runtime = no active test/build process; localhost:8100/health unavailable; no live-provider action performed
 NEXT_EXACT_ACTION = "REVIEW THE EXACT SIX-TRACKED-FILE CHANGESET -> STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md, evidence/tests/IMP-101_MIGRATION_DRY_RUN_EVIDENCE.md, evidence/tests/IMP-102_FAILURE_RECOVERY_FAULT_INJECTION_EVIDENCE.md, tests/unit/test_studio_failure_recovery_fault_injection.py -> VERIFY STAGED FILE LIST AND git diff --cached --check -> COMMIT -> PUSH FEATURE BRANCH ONCE -> VERIFY REMOTE SHA AND CREATE PR ONLY IF ABSENT -> CHECK EXACT-HEAD CI/REVIEW -> MERGE ONLY AFTER REQUIRED GATES -> VERIFY MAIN AND CONTINUE QUEUE"
+
+
+## IMP-102 COMMIT CHECKPOINT - 2026-10-13 23:07 +07
+
+implementation_commit = ddcfb9550e7ccb1fae87199f570507dcbc020008
+parent_main_sha = 51a54667f6bd65137bf9293a6a8e922e8d3bb381
+commit_message = test(studio): prove recovery replay across restarts
+commit_scope = six intended files; .tmp excluded
+commit_diff_check = PASS
+targeted_tests = 4/4 PASS; exit 0; .tmp/imp102-targeted.xml
+status = committed locally; pending push/PR/exact-head CI/review/merge/main verification
+NEXT_EXACT_ACTION = "RECHECK REMOTE FEATURE BRANCH AND PR ABSENT -> PUSH CURRENT BRANCH HEAD ONCE -> VERIFY origin BRANCH SHA EQUALS CURRENT HEAD -> CREATE PR ONLY IF ABSENT -> VERIFY PR EXACT HEAD AND CI"

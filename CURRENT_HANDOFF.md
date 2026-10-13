@@ -6349,3 +6349,24 @@ PROCESS = no active project test/build/frozen-guard process
 ARTIFACTS = evidence/tests/IMP-102_FAILURE_RECOVERY_FAULT_INJECTION_EVIDENCE.md; .tmp/imp102-targeted.xml is local-only and must not be committed
 BLOCKER = no blocker for offline tests; localhost:8100/health unavailable, so do not claim live provider/E2E
 NEXT_EXACT_ACTION = "REVIEW THE EXACT SIX-TRACKED-FILE CHANGESET -> STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md, evidence/tests/IMP-101_MIGRATION_DRY_RUN_EVIDENCE.md, evidence/tests/IMP-102_FAILURE_RECOVERY_FAULT_INJECTION_EVIDENCE.md, tests/unit/test_studio_failure_recovery_fault_injection.py -> VERIFY STAGED FILE LIST AND git diff --cached --check -> COMMIT -> PUSH FEATURE BRANCH ONCE -> VERIFY REMOTE SHA AND CREATE PR ONLY IF ABSENT -> CHECK EXACT-HEAD CI/REVIEW -> MERGE ONLY AFTER REQUIRED GATES -> VERIFY MAIN AND CONTINUE QUEUE"
+
+
+## IMP-102 IMPLEMENTATION COMMIT CHECKPOINT - 2026-10-13 23:07 +07
+
+- Test/evidence commit: `ddcfb9550e7ccb1fae87199f570507dcbc020008` (`test(studio): prove recovery replay across restarts`), parent `51a54667f6bd65137bf9293a6a8e922e8d3bb381`.
+- Commit contains exactly six intended files: three governance state files, IMP-101 post-merge evidence, new IMP-102 evidence and new true-restart test module. `.tmp/` was excluded.
+- `git diff HEAD^ HEAD --check` PASS. Working tree has no tracked modifications; only local `.tmp/` runtime evidence remains untracked.
+- No tests were rerun after commit; the new module remains 4/4 PASS with exit 0.
+- NEXT_EXACT_ACTION = "RECHECK REMOTE FEATURE BRANCH AND PR ABSENT -> PUSH CURRENT BRANCH HEAD ONCE -> VERIFY origin BRANCH SHA EQUALS CURRENT HEAD -> CREATE PR ONLY IF ABSENT -> VERIFY PR EXACT HEAD AND CI"
+
+## CURRENT RESUME POINTER - 2026-10-13 23:07 +07
+
+PROJECT_ROOT = E:\FlowKit-Studio-Upgrade
+GIT_ROOT = E:/FlowKit-Studio-Upgrade
+BRANCH = chatgpt/IMP-102-failure-recovery-fault-injection
+IMPLEMENTATION_COMMIT = ddcfb9550e7ccb1fae87199f570507dcbc020008
+STATUS = test/evidence checkpoint committed; push/PR/CI/merge/main verification pending
+PROCESS = no active test/build process
+ARTIFACT = .tmp/imp102-targeted.xml (local-only; excluded from Git)
+BLOCKER = none for offline test scope; localhost:8100/health unavailable for any future live workflow
+NEXT_EXACT_ACTION = "RECHECK REMOTE FEATURE BRANCH AND PR ABSENT -> PUSH CURRENT BRANCH HEAD ONCE -> VERIFY origin BRANCH SHA EQUALS CURRENT HEAD -> CREATE PR ONLY IF ABSENT -> VERIFY PR EXACT HEAD AND CI"

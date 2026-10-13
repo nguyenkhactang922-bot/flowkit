@@ -44,3 +44,11 @@ NEXT_EXACT_ACTION = "ADD THE FOUR TRUE-RESTART FAULT-INJECTION TESTS IN tests/un
 - `git diff --check`: exit 0.
 - These are new true-restart tests that close/reopen the SQLite writer around durable recovery/artifact crash windows. They verify deterministic replay, proof-gated requeue, no second SUBMIT, and idempotent artifact reconciliation. No production implementation file changed.
 - Existing IMP-052..055/IMP-100 PASS checkpoints and Frozen Master guard PASS are retained and were not rerun. No live provider/E2E evidence is claimed; localhost:8100/health was unreachable at bootstrap.
+
+
+## Commit checkpoint - 2026-10-13 23:07 +07
+
+- Commit: `ddcfb9550e7ccb1fae87199f570507dcbc020008`; parent: `51a54667f6bd65137bf9293a6a8e922e8d3bb381`.
+- Message: `test(studio): prove recovery replay across restarts`.
+- Exact commit file list: CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md, evidence/tests/IMP-101_MIGRATION_DRY_RUN_EVIDENCE.md, evidence/tests/IMP-102_FAILURE_RECOVERY_FAULT_INJECTION_EVIDENCE.md, tests/unit/test_studio_failure_recovery_fault_injection.py.
+- `git diff HEAD^ HEAD --check` PASS; `.tmp/` excluded.
