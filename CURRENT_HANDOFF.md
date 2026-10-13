@@ -6013,3 +6013,13 @@ NEXT_EXACT_ACTION = "GOVERNANCE-ONLY STATE SYNC BRANCH/COMMIT/PR -> VERIFY GOVER
 - The initial generic push command rejected because no upstream was configured; corrected with explicit `git push --set-upstream origin chatgpt/IMP-100-full-contract-regression`, which succeeded. No duplicate push occurred.
 - Blocker: none.
 - NEXT_EXACT_ACTION = "SYNC PUSH CHECKPOINT -> RECHECK REMOTE HEAD AND ALL PR STATES -> CREATE IMP-100 PR ONLY IF ABSENT -> CAPTURE PR NUMBER/HEAD -> MONITOR EXACT-HEAD CI"
+
+
+## IMP-100 PULL REQUEST OPEN — 2026-10-13
+- Pull request: #90, https://github.com/nguyenkhactang922-bot/flowkit/pull/90; title `IMP-100: Full Contract Regression Evidence`.
+- PR state: OPEN, not merged; base `main` at `4f1267010522b9451a88af6f32fdb4fd5b203c11`.
+- PR head when created: `d554d1a0a53ffb81081473762ad57262857ebd46`; branch `chatgpt/IMP-100-full-contract-regression`; 5 changed files. Any subsequent state-sync push will move the PR head, so verify and run checks on the final exact head.
+- Local acceptance remains PASS by durable JUnit (836/836, 0 failures/errors/skips); original PTY exit code unavailable. Frozen Master guard PASS, exit 0. Do not rerun the completed local regression.
+- Required CI: full Ubuntu `tests/unit` on Python 3.10 and 3.13 without exclusions. Do not merge until exact-head checks pass and review is clear.
+- Blocker: none at present; CI/review pending.
+- NEXT_EXACT_ACTION = "SYNC PR CHECKPOINT -> PUSH STATE UPDATE -> FETCH PR #90 FINAL HEAD -> REVIEW EXACT DIFF AND REQUIRED CHECKS -> WAIT/MONITOR CI WITHOUT RERUNNING LOCAL 836-TEST STAGE"

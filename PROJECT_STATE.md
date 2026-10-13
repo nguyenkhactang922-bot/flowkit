@@ -6180,3 +6180,18 @@ process = no IMP-100 pytest process remains
 pull_request = none at last search; re-check immediately before create
 blocker = none
 NEXT_EXACT_ACTION = "SYNC PUSH CHECKPOINT -> RECHECK REMOTE HEAD AND ALL PR STATES -> CREATE IMP-100 PR ONLY IF ABSENT -> CAPTURE PR NUMBER/HEAD -> MONITOR EXACT-HEAD CI"
+
+
+## IMP-100 PULL REQUEST OPEN — 2026-10-13
+status = PR OPEN; CI AND REVIEW PENDING; NOT MERGED
+pull_request = #90; URL `https://github.com/nguyenkhactang922-bot/flowkit/pull/90`
+title = `IMP-100: Full Contract Regression Evidence`
+base = `main` at `4f1267010522b9451a88af6f32fdb4fd5b203c11`
+head_at_creation = `d554d1a0a53ffb81081473762ad57262857ebd46`; 5 changed files
+branch = `chatgpt/IMP-100-full-contract-regression`
+local_junit = 836 tests / 0 failures / 0 errors / 0 skipped; PTY exit metadata unavailable; do not rerun
+frozen_guard = PASS, exit 0
+required_ci = full Ubuntu `tests/unit` on Python 3.10 + 3.13 with no exclusions
+merge_gate = exact final PR-head required checks PASS + review clear
+blocker = none; CI/review pending
+NEXT_EXACT_ACTION = "SYNC PR CHECKPOINT -> PUSH STATE UPDATE -> FETCH PR #90 FINAL HEAD -> REVIEW EXACT DIFF AND REQUIRED CHECKS -> WAIT/MONITOR CI WITHOUT RERUNNING LOCAL 836-TEST STAGE"

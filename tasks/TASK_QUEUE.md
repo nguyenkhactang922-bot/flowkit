@@ -5367,3 +5367,13 @@ NEXT_EXACT_ACTION = "RECHECK GIT/REMOTE/PR -> PUSH IMP-100 BRANCH ONCE -> VERIFY
 - [ ] Create IMP-100 PR only if absent; capture exact PR number/head.
 - [ ] Monitor full Ubuntu `tests/unit` CI on Python 3.10 and 3.13 at the exact PR head.
 NEXT_EXACT_ACTION = "SYNC PUSH CHECKPOINT -> RECHECK REMOTE HEAD AND ALL PR STATES -> CREATE IMP-100 PR ONLY IF ABSENT -> CAPTURE PR NUMBER/HEAD -> MONITOR EXACT-HEAD CI"
+
+
+## IMP-100 PULL REQUEST OPEN — 2026-10-13
+- [x] PR #90 created: https://github.com/nguyenkhactang922-bot/flowkit/pull/90.
+- [x] Base main SHA at PR creation: `4f1267010522b9451a88af6f32fdb4fd5b203c11`.
+- [x] Initial PR head: `d554d1a0a53ffb81081473762ad57262857ebd46`; 5 changed files.
+- [ ] Sync PR checkpoint and push state update; then capture the final exact PR head.
+- [ ] Review exact PR diff and monitor full Ubuntu `tests/unit` CI on Python 3.10 + 3.13 without exclusions.
+- [ ] Merge only after required checks pass and review is clear; verify main before marking MAIN VERIFIED.
+NEXT_EXACT_ACTION = "SYNC PR CHECKPOINT -> PUSH STATE UPDATE -> FETCH PR #90 FINAL HEAD -> REVIEW EXACT DIFF AND REQUIRED CHECKS -> WAIT/MONITOR CI WITHOUT RERUNNING LOCAL 836-TEST STAGE"
