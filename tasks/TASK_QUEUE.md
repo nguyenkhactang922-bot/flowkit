@@ -5387,3 +5387,236 @@ NEXT_EXACT_ACTION = "SYNC PR CHECKPOINT -> PUSH STATE UPDATE -> FETCH PR #90 FIN
 - [ ] Push this state sync, fetch the new PR head, and monitor required CI jobs on that exact SHA.
 - [ ] Do not merge until all required checks pass and review is clear; do not rerun the completed local 836-test regression.
 NEXT_EXACT_ACTION = "COMMIT/PUSH THIS PR STATE SYNC -> FETCH PR #90 CURRENT HEAD -> FETCH WORKFLOW RUNS AND JOBS FOR THAT EXACT SHA -> MONITOR UNTIL ALL REQUIRED CHECKS COMPLETE; DO NOT MERGE OR RERUN LOCAL JUNIT"
+
+
+
+## IMP-100 MAIN VERIFIED / IMP-101 CLAIMED — 2026-10-13
+- [x] IMP-100 PR #90 merged at main SHA `0c0d977edfc0edfa374d9bc009631516700dab34`.
+- [x] Exact PR-head CI `38347617423` SUCCESS: Python 3.10 + 3.13; frozen baseline and unit tests PASS.
+- [x] Push-main CI `38348297682` SUCCESS on exact merge SHA: Python 3.10 + 3.13; frozen baseline and unit tests PASS.
+- [x] IMP-100 is MAIN VERIFIED; its 836-test local JUnit stage is retained and not rerun.
+- [x] Anti-duplicate guard: no local/remote `chatgpt/IMP-101-migration-dry-run` branch and no existing IMP-101 PR; new task branch created from exact main SHA.
+- [x] Hard dependencies IMP-080, IMP-081, IMP-082, IMP-100 verified present on main.
+- [~] IMP-101 Migration Dry Run CLAIMED / ANALYZE on `chatgpt/IMP-101-migration-dry-run`.
+- [x] Runtime check: no local `flow_agent.db` and no listener on port 8100; do not represent a synthetic fixture run as live-user migration.
+- [ ] Inspect legacy schema/import/backup contracts; implement read-only source scan, deterministic resumable migration manifest, isolated canonical staging DB, privacy-safe durable report.
+- [ ] Add integration tests using a real temporary SQLite DB populated from the repository legacy schema; prove no narrative inference, idempotent restart/replay, retained evidence, and source DB remains unchanged.
+NEXT_EXACT_ACTION = "INSPECT IMP-080/081/082 CONTRACTS AND LEGACY DB SCHEMA -> DESIGN READ-ONLY, RESTART-SAFE IMP-101 DRY-RUN RUNNER/REPORT -> ADD REAL SQLITE FIXTURE INTEGRATION TESTS; DO NOT MUTATE SOURCE DB OR CALL LIVE PROVIDERS"
+
+
+
+## IMP-101 TARGETED CHECKPOINT 1
+- [x] New module syntax/import succeeded under isolated Python 3.13.
+- [~] Targeted SQLite migration dry-run tests: 2/3 PASS; one assertion mismatch in diagnostic ordering, not in fail-closed behavior.
+- [x] Source-change resume test confirmed the runner refuses to mix changed source snapshots.
+- [ ] Report source fingerprint mismatch before derived run-id mismatch for clearer diagnosis.
+- [ ] Rerun only the IMP-101 targeted test file after that fix; do not rerun IMP-100 stages.
+NEXT_EXACT_ACTION = "REORDER MANIFEST IDENTITY VALIDATION TO REPORT SOURCE_FINGERPRINT FIRST -> RERUN ONLY tests/unit/test_studio_migration_dry_run.py"
+
+
+
+## IMP-101 TARGETED PASS — 2026-10-13
+- [x] New IMP-101 SQLite migration dry-run tests: 3/3 PASS; exit 0.
+- [x] Durable JUnit: `.tmp/imp101-targeted-rerun.xml`; prior failed JUnit `.tmp/imp101-targeted.xml` retained, not overwritten.
+- [x] Source DB remained byte-identical during successful run.
+- [x] Resume/replay is idempotent; changed source snapshot is rejected; raw story/prompt text is absent from mapping/report/staging output.
+- [x] No canonical StoryCore/SceneDramaticBeat/FullShotSpec/ShotIR targets are created by dry-run.
+- [ ] Review code/diff; run affected legacy import, operational projection, backup/restore and persistence regressions.
+- [ ] Capture durable evidence and frozen guard; then proceed to Git lifecycle.
+NEXT_EXACT_ACTION = "REVIEW IMP-101 DIFF AND MIGRATION CONTRACT -> RUN AFFECTED LEGACY-IMPORT/PROJECTION/BACKUP-RESTORE REGRESSION ONLY -> RECORD DURABLE IMP-101 EVIDENCE"
+
+
+
+## IMP-101 TARGETED CHECKPOINT 2 — 2026-10-13
+- [x] Report now exposes mapping counts by source kind and source table without exposing source row IDs.
+- [~] Revised targeted run: 2 passed; 1 assertion mismatch because project-table count includes its media-lineage record.
+- [ ] Adjust test to assert at least one project-table mapping and exact one PROJECT-kind mapping.
+- [ ] Rerun only IMP-101 targeted test file; preserve prior JUnit files.
+NEXT_EXACT_ACTION = "FIX IMP-101 TABLE-COUNT ASSERTION TO ACCOUNT FOR MEDIA LINEAGE RECORDS -> RERUN ONLY tests/unit/test_studio_migration_dry_run.py"
+
+
+
+## IMP-101 TARGETED PASS — 2026-10-13 (report contract)
+- [x] IMP-101 targeted tests: 3/3 PASS; final JUnit `.tmp/imp101-targeted-final2.xml`.
+- [x] Report includes mapping counts by source kind/table; no source row IDs or raw story/prompt/media values.
+- [x] Previous failed-attempt JUnit artifacts remain preserved; final passing JUnit is separate.
+- [ ] Run affected existing legacy-import, operational-scene projection, backup/restore, and persistence regression tests only.
+- [ ] Record evidence, run frozen guard for the changed worktree, review diff, then Git lifecycle.
+NEXT_EXACT_ACTION = "RUN AFFECTED EXISTING REGRESSION: test_studio_legacy_import.py + test_studio_operational_scene_projection.py + test_studio_backup_restore.py + test_studio_persistence.py; DO NOT RERUN THE IMP-101 TARGETED STAGE OR IMP-100 FULL REGRESSION"
+
+
+
+## IMP-101 AFFECTED REGRESSION INTERRUPTED — 2026-10-13
+- [x] Immediate process check after tool failure: no affected pytest/uv process remains.
+- [x] No complete affected JUnit exists; partial basetemp artifacts are not PASS evidence.
+- [~] Affected regression command classified INTERRUPTED.
+- [x] IMP-101 targeted 3/3 PASS checkpoint preserved.
+- [ ] Run existing affected test files one at a time, each with independent JUnit/basetemp; do not rerun IMP-100 full contract regression.
+NEXT_EXACT_ACTION = "RUN tests/unit/test_studio_legacy_import.py ALONE WITH NEW JUNIT/BASETEMP; THEN RUN REMAINING AFFECTED FILES ONE AT A TIME"
+
+
+
+## IMP-101 AFFECTED CHECKPOINT — LEGACY IMPORT PASS
+- [x] Existing `test_studio_legacy_import.py`: 9/9 PASS; JUnit `.tmp/imp101-legacy-import.xml`.
+- [ ] Run `test_studio_operational_scene_projection.py` independently with its own JUnit/basetemp.
+NEXT_EXACT_ACTION = "RUN tests/unit/test_studio_operational_scene_projection.py ALONE WITH NEW JUNIT/BASETEMP"
+
+
+
+## IMP-101 AFFECTED CHECKPOINT — OPERATIONAL PROJECTION PASS
+- [x] Existing `test_studio_operational_scene_projection.py`: 7/7 PASS; JUnit `.tmp/imp101-projection.xml`.
+- [x] Existing `test_studio_legacy_import.py`: 9/9 PASS; JUnit `.tmp/imp101-legacy-import.xml`.
+- [x] New IMP-101 targeted: 3/3 PASS; JUnit `.tmp/imp101-targeted-final2.xml`.
+- [ ] Run `test_studio_backup_restore.py` independently with its own JUnit/basetemp.
+NEXT_EXACT_ACTION = "RUN tests/unit/test_studio_backup_restore.py ALONE WITH NEW JUNIT/BASETEMP"
+
+
+
+## IMP-101 AFFECTED CHECKPOINT — BACKUP / RESTORE PASS
+- [x] Existing `test_studio_backup_restore.py`: 10/10 PASS; JUnit `.tmp/imp101-backup-restore.xml`.
+- [x] Existing legacy import: 9/9 PASS; operational projection: 7/7 PASS; new IMP-101 targeted: 3/3 PASS.
+- [ ] Run `test_studio_persistence.py` independently with its own JUnit/basetemp.
+NEXT_EXACT_ACTION = "RUN tests/unit/test_studio_persistence.py ALONE WITH NEW JUNIT/BASETEMP"
+
+
+
+## IMP-101 AFFECTED CHECKPOINT — PERSISTENCE PASS — 2026-10-13
+- [x] `tests/unit/test_studio_persistence.py`: 12/12 PASS, 0 failures/errors/skips; JUnit `.tmp/imp101-persistence.xml`.
+- [x] Affected regression checkpoints are all complete: targeted 3/3, legacy import 9/9, operational projection 7/7, backup/restore 10/10, persistence 12/12.
+- [ ] Review IMP-101 migration contract, diff, and failure paths.
+- [ ] Run frozen Master guard and static/syntax/diff-check on the current worktree.
+- [ ] Record evidence, stage only intentional source/test/state files (never `.tmp/`), commit and follow required push/PR/review/merge/main-verification lifecycle.
+NEXT_EXACT_ACTION = "REVIEW IMP-101 MIGRATION CONTRACT/DIFF AND FAILURE PATHS -> RUN FROZEN MASTER GUARD ON CURRENT WORKTREE -> RUN STATIC/SYNTAX/DIFF-CHECK -> SYNC EVIDENCE AND PREPARE EXACT-FILE GIT LIFECYCLE; DO NOT RERUN ANY PASS TEST FILE"
+
+
+
+## IMP-101 CONTRACT REVIEW / FROZEN GUARD PASS — 2026-10-13
+- [x] Reviewed IMP-101 acceptance and the migration runner against the IMP-080 mapping-only boundary; no silent narrative inference or canonical creative targets are introduced.
+- [x] Targeted migration dry-run tests: 3/3 PASS; JUnit `.tmp/imp101-targeted-final2.xml`.
+- [x] Affected regression: legacy import 9/9, operational projection 7/7, backup/restore 10/10, persistence JUnit 12/12. Persistence process exit metadata is unavailable and is not inferred from JUnit.
+- [x] Frozen Master guard PASS (exit 0); Python compileall PASS (exit 0); `git diff --check` PASS (exit 0).
+- [x] Durable evidence file created: `evidence/tests/IMP-101_MIGRATION_DRY_RUN_EVIDENCE.md`.
+- [ ] Recheck empty index and exact worktree; stage only the seven intended source/test/fixture/evidence/state files; exclude `.tmp/`.
+- [ ] Inspect staged diff and `git diff --cached --check`; commit only after the exact scope is verified.
+- [ ] Push once, verify remote head, create PR only if absent, review exact PR head and required CI/review gates, merge only after all required gates pass, then verify main.
+NEXT_EXACT_ACTION = "RECHECK EMPTY INDEX AND EXACT WORKTREE -> STAGE ONLY THE SEVEN INTENDED IMP-101 FILES (EXCLUDE .tmp) -> REVIEW STAGED DIFF AND DIFF-CHECK -> COMMIT"
+
+
+
+## IMP-101 STAGED DIFF REVIEW PASS — 2026-10-13
+- [x] Exact staged allowlist contains only seven intended files: migration runner, targeted test, synthetic fixture, durable evidence, and three governance state files.
+- [x] Staged diff reviewed; 7 files / 1,679 insertions; `git diff --cached --check` exit 0.
+- [x] Local `.tmp/` artifacts are not staged.
+- [ ] Recheck the exact staged set and commit IMP-101 implementation/evidence/state.
+- [ ] Push once; verify remote head; create PR only if absent; wait for exact-head CI and required review; merge only after gates pass; verify main.
+NEXT_EXACT_ACTION = "RECHECK EXACT SEVEN-FILE STAGED SET AND STAGED DIFF-CHECK -> COMMIT IMP-101 IMPLEMENTATION/EVIDENCE/STATE"
+
+
+
+## IMP-101 IMPLEMENTATION COMMIT VERIFIED — 2026-10-13
+- [x] Implementation commit `ff332976a0f396c92845f178c325b8d1c381b55b` created on `chatgpt/IMP-101-migration-dry-run` from `0c0d977edfc0edfa374d9bc009631516700dab34`.
+- [x] Commit contains exactly seven intended files; commit diff-check PASS; `.tmp/` excluded.
+- [x] Worktree after commit contains only untracked local `.tmp/` test/runtime artifacts.
+- [ ] Commit the post-commit state/evidence sync, then recheck remote branch/PR and push once.
+- [ ] Verify remote HEAD, create PR only if absent, inspect exact-head CI and review, merge only after required gates pass, then verify main.
+NEXT_EXACT_ACTION = "APPEND/VERIFY POST-COMMIT STATE AND EVIDENCE CHECKPOINT -> COMMIT STATE SYNC -> RECHECK REMOTE BRANCH/PR -> PUSH BRANCH ONCE -> VERIFY REMOTE HEAD -> CREATE PR ONLY IF ABSENT"
+
+
+
+## IMP-101 BRANCH PUSH VERIFIED — 2026-10-13
+- [x] Push completed with exit 0; upstream configured.
+- [x] Exact remote branch head verified by `git ls-remote`: `7f1186634c621050e5d114d17cef2feb50dfc393`, equal to local HEAD.
+- [x] GitHub branch search finds the task branch; PR search is empty, so no duplicate PR exists.
+- [ ] Commit this push checkpoint state/evidence sync and push that new state head once.
+- [ ] Verify remote HEAD, recheck PR search, create PR only if absent, inspect exact-head CI/review, merge only after gates pass, and verify main.
+NEXT_EXACT_ACTION = "COMMIT PUSH-CHECKPOINT STATE/EVIDENCE SYNC -> PUSH THE NEW STATE HEAD ONCE -> VERIFY REMOTE HEAD -> RECHECK PR SEARCH -> CREATE PR ONLY IF ABSENT"
+
+
+
+## IMP-101 PR CREATED — 2026-10-13
+- [x] PR #91 created only after remote branch and duplicate-PR checks: https://github.com/nguyenkhactang922-bot/flowkit/pull/91.
+- [x] PR head at creation: `4d93ee5bf922cf7802d68e75d51973921a8fb137`; base main SHA `0c0d977edfc0edfa374d9bc009631516700dab34`.
+- [ ] Commit and push this PR-state sync, then fetch the new exact PR head and its CI runs/jobs.
+- [ ] Review exact PR head and required gates; do not merge while checks/review are pending; verify main after merge.
+NEXT_EXACT_ACTION = "COMMIT PR-CREATION STATE/EVIDENCE SYNC -> PUSH STATE HEAD -> FETCH PR #91 CURRENT HEAD AND WORKFLOW RUNS/JOBS -> REVIEW EXACT HEAD/REQUIRED CHECKS; DO NOT MERGE WHILE GATES ARE PENDING"
+
+
+
+## IMP-101 PR HEAD / CI CHECKPOINT — 2026-10-13
+- [x] PR #91 remains open and unmerged; current exact head at inspection: `cf1a5835c12ee54a4c8ddb4d44ff03e96f410158`.
+- [x] Workflow run `38368157340` for that head is pending; no combined statuses, review submissions, or inline review threads were returned at inspection.
+- [ ] Commit/push this state sync; it will change PR head, so fetch and inspect CI for the new exact SHA.
+- [ ] Review the exact PR diff and wait for required checks/review; do not merge while gates are pending.
+NEXT_EXACT_ACTION = "COMMIT/PUSH PR HEAD + CI PENDING STATE SYNC -> FETCH PR #91 NEW CURRENT HEAD -> FETCH WORKFLOW RUNS/JOBS FOR THAT EXACT SHA -> REVIEW EXACT PR DIFF AND MONITOR UNTIL REQUIRED GATES COMPLETE"
+
+
+
+## IMP-101 REVIEW GATE FAIL — MANIFEST INTEGRITY GAP — 2026-10-13
+- [x] Reviewed exact PR head `21fba3246956cf7f440aa67f49f027bb222f3f26`; PR #91 remains open/unmerged.
+- [x] Identified a manifest corruption fail-open risk: missing validation of total source record count, integrity/FK summary fields, complete checkpoint-set coverage/uniqueness, and artifact/source-key binding.
+- [x] Preserve prior PASS checkpoints, but do not merge based on them while this review finding remains open.
+- [ ] Harden manifest identity/checkpoint validation and artifact source-key validation; add targeted negative tests.
+- [ ] Rerun only `tests/unit/test_studio_migration_dry_run.py` after the fix; then diff-check and push the fix.
+- [ ] Verify all required CI/review gates on the new exact PR head before merge.
+NEXT_EXACT_ACTION = "HARDEN IMP-101 MANIFEST IDENTITY/CHECKPOINT SET AND ARTIFACT SOURCE-KEY VALIDATION -> ADD NEGATIVE TESTS FOR TAMPERED COMPLETE MANIFEST/REBOUND MAPPING -> RERUN ONLY tests/unit/test_studio_migration_dry_run.py -> DIFF-CHECK AND PUSH FIX; THEN VERIFY CI ON THE NEW EXACT PR HEAD"
+
+
+
+## IMP-101 MANIFEST INTEGRITY HARDENING — TARGETED PASS — 2026-10-13
+- [x] Fixed manifest/source identity validation: bind integrity result, foreign-key violation count, context-only tables, and total record count to the source snapshot.
+- [x] Validate manifest checkpoint keys for source membership and uniqueness; COMPLETE manifests must cover the entire source key set.
+- [x] Verify each persisted mapping artifact's actual source kind/table/ID hashes to the manifest checkpoint key.
+- [x] Targeted migration tests after fix: **8/8 PASS**, JUnit `.tmp/imp101-manifest-hardening.xml`, exit 0, 0 failures/errors/skips.
+- [x] Syntax compile and `git diff --check` PASS (exit 0); frozen Master unchanged, existing guard PASS retained.
+- [ ] Stage only six intended changed files (migration runner, targeted tests, three state files, evidence); exclude `.tmp/`.
+- [ ] Review staged diff, commit fix/state/evidence, push, then verify CI on the new exact PR #91 head.
+NEXT_EXACT_ACTION = "VERIFY THE SIX-FILE FIX/STATE DIFF -> STAGE ONLY THE SIX INTENDED FILES (EXCLUDE .tmp) -> STAGED DIFF-CHECK -> COMMIT FIX + STATE/EVIDENCE -> PUSH AND VERIFY NEW PR HEAD/CI"
+
+
+
+## IMP-101 MANIFEST HARDENING FIX COMMITTED — 2026-10-13
+- [x] Fix commit `9ad0d6fec9d5a9fa1d933a3e2f296906a97c644b` created; commit diff-check PASS; `.tmp/` excluded.
+- [x] Targeted manifest-hardening suite 8/8 PASS, exit 0; previous PASS checkpoints preserved.
+- [ ] Commit this post-fix state/evidence sync, then push the new branch head once.
+- [ ] Verify exact remote/PR head, update PR #91 validation text, fetch CI for the new SHA, review and wait for required gates; do not merge early.
+NEXT_EXACT_ACTION = "COMMIT POST-FIX STATE/EVIDENCE SYNC -> RECHECK REMOTE STILL AT 21fba32 AND PR #91 OPEN -> PUSH NEW BRANCH HEAD ONCE -> VERIFY REMOTE/PR EXACT SHA -> FETCH CI RUNS/JOBS FOR THAT SHA"
+
+
+
+## IMP-101 PRE-PUSH RESUME CHECK — 2026-10-13 16:08 +07
+- Source-of-truth recheck: project root `E:\FlowKit-Studio-Upgrade`; Git root `E:/FlowKit-Studio-Upgrade`; branch `chatgpt/IMP-101-migration-dry-run`; local HEAD `9ad0d6fec9d5a9fa1d933a3e2f296906a97c644b` (`fix(studio): validate migration resume checkpoints`).
+- Runtime: no active FlowKit pytest/build/frozen-guard process found. The only workspace PTY reported alive belongs to `E:\Tang-VPN-Tool-Studio`; it is unrelated and was not touched. Do not restart any IMP-101 test checkpoint.
+- Latest targeted evidence `.tmp/imp101-manifest-hardening.xml`: 8 tests, 0 failures, 0 errors, 0 skipped; prior recorded process exit 0. Existing targeted/affected regression and frozen-guard PASS checkpoints remain preserved.
+- Side-effect guard: remote branch is still at `21fba3246956cf7f440aa67f49f027bb222f3f26`; local fix commit is not pushed. PR #91 is OPEN, unmerged, base `main` at `0c0d977edfc0edfa374d9bc009631516700dab34`, PR head still `21fba3246956cf7f440aa67f49f027bb222f3f26`. No submitted reviews or inline review threads were found. Workflow run `38368452247` succeeded for the OLD head only; no workflow run exists yet for local fix SHA `9ad0d6f` because it is not pushed. Do not attribute old-head CI to the fix.
+- Git scope before this state sync: the three governance files have a staged 32-line checkpoint; the evidence file has a matching unstaged 9-line checkpoint; `.tmp/` is untracked local runtime evidence and must remain excluded from Git.
+- Current stage classification: implementation/fix checkpoint PASS; overall IMP-101 lifecycle is IN PROGRESS pending state-sync commit, push, exact-head CI/review, merge, and main verification. No blocker identified; merge is prohibited until new-head gates pass.
+- NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md, evidence/tests/IMP-101_MIGRATION_DRY_RUN_EVIDENCE.md -> VERIFY EXACT FOUR-FILE STAGED SET AND git diff --cached --check -> COMMIT STATE/EVIDENCE SYNC -> RECHECK PR #91 OPEN AND REMOTE STILL AT 21fba324 -> PUSH CURRENT LOCAL BRANCH HEAD ONCE -> VERIFY REMOTE/PR EXACT SHA -> FETCH WORKFLOW RUNS/JOBS FOR THAT SHA -> REVIEW EXACT PR DIFF AND REQUIRED GATES; DO NOT MERGE WHILE CI/REVIEW IS PENDING"
+
+
+
+## IMP-101 PUSH VERIFIED — 2026-10-13 16:09 +07
+- Push completed with exit 0 from old remote `21fba3246956cf7f440aa67f49f027bb222f3f26` to local/remote HEAD `25cbb8386bac9ebaedb54f9c2c5ef0bce3a76bae`; local and `git ls-remote` SHA match. Worktree has no tracked changes; `.tmp/` remains untracked and excluded.
+- GitHub PR #91 is still OPEN and unmerged; exact current head verified as `25cbb8386bac9ebaedb54f9c2c5ef0bce3a76bae`, base `main` at `0c0d977edfc0edfa374d9bc009631516700dab34`, mergeable=true at inspection. No submitted reviews or inline review threads were returned.
+- Workflow run `38375082331` (`tests`) is IN_PROGRESS for SHA `25cbb8386bac9ebaedb54f9c2c5ef0bce3a76bae`. This checkpoint's required state/evidence sync will move the PR head; run `38375082331` must not be treated as validation of the next head. Fetch runs/jobs for the exact SHA after the state-sync push.
+- No FlowKit local test/build process is running. All prior targeted/affected test PASS checkpoints remain preserved; do not rerun them merely to recover process metadata. Merge remains prohibited until exact-head CI and review gates pass.
+- NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md, evidence/tests/IMP-101_MIGRATION_DRY_RUN_EVIDENCE.md -> VERIFY EXACT FOUR-FILE STAGED SET AND git diff --cached --check -> COMMIT PUSH-CHECKPOINT STATE/EVIDENCE -> RECHECK PR #91 AND REMOTE HEAD -> PUSH THE NEW STATE HEAD ONCE -> VERIFY EXACT PR SHA -> FETCH WORKFLOW RUNS/JOBS FOR THAT SHA -> REVIEW EXACT PR DIFF AND REQUIRED GATES; DO NOT MERGE WHILE CI/REVIEW IS PENDING"
+
+
+
+## IMP-101 EXACT-HEAD REVIEW CHECKPOINT — 2026-10-13 16:10 +07
+- PR #91 exact head `383ecdf62a89e57101b1a643bb81f599b1cb2e7d` was verified against GitHub; base `main` remains `0c0d977edfc0edfa374d9bc009631516700dab34`; PR remains OPEN/unmerged and mergeable=true at inspection.
+- CI run `38375303187` (`tests`) is PENDING for exact head `383ecdf62a89e57101b1a643bb81f599b1cb2e7d`; its job list was empty while pending. This run will be stale once the following state-sync commit is pushed. Fetch the workflow run for the new exact SHA and do not infer PASS from the old run.
+- Exact diff self-review PASS for the manifest hardening: source snapshot identity now includes integrity/FK/context/table/total fields; checkpoint entries are dicts, source-member keys, and unique; COMPLETE requires full source-key coverage; persisted mapping source kind/table/ID must hash to the checkpoint key; negative tests cover incomplete/rewritten totals, duplicate checkpoints, source-key rebinding, and tampered FK summary. No new issue found in this focused review. This is self-review only; GitHub currently has no submitted reviews or inline review threads, so any repository-required independent approval remains unverified.
+- Local targeted JUnit `.tmp/imp101-manifest-hardening.xml` is 8/8 with 0 failures/errors/skips; recorded process exit 0. All earlier PASS checkpoints are retained; no test rerun is justified by stream loss.
+- Latest push `383ecdf` was verified local=remote; worktree has only untracked `.tmp/` artifacts, excluded from Git. No FlowKit test/build process is active; the remaining PTY belongs to another repository and is untouched.
+- NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md, evidence/tests/IMP-101_MIGRATION_DRY_RUN_EVIDENCE.md -> VERIFY EXACT FOUR-FILE STAGED SET AND git diff --cached --check -> COMMIT EXACT-HEAD REVIEW/CI-PENDING STATE SYNC -> RECHECK PR #91/REMOTE HEAD -> PUSH NEW STATE HEAD ONCE -> VERIFY NEW EXACT PR SHA -> FETCH WORKFLOW RUNS/JOBS AND REQUIRED STATUS FOR THAT SHA -> MONITOR UNTIL GATES COMPLETE; DO NOT MERGE WITHOUT REQUIRED CI/REVIEW PASS"
+
+
+
+## IMP-101 EXACT-HEAD CI PASS — 2026-10-13
+- Exact PR head `5973b75319f21f7b27a114e1755ef512159825fd` passed workflow `tests`, run `38375924080`, conclusion `success`. Both jobs `unit (3.10)` and `unit (3.13)` completed successfully; in each job, `Verify frozen Master baseline` and `Run unit tests` steps concluded `success`.
+- PR #91 remained OPEN/unmerged at that exact head, base `main` SHA `0c0d977edfc0edfa374d9bc009631516700dab34`, mergeable=true at inspection. GitHub returned no review submissions or inline review threads; previous PR #90 was merged with no submitted reviews. Exact PR diff self-review found no remaining issue in the focused manifest-hardening change.
+- PR body validation text still names run `38375924080` as in progress; update it after the next state-sync push to reflect that run as PASS and identify the new exact-head run accurately.
+- This state sync will create a new commit and therefore move the PR head; run `38375924080` is PASS evidence only for SHA `5973b75319f21f7b27a114e1755ef512159825fd`, not the next SHA. Do not merge until CI is verified on the final exact PR head.
+- Prior targeted 8/8 PASS and affected regression PASS checkpoints remain preserved; no local test rerun. Worktree had only untracked `.tmp/` runtime artifacts, excluded from Git; no FlowKit process is running.
+- NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md, evidence/tests/IMP-101_MIGRATION_DRY_RUN_EVIDENCE.md -> VERIFY EXACT FOUR-FILE STAGED SET AND git diff --cached --check -> COMMIT CI-PASS STATE SYNC -> RECHECK PR #91 AND REMOTE HEAD -> PUSH NEW STATE HEAD ONCE -> VERIFY NEW EXACT PR SHA -> FETCH WORKFLOW RUNS/JOBS FOR THAT SHA -> UPDATE PR VALIDATION TEXT TO THE EXACT-HEAD RESULT -> MERGE ONLY IF FINAL CI AND ALL REQUIRED GATES PASS -> CHECKOUT/PULL MAIN AND VERIFY MAIN"
