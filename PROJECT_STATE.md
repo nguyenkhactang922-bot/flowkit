@@ -6195,3 +6195,18 @@ required_ci = full Ubuntu `tests/unit` on Python 3.10 + 3.13 with no exclusions
 merge_gate = exact final PR-head required checks PASS + review clear
 blocker = none; CI/review pending
 NEXT_EXACT_ACTION = "SYNC PR CHECKPOINT -> PUSH STATE UPDATE -> FETCH PR #90 FINAL HEAD -> REVIEW EXACT DIFF AND REQUIRED CHECKS -> WAIT/MONITOR CI WITHOUT RERUNNING LOCAL 836-TEST STAGE"
+
+
+## IMP-100 PR DIFF REVIEW / CI MONITORING — 2026-10-13
+status = PR OPEN; EXACT-HEAD CI PENDING; NOT MERGED
+pull_request = #90; `https://github.com/nguyenkhactang922-bot/flowkit/pull/90`
+base_main = `4f1267010522b9451a88af6f32fdb4fd5b203c11`
+branch = `chatgpt/IMP-100-full-contract-regression`
+head_before_this_state_sync = `2ca7d5d4dd61b4f6588e0d9901514806ca951634`
+workflow = `tests` run `38347480120`, status `pending` on pre-sync head
+review = exact 5-file diff inspected; governance/evidence/state only; no source/test code changes; no review submissions or inline threads at inspection
+mergeable_metadata = true, but do not merge while checks pending
+local_junit = 836 tests / 0 failures / 0 errors / 0 skipped; PTY exit metadata unavailable; do not rerun
+frozen_guard = PASS, exit 0
+blocker = none; exact-head CI and independent review pending
+NEXT_EXACT_ACTION = "COMMIT/PUSH THIS PR STATE SYNC -> FETCH PR #90 CURRENT HEAD -> FETCH WORKFLOW RUNS AND JOBS FOR THAT EXACT SHA -> MONITOR UNTIL ALL REQUIRED CHECKS COMPLETE; DO NOT MERGE OR RERUN LOCAL JUNIT"

@@ -5377,3 +5377,13 @@ NEXT_EXACT_ACTION = "SYNC PUSH CHECKPOINT -> RECHECK REMOTE HEAD AND ALL PR STAT
 - [ ] Review exact PR diff and monitor full Ubuntu `tests/unit` CI on Python 3.10 + 3.13 without exclusions.
 - [ ] Merge only after required checks pass and review is clear; verify main before marking MAIN VERIFIED.
 NEXT_EXACT_ACTION = "SYNC PR CHECKPOINT -> PUSH STATE UPDATE -> FETCH PR #90 FINAL HEAD -> REVIEW EXACT DIFF AND REQUIRED CHECKS -> WAIT/MONITOR CI WITHOUT RERUNNING LOCAL 836-TEST STAGE"
+
+
+## IMP-100 PR DIFF REVIEW / CI MONITORING — 2026-10-13
+- [x] PR #90 open; base main `4f1267010522b9451a88af6f32fdb4fd5b203c11`.
+- [x] Exact 5-file PR diff reviewed; governance/state/evidence only, no source/test code changes.
+- [x] No review submissions or inline review threads found at inspection.
+- [~] Workflow `tests` run `38347480120` was pending on pre-sync head `2ca7d5d4dd61b4f6588e0d9901514806ca951634`; this state-sync push may create a new exact-head run.
+- [ ] Push this state sync, fetch the new PR head, and monitor required CI jobs on that exact SHA.
+- [ ] Do not merge until all required checks pass and review is clear; do not rerun the completed local 836-test regression.
+NEXT_EXACT_ACTION = "COMMIT/PUSH THIS PR STATE SYNC -> FETCH PR #90 CURRENT HEAD -> FETCH WORKFLOW RUNS AND JOBS FOR THAT EXACT SHA -> MONITOR UNTIL ALL REQUIRED CHECKS COMPLETE; DO NOT MERGE OR RERUN LOCAL JUNIT"
