@@ -189,3 +189,10 @@ Frozen Master evidence:
 - Main push CI `38381133828`: SUCCESS on the exact merge SHA. Python 3.10 (6m05s) and Python 3.13 (6m54s) jobs passed, including the Frozen Master guard and full unit-test step.
 - No local tests were rerun after the existing PASS checkpoints. The repository contains no local `flow_agent.db`; only synthetic SQLite migration evidence is claimed.
 - No blocker. Next dependency-ready task is IMP-102 Failure / Recovery Fault Injection, dependent on IMP-052/053/054/055/100 MAIN VERIFIED.
+
+
+## POST-MERGE GOVERNANCE VERIFICATION — 2026-10-13 22:42 +07
+
+- Governance PR #92, `IMP-101: Record main verification and queue IMP-102`, is MERGED at `51a54667f6bd65137bf9293a6a8e922e8d3bb381` (PR head `f115c8c722e421da043fe06b67c3d41c9daa85d3`).
+- Main push CI run `38383519269` completed with conclusion `success` for the exact merge SHA. Local `main` and `origin/main` matched before feature branch creation.
+- Next dependency-ready task: IMP-102 Failure / Recovery Fault Injection; dependencies IMP-052/053/054/055/100 are MAIN VERIFIED. Its scope is local crash/restart/provider-ambiguity/artifact-failure proof; no live provider/E2E claim is made.

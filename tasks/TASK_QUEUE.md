@@ -5638,3 +5638,42 @@ NEXT_EXACT_ACTION = "COMMIT POST-FIX STATE/EVIDENCE SYNC -> RECHECK REMOTE STILL
 - [ ] Commit/push the exact four-file governance state/evidence sync, open PR only if absent, verify exact-head CI, merge after required gates, then verify governance merge on main.
 - [ ] After governance main verification, create the IMP-102 feature branch from the exact updated main SHA, claim it in the state files, audit Frozen Master §§69–71 and current GenerationJob/Scheduler/Recovery/Artifact failure surfaces before code.
 NEXT_EXACT_ACTION = "VERIFY EXACT FOUR-FILE GOVERNANCE STATE/EVIDENCE DIFF -> STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md, evidence/tests/IMP-101_MIGRATION_DRY_RUN_EVIDENCE.md -> git diff --cached --check -> COMMIT GOVERNANCE STATE SYNC -> PUSH BRANCH ONCE -> CREATE PR ONLY IF ABSENT -> VERIFY GOVERNANCE PR CI ON EXACT HEAD -> MERGE ONLY AFTER REQUIRED GATES PASS -> CHECKOUT/PULL MAIN AND VERIFY GOVERNANCE MERGE CI -> CREATE IMP-102 FEATURE BRANCH FROM EXACT UPDATED MAIN SHA -> CLAIM IMP-102 AND AUDIT FROZEN AUTHORITY/CURRENT FAILURE-RECOVERY SURFACES"
+
+
+## IMP-101 GOVERNANCE SYNC MAIN VERIFIED / IMP-102 CLAIMED — 2026-10-13 22:42 +07
+
+- [x] Governance PR #92 merged; merge commit `51a54667f6bd65137bf9293a6a8e922e8d3bb381`.
+- [x] Push CI run `38383519269` SUCCESS on exact merge/main SHA `51a54667f6bd65137bf9293a6a8e922e8d3bb381`.
+- [x] Frozen Master semantic hash matches manifest after CRLF-to-LF normalization; frozen files unchanged.
+- [x] IMP-102 duplicate guard passed; no pre-existing branch/PR. Branch `chatgpt/IMP-102-failure-recovery-fault-injection` created from exact verified main SHA.
+- [x] IMP-102 CLAIMED; hard dependencies IMP-052/053/054/055/100 MAIN VERIFIED.
+- [ ] Audit Frozen Master §§69–71, GenerationJob/Scheduler/Recovery/Artifact code, existing unit tests and accepted evidence; record the fault-injection coverage gap matrix before code changes.
+- [ ] Implement only uncovered crash/restart/provider ambiguity/artifact-failure cases and any proven root-cause defect; preserve existing PASS checkpoints.
+- [ ] Run only new/changed targeted fault-injection tests first; record JUnit/exit code and deterministic outcome assertions.
+- [ ] Run the smallest affected regression set justified by changes; do not rerun prior PASS suites solely due to chat/stream loss.
+- [ ] Verify diff/checks, update evidence and all three state files, commit/push, create/update PR only after duplicate check, validate exact-head CI/review, merge only after gates pass, then verify main and select next dependency-ready task.
+
+NEXT_EXACT_ACTION = "AUDIT FROZEN MASTER §§69–71 AND CURRENT GenerationJob/Scheduler/Recovery/Artifact implementations, existing unit tests and IMP-052..055/IMP-100 evidence -> BUILD A GAP MATRIX FOR CRASH/RESTART, PROVIDER AMBIGUITY, ARTIFACT FAILURE, IDEMPOTENCY AND DETERMINISTIC RECONCILIATION -> IMPLEMENT ONLY MISSING FAULT-INJECTION COVERAGE/ROOT-CAUSE FIXES; DO NOT RERUN PRIOR PASS SUITES"
+
+
+## IMP-102 PLAN CHECKPOINT - FAULT-INJECTION GAP MATRIX - 2026-10-13 22:50 +07
+
+- [x] Read authoritative IMP-102 goal/acceptance and frozen Master sections 69-71; frozen semantic SHA matches manifest.
+- [x] Review existing IMP-052/053/054/055/100 evidence and test inventories; preserve all existing PASS checkpoints without rerunning those suites.
+- [x] Identify focused gap: durable recovery-event/finalization and artifact-finalization replay after an actual SQLite writer close/reopen is not comprehensively covered across the boundaries.
+- [ ] Add only four new true-restart tests in `tests/unit/test_studio_failure_recovery_fault_injection.py`: ambiguous recovery event replay; safe-requeue partial finalization replay; scheduler lease restart with proof-gated requeue; artifact final-event restart reconciliation.
+- [ ] Run only the new test module and capture JUnit + process exit status; fix only a concrete failure exposed by those tests.
+
+NEXT_EXACT_ACTION = "ADD THE FOUR TRUE-RESTART FAULT-INJECTION TESTS IN tests/unit/test_studio_failure_recovery_fault_injection.py USING EXISTING FIXTURE HELPERS -> RUN ONLY THAT NEW TEST MODULE WITH JUNIT EVIDENCE -> FIX ONLY ANY PROVEN FAILURE"
+
+
+## IMP-102 TRUE-RESTART FAULT-INJECTION TARGETED PASS - 2026-10-13 23:02 +07
+
+- [x] Four new true-restart fault-injection tests pass: 4/4; JUnit `.tmp/imp102-targeted.xml`; process exit 0; zero failures/errors/skips.
+- [x] `python -m py_compile tests/unit/test_studio_failure_recovery_fault_injection.py` PASS; `git diff --check` PASS.
+- [x] No production source changed; prior IMP-052..055/IMP-100 and frozen-guard PASS checkpoints were not rerun.
+- [ ] Review exact six tracked files; exclude `.tmp/`; stage only the explicit intended list and verify staged diff.
+- [ ] Commit and push the feature branch once; recheck remote/PR duplicate guard before creating PR.
+- [ ] Verify CI and review on the exact PR head; merge only after required gates pass; checkout/pull main and verify main CI.
+
+NEXT_EXACT_ACTION = "REVIEW THE EXACT SIX-TRACKED-FILE CHANGESET -> STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md, evidence/tests/IMP-101_MIGRATION_DRY_RUN_EVIDENCE.md, evidence/tests/IMP-102_FAILURE_RECOVERY_FAULT_INJECTION_EVIDENCE.md, tests/unit/test_studio_failure_recovery_fault_injection.py -> VERIFY STAGED FILE LIST AND git diff --cached --check -> COMMIT -> PUSH FEATURE BRANCH ONCE -> VERIFY REMOTE SHA AND CREATE PR ONLY IF ABSENT -> CHECK EXACT-HEAD CI/REVIEW -> MERGE ONLY AFTER REQUIRED GATES -> VERIFY MAIN AND CONTINUE QUEUE"

@@ -6289,3 +6289,63 @@ IMP-102_DUPLICATE_GUARD = PASS before claim: no local branch, remote branch, or 
 BLOCKER = none.
 
 NEXT_EXACT_ACTION = "VERIFY EXACT FOUR-FILE GOVERNANCE STATE/EVIDENCE DIFF -> STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md, evidence/tests/IMP-101_MIGRATION_DRY_RUN_EVIDENCE.md -> git diff --cached --check -> COMMIT GOVERNANCE STATE SYNC -> PUSH BRANCH ONCE -> CREATE PR ONLY IF ABSENT -> VERIFY GOVERNANCE PR CI ON EXACT HEAD -> MERGE ONLY AFTER REQUIRED GATES PASS -> CHECKOUT/PULL MAIN AND VERIFY GOVERNANCE MERGE CI -> CREATE IMP-102 FEATURE BRANCH FROM EXACT UPDATED MAIN SHA -> CLAIM IMP-102 AND AUDIT FROZEN AUTHORITY/CURRENT FAILURE-RECOVERY SURFACES"
+
+
+
+
+## IMP-101 GOVERNANCE MAIN VERIFIED / IMP-102 CLAIMED — 2026-10-13 22:42 +07
+
+- Repository source of truth: PROJECT_ROOT `E:\\FlowKit-Studio-Upgrade`; Git root `E:/FlowKit-Studio-Upgrade`.
+- Governance PR #92 (`IMP-101: Record main verification and queue IMP-102`) is MERGED. PR head: `f115c8c722e421da043fe06b67c3d41c9daa85d3`; merge commit: `51a54667f6bd65137bf9293a6a8e922e8d3bb381`.
+- Exact merge/main-push CI: workflow run `38383519269`, event `push`, conclusion `success`, exact head `51a54667f6bd65137bf9293a6a8e922e8d3bb381`. Local `main` and `origin/main` matched that SHA before creating the feature branch.
+- Frozen Master verified read-only: manifest SHA-256 `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`; normalizing the Windows CRLF checkout to LF yields the exact manifest SHA and size 554416 bytes. The frozen artifact and manifest were not modified; no frozen guard or previously-PASS test stage was rerun.
+- Runtime: no active FlowKit pytest/build/frozen-guard process or owned PTY. Local API preflight `http://127.0.0.1:8100/health` was unreachable (connection refused). IMP-102 work is constrained to offline unit/fault-injection tests; do not claim live provider/E2E evidence. If a later acceptance step requires the live API/extension, treat that as a blocker until health returns `extension_connected: true`.
+- Worktree: `.tmp/` contains local runtime evidence and must remain excluded from commits.
+- IMP-102 duplicate guard completed before claim: no local/remote branch named `chatgpt/IMP-102-failure-recovery-fault-injection` and no matching PR existed. Feature branch was created from exact verified main SHA `51a54667f6bd65137bf9293a6a8e922e8d3bb381`.
+- Active task: **IMP-102 Failure / Recovery Fault Injection — CLAIMED / ANALYZE**. Hard dependencies IMP-052, IMP-053, IMP-054, IMP-055, IMP-100 are recorded MAIN VERIFIED. Acceptance: crash/restart/provider ambiguity/artifact-failure proof; no blind duplicate submit; deterministic reconciliation of all outcomes.
+- No implementation code has been changed in this task yet.
+- NEXT_EXACT_ACTION = "AUDIT FROZEN MASTER §§69–71 AND CURRENT GenerationJob/Scheduler/Recovery/Artifact implementations, existing unit tests and IMP-052..055/IMP-100 evidence -> BUILD A GAP MATRIX FOR CRASH/RESTART, PROVIDER AMBIGUITY, ARTIFACT FAILURE, IDEMPOTENCY AND DETERMINISTIC RECONCILIATION -> IMPLEMENT ONLY MISSING FAULT-INJECTION COVERAGE/ROOT-CAUSE FIXES; DO NOT RERUN PRIOR PASS SUITES"
+
+
+
+
+## IMP-102 ANALYSIS CHECKPOINT - FAULT-INJECTION GAP MATRIX - 2026-10-13 22:50 +07
+
+- Scope authority: tasks/IMPLEMENTATION_TASK_DECOMPOSITION_V1.md defines IMP-102 goal as crash/restart/provider ambiguity/artifact failure proof; acceptance is no blind duplicate submit and deterministic reconciliation.
+- Frozen authority: Master sections 69-71 cover Queue/DAG, Retry/Resume and Ambiguous Remote State. Normalized frozen SHA-256 matches the freeze manifest; no frozen file changes.
+- Existing PASS coverage retained, not rerun: IMP-052 covers four-axis transitions, CAS/history and generic job reopen; IMP-053 covers lease expiry/recovery-required; IMP-054 covers pre-dispatch no-submit proof, post-submit ambiguity hold, same-handle poll recovery, proven-absent/idempotency proof and append-only recovery events; provider-adapter tests cover timeout-after-possible-send and reconcile-without-handle; IMP-055 covers artifact staging/finalization crash windows, stale results, missing/corrupt bytes and orphan quarantine; IMP-100 provider-neutral contract evidence remains the broader acceptance checkpoint.
+- Identified coverage gap (not yet a claimed production defect): current recovery/artifact crash tests mostly inject exceptions while the original SQLiteWriteOwner/service instance remains open. They do not fully prove that durable event replay completes deterministically after closing the writer and reopening the database across the finalization boundary.
+- Planned new-only tests in tests/unit/test_studio_failure_recovery_fault_injection.py:
+  1. persist an ambiguous RecoveryEvent, inject a crash before event finalization, close/reopen SQLite, replay the same attempt without invoking the provider probe again; assert one SUBMIT transition and AMBIGUOUS_HOLD.
+  2. inject a crash after provider PROVEN_ABSENT transition but before scheduler safe-requeue transition; close/reopen SQLite, replay the same event and assert deterministic QUEUED + NOT_SUBMITTED without a second SUBMIT.
+  3. expire a claimed scheduler lease across a real writer close/reopen; assert restart requires recovery, then allow requeue only after durable transport-not-dispatched proof; assert no SUBMIT occurred.
+  4. inject a crash after artifact final bytes/events are durable but before GenerationJob reaches READY; close/reopen SQLite and the artifact service, reconcile twice, and assert one canonical event set, valid bytes and deterministic READY/NO_ACTION outcomes.
+- No implementation source change is justified unless these tests expose a concrete defect. Do not rerun IMP-052..055 or IMP-100 PASS stages; run only the new test module first.
+- NEXT_EXACT_ACTION = "ADD THE FOUR TRUE-RESTART FAULT-INJECTION TESTS IN tests/unit/test_studio_failure_recovery_fault_injection.py USING EXISTING FIXTURE HELPERS -> RUN ONLY THAT NEW TEST MODULE WITH JUNIT EVIDENCE -> FIX ONLY ANY PROVEN FAILURE"
+
+
+## IMP-102 TRUE-RESTART FAULT-INJECTION TARGETED PASS - 2026-10-13 23:02 +07
+
+- New-only test module: `tests/unit/test_studio_failure_recovery_fault_injection.py`.
+- Exact command: `uv run --isolated --no-project --python 3.13 --with-requirements requirements.txt --with-requirements requirements-dev.txt python -m pytest tests/unit/test_studio_failure_recovery_fault_injection.py -q --junitxml=.tmp/imp102-targeted.xml --basetemp=.tmp/pytest-imp102-targeted`.
+- Process exit code = 0; result = 4 passed, 0 failures, 0 errors, 0 skipped; duration 71.38s. JUnit = `.tmp/imp102-targeted.xml` (tests=4, failures=0, errors=0, skipped=0).
+- PASS cases: ambiguous recovery event replay after restart without re-probe/duplicate SUBMIT; safe-requeue replay after provider proof persisted but scheduler transition crashed; scheduler lease restart plus no-dispatch proof gating; artifact final-event crash/reopen reconciliation to READY and idempotent NO_ACTION replay.
+- Static checks: `python -m py_compile tests/unit/test_studio_failure_recovery_fault_injection.py` exit 0; `git diff --check` exit 0.
+- No production implementation file changed. Existing IMP-052..055/IMP-100 PASS checkpoints and frozen guard PASS remain preserved; none were rerun. No test/build process remains active.
+- Runtime limitation remains: `http://127.0.0.1:8100/health` unreachable; no live provider/E2E claim.
+- NEXT_EXACT_ACTION = "REVIEW THE EXACT SIX-TRACKED-FILE CHANGESET -> STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md, evidence/tests/IMP-101_MIGRATION_DRY_RUN_EVIDENCE.md, evidence/tests/IMP-102_FAILURE_RECOVERY_FAULT_INJECTION_EVIDENCE.md, tests/unit/test_studio_failure_recovery_fault_injection.py -> VERIFY STAGED FILE LIST AND git diff --cached --check -> COMMIT -> PUSH FEATURE BRANCH ONCE -> VERIFY REMOTE SHA AND CREATE PR ONLY IF ABSENT -> CHECK EXACT-HEAD CI/REVIEW -> MERGE ONLY AFTER REQUIRED GATES -> VERIFY MAIN AND CONTINUE QUEUE"
+
+
+## CURRENT RESUME POINTER - 2026-10-13 23:02 +07
+
+PROJECT_ROOT = E:\FlowKit-Studio-Upgrade
+GIT_ROOT = E:/FlowKit-Studio-Upgrade
+BRANCH = chatgpt/IMP-102-failure-recovery-fault-injection
+BASE_MAIN_SHA = 51a54667f6bd65137bf9293a6a8e922e8d3bb381
+ACTIVE_TASK = IMP-102 Failure / Recovery Fault Injection
+STATUS = four new true-restart fault-injection tests PASS; pending exact-diff review, commit, push, PR, exact-head CI/review, merge and main verification
+LAST_PASS = tests/unit/test_studio_failure_recovery_fault_injection.py 4/4 PASS; exit 0; JUnit .tmp/imp102-targeted.xml; py_compile and git diff --check PASS
+PROCESS = no active project test/build/frozen-guard process
+ARTIFACTS = evidence/tests/IMP-102_FAILURE_RECOVERY_FAULT_INJECTION_EVIDENCE.md; .tmp/imp102-targeted.xml is local-only and must not be committed
+BLOCKER = no blocker for offline tests; localhost:8100/health unavailable, so do not claim live provider/E2E
+NEXT_EXACT_ACTION = "REVIEW THE EXACT SIX-TRACKED-FILE CHANGESET -> STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md, evidence/tests/IMP-101_MIGRATION_DRY_RUN_EVIDENCE.md, evidence/tests/IMP-102_FAILURE_RECOVERY_FAULT_INJECTION_EVIDENCE.md, tests/unit/test_studio_failure_recovery_fault_injection.py -> VERIFY STAGED FILE LIST AND git diff --cached --check -> COMMIT -> PUSH FEATURE BRANCH ONCE -> VERIFY REMOTE SHA AND CREATE PR ONLY IF ABSENT -> CHECK EXACT-HEAD CI/REVIEW -> MERGE ONLY AFTER REQUIRED GATES -> VERIFY MAIN AND CONTINUE QUEUE"

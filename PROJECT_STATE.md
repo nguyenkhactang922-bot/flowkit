@@ -6528,3 +6528,44 @@ hard_dependencies = IMP-052 MAIN VERIFIED + IMP-053 MAIN VERIFIED + IMP-054 MAIN
 duplicate_guard = PASS; no local/remote chatgpt/IMP-102-failure-recovery-fault-injection branch or PR existed at inspection
 claim_timing = create the IMP-102 feature branch from exact updated main after this governance sync is MAIN VERIFIED; then write the feature-branch claim checkpoint before code changes
 NEXT_EXACT_ACTION = "VERIFY EXACT FOUR-FILE GOVERNANCE STATE/EVIDENCE DIFF -> STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md, evidence/tests/IMP-101_MIGRATION_DRY_RUN_EVIDENCE.md -> git diff --cached --check -> COMMIT GOVERNANCE STATE SYNC -> PUSH BRANCH ONCE -> CREATE PR ONLY IF ABSENT -> VERIFY GOVERNANCE PR CI ON EXACT HEAD -> MERGE ONLY AFTER REQUIRED GATES PASS -> CHECKOUT/PULL MAIN AND VERIFY GOVERNANCE MERGE CI -> CREATE IMP-102 FEATURE BRANCH FROM EXACT UPDATED MAIN SHA -> CLAIM IMP-102 AND AUDIT FROZEN AUTHORITY/CURRENT FAILURE-RECOVERY SURFACES"
+
+
+## IMP-102 CLAIMED - 2026-10-13 22:42 +07
+active_task = IMP-102 Failure / Recovery Fault Injection
+status = CLAIMED / ANALYZE; implementation not started
+branch = chatgpt/IMP-102-failure-recovery-fault-injection
+base_main_sha = 51a54667f6bd65137bf9293a6a8e922e8d3bb381
+main_push_ci = run 38383519269 SUCCESS on exact merge SHA
+frozen_master_semantic_sha256 = 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287 (CRLF-to-LF normalized)
+dependencies = IMP-052, IMP-053, IMP-054, IMP-055, IMP-100 MAIN VERIFIED
+acceptance = crash/restart/provider ambiguity/artifact failure proof; no blind duplicate submit; deterministic reconciliation
+runtime = no active project test/build process; localhost:8100/health unreachable; no live-provider action planned
+blocker = none for offline unit-test analysis; live API/E2E requires health/extension availability
+NEXT_EXACT_ACTION = "AUDIT FROZEN MASTER SECTIONS 69-71 AND CURRENT GenerationJob/Scheduler/Recovery/Artifact IMPLEMENTATIONS, EXISTING UNIT TESTS AND IMP-052..055/IMP-100 EVIDENCE -> BUILD A GAP MATRIX FOR CRASH/RESTART, PROVIDER AMBIGUITY, ARTIFACT FAILURE, IDEMPOTENCY AND DETERMINISTIC RECONCILIATION -> IMPLEMENT ONLY MISSING FAULT-INJECTION COVERAGE/ROOT-CAUSE FIXES; DO NOT RERUN PRIOR PASS SUITES"
+
+
+## IMP-102 PLAN / GAP MATRIX - 2026-10-13 22:50 +07
+
+active_task = IMP-102 Failure / Recovery Fault Injection
+status = CLAIMED / PLAN; implementation not started
+existing_pass = IMP-052/053/054/055/100 evidence retained; no prior suite rerun
+identified_gap = durable recovery/artifact replay after closing and reopening SQLite writer is not comprehensively proved at cross-component finalization boundaries
+planned_tests = ambiguous event replay after crash; safe-requeue half-finalization replay; scheduler lease restart plus no-dispatch proof; artifact final-event restart reconciliation
+production_code_change = none justified until new tests expose a concrete defect
+NEXT_EXACT_ACTION = "ADD THE FOUR TRUE-RESTART FAULT-INJECTION TESTS IN tests/unit/test_studio_failure_recovery_fault_injection.py USING EXISTING FIXTURE HELPERS -> RUN ONLY THAT NEW TEST MODULE WITH JUNIT EVIDENCE -> FIX ONLY ANY PROVEN FAILURE"
+
+
+## IMP-102 TARGETED PASS - 2026-10-13 23:02 +07
+
+active_task = IMP-102 Failure / Recovery Fault Injection
+status = TARGETED FAULT-INJECTION TESTS PASS; pending review/commit/push/PR/CI/merge/main verification
+branch = chatgpt/IMP-102-failure-recovery-fault-injection
+base_main_sha = 51a54667f6bd65137bf9293a6a8e922e8d3bb381
+new_test_module = tests/unit/test_studio_failure_recovery_fault_injection.py
+result = 4/4 PASS, 0 failures/errors/skips; process exit 0; 71.38s
+junit = .tmp/imp102-targeted.xml
+static = py_compile PASS; git diff --check PASS
+production_code_changed = no; only test/evidence/governance files changed
+previous_pass_stages = preserved; no reruns of IMP-052..055/IMP-100 or frozen guard
+runtime = no active test/build process; localhost:8100/health unavailable; no live-provider action performed
+NEXT_EXACT_ACTION = "REVIEW THE EXACT SIX-TRACKED-FILE CHANGESET -> STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md, evidence/tests/IMP-101_MIGRATION_DRY_RUN_EVIDENCE.md, evidence/tests/IMP-102_FAILURE_RECOVERY_FAULT_INJECTION_EVIDENCE.md, tests/unit/test_studio_failure_recovery_fault_injection.py -> VERIFY STAGED FILE LIST AND git diff --cached --check -> COMMIT -> PUSH FEATURE BRANCH ONCE -> VERIFY REMOTE SHA AND CREATE PR ONLY IF ABSENT -> CHECK EXACT-HEAD CI/REVIEW -> MERGE ONLY AFTER REQUIRED GATES -> VERIFY MAIN AND CONTINUE QUEUE"
