@@ -6418,3 +6418,34 @@ reviews = none submitted; inline threads = none at time of check
 PR_state = OPEN, not merged, mergeable=true at time of check
 warning = state sync commit will move PR head; fetch and verify CI for the new exact SHA after push
 NEXT_EXACT_ACTION = "COMMIT/PUSH PR HEAD + CI PENDING STATE SYNC -> FETCH PR #91 NEW CURRENT HEAD -> FETCH WORKFLOW RUNS/JOBS FOR THAT EXACT SHA -> REVIEW EXACT PR DIFF AND MONITOR UNTIL REQUIRED GATES COMPLETE"
+
+
+
+## IMP-101 REVIEW GATE FAIL — MANIFEST INTEGRITY GAP — 2026-10-13
+active_task = IMP-101 Migration Dry Run
+status = review gate FAIL; no merge allowed
+PR = #91; URL = https://github.com/nguyenkhactang922-bot/flowkit/pull/91
+head_at_review = `21fba3246956cf7f440aa67f49f027bb222f3f26`
+old_head_CI = run `38368452247`, in progress for head_at_review only; not applicable to a future fix commit
+finding = manifest identity validation does not validate total_records/source integrity/FK fields/complete checkpoint set; artifact source-key rebinding is not rejected
+risk = corrupted manifest may under-report records or rebind a mapping and falsely report acceptance PASS
+preserved_checkpoints = targeted 3/3 and affected legacy 9/9, projection 7/7, backup/restore 10/10, persistence JUnit 12/12 remain historical PASS; targeted suite must be rerun only after the fix changes its source/test files
+blocker = merge prohibited until manifest integrity fix and new exact-head CI pass
+NEXT_EXACT_ACTION = "HARDEN IMP-101 MANIFEST IDENTITY/CHECKPOINT SET AND ARTIFACT SOURCE-KEY VALIDATION -> ADD NEGATIVE TESTS FOR TAMPERED COMPLETE MANIFEST/REBOUND MAPPING -> RERUN ONLY tests/unit/test_studio_migration_dry_run.py -> DIFF-CHECK AND PUSH FIX; THEN VERIFY CI ON THE NEW EXACT PR HEAD"
+
+
+
+## IMP-101 MANIFEST INTEGRITY HARDENING — TARGETED PASS — 2026-10-13
+active_task = IMP-101 Migration Dry Run
+status = manifest integrity review finding fixed locally; targeted 8/8 PASS; commit/push/new-head CI pending
+branch = `chatgpt/IMP-101-migration-dry-run`
+head_before_fix_commit = `21fba3246956cf7f440aa67f49f027bb222f3f26`
+fix = validate source integrity/FK/context/total fields; unique and valid source checkpoint keys; COMPLETE coverage; mapping artifact source identity binding
+negative_tests = missing checkpoint, rewritten total, duplicate checkpoint, source-key rebinding, tampered FK summary
+latest_targeted = PASS 8/8; JUnit `.tmp/imp101-manifest-hardening.xml`; process exit 0; 0 failures/errors/skips; 35.915s
+syntax = PASS, exit 0; `python -m compileall -q agent/studio/migration_dry_run.py tests/unit/test_studio_migration_dry_run.py`
+diff_check = PASS, exit 0
+frozen_guard = prior PASS retained; frozen Master SHA unchanged; no rerun
+old_head_CI = run `38368452247` pending for old SHA `21fba3246956cf7f440aa67f49f027bb222f3f26`; not applicable to fix commit
+PR = #91 open/unmerged; no merge until new exact-head CI/review pass
+NEXT_EXACT_ACTION = "VERIFY THE SIX-FILE FIX/STATE DIFF -> STAGE ONLY THE SIX INTENDED FILES (EXCLUDE .tmp) -> STAGED DIFF-CHECK -> COMMIT FIX + STATE/EVIDENCE -> PUSH AND VERIFY NEW PR HEAD/CI"

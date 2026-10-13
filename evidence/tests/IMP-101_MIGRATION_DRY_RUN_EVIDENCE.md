@@ -109,3 +109,23 @@ Frozen Master evidence:
 - No review submissions or inline review threads were returned at this observation.
 - The following state-sync commit will move PR head. Always fetch the current head and matching CI after push; do not transfer this pending result to a different SHA.
 - NEXT_EXACT_ACTION = `COMMIT/PUSH PR HEAD + CI PENDING STATE SYNC -> FETCH PR #91 NEW CURRENT HEAD -> FETCH WORKFLOW RUNS/JOBS FOR THAT EXACT SHA -> REVIEW EXACT PR DIFF AND MONITOR UNTIL REQUIRED GATES COMPLETE`
+
+
+## Review finding — manifest integrity fail-closed requirement
+- Exact PR head reviewed: `21fba3246956cf7f440aa67f49f027bb222f3f26`, PR #91.
+- Finding: the runner's resume validation did not verify manifest `total_records`, source integrity/FK summary fields, complete checkpoint set coverage/uniqueness, or that each mapping artifact's actual source identity hashes to its manifest checkpoint key. A tampered complete manifest could under-report records or rebind a mapping and potentially report a false acceptance PASS.
+- Status: review gate FAIL; PR must not merge until fixed and validated on a new exact PR head. Existing test JUnit checkpoints remain recorded but do not close this newly identified case.
+- Old-head workflow run `38368452247` was in progress; it is not evidence for the future fix head.
+- NEXT_EXACT_ACTION = `HARDEN IMP-101 MANIFEST IDENTITY/CHECKPOINT SET AND ARTIFACT SOURCE-KEY VALIDATION -> ADD NEGATIVE TESTS FOR TAMPERED COMPLETE MANIFEST/REBOUND MAPPING -> RERUN ONLY tests/unit/test_studio_migration_dry_run.py -> DIFF-CHECK AND PUSH FIX; THEN VERIFY CI ON THE NEW EXACT PR HEAD`
+
+
+## Manifest integrity hardening checkpoint
+- Finding closed in code: `_validate_manifest_identity` now validates `source_integrity_check`, `source_foreign_key_violations`, `context_only_tables`, and `total_records`; validates checkpoint type/source membership/uniqueness; and requires COMPLETE checkpoint coverage to equal the current source key set.
+- `_summary_from_artifact` now recomputes the source key from the persisted mapping's source kind/table/ID and rejects a manifest checkpoint that rebinds the artifact to another source record.
+- Added tests for missing checkpoint, missing checkpoint with a tampered total, duplicate checkpoint, source-key rebinding, and a tampered foreign-key summary.
+- Command: `uv run --isolated --no-project --python 3.13 --with-requirements requirements.txt --with-requirements requirements-dev.txt python -m pytest tests/unit/test_studio_migration_dry_run.py -q --junitxml=.tmp/imp101-manifest-hardening.xml --basetemp=.tmp/pytest-imp101-manifest-hardening`.
+- Result: **8/8 PASS**, exit 0, 0 failures/errors/skips; complete JUnit suite time 35.915s.
+- `python -m compileall -q agent/studio/migration_dry_run.py tests/unit/test_studio_migration_dry_run.py` exit 0; `git diff --check` exit 0.
+- Frozen Master guard PASS from the same unchanged frozen Master SHA; no frozen baseline file changed.
+- The pending old-head CI run `38368452247` is for SHA `21fba3246956cf7f440aa67f49f027bb222f3f26` and does not validate this fix. Do not merge; push the fix and verify CI for the new exact PR head.
+- NEXT_EXACT_ACTION = `VERIFY THE SIX-FILE FIX/STATE DIFF -> STAGE ONLY THE SIX INTENDED FILES (EXCLUDE .tmp) -> STAGED DIFF-CHECK -> COMMIT FIX + STATE/EVIDENCE -> PUSH AND VERIFY NEW PR HEAD/CI`

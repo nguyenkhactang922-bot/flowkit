@@ -219,3 +219,113 @@ async def test_non_flowkit_sqlite_source_fails_closed_before_creating_output(tmp
     with pytest.raises(MigrationDryRunSourceError, match="missing required table"):
         await MigrationDryRunRunner().run(source, output)
     assert not output.exists()
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize(
+    ("tamper", "expected_message"),
+    [
+        ("missing_checkpoint", "completed manifest checkpoint set"),
+        ("missing_and_recounted", "total_records"),
+        ("duplicate_checkpoint", "duplicate source record checkpoints"),
+    ],
+)
+async def test_completed_manifest_rejects_incomplete_or_duplicate_checkpoints(
+    tmp_path: Path,
+    tamper: str,
+    expected_message: str,
+):
+    source = tmp_path / "legacy-source.db"
+    output = tmp_path / "migration-output"
+    _create_legacy_db(source)
+    runner = MigrationDryRunRunner()
+    completed = await runner.run(source, output)
+    assert completed.status == "COMPLETE"
+
+    manifest_path = output / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if tamper == "missing_checkpoint":
+        manifest["records"].pop()
+    elif tamper == "missing_and_recounted":
+        manifest["records"].pop()
+        manifest["total_records"] = len(manifest["records"])
+    else:
+        manifest["records"][-1] = dict(manifest["records"][0])
+    manifest_path.write_text(
+        json.dumps(manifest, sort_keys=True, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    # Avoid a stale report mismatch masking the manifest validation under test.
+    (output / "report.json").unlink()
+
+    with pytest.raises(MigrationDryRunIdentityConflict, match=expected_message):
+        await runner.run(source, output)
+
+
+@pytest.mark.asyncio
+async def test_completed_manifest_rejects_mapping_source_key_rebinding(tmp_path: Path):
+    source = tmp_path / "legacy-source.db"
+    output = tmp_path / "migration-output"
+    _create_legacy_db(source)
+    runner = MigrationDryRunRunner()
+    completed = await runner.run(source, output)
+    assert completed.status == "COMPLETE"
+
+    manifest_path = output / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    first_key = manifest["records"][0]["source_key_sha256"]
+    second_key = manifest["records"][1]["source_key_sha256"]
+    manifest["records"][0]["source_key_sha256"] = second_key
+    manifest["records"][1]["source_key_sha256"] = first_key
+    manifest["records"].sort(key=lambda item: item["source_key_sha256"])
+    manifest_path.write_text(
+        json.dumps(manifest, sort_keys=True, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    (output / "report.json").unlink()
+
+    with pytest.raises(
+        MigrationDryRunIdentityConflict,
+        match="source identity does not match manifest checkpoint",
+    ):
+        await runner.run(source, output)
+
+
+@pytest.mark.asyncio
+async def test_completed_manifest_rejects_tampered_foreign_key_summary(tmp_path: Path):
+    source = tmp_path / "legacy-source.db"
+    output = tmp_path / "migration-output"
+    _create_legacy_db(source)
+
+    connection = sqlite3.connect(source)
+    try:
+        connection.execute("PRAGMA foreign_keys=OFF")
+        video_id = connection.execute("SELECT id FROM video LIMIT 1").fetchone()[0]
+        connection.execute(
+            "UPDATE video SET project_id=? WHERE id=?",
+            ("missing-project-for-integrity-test", video_id),
+        )
+        connection.commit()
+    finally:
+        connection.close()
+
+    runner = MigrationDryRunRunner()
+    completed = await runner.run(source, output)
+    assert completed.status == "COMPLETE"
+    assert completed.source_foreign_key_violations > 0
+    assert completed.acceptance_pass is False
+
+    manifest_path = output / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    manifest["source_foreign_key_violations"] = 0
+    manifest_path.write_text(
+        json.dumps(manifest, sort_keys=True, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    (output / "report.json").unlink()
+
+    with pytest.raises(
+        MigrationDryRunIdentityConflict,
+        match="source_foreign_key_violations",
+    ):
+        await runner.run(source, output)

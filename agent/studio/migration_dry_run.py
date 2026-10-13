@@ -488,14 +488,43 @@ def _validate_manifest_identity(
         "run_id": run_id,
         "target_schema_version": _TARGET_SCHEMA_VERSION,
         "rule_version": _RULE_VERSION,
+        "source_integrity_check": snapshot.integrity_check,
+        "source_foreign_key_violations": snapshot.foreign_key_violations,
         "table_counts": snapshot.table_counts,
         "table_sha256": snapshot.table_sha256,
+        "context_only_tables": [
+            item.model_dump(mode="json") for item in snapshot.context_only_tables
+        ],
+        "total_records": len(snapshot.records),
     }
     for key, expected_value in expected.items():
         if manifest.get(key) != expected_value:
             raise MigrationDryRunIdentityConflict(
                 f"resume identity mismatch for {key}; refusing to mix source snapshots"
             )
+
+    source_keys = {record.source_key_sha256 for record in snapshot.records}
+    checkpoint_keys: set[str] = set()
+    for summary in manifest["records"]:
+        if not isinstance(summary, dict):
+            raise MigrationDryRunIdentityConflict(
+                "manifest contains a malformed record checkpoint"
+            )
+        key = summary.get("source_key_sha256")
+        if not isinstance(key, str) or key not in source_keys:
+            raise MigrationDryRunIdentityConflict(
+                "manifest checkpoint refers to a record outside the current source snapshot"
+            )
+        if key in checkpoint_keys:
+            raise MigrationDryRunIdentityConflict(
+                "manifest contains duplicate source record checkpoints"
+            )
+        checkpoint_keys.add(key)
+
+    if manifest.get("status") == "COMPLETE" and checkpoint_keys != source_keys:
+        raise MigrationDryRunIdentityConflict(
+            "completed manifest checkpoint set does not cover the current source snapshot"
+        )
 
 
 def _request_for_record(
@@ -548,6 +577,15 @@ def _summary_from_artifact(
     source_key_sha256: str,
 ) -> MigrationDryRunRecordSummary:
     value = artifact.value
+    actual_source_key_sha256 = _source_key_sha256(
+        value.source.source_kind,
+        value.source.source_table,
+        value.source.source_id,
+    )
+    if actual_source_key_sha256 != source_key_sha256:
+        raise MigrationDryRunIdentityConflict(
+            "persisted mapping source identity does not match manifest checkpoint"
+        )
     if value.target_refs or value.generation_job_id is not None:
         raise MigrationDryRunIdentityConflict(
             "dry-run classifier produced a canonical target without explicit proof"

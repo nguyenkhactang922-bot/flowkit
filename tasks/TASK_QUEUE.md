@@ -5548,3 +5548,26 @@ NEXT_EXACT_ACTION = "COMMIT PR-CREATION STATE/EVIDENCE SYNC -> PUSH STATE HEAD -
 - [ ] Commit/push this state sync; it will change PR head, so fetch and inspect CI for the new exact SHA.
 - [ ] Review the exact PR diff and wait for required checks/review; do not merge while gates are pending.
 NEXT_EXACT_ACTION = "COMMIT/PUSH PR HEAD + CI PENDING STATE SYNC -> FETCH PR #91 NEW CURRENT HEAD -> FETCH WORKFLOW RUNS/JOBS FOR THAT EXACT SHA -> REVIEW EXACT PR DIFF AND MONITOR UNTIL REQUIRED GATES COMPLETE"
+
+
+
+## IMP-101 REVIEW GATE FAIL — MANIFEST INTEGRITY GAP — 2026-10-13
+- [x] Reviewed exact PR head `21fba3246956cf7f440aa67f49f027bb222f3f26`; PR #91 remains open/unmerged.
+- [x] Identified a manifest corruption fail-open risk: missing validation of total source record count, integrity/FK summary fields, complete checkpoint-set coverage/uniqueness, and artifact/source-key binding.
+- [x] Preserve prior PASS checkpoints, but do not merge based on them while this review finding remains open.
+- [ ] Harden manifest identity/checkpoint validation and artifact source-key validation; add targeted negative tests.
+- [ ] Rerun only `tests/unit/test_studio_migration_dry_run.py` after the fix; then diff-check and push the fix.
+- [ ] Verify all required CI/review gates on the new exact PR head before merge.
+NEXT_EXACT_ACTION = "HARDEN IMP-101 MANIFEST IDENTITY/CHECKPOINT SET AND ARTIFACT SOURCE-KEY VALIDATION -> ADD NEGATIVE TESTS FOR TAMPERED COMPLETE MANIFEST/REBOUND MAPPING -> RERUN ONLY tests/unit/test_studio_migration_dry_run.py -> DIFF-CHECK AND PUSH FIX; THEN VERIFY CI ON THE NEW EXACT PR HEAD"
+
+
+
+## IMP-101 MANIFEST INTEGRITY HARDENING — TARGETED PASS — 2026-10-13
+- [x] Fixed manifest/source identity validation: bind integrity result, foreign-key violation count, context-only tables, and total record count to the source snapshot.
+- [x] Validate manifest checkpoint keys for source membership and uniqueness; COMPLETE manifests must cover the entire source key set.
+- [x] Verify each persisted mapping artifact's actual source kind/table/ID hashes to the manifest checkpoint key.
+- [x] Targeted migration tests after fix: **8/8 PASS**, JUnit `.tmp/imp101-manifest-hardening.xml`, exit 0, 0 failures/errors/skips.
+- [x] Syntax compile and `git diff --check` PASS (exit 0); frozen Master unchanged, existing guard PASS retained.
+- [ ] Stage only six intended changed files (migration runner, targeted tests, three state files, evidence); exclude `.tmp/`.
+- [ ] Review staged diff, commit fix/state/evidence, push, then verify CI on the new exact PR #91 head.
+NEXT_EXACT_ACTION = "VERIFY THE SIX-FILE FIX/STATE DIFF -> STAGE ONLY THE SIX INTENDED FILES (EXCLUDE .tmp) -> STAGED DIFF-CHECK -> COMMIT FIX + STATE/EVIDENCE -> PUSH AND VERIFY NEW PR HEAD/CI"

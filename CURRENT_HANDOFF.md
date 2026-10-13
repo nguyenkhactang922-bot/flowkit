@@ -6193,3 +6193,23 @@ NEXT_EXACT_ACTION = "GOVERNANCE-ONLY STATE SYNC BRANCH/COMMIT/PR -> VERIFY GOVER
 - Review submissions and inline review threads are empty at the time checked. PR body/diff still requires exact-head review. Do not merge while required checks are pending.
 - This state/evidence sync will change PR head and trigger new exact-head CI; after pushing, fetch the new head and its run/job statuses rather than attributing run `38368157340` to the next head.
 - NEXT_EXACT_ACTION = "COMMIT/PUSH PR HEAD + CI PENDING STATE SYNC -> FETCH PR #91 NEW CURRENT HEAD -> FETCH WORKFLOW RUNS/JOBS FOR THAT EXACT SHA -> REVIEW EXACT PR DIFF AND MONITOR UNTIL REQUIRED GATES COMPLETE"
+
+
+
+## IMP-101 REVIEW GATE FAIL — MANIFEST INTEGRITY GAP — 2026-10-13
+- Exact PR head at review: `21fba3246956cf7f440aa67f49f027bb222f3f26`; PR #91 remains OPEN and unmerged. Workflow run `38368452247` is still in progress for that head; it must not be treated as evidence for any later head.
+- Exact PR diff review found a fail-open recovery risk: manifest identity validation does not bind `total_records`, source integrity/FK summary fields, and the complete set of record checkpoints to the current source snapshot; completed-manifest replay also does not verify that each manifest source key matches the actual mapping artifact identity. A corrupted manifest could therefore under-report source records or rebind a mapping and potentially produce a false acceptance result.
+- This is a review-gate FAIL, not a test failure. Preserve all prior PASS checkpoints; do not merge PR #91. The current CI run belongs to the old head and will be superseded when the focused fix is pushed.
+- NEXT_EXACT_ACTION = "HARDEN IMP-101 MANIFEST IDENTITY/CHECKPOINT SET AND ARTIFACT SOURCE-KEY VALIDATION -> ADD NEGATIVE TESTS FOR TAMPERED COMPLETE MANIFEST/REBOUND MAPPING -> RERUN ONLY tests/unit/test_studio_migration_dry_run.py -> DIFF-CHECK AND PUSH FIX; THEN VERIFY CI ON THE NEW EXACT PR HEAD"
+
+
+
+## IMP-101 MANIFEST INTEGRITY HARDENING — TARGETED PASS — 2026-10-13
+- Fixed the PR review finding in `agent/studio/migration_dry_run.py`: resume identity now binds source integrity result, FK violation count, context-only table summaries, and total record count to the current source snapshot; checkpoint keys must be valid/unique; a COMPLETE manifest must cover every source record; and each persisted mapping's actual source kind/table/ID hash must equal its manifest checkpoint key.
+- Added negative coverage for missing checkpoints (with and without a tampered total), duplicate checkpoints, mapping source-key rebinding, and a tampered foreign-key summary that could otherwise change acceptance from FAIL to PASS.
+- Targeted command: `uv run --isolated --no-project --python 3.13 --with-requirements requirements.txt --with-requirements requirements-dev.txt python -m pytest tests/unit/test_studio_migration_dry_run.py -q --junitxml=.tmp/imp101-manifest-hardening.xml --basetemp=.tmp/pytest-imp101-manifest-hardening` — **8/8 PASS**, process exit 0, JUnit has 0 failures/errors/skips, 35.915s.
+- Static checks after fix: `python -m compileall -q agent/studio/migration_dry_run.py tests/unit/test_studio_migration_dry_run.py` exit 0; `git diff --check` exit 0.
+- Frozen Master guard checkpoint remains PASS for unchanged frozen Master SHA `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`; frozen baseline file was not modified, so the guard was not rerun.
+- Previous affected regression PASS checkpoints remain recorded; no unrelated test file was rerun. The pending CI run `38368452247` belongs to old PR head `21fba3246956cf7f440aa67f49f027bb222f3f26` and must not be treated as validation of this fix.
+- Status: manifest review finding fixed locally and targeted tests PASS; commit/push and CI on the new exact PR head are pending. Do not merge yet.
+- NEXT_EXACT_ACTION = "VERIFY THE SIX-FILE FIX/STATE DIFF -> STAGE ONLY THE SIX INTENDED FILES (EXCLUDE .tmp) -> STAGED DIFF-CHECK -> COMMIT FIX + STATE/EVIDENCE -> PUSH AND VERIFY NEW PR HEAD/CI"
