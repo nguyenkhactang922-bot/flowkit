@@ -6370,3 +6370,43 @@ PROCESS = no active test/build process
 ARTIFACT = .tmp/imp102-targeted.xml (local-only; excluded from Git)
 BLOCKER = none for offline test scope; localhost:8100/health unavailable for any future live workflow
 NEXT_EXACT_ACTION = "RECHECK REMOTE FEATURE BRANCH AND PR ABSENT -> PUSH CURRENT BRANCH HEAD ONCE -> VERIFY origin BRANCH SHA EQUALS CURRENT HEAD -> CREATE PR ONLY IF ABSENT -> VERIFY PR EXACT HEAD AND CI"
+
+
+## IMP-102 PUSH VERIFIED - 2026-10-13 23:10 +07
+
+- Remote feature branch push completed with exit 0. At push verification, local HEAD and `origin/chatgpt/IMP-102-failure-recovery-fault-injection` both equaled `c8e519d06479f578f99ecae90761cf70f200fbbe`.
+- Duplicate guard immediately before push: no remote feature branch and no existing PR for `chatgpt/IMP-102-failure-recovery-fault-injection`; push created the branch once.
+- `.tmp/` remains local-only and excluded. No test was rerun after the 4/4 targeted PASS.
+- NEXT_EXACT_ACTION = "VERIFY PR ABSENT AND REMOTE BRANCH HEAD -> CREATE PR ONLY IF ABSENT -> RECORD PR NUMBER/HEAD AND CI STATE -> VERIFY REQUIRED CI/REVIEW ON THE FINAL EXACT PR HEAD"
+
+## CURRENT RESUME POINTER - 2026-10-13 23:10 +07
+
+PROJECT_ROOT = E:\FlowKit-Studio-Upgrade
+BRANCH = chatgpt/IMP-102-failure-recovery-fault-injection
+PUSH_VERIFIED_SHA = c8e519d06479f578f99ecae90761cf70f200fbbe
+STATUS = branch pushed; PR not yet created; targeted fault-injection tests PASS
+PROCESS = no active test/build process
+NEXT_EXACT_ACTION = "VERIFY PR ABSENT AND REMOTE BRANCH HEAD -> CREATE PR ONLY IF ABSENT -> RECORD PR NUMBER/HEAD AND CI STATE -> VERIFY REQUIRED CI/REVIEW ON THE FINAL EXACT PR HEAD"
+
+
+## IMP-102 PR CREATED / EXACT-HEAD CI PENDING - 2026-10-13 23:14 +07
+
+- PR #93 created after fresh duplicate check: https://github.com/nguyenkhactang922-bot/flowkit/pull/93
+- PR title: `IMP-102: Add true-restart recovery fault injection`; state OPEN; mergeable at inspection.
+- Exact PR head at creation: `c8e519d06479f578f99ecae90761cf70f200fbbe`; base `main` = `51a54667f6bd65137bf9293a6a8e922e8d3bb381`.
+- Workflow run `38428355006` (`tests`) is IN_PROGRESS for exact head `c8e519d06479f578f99ecae90761cf70f200fbbe`; jobs `unit (3.10)` and `unit (3.13)` are PENDING. This run is not evidence for any newer head after the pending state sync is pushed.
+- No review submissions or comments were present at inspection. Local exact diff self-review remains PASS; no production source changes.
+- NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md, evidence/tests/IMP-102_FAILURE_RECOVERY_FAULT_INJECTION_EVIDENCE.md -> VERIFY STAGED SET AND git diff --cached --check -> COMMIT PR/CI-PENDING STATE -> PUSH BRANCH -> FETCH PR #93 NEW EXACT HEAD AND ITS WORKFLOW RUN/JOBS -> DO NOT ATTRIBUTE RUN 38428355006 TO A NEWER HEAD"
+
+
+## CURRENT RESUME POINTER - 2026-10-13 23:14 +07
+
+PROJECT_ROOT = E:\FlowKit-Studio-Upgrade
+BRANCH = chatgpt/IMP-102-failure-recovery-fault-injection
+PR = #93 OPEN; https://github.com/nguyenkhactang922-bot/flowkit/pull/93
+PR_HEAD_AT_CREATION = c8e519d06479f578f99ecae90761cf70f200fbbe
+CI_RUN_AT_CREATION = 38428355006 IN_PROGRESS on that exact head; both Python 3.10 and 3.13 jobs PENDING
+STATUS = targeted 4/4 PASS; PR open; CI pending; state sync for PR checkpoint not yet committed
+PROCESS = no active local test/build process
+BLOCKER = none for offline test scope; localhost:8100/health unavailable for live workflows
+NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md, evidence/tests/IMP-102_FAILURE_RECOVERY_FAULT_INJECTION_EVIDENCE.md -> VERIFY STAGED SET AND git diff --cached --check -> COMMIT PR/CI-PENDING STATE -> PUSH BRANCH -> FETCH PR #93 NEW EXACT HEAD AND ITS WORKFLOW RUN/JOBS -> DO NOT ATTRIBUTE RUN 38428355006 TO A NEWER HEAD"

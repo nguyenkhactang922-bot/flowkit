@@ -52,3 +52,18 @@ NEXT_EXACT_ACTION = "ADD THE FOUR TRUE-RESTART FAULT-INJECTION TESTS IN tests/un
 - Message: `test(studio): prove recovery replay across restarts`.
 - Exact commit file list: CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md, evidence/tests/IMP-101_MIGRATION_DRY_RUN_EVIDENCE.md, evidence/tests/IMP-102_FAILURE_RECOVERY_FAULT_INJECTION_EVIDENCE.md, tests/unit/test_studio_failure_recovery_fault_injection.py.
 - `git diff HEAD^ HEAD --check` PASS; `.tmp/` excluded.
+
+
+## Push checkpoint - 2026-10-13 23:10 +07
+
+- Feature branch `chatgpt/IMP-102-failure-recovery-fault-injection` pushed with exit 0.
+- At push verification, local and remote SHA both equaled `c8e519d06479f578f99ecae90761cf70f200fbbe`.
+- No PR existed at the duplicate check immediately before push. PR creation remains the next action.
+
+
+## PR / CI checkpoint - 2026-10-13 23:14 +07
+
+- PR #93: https://github.com/nguyenkhactang922-bot/flowkit/pull/93, OPEN, mergeable at inspection.
+- PR head at creation: `c8e519d06479f578f99ecae90761cf70f200fbbe`; base main: `51a54667f6bd65137bf9293a6a8e922e8d3bb381`.
+- Workflow run `38428355006` is IN_PROGRESS on that exact head; `unit (3.10)` and `unit (3.13)` are PENDING. Do not attribute this run to a newer state-sync commit.
+- No submitted reviews/comments at inspection; self-review PASS; no explicit independent approval gate found.
