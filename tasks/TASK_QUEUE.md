@@ -5358,3 +5358,12 @@ NEXT_EXACT_ACTION = "STAGE EXACT 5 INTENDED FILES EXCLUDING .tmp -> VERIFY STAGE
 - [ ] Obtain full Ubuntu `tests/unit` CI on Python 3.10 and 3.13 without exclusions; inspect exact PR-head checks.
 - [ ] Review, merge only after required gates pass, checkout/pull main, verify main and sync state.
 NEXT_EXACT_ACTION = "RECHECK GIT/REMOTE/PR -> PUSH IMP-100 BRANCH ONCE -> VERIFY REMOTE HEAD -> CREATE PR ONLY IF NONE EXISTS -> MONITOR FULL UBUNTU PYTHON 3.10 + 3.13 CI"
+
+
+## IMP-100 BRANCH PUSH VERIFIED — 2026-10-13
+- [x] Push succeeded; `origin/chatgpt/IMP-100-full-contract-regression` created and upstream configured.
+- [x] Pushed head at this checkpoint: `ae84835e547c3a57e389a1061b1c6d2ec0a35f1e`.
+- [ ] Sync this push checkpoint, then re-check remote head and all PR states.
+- [ ] Create IMP-100 PR only if absent; capture exact PR number/head.
+- [ ] Monitor full Ubuntu `tests/unit` CI on Python 3.10 and 3.13 at the exact PR head.
+NEXT_EXACT_ACTION = "SYNC PUSH CHECKPOINT -> RECHECK REMOTE HEAD AND ALL PR STATES -> CREATE IMP-100 PR ONLY IF ABSENT -> CAPTURE PR NUMBER/HEAD -> MONITOR EXACT-HEAD CI"

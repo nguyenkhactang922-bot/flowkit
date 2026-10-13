@@ -6004,3 +6004,12 @@ NEXT_EXACT_ACTION = "GOVERNANCE-ONLY STATE SYNC BRANCH/COMMIT/PR -> VERIFY GOVER
 - Pre-commit side-effect guard found no remote IMP-100 branch and no existing IMP-100 PR. Recheck immediately before push/PR.
 - Blocker: none for local acceptance checkpoint; remote CI still required.
 - NEXT_EXACT_ACTION = "RECHECK GIT/REMOTE/PR -> PUSH IMP-100 BRANCH ONCE -> VERIFY REMOTE HEAD -> CREATE PR ONLY IF NONE EXISTS -> MONITOR FULL UBUNTU PYTHON 3.10 + 3.13 CI"
+
+
+## IMP-100 BRANCH PUSH VERIFIED — 2026-10-13
+- Push result: exit 0; new remote branch `origin/chatgpt/IMP-100-full-contract-regression` created successfully.
+- Pushed HEAD at that checkpoint: `ae84835e547c3a57e389a1061b1c6d2ec0a35f1e` (contains acceptance/evidence commit `4cd1a514c75a72cfdceb1dea0f7874e3e8d01729`).
+- Upstream now tracks `origin/chatgpt/IMP-100-full-contract-regression`; local worktree contains only ignored-by-scope/untracked `.tmp/` runtime evidence and no tracked changes after the push checkpoint append below.
+- The initial generic push command rejected because no upstream was configured; corrected with explicit `git push --set-upstream origin chatgpt/IMP-100-full-contract-regression`, which succeeded. No duplicate push occurred.
+- Blocker: none.
+- NEXT_EXACT_ACTION = "SYNC PUSH CHECKPOINT -> RECHECK REMOTE HEAD AND ALL PR STATES -> CREATE IMP-100 PR ONLY IF ABSENT -> CAPTURE PR NUMBER/HEAD -> MONITOR EXACT-HEAD CI"

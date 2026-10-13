@@ -6165,3 +6165,18 @@ remote_branch = absent at pre-commit check; must re-check before push
 pull_request = absent at pre-commit check; must re-check before create
 blocker = none for local checkpoint; full Ubuntu Python 3.10 + 3.13 CI still required
 NEXT_EXACT_ACTION = "RECHECK GIT/REMOTE/PR -> PUSH IMP-100 BRANCH ONCE -> VERIFY REMOTE HEAD -> CREATE PR ONLY IF NONE EXISTS -> MONITOR FULL UBUNTU PYTHON 3.10 + 3.13 CI"
+
+
+## IMP-100 BRANCH PUSH VERIFIED — 2026-10-13
+status = LOCAL ACCEPTANCE PASS; BRANCH PUSHED; PR NOT YET CREATED
+branch = `chatgpt/IMP-100-full-contract-regression`
+remote_branch = `origin/chatgpt/IMP-100-full-contract-regression`
+pushed_head = `ae84835e547c3a57e389a1061b1c6d2ec0a35f1e`
+push_result = exit 0; explicit `--set-upstream` push succeeded
+acceptance_commit = `4cd1a514c75a72cfdceb1dea0f7874e3e8d01729`
+junit = `.tmp/imp100-contract-regression.xml`; 836 tests / 0 failures / 0 errors / 0 skipped; do not rerun
+frozen_guard = PASS; exit 0
+process = no IMP-100 pytest process remains
+pull_request = none at last search; re-check immediately before create
+blocker = none
+NEXT_EXACT_ACTION = "SYNC PUSH CHECKPOINT -> RECHECK REMOTE HEAD AND ALL PR STATES -> CREATE IMP-100 PR ONLY IF ABSENT -> CAPTURE PR NUMBER/HEAD -> MONITOR EXACT-HEAD CI"
