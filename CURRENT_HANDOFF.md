@@ -6668,7 +6668,7 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - NEXT_EXACT_ACTION = "MONITOR existing benchmark process; after exit verify final JUnit/exit/result marker and all invariants; preserve prior PASS suites"
 
 
-## IMP-103 BENCHMARK PASS / LOCAL VERIFICATION — 2026-10-15 22:59 +07
+## IMP-103 BENCHMARK PASS / LOCAL VERIFICATION — 2026-10-15
 
 - Runtime classification = PASS for the 300-shot benchmark stage, based on the completed final log, JUnit and result marker.
 - Command = `.tmp/imp053-test-venv/Scripts/python.exe -m pytest -q --capture=tee-sys --basetemp=.tmp/imp103-pytest-resume5 tests/performance/test_imp103_300_shot_scale.py --junitxml=.tmp/imp103-benchmark-resume5.xml`; combined log = `.tmp/imp103-benchmark-resume5.log`; `FINAL_EXIT_CODE=0`; JUnit = 1 test, 1 passed, 0 failures/errors/skips, 2,424.814 s.
@@ -6681,10 +6681,19 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - NEXT_EXACT_ACTION = "REVIEW IMP-103 TEST HARNESS AND EVIDENCE DIFF; VERIFY git status, git diff --check, AND FROZEN MASTER UNCHANGED -> STAGE ONLY tests/performance/test_imp103_300_shot_scale.py, tests/unit/test_imp103_scale_contract.py, evidence/tests/IMP-103_300_SHOT_SCALE_BENCHMARK_EVIDENCE.md, CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md; EXCLUDE .tmp/ -> VERIFY STAGED FILE LIST AND git diff --cached --check -> COMMIT LOCAL-VERIFIED IMP-103 -> RECHECK REMOTE BRANCH/PR AND PUSH ONCE; CREATE PR ONLY IF ABSENT -> VERIFY EXACT-HEAD CI/REVIEW -> MERGE ONLY AFTER REQUIRED GATES -> CHECKOUT/PULL MAIN AND VERIFY MERGE/MAIN CI -> MARK MAIN VERIFIED AND CLAIM THE NEXT DEPENDENCY-READY TASK"
 
 
-## IMP-103 PR #95 OPEN / CI NOT YET REPORTED — 2026-10-15 23:01 +07
+## IMP-103 PR #95 OPEN / CI NOT YET REPORTED — 2026-10-15
 
 - PR #95 = OPEN, mergeable, base `main` at `01f9f9939515d87065eb4ea9143981ace5770d42`; initial PR head = `792e4b236dd745f08544fc8f9aed30627eec0eee`. URL: https://github.com/nguyenkhactang922-bot/flowkit/pull/95.
 - Push of the feature branch succeeded and its upstream tracks `origin/chatgpt/IMP-103-300-shot-scale-benchmark`.
 - At this checkpoint `gh pr view` reported an empty `statusCheckRollup`, `gh pr checks` reported “no checks reported”, and `gh run list` showed no run for the branch. The `tests` workflow is active and configured for `pull_request`; do not infer CI PASS from absence of checks.
 - Local benchmark and frozen guard remain PASS; no test stage was rerun after commit. The next state-sync commit will advance the PR head, so all CI decisions must be based on the new exact head.
 - NEXT_EXACT_ACTION = "RECORD PR #95 OPEN WITH INITIAL HEAD 792e4b236dd745f08544fc8f9aed30627eec0eee AND BASE main 01f9f9939515d87065eb4ea9143981ace5770d42; NOTE THAT NO PR CHECKS/RUN HAVE BEEN REPORTED YET -> COMMIT/PUSH THIS GOVERNANCE-ONLY SYNC ON THE SAME BRANCH -> VERIFY NEW EXACT PR HEAD AND ITS WORKFLOW RUN/JOBS -> DO NOT MERGE UNTIL REQUIRED CHECKS PASS AND REVIEW GATE IS SATISFIED -> AFTER MERGE CHECKOUT/PULL MAIN, VERIFY MERGE SHA AND PUSH-MAIN CI, THEN MARK MAIN VERIFIED AND CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-103 PR #95 EXACT-HEAD CI DISPATCH DIAGNOSTIC — 2026-10-15 22:21 +07
+
+- Latest observed PR head before this state sync = `4a4b064d89fa3f35b79977b827b1b120b0080441`; PR #95 remains OPEN, base main `01f9f9939515d87065eb4ea9143981ace5770d42`.
+- Rechecked GitHub API for the exact head: zero check suites; commit status has zero statuses and state `pending`; no workflow run exists for the branch or exact SHA; no `action_required` or queued run exists.
+- Repository Actions are enabled, `.github/workflows/tests.yml` is active and declares `pull_request`, but GitHub has not created the expected run. Branch protection endpoint reports main is not protected; that does not substitute for the project CI gate.
+- No code/test stage was rerun. Do not merge or claim MAIN VERIFIED while CI is absent. A new state-sync commit will advance the PR head; inspect the newest exact head after pushing.
+- NEXT_EXACT_ACTION = "DIAGNOSE WHY ACTIVE WORKFLOW tests.yml (pull_request trigger, Actions enabled) HAS NOT CREATED A CHECK SUITE/RUN FOR PR #95; QUERY APPROVAL/WEBHOOK/WORKFLOW STATUS FOR THE CURRENT PR HEAD -> DO NOT MERGE WHILE THE PROJECT CI GATE IS UNVERIFIED -> IF THE REQUIRED WORKFLOW CANNOT BE TRIGGERED WITH AVAILABLE AUTHORITY, RECORD THE EXTERNAL BLOCKER AND LEAVE PR #95 OPEN; OTHERWISE VERIFY ALL CHECKS AGAINST THE NEWEST EXACT HEAD"

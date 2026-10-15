@@ -6855,7 +6855,7 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - NEXT_EXACT_ACTION = "MONITOR existing benchmark process; after exit verify final JUnit/exit/result marker and all invariants; preserve prior PASS suites"
 
 
-## IMP-103 BENCHMARK PASS / LOCAL VERIFICATION — 2026-10-15 22:59 +07
+## IMP-103 BENCHMARK PASS / LOCAL VERIFICATION — 2026-10-15
 
 - Task status = PASS for local benchmark verification; remote/PR/main lifecycle remains pending.
 - JUnit `.tmp/imp103-benchmark-resume5.xml`: 1 test, 1 passed, 0 failures, 0 errors, 0 skipped; log `.tmp/imp103-benchmark-resume5.log` contains `FINAL_EXIT_CODE=0` and complete `IMP103_BENCHMARK_RESULT` JSON.
@@ -6868,9 +6868,18 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - NEXT_EXACT_ACTION = "REVIEW IMP-103 TEST HARNESS AND EVIDENCE DIFF; VERIFY git status, git diff --check, AND FROZEN MASTER UNCHANGED -> STAGE ONLY tests/performance/test_imp103_300_shot_scale.py, tests/unit/test_imp103_scale_contract.py, evidence/tests/IMP-103_300_SHOT_SCALE_BENCHMARK_EVIDENCE.md, CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md; EXCLUDE .tmp/ -> VERIFY STAGED FILE LIST AND git diff --cached --check -> COMMIT LOCAL-VERIFIED IMP-103 -> RECHECK REMOTE BRANCH/PR AND PUSH ONCE; CREATE PR ONLY IF ABSENT -> VERIFY EXACT-HEAD CI/REVIEW -> MERGE ONLY AFTER REQUIRED GATES -> CHECKOUT/PULL MAIN AND VERIFY MERGE/MAIN CI -> MARK MAIN VERIFIED AND CLAIM THE NEXT DEPENDENCY-READY TASK"
 
 
-## IMP-103 PR #95 OPEN / CI NOT YET REPORTED — 2026-10-15 23:01 +07
+## IMP-103 PR #95 OPEN / CI NOT YET REPORTED — 2026-10-15
 
 - Git lifecycle: commit `792e4b236dd745f08544fc8f9aed30627eec0eee` pushed to `origin/chatgpt/IMP-103-300-shot-scale-benchmark`; PR #95 OPEN, mergeable, base main `01f9f9939515d87065eb4ea9143981ace5770d42`, initial head `792e4b236dd745f08544fc8f9aed30627eec0eee`.
 - CI status is NOT YET REPORTED: empty PR statusCheckRollup, no checks reported, and no branch run listed at the latest inspection. Active `.github/workflows/tests.yml` has a `pull_request` trigger. No CI PASS/merge claim is made.
 - Benchmark evidence remains local PASS, recorded in `evidence/tests/IMP-103_300_SHOT_SCALE_BENCHMARK_EVIDENCE.md`. Do not rerun the benchmark or already-PASS fairness contract.
 - NEXT_EXACT_ACTION = "RECORD PR #95 OPEN WITH INITIAL HEAD 792e4b236dd745f08544fc8f9aed30627eec0eee AND BASE main 01f9f9939515d87065eb4ea9143981ace5770d42; NOTE THAT NO PR CHECKS/RUN HAVE BEEN REPORTED YET -> COMMIT/PUSH THIS GOVERNANCE-ONLY SYNC ON THE SAME BRANCH -> VERIFY NEW EXACT PR HEAD AND ITS WORKFLOW RUN/JOBS -> DO NOT MERGE UNTIL REQUIRED CHECKS PASS AND REVIEW GATE IS SATISFIED -> AFTER MERGE CHECKOUT/PULL MAIN, VERIFY MERGE SHA AND PUSH-MAIN CI, THEN MARK MAIN VERIFIED AND CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-103 PR #95 EXACT-HEAD CI DISPATCH DIAGNOSTIC — 2026-10-15 22:21 +07
+
+- Latest observed PR head before this state sync = `4a4b064d89fa3f35b79977b827b1b120b0080441`; PR #95 remains OPEN, base main `01f9f9939515d87065eb4ea9143981ace5770d42`.
+- Rechecked GitHub API for the exact head: zero check suites; commit status has zero statuses and state `pending`; no workflow run exists for the branch or exact SHA; no `action_required` or queued run exists.
+- Repository Actions are enabled, `.github/workflows/tests.yml` is active and declares `pull_request`, but GitHub has not created the expected run. Branch protection endpoint reports main is not protected; that does not substitute for the project CI gate.
+- No code/test stage was rerun. Do not merge or claim MAIN VERIFIED while CI is absent. A new state-sync commit will advance the PR head; inspect the newest exact head after pushing.
+- NEXT_EXACT_ACTION = "DIAGNOSE WHY ACTIVE WORKFLOW tests.yml (pull_request trigger, Actions enabled) HAS NOT CREATED A CHECK SUITE/RUN FOR PR #95; QUERY APPROVAL/WEBHOOK/WORKFLOW STATUS FOR THE CURRENT PR HEAD -> DO NOT MERGE WHILE THE PROJECT CI GATE IS UNVERIFIED -> IF THE REQUIRED WORKFLOW CANNOT BE TRIGGERED WITH AVAILABLE AUTHORITY, RECORD THE EXTERNAL BLOCKER AND LEAVE PR #95 OPEN; OTHERWISE VERIFY ALL CHECKS AGAINST THE NEWEST EXACT HEAD"
