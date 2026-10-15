@@ -5968,3 +5968,12 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - [x] Durable evidence record: `evidence/tests/IMP-103_300_SHOT_SCALE_BENCHMARK_EVIDENCE.md`.
 - [ ] Git lifecycle, PR exact-head checks/review, merge and main verification remain pending; status is LOCAL VERIFIED, not MAIN VERIFIED.
 - NEXT_EXACT_ACTION = "REVIEW IMP-103 TEST HARNESS AND EVIDENCE DIFF; VERIFY git status, git diff --check, AND FROZEN MASTER UNCHANGED -> STAGE ONLY tests/performance/test_imp103_300_shot_scale.py, tests/unit/test_imp103_scale_contract.py, evidence/tests/IMP-103_300_SHOT_SCALE_BENCHMARK_EVIDENCE.md, CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md; EXCLUDE .tmp/ -> VERIFY STAGED FILE LIST AND git diff --cached --check -> COMMIT LOCAL-VERIFIED IMP-103 -> RECHECK REMOTE BRANCH/PR AND PUSH ONCE; CREATE PR ONLY IF ABSENT -> VERIFY EXACT-HEAD CI/REVIEW -> MERGE ONLY AFTER REQUIRED GATES -> CHECKOUT/PULL MAIN AND VERIFY MERGE/MAIN CI -> MARK MAIN VERIFIED AND CLAIM THE NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-103 PR #95 OPEN / CI NOT YET REPORTED — 2026-10-15 23:01 +07
+
+- [x] Commit `792e4b236dd745f08544fc8f9aed30627eec0eee` pushed to feature branch.
+- [x] PR #95 created and verified OPEN/mergeable; base main `01f9f9939515d87065eb4ea9143981ace5770d42`; initial head `792e4b236dd745f08544fc8f9aed30627eec0eee`.
+- [ ] Exact-head CI not yet reported: PR statusCheckRollup empty, `gh pr checks` says no checks reported, and no branch run is listed. The `tests` workflow is active with a pull_request trigger; verify the new exact head after governance sync.
+- [ ] Do not merge until required checks pass and review gate is satisfied; after merge verify main and push-main CI.
+- NEXT_EXACT_ACTION = "RECORD PR #95 OPEN WITH INITIAL HEAD 792e4b236dd745f08544fc8f9aed30627eec0eee AND BASE main 01f9f9939515d87065eb4ea9143981ace5770d42; NOTE THAT NO PR CHECKS/RUN HAVE BEEN REPORTED YET -> COMMIT/PUSH THIS GOVERNANCE-ONLY SYNC ON THE SAME BRANCH -> VERIFY NEW EXACT PR HEAD AND ITS WORKFLOW RUN/JOBS -> DO NOT MERGE UNTIL REQUIRED CHECKS PASS AND REVIEW GATE IS SATISFIED -> AFTER MERGE CHECKOUT/PULL MAIN, VERIFY MERGE SHA AND PUSH-MAIN CI, THEN MARK MAIN VERIFIED AND CLAIM NEXT DEPENDENCY-READY TASK"

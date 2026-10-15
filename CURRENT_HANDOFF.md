@@ -6679,3 +6679,12 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - Evidence record: `evidence/tests/IMP-103_300_SHOT_SCALE_BENCHMARK_EVIDENCE.md`.
 - Git state: branch `chatgpt/IMP-103-300-shot-scale-benchmark`, HEAD/base `01f9f9939515d87065eb4ea9143981ace5770d42`; no remote feature branch or PR existed at the side-effect guard. This is local benchmark verification, not MAIN VERIFIED.
 - NEXT_EXACT_ACTION = "REVIEW IMP-103 TEST HARNESS AND EVIDENCE DIFF; VERIFY git status, git diff --check, AND FROZEN MASTER UNCHANGED -> STAGE ONLY tests/performance/test_imp103_300_shot_scale.py, tests/unit/test_imp103_scale_contract.py, evidence/tests/IMP-103_300_SHOT_SCALE_BENCHMARK_EVIDENCE.md, CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md; EXCLUDE .tmp/ -> VERIFY STAGED FILE LIST AND git diff --cached --check -> COMMIT LOCAL-VERIFIED IMP-103 -> RECHECK REMOTE BRANCH/PR AND PUSH ONCE; CREATE PR ONLY IF ABSENT -> VERIFY EXACT-HEAD CI/REVIEW -> MERGE ONLY AFTER REQUIRED GATES -> CHECKOUT/PULL MAIN AND VERIFY MERGE/MAIN CI -> MARK MAIN VERIFIED AND CLAIM THE NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-103 PR #95 OPEN / CI NOT YET REPORTED — 2026-10-15 23:01 +07
+
+- PR #95 = OPEN, mergeable, base `main` at `01f9f9939515d87065eb4ea9143981ace5770d42`; initial PR head = `792e4b236dd745f08544fc8f9aed30627eec0eee`. URL: https://github.com/nguyenkhactang922-bot/flowkit/pull/95.
+- Push of the feature branch succeeded and its upstream tracks `origin/chatgpt/IMP-103-300-shot-scale-benchmark`.
+- At this checkpoint `gh pr view` reported an empty `statusCheckRollup`, `gh pr checks` reported “no checks reported”, and `gh run list` showed no run for the branch. The `tests` workflow is active and configured for `pull_request`; do not infer CI PASS from absence of checks.
+- Local benchmark and frozen guard remain PASS; no test stage was rerun after commit. The next state-sync commit will advance the PR head, so all CI decisions must be based on the new exact head.
+- NEXT_EXACT_ACTION = "RECORD PR #95 OPEN WITH INITIAL HEAD 792e4b236dd745f08544fc8f9aed30627eec0eee AND BASE main 01f9f9939515d87065eb4ea9143981ace5770d42; NOTE THAT NO PR CHECKS/RUN HAVE BEEN REPORTED YET -> COMMIT/PUSH THIS GOVERNANCE-ONLY SYNC ON THE SAME BRANCH -> VERIFY NEW EXACT PR HEAD AND ITS WORKFLOW RUN/JOBS -> DO NOT MERGE UNTIL REQUIRED CHECKS PASS AND REVIEW GATE IS SATISFIED -> AFTER MERGE CHECKOUT/PULL MAIN, VERIFY MERGE SHA AND PUSH-MAIN CI, THEN MARK MAIN VERIFIED AND CLAIM NEXT DEPENDENCY-READY TASK"
