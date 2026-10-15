@@ -5986,3 +5986,13 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - Repository Actions are enabled, `.github/workflows/tests.yml` is active and declares `pull_request`, but GitHub has not created the expected run. Branch protection endpoint reports main is not protected; that does not substitute for the project CI gate.
 - No code/test stage was rerun. Do not merge or claim MAIN VERIFIED while CI is absent. A new state-sync commit will advance the PR head; inspect the newest exact head after pushing.
 - NEXT_EXACT_ACTION = "DIAGNOSE WHY ACTIVE WORKFLOW tests.yml (pull_request trigger, Actions enabled) HAS NOT CREATED A CHECK SUITE/RUN FOR PR #95; QUERY APPROVAL/WEBHOOK/WORKFLOW STATUS FOR THE CURRENT PR HEAD -> DO NOT MERGE WHILE THE PROJECT CI GATE IS UNVERIFIED -> IF THE REQUIRED WORKFLOW CANNOT BE TRIGGERED WITH AVAILABLE AUTHORITY, RECORD THE EXTERNAL BLOCKER AND LEAVE PR #95 OPEN; OTHERWISE VERIFY ALL CHECKS AGAINST THE NEWEST EXACT HEAD"
+
+
+## IMP-103 PR #95 — EXTERNAL CI DISPATCH BLOCKER — 2026-10-15 22:27 +07
+
+- Latest exact PR head inspected before this state sync = `940944be67a7187a8abe77835d0c5ec627ae8cdf`; PR #95 is OPEN, base main `01f9f9939515d87065eb4ea9143981ace5770d42`.
+- GitHub reports zero check suites and zero commit statuses for that head; no workflow run exists for the exact SHA/branch; no queued or `action_required` run exists. This was rechecked after both the initial feature commit and the subsequent state-sync push.
+- Repository Actions are enabled and `.github/workflows/tests.yml` is active with `pull_request` and `push: branches: [main]` triggers. The workflow does not declare `workflow_dispatch`; there is no run ID to approve or rerun. Main is not branch-protected, but that does not satisfy the project CI gate.
+- I am not merging without the project CI gate and will not broaden the workflow trigger or bypass CI as an unrelated change. Local benchmark PASS and frozen guard PASS remain valid; no test stage was rerun.
+- Status = LOCAL VERIFIED / PR OPEN / MAIN NOT VERIFIED. `.tmp/` remains local-only.
+- NEXT_EXACT_ACTION = "EXTERNAL BLOCKER: GITHUB ACTIONS HAS NOT CREATED A PR CHECK/RUN FOR PR #95 DESPITE THE ACTIVE pull_request WORKFLOW; REPOSITORY OWNER/MAINTAINER MUST RESOLVE OR AUTHORIZE A SUPPORTED TRIGGER -> KEEP PR #95 OPEN AND DO NOT MERGE -> AFTER A RUN APPEARS, VERIFY ALL CHECKS AGAINST THE LATEST PR HEAD, COMPLETE REVIEW/MERGE, THEN VERIFY MAIN/PUSH CI AND CLAIM THE NEXT DEPENDENCY-READY TASK"
