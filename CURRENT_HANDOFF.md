@@ -6423,3 +6423,287 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - [x] DAG next candidate = IMP-103 300-Shot Scale Benchmark. Hard dependencies IMP-003, IMP-053, IMP-060, IMP-061, IMP-062, IMP-100 are recorded MAIN VERIFIED; no IMP-103 branch or PR existed at duplicate guard.
 - [ ] Merge this governance-only state sync and verify push-main CI before creating/claiming the IMP-103 implementation branch from the exact updated main SHA.
 - NEXT_EXACT_ACTION = "REVIEW GOVERNANCE-ONLY THREE-FILE DIFF -> STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md -> VERIFY STAGED FILE LIST AND git diff --cached --check -> COMMIT -> PUSH ONCE -> CREATE PR ONLY IF ABSENT -> VERIFY EXACT-HEAD CI -> MERGE ONLY AFTER REQUIRED GATES -> CHECKOUT/PULL MAIN AND VERIFY PUSH CI -> CREATE IMP-103 FEATURE BRANCH FROM EXACT UPDATED MAIN SHA -> CLAIM IMP-103 AND AUDIT SCALE-BENCHMARK ACCEPTANCE/EXISTING LOAD TEST INFRASTRUCTURE BEFORE CODING"
+
+
+## IMP-103 CLAIMED — 300-SHOT SCALE BENCHMARK — 2026-10-14 00:25 +07
+
+- PROJECT_ROOT = `E:\FlowKit-Studio-Upgrade`; Git root `E:/FlowKit-Studio-Upgrade`.
+- Branch = `chatgpt/IMP-103-300-shot-scale-benchmark`; base main SHA = `01f9f9939515d87065eb4ea9143981ace5770d42`.
+- Governance PR #94 merged at `01f9f9939515d87065eb4ea9143981ace5770d42`; exact push-main workflow `38436895355` SUCCESS on that SHA; Python 3.10 and 3.13 jobs passed, including Frozen Master guard and unit tests.
+- IMP-102 = MAIN VERIFIED: PR #93 merge SHA `1e4bddef67db7e6b56b220da37e6e058d32c1638`; exact PR-head CI run `38428733066` SUCCESS; main push CI `38434288246` SUCCESS. IMP-102 targeted fault-injection tests remain 4/4 PASS; no prior PASS suites rerun.
+- IMP-103 hard dependencies per authoritative DAG: IMP-003, IMP-053, IMP-060, IMP-061, IMP-062, IMP-100; queue/evidence records each as MAIN VERIFIED. Duplicate guard: no prior local/remote branch or PR for `chatgpt/IMP-103-300-shot-scale-benchmark`.
+- Goal = measure 300-shot long-form scale; acceptance = no starvation, unbounded queue or data loss, with reproducible measured evidence. Frozen Master Benchmark Strategy §§95/NFR-009/PERF-001/PERF-002 remain authority; historical spikes are reference only, not current acceptance evidence.
+- Runtime = no local FlowKit test/build process; `.tmp/` is local-only and excluded from Git. Local API `http://127.0.0.1:8100/health` has previously been unreachable; this task must not claim live-provider evidence without a fresh health check.
+- STATUS = CLAIMED / ANALYZE; implementation not started.
+- NEXT_EXACT_ACTION = "AUDIT FROZEN MASTER BENCHMARK STRATEGY §§95/NFR-009/PERF-001/PERF-002 AND CURRENT QUEUE/DAG/SCHEDULER/GENERATIONJOB/PERSISTENCE IMPLEMENTATIONS + EXISTING UNIT TESTS + ACCEPTED EVIDENCE -> DEFINE A REPRODUCIBLE 300-SHOT WORKLOAD AND MEASURED GATES FOR REPOSITORY THROUGHPUT, QUEUE BOUNDS, DB/PERSISTENCE, FAIRNESS/STARVATION AND DATA INTEGRITY -> IDENTIFY EXISTING REUSABLE HARNESS AND COVERAGE GAPS -> IMPLEMENT ONLY MISSING BENCHMARK/TEST COVERAGE; DO NOT RERUN PRIOR PASS STAGES"
+
+
+## IMP-103 ANALYZE COMPLETE - 2026-10-14 14:20 +07
+
+- Repo truth: branch chatgpt/IMP-103-300-shot-scale-benchmark; HEAD 01f9f9939515d87065eb4ea9143981ace5770d42; no active FlowKit test/build process and no PTY session.
+- Frozen Master integrity: normalized LF/UTF-8 SHA-256 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287 exactly matches the freeze manifest; 6770 lines. Raw Windows CRLF hash differs only because line endings; do not edit the Master.
+- Authority: Master section 95 requires metadata/repository throughput and 300-shot scheduling/admission. NFR-009 requires bounded scalable workflow; PERF-001 requires hierarchical admission/cap-backpressure evidence; PERF-002 requires multi-project fairness/no starvation.
+- Existing implementation: SQLiteWriteOwner uses asyncio.Queue(maxsize=128) by default and fails closed with WriteQueueFull; SchedulerRepository ordering is priority -> durable per-priority project round-robin -> oldest-ready. Existing tests already cover basic queue pressure, global capacity, concurrent claims and small fairness; these PASS checkpoints are not to be rerun.
+- Gap found: no reusable 300-shot scale benchmark or accepted measured evidence found under evidence/. Historical spikes are not acceptance evidence.
+- Plan: add a dedicated offline performance harness with 300 distinct canonical ShotIR/GenerationJob work items, deterministic synthetic routing only (no live provider calls), scheduler admission/claim metrics, bounded queue stress with capacity 32 and 300 unique writes, 300-row/3-project fairness simulation, DB row integrity/size, throughput and tracemalloc peak. Do not invent an absolute throughput SLA absent from frozen authority; report measurements and enforce invariants: all 300 unique shots/jobs preserved, no duplicate claim, cap never exceeded, queue depth never exceeds configured capacity, no project starvation.
+- NEXT_EXACT_ACTION = "IMPLEMENT IMP-103 OFFLINE 300-SHOT BENCHMARK HARNESS AND FAST 300-ROW FAIRNESS CONTRACT TEST; RUN ONLY THE NEW TARGETS; CAPTURE JUNIT/JSON AND DATABASE/MEMORY/THROUGHPUT METRICS; VERIFY FROZEN MASTER UNCHANGED; SYNC EVIDENCE AND STATE BEFORE COMMIT"
+
+
+## IMP-103 IMPLEMENTATION CHECKPOINT — 2026-10-14
+
+- Task = IMP-103 300-Shot Scale Benchmark.
+- Repo truth = `E:\FlowKit-Studio-Upgrade`; Git root = `E:/FlowKit-Studio-Upgrade`; branch = `chatgpt/IMP-103-300-shot-scale-benchmark`; HEAD = `01f9f9939515d87065eb4ea9143981ace5770d42`.
+- Runtime classification = INTERRUPTED at post-implementation / pre-validation checkpoint: no FlowKit-specific test/build process is running, and no completed PASS/FAIL result exists for the new targets. Do not restart or rerun any prior PASS suite.
+- Implementation artifacts present: `tests/performance/test_imp103_300_shot_scale.py` (806 lines) and `tests/unit/test_imp103_scale_contract.py`. Existing production code is unchanged by the IMP-103 implementation so far.
+- Existing output guard checked: `.tmp/imp103-targeted.xml`, `.tmp/imp103-benchmark.json`, and `.tmp/imp103-targeted.log` were absent; no prior IMP-103 targeted evidence was found.
+- Environment: global Python 3.11.9 has no pytest module; repository-local reusable interpreter and pytest executable exist at `.tmp/imp053-test-venv/Scripts/python.exe` and `.tmp/imp053-test-venv/Scripts/pytest.exe`. Use the project venv, not global Python. Unrelated PTY sessions were confirmed to run in another repository and were not touched.
+- Current Git status includes the three state files modified, `.tmp/` untracked, and the two new test artifacts untracked. Keep `.tmp/` local-only and exclude it from commits.
+- NEXT_EXACT_ACTION = "VERIFY .tmp/imp053-test-venv/Scripts/python.exe -m pytest --version -> RUN ONLY tests/performance/test_imp103_300_shot_scale.py AND tests/unit/test_imp103_scale_contract.py WITH JUNIT AT .tmp/imp103-targeted.xml AND CAPTURE THE IMP103_BENCHMARK_RESULT JSON MARKER -> CLASSIFY FINAL EXIT/JUNIT -> FIX ONLY A PROVEN NEW-TARGET FAILURE -> WRITE ACCEPTED MEASURED EVIDENCE AND SYNC ALL THREE STATE FILES; DO NOT RERUN PRIOR PASS SUITES"
+
+
+## IMP-103 TARGETED VALIDATION RUNNING — 2026-10-14
+
+- State = RUNNING; only the new IMP-103 targets are executing. Existing PASS suites are not being rerun.
+- Process = FileMCP PTY `pty_8499d97743d1aa27c23c1583a1da8b78760d`; PID `161800`; command = `.tmp/imp053-test-venv/Scripts/python.exe -m pytest -q tests/performance/test_imp103_300_shot_scale.py tests/unit/test_imp103_scale_contract.py --junitxml=.tmp/imp103-targeted.xml`.
+- Output paths = `.tmp/imp103-targeted.log` and `.tmp/imp103-targeted.xml`; initial PTY read had no output yet, so no result is inferred.
+- NEXT_EXACT_ACTION = "MONITOR THE EXISTING PTY pty_8499d97743d1aa27c23c1583a1da8b78760d / PID 161800 AND ITS LOG/JUNIT; DO NOT START A SECOND TEST PROCESS; AFTER EXIT VERIFY FINAL EXIT CODE, JUNIT COUNTS/FAILURES AND IMP103_BENCHMARK_RESULT JSON BEFORE CLASSIFYING PASS/FAIL"
+
+
+## IMP-103 TARGETED TEST FAILURE CHECKPOINT — 2026-10-14
+
+- Test process = completed; FileMCP PTY `pty_8499d97743d1aa27c23c1583a1da8b78760d`, PID `161800`, final exit code 1. No FlowKit test process remains running.
+- Evidence = `.tmp/imp103-targeted.log` and `.tmp/imp103-targeted.xml`. JUnit records two cases: `tests.unit.test_imp103_scale_contract.test_300_ready_rows_round_robin_three_projects_without_starvation` PASS (0.011s); `tests.performance.test_imp103_300_shot_scale.test_imp103_300_shot_scale_benchmark` FAIL (246.284s).
+- Exact test failure = `ShotRealizationGateBlocked: StaticKeyframeSpec visible subject is not a ShotListItem subject` at `tests/performance/test_imp103_300_shot_scale.py:466`. Benchmark candidates inherit empty `subject_refs=()`, while reused `_static()` fixture sets `visible_subject_refs=(ENTITY_REF,)`.
+- Secondary runner teardown error = pytest session-finish cleanup hit `PermissionError [WinError 5]` resolving global `C:\Users\Admin\AppData\Local\Temp\pytest-of-unknown\pytest-current`; this is an environment cleanup issue, separate from the benchmark assertion. Retry with repository-local `--basetemp=.tmp/imp103-pytest-tmp`.
+- Preserve PASS = the three-project 300-row fairness contract test is PASS and must not be rerun. Do not rerun any pre-existing suite.
+- NEXT_EXACT_ACTION = "FIX ONLY THE NEW BENCHMARK FIXTURE BY SETTING EACH SYNTHETIC ShotExpansionCandidate.subject_refs TO (ENTITY_REF,) SO IT MATCHES THE EXISTING StaticKeyframeSpec SUBJECT CONTRACT -> VERIFY NEW RETRY OUTPUT PATHS ARE ABSENT AND NO FLOWKIT TEST PROCESS IS RUNNING -> RERUN ONLY tests/performance/test_imp103_300_shot_scale.py WITH --basetemp=.tmp/imp103-pytest-tmp, --capture=tee-sys, JUNIT .tmp/imp103-benchmark-retry.xml AND LOG .tmp/imp103-benchmark-retry.log -> VERIFY EXIT/JUNIT/JSON MARKER; DO NOT RERUN THE PASSING UNIT CONTRACT TEST"
+
+
+## IMP-103 BENCHMARK FIX CHECKPOINT — 2026-10-14
+
+- Previous result remains recorded as FAIL; evidence preserved at `.tmp/imp103-targeted.log` and `.tmp/imp103-targeted.xml`. The independent unit fairness contract remains PASS and will not be rerun.
+- Root-cause fix applied only to `tests/performance/test_imp103_300_shot_scale.py`: each synthetic `ShotExpansionCandidate` now sets `subject_refs=(ENTITY_REF,)`, matching the existing `_static()` fixture and canonical `ShotListItem.subject_refs` gate. No production implementation changed.
+- Retry guard verified: no FlowKit test process remains; `.tmp/imp103-pytest-tmp`, `.tmp/imp103-benchmark-retry.xml`, and `.tmp/imp103-benchmark-retry.log` are absent.
+- NEXT_EXACT_ACTION = "RUN ONLY tests/performance/test_imp103_300_shot_scale.py WITH .tmp/imp053-test-venv/Scripts/python.exe -m pytest -q --capture=tee-sys --basetemp=.tmp/imp103-pytest-tmp --junitxml=.tmp/imp103-benchmark-retry.xml AND TEE OUTPUT TO .tmp/imp103-benchmark-retry.log -> MONITOR THAT SINGLE PROCESS -> VERIFY FINAL EXIT/JUNIT COUNTS, BENCHMARK JSON MARKER AND CLEANUP STATUS -> FIX ONLY ANY NEW PROVEN FAILURE; DO NOT RERUN tests/unit/test_imp103_scale_contract.py OR PRIOR PASS SUITES"
+
+
+## IMP-103 FAILED-TARGET RETRY RUNNING — 2026-10-14
+
+- State = RUNNING; this is the single retry of the previously failing benchmark target after the fixture correction. The already-PASS fairness unit test and all historical PASS suites are excluded.
+- Process = FileMCP PTY `pty_8230acddbe09223c9ab411712fbce1022678`; PID `154644`; target child process must be verified from live runtime.
+- Command = `.tmp/imp053-test-venv/Scripts/python.exe -m pytest -q --capture=tee-sys --basetemp=.tmp/imp103-pytest-tmp tests/performance/test_imp103_300_shot_scale.py --junitxml=.tmp/imp103-benchmark-retry.xml`.
+- Durable output paths = `.tmp/imp103-benchmark-retry.log`, `.tmp/imp103-benchmark-retry.xml`; metrics marker will be captured with `--capture=tee-sys`. No result is inferred until final exit/JUnit is verified.
+- NEXT_EXACT_ACTION = "MONITOR THE EXISTING PTY pty_8230acddbe09223c9ab411712fbce1022678 / PID 154644 AND ITS LOG; DO NOT START A SECOND BENCHMARK; AFTER EXIT VERIFY PROCESS EXIT CODE, JUNIT COUNTS, IMP103_BENCHMARK_RESULT JSON, ALL 300 JOB/SHOT INVARIANTS AND LOCAL TEMP CLEANUP"
+
+
+## IMP-103 BENCHMARK RETRY INTERRUPTED - 2026-10-14 22:22 +07
+
+- Runtime classification = INTERRUPTED, not PASS or FAIL. Repo branch remains `chatgpt/IMP-103-300-shot-scale-benchmark`; HEAD remains `01f9f9939515d87065eb4ea9143981ace5770d42`.
+- Process check: PID 154644 is absent; no live command matches the IMP-103 benchmark/pytest target; FileMCP-E reports no owned PTY sessions. Do not infer PASS from a lost stream.
+- Retry artifacts: `.tmp/imp103-benchmark-retry.log` and `.tmp/imp103-benchmark-retry.xml` are absent, and no `IMP103_BENCHMARK_RESULT` marker is available for the retry. The old failed-target evidence remains `.tmp/imp103-targeted.log` / `.tmp/imp103-targeted.xml`; its separate fairness contract case is PASS and must not be rerun.
+- The fixture fix remains present at `tests/performance/test_imp103_300_shot_scale.py:397` (`subject_refs=(ENTITY_REF,)`). No production source or frozen Master was changed. Existing partial temp artifacts under `.tmp/imp103-pytest-tmp` are preserved.
+- NEXT_EXACT_ACTION = "VERIFY NO LIVE IMP-103 TEST PROCESS AND NEW OUTPUT PATHS ABSENT -> RESUME ONLY tests/performance/test_imp103_300_shot_scale.py WITH .tmp/imp053-test-venv/Scripts/python.exe -m pytest -q --capture=tee-sys --basetemp=.tmp/imp103-pytest-resume --junitxml=.tmp/imp103-benchmark-resume.xml; TEE OUTPUT TO .tmp/imp103-benchmark-resume.log -> MONITOR THE SINGLE EXISTING PTY -> VERIFY FINAL EXIT CODE, JUNIT, IMP103_BENCHMARK_RESULT AND ALL 300-SHOT/QUEUE/PERSISTENCE/FAIRNESS INVARIANTS -> DO NOT RERUN tests/unit/test_imp103_scale_contract.py OR ANY PRIOR PASS SUITE"
+
+
+## IMP-103 BENCHMARK RESUME RUNNING - 2026-10-14 22:27 +07
+
+- Runtime classification = RUNNING. The previously interrupted retry had no live process and no final log/JUnit; this is one resumed process for the same incomplete benchmark stage, not a duplicate.
+- Active PTY = `pty_8be8c95ccb464f0d9f7d1eadc01872e5c986`; PowerShell PID `155268`; Python pytest parent PID `136900`, child Python PID `135788`; command = `.tmp/imp053-test-venv/Scripts/python.exe -m pytest -q --capture=tee-sys --basetemp=.tmp/imp103-pytest-resume tests/performance/test_imp103_300_shot_scale.py --junitxml=.tmp/imp103-benchmark-resume.xml`.
+- Output targets = `.tmp/imp103-benchmark-resume.log`, `.tmp/imp103-benchmark-resume.xml`; at launch both were absent. PTY initially had no output yet; no result inferred.
+- Only the previously failing benchmark test is running. The three-project fairness contract PASS and all historical PASS suites are excluded. Frozen Master remains untouched.
+- NEXT_EXACT_ACTION = "MONITOR PTY pty_8be8c95ccb464f0d9f7d1eadc01872e5c986 AND PIDS 155268/136900/135788; DO NOT START ANOTHER PROCESS -> AFTER EXIT VERIFY FINAL PTY EXIT CODE, JUNIT TESTS/FAILURES/ERRORS, IMP103_BENCHMARK_RESULT JSON, ALL 300 SHOT/JOB INTEGRITY, QUEUE CAPACITY, ADMISSION CAP, LEASE RELEASE, THREE-PROJECT FAIRNESS AND CLEANUP -> SYNC PASS/FAIL BEFORE ANY FURTHER STAGE"
+
+
+## IMP-103 BENCHMARK RESUME RUNNING - 2026-10-14 22:27 +07
+
+- Runtime classification = RUNNING. The previously interrupted retry had no live process and no final log/JUnit; this is one resumed process for the same incomplete benchmark stage, not a duplicate.
+- Active PTY = `pty_8be8c95ccb464f0d9f7d1eadc01872e5c986`; PowerShell PID `155268`; Python pytest parent PID `136900`, child Python PID `135788`; command = `.tmp/imp053-test-venv/Scripts/python.exe -m pytest -q --capture=tee-sys --basetemp=.tmp/imp103-pytest-resume tests/performance/test_imp103_300_shot_scale.py --junitxml=.tmp/imp103-benchmark-resume.xml`.
+- Output targets = `.tmp/imp103-benchmark-resume.log`, `.tmp/imp103-benchmark-resume.xml`; at launch both were absent. PTY initially had no output yet; no result inferred.
+- Only the previously failing benchmark test is running. The three-project fairness contract PASS and all historical PASS suites are excluded. Frozen Master remains untouched.
+- NEXT_EXACT_ACTION = "MONITOR PTY pty_8be8c95ccb464f0d9f7d1eadc01872e5c986 AND PIDS 155268/136900/135788; DO NOT START ANOTHER PROCESS -> AFTER EXIT VERIFY FINAL PTY EXIT CODE, JUNIT TESTS/FAILURES/ERRORS, IMP103_BENCHMARK_RESULT JSON, ALL 300 SHOT/JOB INTEGRITY, QUEUE CAPACITY, ADMISSION CAP, LEASE RELEASE, THREE-PROJECT FAIRNESS AND CLEANUP -> SYNC PASS/FAIL BEFORE ANY FURTHER STAGE"
+
+## IMP-103 RESUME DIAGNOSTIC — 2026-10-14 23:35 +07
+
+- Repo truth: branch `chatgpt/IMP-103-300-shot-scale-benchmark`; HEAD `01f9f9939515d87065eb4ea9143981ace5770d42`. Worktree still contains only the three state-file edits plus untracked IMP-103 tests and local-only `.tmp/`.
+- Runtime classification = INTERRUPTED. PTY `pty_8be8c95ccb464f0d9f7d1eadc01872e5c986` reached `lifetime_expired` with exit code 1; no live FlowKit/pytest process exists. The only other owned PTY is compiling an unrelated Tang Video Merge Studio repo; it was not touched.
+- Durable partial evidence: `.tmp/imp103-pytest-resume/test_imp103_300_shot_scale_ben0/imp103-300-shot-scale.db` (88,584,192 bytes) and its WAL (4,680,352 bytes; last write 23:26). Read-only SQLite inspection shows 300 ShotListItems, 300 eligibility gates, 300 FullShotSpecs, 300 StaticKeyframeSpecs, 300 MotionDeltaSpecs, only 46 ShotIR pointers (45 APPROVED + 1 DRAFT), 0 GenerationJobs, and 17,610 dependency edges. Thus the prior run never completed the compiler stage or produced final JUnit/log/result marker; no PASS can be inferred.
+- The benchmark starts tracemalloc before the entire upstream 300-shot construction/compiler path and emits no phase progress until the end. To make the same required benchmark diagnosable and avoid instrumenting all upstream setup unnecessarily, adjust only the test harness to scope tracemalloc to the scheduler/claim measurement window and emit flushed phase-progress markers. Keep the full 300-shot/300-job workload and all queue, admission, persistence, fairness, uniqueness, and lease invariants. Do not change production code absent new evidence.
+- Preserve the already-PASS `tests/unit/test_imp103_scale_contract.py` result; do not rerun it or any historical PASS suite. Preserve partial `.tmp/` evidence; exclude `.tmp/` from Git.
+- NEXT_EXACT_ACTION = "EDIT ONLY tests/performance/test_imp103_300_shot_scale.py TO SCOPE TRACEMALLOC TO THE SCHEDULER/CLAIM MEASUREMENT WINDOW AND ADD FLUSHED PHASE-PROGRESS MARKERS WITHOUT WEAKENING ANY 300-SHOT ACCEPTANCE INVARIANTS -> VERIFY FROZEN MASTER UNCHANGED AND NO FLOWKIT TEST PROCESS RUNNING -> RUN ONLY tests/performance/test_imp103_300_shot_scale.py USING .tmp/imp053-test-venv/Scripts/python.exe WITH --capture=tee-sys --basetemp=.tmp/imp103-pytest-final --junitxml=.tmp/imp103-benchmark-final.xml AND CAPTURE LOG TO .tmp/imp103-benchmark-final.log -> MONITOR THAT SINGLE PROCESS -> VERIFY EXIT CODE, JUNIT, IMP103_BENCHMARK_RESULT JSON, ALL 300-SHOT/JOB/QUEUE/ADMISSION/PERSISTENCE/FAIRNESS/LEASE INVARIANTS -> WRITE ACCEPTED MEASURED EVIDENCE AND SYNC ALL THREE STATE FILES; DO NOT RERUN tests/unit/test_imp103_scale_contract.py OR PRIOR PASS SUITES"
+
+## IMP-103 BENCHMARK HARNESS INSTRUMENTATION READY — 2026-10-14 23:39 +07
+
+- Only `tests/performance/test_imp103_300_shot_scale.py` changed for this checkpoint; production source and prior PASS test files remain untouched.
+- Added flushed phase markers through expansion, realization, compiler, routing/job creation, scheduler queue setup, claim drain and bounded-queue probe. Tracemalloc now measures only scheduler queue setup and scheduler claim windows; output keys name that scope explicitly. All 300-shot, distinct-job, queue-bound, hierarchical-admission, fairness, persistence, duplicate-claim and lease-release assertions remain present.
+- Verification: project venv `python -m py_compile tests/performance/test_imp103_300_shot_scale.py` exit 0; `git diff --check` exit 0; frozen Master normalized LF/UTF-8 SHA-256 remains `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287` (6,770 lines); no FlowKit pytest process is active. Fresh output targets `.tmp/imp103-pytest-final`, `.tmp/imp103-benchmark-final.xml`, and `.tmp/imp103-benchmark-final.log` are absent.
+- The prior benchmark is still classified INTERRUPTED and its partial DB/WAL are preserved. The independent 300-row/3-project fairness contract remains PASS and is not being rerun.
+- NEXT_EXACT_ACTION = "RUN ONLY tests/performance/test_imp103_300_shot_scale.py WITH .tmp/imp053-test-venv/Scripts/python.exe -m pytest -q --capture=tee-sys --basetemp=.tmp/imp103-pytest-final tests/performance/test_imp103_300_shot_scale.py --junitxml=.tmp/imp103-benchmark-final.xml; TEE ALL OUTPUT TO .tmp/imp103-benchmark-final.log AND EMIT FINAL EXIT CODE -> MONITOR THIS SINGLE PTY/PROCESS AND ITS PHASE MARKERS -> VERIFY EXIT CODE, JUNIT COUNTS/FAILURES, IMP103_BENCHMARK_RESULT JSON AND ALL 300-SHOT/QUEUE/ADMISSION/PERSISTENCE/FAIRNESS/LEASE INVARIANTS -> SYNC RESULTS; DO NOT RERUN tests/unit/test_imp103_scale_contract.py OR ANY PRIOR PASS SUITE"
+
+## IMP-103 FINAL BENCHMARK RUNNING — 2026-10-14 23:40 +07
+
+- Runtime state = RUNNING. One process launched for the previously interrupted benchmark stage only; no duplicate process was present at launch.
+- PTY = `pty_4bba6db9686912469a406845b2c0f460380c`; PowerShell PID = `130800`; command = `.tmp/imp053-test-venv/Scripts/python.exe -m pytest -q --capture=tee-sys --basetemp=.tmp/imp103-pytest-final tests/performance/test_imp103_300_shot_scale.py --junitxml=.tmp/imp103-benchmark-final.xml`, with combined output tee'd to `.tmp/imp103-benchmark-final.log`.
+- This run contains only `tests/performance/test_imp103_300_shot_scale.py`; the already-PASS `tests/unit/test_imp103_scale_contract.py` and all prior PASS suites are excluded. Frozen Master hash was verified unchanged immediately before launch.
+- NEXT_EXACT_ACTION = "MONITOR PTY pty_4bba6db9686912469a406845b2c0f460380c / PID 130800 AND .tmp/imp103-benchmark-final.log; DO NOT START A SECOND PROCESS -> AFTER EXIT VERIFY FINAL PTY EXIT CODE, JUNIT TESTS/FAILURES/ERRORS, IMP103_BENCHMARK_RESULT JSON, 300 DISTINCT SHOT/JOB COUNTS, QUEUE BOUNDS, ADMISSION CAP, PERSISTED ROWS, FAIRNESS, ZERO ACTIVE LEASES AND CLEANUP -> SYNC FINAL RESULT"
+
+
+## IMP-103 BENCHMARK RESUME3 RUNNING - 2026-10-15 10:32 +07
+
+- Runtime classification = RUNNING. Existing PTY = `pty_845b5a735a06a1f5d1545c0065391a3bdfff`; PowerShell PID = `147820`; command runs only `tests/performance/test_imp103_300_shot_scale.py` using `.tmp/imp053-test-venv/Scripts/python.exe -m pytest -q --capture=tee-sys --basetemp=.tmp/imp103-pytest-resume3 ... --junitxml=.tmp/imp103-benchmark-resume3.xml`, with combined output tee'd to `.tmp/imp103-benchmark-resume3.log`.
+- Prelaunch guard confirmed no live IMP-103 pytest process and all three new output targets absent. Existing partial artifacts in `.tmp/imp103-pytest-final` and `.tmp/imp103-pytest-resume` are preserved and not reused.
+- Only the interrupted 300-shot benchmark stage is running. The already-PASS `tests/unit/test_imp103_scale_contract.py` and all historical PASS suites are excluded. This is an offline synthetic benchmark; it makes no real provider calls. Frozen Master/production source remain untouched.
+- NEXT_EXACT_ACTION = "MONITOR EXISTING PTY pty_845b5a735a06a1f5d1545c0065391a3bdfff / PID 147820 AND .tmp/imp103-benchmark-resume3.log; DO NOT START A SECOND PROCESS -> AFTER EXIT VERIFY PTY EXIT CODE, FINAL_EXIT_CODE MARKER, JUNIT TESTS/FAILURES/ERRORS, IMP103_BENCHMARK_RESULT JSON, 300 DISTINCT SHOT/JOB COUNTS, QUEUE BOUNDS, HIERARCHICAL ADMISSION CAP, PERSISTENCE, FAIRNESS, ZERO ACTIVE LEASES AND CLEANUP -> SYNC FINAL PASS/FAIL; DO NOT RERUN tests/unit/test_imp103_scale_contract.py OR PRIOR PASS SUITES"
+
+
+## IMP-103 BENCHMARK RESUME3 RESULT - 2026-10-15 16:12 +07
+
+- Runtime classification = FAIL for the current benchmark attempt; no active IMP-103/pytest process remains and FileMCP-E PTY list is empty.
+- Durable evidence: `.tmp/imp103-benchmark-resume3.log` (35,366 bytes; last write 2026-10-15 11:43:07) and `.tmp/imp103-benchmark-resume3.xml`. JUnit: 1 test, 1 failure, 0 errors, 0 skipped; duration 4,160.834 seconds; process PID 147820 is absent.
+- The benchmark reached `IMP103_PROGRESS=compiler_complete shots=300` and failed at `tests/performance/test_imp103_300_shot_scale.py:561`: `TypeError: ProviderCapabilityRoutingRepository.route_initial() got an unexpected keyword argument 'correlation_id'`. No `IMP103_BENCHMARK_RESULT` marker was emitted; this is not PASS.
+- Root cause verified against `agent/studio/provider_routing.py`: `route_initial` accepts no `correlation_id` argument and obtains it from `ProviderRouteRequest.run_correlation_id`. Fix only the benchmark callsite/request payload; do not change production routing code.
+- Preserve prior PASS: `tests/unit/test_imp103_scale_contract.py` three-project 300-row fairness contract PASS. Do not rerun it or historical PASS suites. Preserve all partial `.tmp/` artifacts; keep `.tmp/` out of Git.
+- NEXT_EXACT_ACTION = "EDIT ONLY tests/performance/test_imp103_300_shot_scale.py: set route_request.run_correlation_id to a unique run:imp103-route-NNN value in the ProviderRouteRequest payload and remove the unsupported correlation_id keyword from route_initial -> RUN project-venv py_compile + git diff --check and verify frozen Master hash unchanged -> VERIFY no active FlowKit pytest process and fresh resume4 output paths absent -> RUN ONLY tests/performance/test_imp103_300_shot_scale.py with .tmp/imp053-test-venv/Scripts/python.exe -m pytest -q --capture=tee-sys --basetemp=.tmp/imp103-pytest-resume4 --junitxml=.tmp/imp103-benchmark-resume4.xml, tee log to .tmp/imp103-benchmark-resume4.log -> monitor that one process and verify exit/JUnit/IMP103_BENCHMARK_RESULT plus all 300-shot, distinct-job, queue, admission, persistence, fairness and lease invariants -> do not rerun tests/unit/test_imp103_scale_contract.py or any prior PASS suite"
+
+## IMP-103 ROUTING REQUEST FIX READY - 2026-10-15 16:14 +07
+
+- Fixed only tests/performance/test_imp103_300_shot_scale.py: each benchmark ProviderRouteRequest now receives a unique run_correlation_id=f"run:imp103-route-{index:03d}"; removed the unsupported correlation_id argument from route_initial. Production code is unchanged.
+- Preflight PASS: project venv python -m py_compile tests/performance/test_imp103_300_shot_scale.py exit 0; git diff --check exit 0; frozen Master normalized SHA-256 matches manifest 1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287; no live IMP-103/pytest process; fresh resume4 basetemp/JUnit/log paths absent.
+- Previous benchmark FAIL remains preserved as .tmp/imp103-benchmark-resume3.xml and .tmp/imp103-benchmark-resume3.log. The benchmark fairness unit test and historical PASS suites remain excluded from reruns. .tmp/ remains local-only.
+- NEXT_EXACT_ACTION = "RUN ONLY tests/performance/test_imp103_300_shot_scale.py with .tmp/imp053-test-venv/Scripts/python.exe -m pytest -q --capture=tee-sys --basetemp=.tmp/imp103-pytest-resume4 tests/performance/test_imp103_300_shot_scale.py --junitxml=.tmp/imp103-benchmark-resume4.xml; tee combined output to .tmp/imp103-benchmark-resume4.log and record FINAL_EXIT_CODE -> monitor this single PTY/process and phase markers -> after exit verify JUnit, IMP103_BENCHMARK_RESULT JSON, all 300 distinct shot/job counts, queue bounds, hierarchical admission cap, persistence, fairness, zero active leases and cleanup -> do not rerun tests/unit/test_imp103_scale_contract.py or prior PASS suites"
+
+## IMP-103 BENCHMARK RESUME4 RUNNING - 2026-10-15 16:21 +07
+
+- State = RUNNING; a single process has been started for the previously failing benchmark target after the callsite fix. PTY = pty_ccf5907c814e86e41b48118414a34ebc2143; PowerShell PID 105736; pytest parent PID 153688; Python child PID 164860; start time 2026-10-15 16:21:41.
+- Command = .tmp/imp053-test-venv/Scripts/python.exe -m pytest -q --capture=tee-sys --basetemp=.tmp/imp103-pytest-resume4 tests/performance/test_imp103_300_shot_scale.py --junitxml=.tmp/imp103-benchmark-resume4.xml; combined output is tee'd to .tmp/imp103-benchmark-resume4.log. At first poll, log/JUnit had not yet been created and PTY output was empty; no result inferred.
+- This run includes only the benchmark target. The already-PASS tests/unit/test_imp103_scale_contract.py and all historical PASS suites remain excluded. Prior failed logs/JUnit and partial temp artifacts are preserved; .tmp/ stays out of Git.
+- NEXT_EXACT_ACTION = "MONITOR existing PTY pty_ccf5907c814e86e41b48118414a34ebc2143 and PIDs 105736/153688/164860 plus .tmp/imp103-benchmark-resume4.log; do not start a second process -> after exit verify FINAL_EXIT_CODE, JUnit tests/failures/errors, IMP103_BENCHMARK_RESULT JSON, 300 distinct shot/job counts, queue bounds, hierarchical admission cap, persistence, fairness, zero active leases and cleanup -> sync final PASS/FAIL -> do not rerun tests/unit/test_imp103_scale_contract.py or prior PASS suites"
+
+## IMP-103 RESUME4 LIVE MONITORING NOTE - 2026-10-15 16:28 +07
+
+- Runtime remains RUNNING: PTY pty_ccf5907c814e86e41b48118414a34ebc2143; PowerShell PID 105736, pytest parent PID 153688, Python child PID 164860; process start 16:21:41. No duplicate IMP-103/pytest process exists.
+- The test signature uses pytest capsys, so its flushed IMP103_PROGRESS prints are captured by the fixture and are not streamed to PTY/log while the test is active. Empty PTY/log at this point is not a process failure. Monitor the existing PIDs and DB/WAL growth; do not restart.
+- Current artifact .tmp/imp103-pytest-resume4/test_imp103_300_shot_scale_ben0/imp103-300-shot-scale.db is 12,591,104 bytes (last write 16:28:25); read-only snapshot: studio_semantic_version=228, studio_current_pointer=228, studio_dependency_edge=2317; GenerationJob/Scheduler tables are still empty at this early setup phase. JUnit/log are not created yet.
+- AGENTS.md health preflight to http://127.0.0.1:8100/health returned connection unavailable. This task is explicitly offline synthetic and makes no provider calls; no live-provider or production-E2E claim is made.
+- NEXT_EXACT_ACTION = "MONITOR existing PTY pty_ccf5907c814e86e41b48118414a34ebc2143 and PIDs 105736/153688/164860; do not start another process -> inspect DB/WAL size and read-only progress snapshots until process exits or final log/JUnit appears -> verify FINAL_EXIT_CODE, JUnit and IMP103_BENCHMARK_RESULT plus all 300-shot, distinct-job, queue, admission, persistence, fairness and lease invariants -> sync final result; preserve prior PASS suites"
+
+
+## IMP-103 RESUME4 INTERRUPTED / RESUME5 PREFLIGHT — 2026-10-15
+
+- Runtime classification = INTERRUPTED, not PASS: no live Python/pytest/IMP-103 process exists; exact previous PIDs 105736/153688/164860 and 147820 are absent; FileMCP-E PTY list is empty. Resume4 JUnit/log were never created.
+- Preserved partial runtime artifact: `.tmp/imp103-pytest-resume4/test_imp103_300_shot_scale_ben0/imp103-300-shot-scale.db` = 52,019,200 bytes; WAL = 4,194,192 bytes; last writes 2026-10-15 16:44. Read-only SQLite snapshot: 886 semantic-version rows, 886 current pointers, 9,351 dependency edges, 0 GenerationJobs. The run is incomplete; no PASS is inferred. Preserve all .tmp artifacts.
+- Prior completed attempt `.tmp/imp103-benchmark-resume3.xml` remains FAIL (1 test, 1 failure) due to unsupported `correlation_id` keyword at `route_initial`. Current harness fix is present: unique `run_correlation_id` is set on `ProviderRouteRequest`; unsupported keyword removed. Production source remains unchanged.
+- Removed the unused pytest `capsys` parameter from the benchmark test so `--capture=tee-sys` can stream phase markers; this changes observability only, not workload or acceptance assertions.
+- Preflight PASS: project venv `py_compile` exit 0; `git diff --check` exit 0; normalized frozen Master SHA-256 `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`, 6,770 lines, matches freeze manifest; no relevant live process; fresh resume5 temp/JUnit/log paths absent.
+- Preserve PASS checkpoint: `tests/unit/test_imp103_scale_contract.py::test_300_ready_rows_round_robin_three_projects_without_starvation` passed in `.tmp/imp103-targeted.xml`; do not rerun this test or any historical PASS suite.
+- NEXT_EXACT_ACTION = "RUN ONLY tests/performance/test_imp103_300_shot_scale.py using .tmp/imp053-test-venv/Scripts/python.exe -m pytest -q --capture=tee-sys --basetemp=.tmp/imp103-pytest-resume5 tests/performance/test_imp103_300_shot_scale.py --junitxml=.tmp/imp103-benchmark-resume5.xml; tee combined output to .tmp/imp103-benchmark-resume5.log and append FINAL_EXIT_CODE -> use a single PTY with max_lifetime_seconds=14400 and monitor streamed phase markers/process -> after exit verify PTY exit code, FINAL_EXIT_CODE, JUnit, IMP103_BENCHMARK_RESULT JSON and all 300-shot/job, queue, admission, persistence, fairness, lease and cleanup invariants -> sync PASS/FAIL; do not rerun tests/unit/test_imp103_scale_contract.py or prior PASS suites"
+
+
+## IMP-103 BENCHMARK RESUME5 RUNNING — 2026-10-15 18:17 +07
+
+- State = RUNNING; single PTY `pty_73ab9086b5501e0fa31a73cf8097b781f4ca`; PowerShell PID 133688, pytest PID 162744, Python child PID 143356; process start 18:17:18 +07.
+- Command = `.tmp/imp053-test-venv/Scripts/python.exe -m pytest -q --capture=tee-sys --basetemp=.tmp/imp103-pytest-resume5 tests/performance/test_imp103_300_shot_scale.py --junitxml=.tmp/imp103-benchmark-resume5.xml`; combined output tee'd to `.tmp/imp103-benchmark-resume5.log`, wrapper appends `FINAL_EXIT_CODE` after pytest exits. PTY max lifetime = 14,400 seconds.
+- Only the previously failing/incomplete performance benchmark target is running. The already-PASS `tests/unit/test_imp103_scale_contract.py` and all historical PASS suites remain excluded. Fresh DB/WAL appeared and are growing; no JUnit/log at initial poll, which is not a failure. No duplicate process exists.
+- The unused `capsys` parameter was removed to allow `--capture=tee-sys` progress markers to stream; workload/acceptance assertions unchanged. Frozen Master hash and preflight were verified before launch.
+- NEXT_EXACT_ACTION = "MONITOR existing PTY pty_73ab9086b5501e0fa31a73cf8097b781f4ca and PIDs 133688/162744/143356 plus .tmp/imp103-benchmark-resume5.log and DB/WAL progress; do not start a second process -> after exit verify PTY exit code, FINAL_EXIT_CODE, JUnit counts/failures/errors, IMP103_BENCHMARK_RESULT JSON, 300 distinct shot/job counts, queue bounds, hierarchical admission cap, persistence, fairness, zero active leases and cleanup -> sync final PASS/FAIL; do not rerun tests/unit/test_imp103_scale_contract.py or prior PASS suites"
+
+
+## IMP-103 RESUME5 MONITOR CHECKPOINT — 2026-10-15 18:20 +07
+
+- Runtime remains RUNNING: PTY `pty_73ab9086b5501e0fa31a73cf8097b781f4ca`; PIDs 133688/162744/143356 remain the one active benchmark chain. No duplicate process.
+- Read-only progress snapshot: DB 12,177,408 bytes, WAL 4,165,352 bytes (last write 18:20:00); 276 semantic-version rows, 276 current pointers, 2,869 dependency edges, 0 GenerationJobs. This is mid-setup, not a result.
+- PTY output cursor remains empty and JUnit/log are not yet created, even after removing the unused capsys fixture. Continue using process/DB/WAL evidence; do not infer failure or restart from absent output alone.
+- NEXT_EXACT_ACTION = "MONITOR the same PTY/PIDs and read-only DB/WAL size/count snapshots; do not launch another benchmark; after process exit inspect PTY exit code, FINAL_EXIT_CODE marker, JUnit and result JSON; preserve all previous PASS suites"
+
+
+## IMP-103 RESUME5 ACTIVE PROGRESS — 2026-10-15 18:24 +07
+
+- Same process remains RUNNING: PTY `pty_73ab9086b5501e0fa31a73cf8097b781f4ca`, PIDs 133688/162744/143356. Python CPU = 103.75s at the last resource snapshot; process has not exited.
+- Read-only DB snapshot: 21,598,208 bytes; WAL 4,181,832 bytes; 466 semantic-version/current-pointer rows, 5,046 dependency edges, 0 GenerationJobs; latest write 18:22:22. DB growth and CPU prove active progress, not a final benchmark result.
+- PTY cursor/log/JUnit remain empty/not yet created; this absence alone is not FAIL. Use PID/process plus read-only DB/WAL evidence. Do not restart or launch another process.
+- NEXT_EXACT_ACTION = "MONITOR the same PTY/PIDs and read-only DB/WAL progress until the existing process exits; then inspect final exit/JUnit/result marker and sync; never rerun any PASS suite"
+
+
+## IMP-103 RESUME5 300-SHOT EXPANSION CHECKPOINT — 2026-10-15 18:27 +07
+
+- Runtime remains RUNNING on PTY `pty_73ab9086b5501e0fa31a73cf8097b781f4ca`, PIDs 133688/162744/143356. No duplicate process; JUnit/log still not materialized and PTY cursor remains empty.
+- Read-only SQLite evidence confirms expansion phase completed its core workload: `shot-v300=300`, `shot-trace-v300=300`; total semantic versions/current pointers = 631, dependency edges = 7,229, GenerationJobs = 0 at this snapshot. DB = 40,620,032 bytes; WAL = 4,194,192 bytes. This is intermediate progress only; realization/compiler/routing/jobs/scheduler assertions are not yet verified.
+- NEXT_EXACT_ACTION = "MONITOR the same benchmark process and read-only DB/WAL; wait for final exit/JUnit/result marker; do not restart and do not rerun prior PASS suites"
+
+
+## IMP-103 RESUME5 REALIZATION PROGRESS — 2026-10-15 18:29 +07
+
+- Runtime remains RUNNING on the same PTY/PIDs 133688/162744/143356; process CPU increased to 197.97s. No duplicate process.
+- Read-only DB snapshot: 47,685,632-byte DB, 4,194,192-byte WAL, 762 semantic versions, 8,328 dependency edges, 0 GenerationJobs. Group counts show 300 `shot-v300`, 300 `shot-trace-v300`, and 33 each of `eligibility-v300`, `full-spec-v1`, `static-v1`, `motion-v1`; realization is progressing. No final JUnit/log/result yet.
+- NEXT_EXACT_ACTION = "CONTINUE MONITORING THE EXISTING BENCHMARK PROCESS AND DB/WAL; do not launch a duplicate; verify full final result only after process exit; keep previous PASS suites untouched"
+
+
+## IMP-103 RESUME5 REALIZATION PROGRESS 73/300 — 2026-10-15 18:31 +07
+
+- Same PTY/PIDs 133688/162744/143356 remain RUNNING; Python CPU 256.08s at latest process snapshot; no duplicate.
+- Read-only SQLite: DB 53,760,000 bytes, WAL 4,194,192 bytes, 924 semantic versions, 9,664 dependency edges, 0 GenerationJobs. Version counts: 300 shots, 300 traces, 73 eligibility gates, 73 FullShotSpecs, 73 StaticKeyframeSpecs, 72 MotionDeltaSpecs. Realization progress is active; no final result.
+- PTY cursor, JUnit and log remain empty/not created. Keep monitoring existing process/DB; no restart.
+- NEXT_EXACT_ACTION = "MONITOR same benchmark PTY/PIDs and DB/WAL snapshots until completion; verify final JUnit/exit/result marker; do not rerun prior PASS suites"
+
+
+## IMP-103 RESUME5 REALIZATION PROGRESS 152/300 — 2026-10-15 18:36 +07
+
+- Runtime still RUNNING on PTY `pty_73ab9086b5501e0fa31a73cf8097b781f4ca`, PIDs 133688/162744/143356; Python CPU 375.67s. No duplicate process.
+- Read-only DB snapshot: 64,888,832 bytes; 12,255 dependency edges; 1,238 semantic versions; 152 eligibility gates and 151 each FullShotSpec/StaticKeyframeSpec/MotionDeltaSpec. All 300 shots/traces remain present; GenerationJobs not yet created. This is active realization, not final evidence.
+- PTY cursor/log/JUnit remain empty/not created. Process/DB evidence is advancing; continue monitoring the same process.
+- NEXT_EXACT_ACTION = "MONITOR same benchmark PTY/PIDs and DB/WAL; wait for process exit and inspect final JUnit/exit/result marker; do not restart or rerun prior PASS suites"
+
+
+## IMP-103 RESUME5 REALIZATION PROGRESS 189/300 — 2026-10-15 18:39 +07
+
+- Same benchmark PTY/PIDs 133688/162744/143356 remain active; Python CPU 429.66s; no final log/JUnit yet.
+- Read-only SQLite snapshot: DB 70,078,464 bytes; 13,492 dependency edges; 1,388 semantic versions; 189 eligibility/full/static artifacts and 188 motion artifacts; all 300 shots/traces remain present; 0 GenerationJobs. Realization continues with persisted progress; no PASS inferred.
+- NEXT_EXACT_ACTION = "MONITOR the existing process and DB/WAL until the same benchmark exits; then verify final exit/JUnit/result JSON; do not restart or rerun any PASS suite"
+
+
+## IMP-103 RESUME5 REALIZATION PROGRESS 252/300 — 2026-10-15 18:42 +07
+
+- Same benchmark process remains RUNNING on PTY `pty_73ab9086b5501e0fa31a73cf8097b781f4ca`; PIDs 133688/162744/143356. Python CPU 516.69s; no duplicate.
+- Read-only DB: 79,507,456 bytes, 15,555 dependency edges, 1,638 semantic versions; 252 eligibility gates and 251 each full/static/motion artifacts; 300 shot/trace identities preserved; GenerationJobs still 0. Realization is advancing; not a final result.
+- PTY/JUnit/log still no output/artifact. Keep monitoring same process and DB/WAL, no restart.
+- NEXT_EXACT_ACTION = "MONITOR existing benchmark process; after exit verify final JUnit/exit/result marker and all invariants; preserve prior PASS suites"
+
+
+## IMP-103 BENCHMARK PASS / LOCAL VERIFICATION — 2026-10-15
+
+- Runtime classification = PASS for the 300-shot benchmark stage, based on the completed final log, JUnit and result marker.
+- Command = `.tmp/imp053-test-venv/Scripts/python.exe -m pytest -q --capture=tee-sys --basetemp=.tmp/imp103-pytest-resume5 tests/performance/test_imp103_300_shot_scale.py --junitxml=.tmp/imp103-benchmark-resume5.xml`; combined log = `.tmp/imp103-benchmark-resume5.log`; `FINAL_EXIT_CODE=0`; JUnit = 1 test, 1 passed, 0 failures/errors/skips, 2,424.814 s.
+- Result JSON verified: 300 unique shots, 300 unique GenerationJobs, 300 claims; 3 projects × 100 shots, max fairness gap 3, no starvation; bounded queue capacity/peak 32/32 with 268 retries and 300 unique persisted rows; admission 8 requested / 4 admitted under cap 4; 0 active leases and 0 queued jobs after claims.
+- Measured: setup 2,305.7494 s (0.130 shots/s); claim phase 94.5568 s (3.173 claims/s); main SQLite footprint 110,415,872 bytes; writer queue cap/peak 64/7. These are observed offline synthetic measurements, not an invented SLA.
+- Frozen Master guard PASS, exit 0; normalized SHA-256 `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287` matches manifest. `git diff --check` exit 0. Production source unchanged; no provider calls.
+- Previously PASS fast fairness contract test remains PASS and was not rerun. Resume3 FAIL and resume4 INTERRUPTED artifacts remain preserved. No active IMP-103/pytest process remains. Logs/JUnit/temp DBs are local under `.tmp/` and excluded from Git.
+- Evidence record: `evidence/tests/IMP-103_300_SHOT_SCALE_BENCHMARK_EVIDENCE.md`.
+- Git state: branch `chatgpt/IMP-103-300-shot-scale-benchmark`, HEAD/base `01f9f9939515d87065eb4ea9143981ace5770d42`; no remote feature branch or PR existed at the side-effect guard. This is local benchmark verification, not MAIN VERIFIED.
+- NEXT_EXACT_ACTION = "REVIEW IMP-103 TEST HARNESS AND EVIDENCE DIFF; VERIFY git status, git diff --check, AND FROZEN MASTER UNCHANGED -> STAGE ONLY tests/performance/test_imp103_300_shot_scale.py, tests/unit/test_imp103_scale_contract.py, evidence/tests/IMP-103_300_SHOT_SCALE_BENCHMARK_EVIDENCE.md, CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md; EXCLUDE .tmp/ -> VERIFY STAGED FILE LIST AND git diff --cached --check -> COMMIT LOCAL-VERIFIED IMP-103 -> RECHECK REMOTE BRANCH/PR AND PUSH ONCE; CREATE PR ONLY IF ABSENT -> VERIFY EXACT-HEAD CI/REVIEW -> MERGE ONLY AFTER REQUIRED GATES -> CHECKOUT/PULL MAIN AND VERIFY MERGE/MAIN CI -> MARK MAIN VERIFIED AND CLAIM THE NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-103 PR #95 OPEN / CI NOT YET REPORTED — 2026-10-15
+
+- PR #95 = OPEN, mergeable, base `main` at `01f9f9939515d87065eb4ea9143981ace5770d42`; initial PR head = `792e4b236dd745f08544fc8f9aed30627eec0eee`. URL: https://github.com/nguyenkhactang922-bot/flowkit/pull/95.
+- Push of the feature branch succeeded and its upstream tracks `origin/chatgpt/IMP-103-300-shot-scale-benchmark`.
+- At this checkpoint `gh pr view` reported an empty `statusCheckRollup`, `gh pr checks` reported “no checks reported”, and `gh run list` showed no run for the branch. The `tests` workflow is active and configured for `pull_request`; do not infer CI PASS from absence of checks.
+- Local benchmark and frozen guard remain PASS; no test stage was rerun after commit. The next state-sync commit will advance the PR head, so all CI decisions must be based on the new exact head.
+- NEXT_EXACT_ACTION = "RECORD PR #95 OPEN WITH INITIAL HEAD 792e4b236dd745f08544fc8f9aed30627eec0eee AND BASE main 01f9f9939515d87065eb4ea9143981ace5770d42; NOTE THAT NO PR CHECKS/RUN HAVE BEEN REPORTED YET -> COMMIT/PUSH THIS GOVERNANCE-ONLY SYNC ON THE SAME BRANCH -> VERIFY NEW EXACT PR HEAD AND ITS WORKFLOW RUN/JOBS -> DO NOT MERGE UNTIL REQUIRED CHECKS PASS AND REVIEW GATE IS SATISFIED -> AFTER MERGE CHECKOUT/PULL MAIN, VERIFY MERGE SHA AND PUSH-MAIN CI, THEN MARK MAIN VERIFIED AND CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-103 PR #95 EXACT-HEAD CI DISPATCH DIAGNOSTIC — 2026-10-15 22:21 +07
+
+- Latest observed PR head before this state sync = `4a4b064d89fa3f35b79977b827b1b120b0080441`; PR #95 remains OPEN, base main `01f9f9939515d87065eb4ea9143981ace5770d42`.
+- Rechecked GitHub API for the exact head: zero check suites; commit status has zero statuses and state `pending`; no workflow run exists for the branch or exact SHA; no `action_required` or queued run exists.
+- Repository Actions are enabled, `.github/workflows/tests.yml` is active and declares `pull_request`, but GitHub has not created the expected run. Branch protection endpoint reports main is not protected; that does not substitute for the project CI gate.
+- No code/test stage was rerun. Do not merge or claim MAIN VERIFIED while CI is absent. A new state-sync commit will advance the PR head; inspect the newest exact head after pushing.
+- NEXT_EXACT_ACTION = "DIAGNOSE WHY ACTIVE WORKFLOW tests.yml (pull_request trigger, Actions enabled) HAS NOT CREATED A CHECK SUITE/RUN FOR PR #95; QUERY APPROVAL/WEBHOOK/WORKFLOW STATUS FOR THE CURRENT PR HEAD -> DO NOT MERGE WHILE THE PROJECT CI GATE IS UNVERIFIED -> IF THE REQUIRED WORKFLOW CANNOT BE TRIGGERED WITH AVAILABLE AUTHORITY, RECORD THE EXTERNAL BLOCKER AND LEAVE PR #95 OPEN; OTHERWISE VERIFY ALL CHECKS AGAINST THE NEWEST EXACT HEAD"
+
+
+## IMP-103 PR #95 — EXTERNAL CI DISPATCH BLOCKER — 2026-10-15 22:27 +07
+
+- Latest exact PR head inspected before this state sync = `940944be67a7187a8abe77835d0c5ec627ae8cdf`; PR #95 is OPEN, base main `01f9f9939515d87065eb4ea9143981ace5770d42`.
+- GitHub reports zero check suites and zero commit statuses for that head; no workflow run exists for the exact SHA/branch; no queued or `action_required` run exists. This was rechecked after both the initial feature commit and the subsequent state-sync push.
+- Repository Actions are enabled and `.github/workflows/tests.yml` is active with `pull_request` and `push: branches: [main]` triggers. The workflow does not declare `workflow_dispatch`; there is no run ID to approve or rerun. Main is not branch-protected, but that does not satisfy the project CI gate.
+- I am not merging without the project CI gate and will not broaden the workflow trigger or bypass CI as an unrelated change. Local benchmark PASS and frozen guard PASS remain valid; no test stage was rerun.
+- Status = LOCAL VERIFIED / PR OPEN / MAIN NOT VERIFIED. `.tmp/` remains local-only.
+- NEXT_EXACT_ACTION = "EXTERNAL BLOCKER: GITHUB ACTIONS HAS NOT CREATED A PR CHECK/RUN FOR PR #95 DESPITE THE ACTIVE pull_request WORKFLOW; REPOSITORY OWNER/MAINTAINER MUST RESOLVE OR AUTHORIZE A SUPPORTED TRIGGER -> KEEP PR #95 OPEN AND DO NOT MERGE -> AFTER A RUN APPEARS, VERIFY ALL CHECKS AGAINST THE LATEST PR HEAD, COMPLETE REVIEW/MERGE, THEN VERIFY MAIN/PUSH CI AND CLAIM THE NEXT DEPENDENCY-READY TASK"
