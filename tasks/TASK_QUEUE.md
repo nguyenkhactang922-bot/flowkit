@@ -6055,3 +6055,17 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - [ ] Add permanent negative acceptance test against exact packaged ASAR modules for API/IPC/navigation/path/CSP/package exclusion boundaries.
 - [ ] Repackage only after source change; run only new IMP-104 acceptance gates; do not rerun IMP-070..073 PASS suites or Frozen Master guard.
 - NEXT_EXACT_ACTION = "IMPLEMENT SELF-TEST + PACKAGED ASAR NEGATIVE ACCEPTANCE TEST -> SYNTAX CHECK CHANGED JS -> REPACKAGE -> RUN ONLY NEW IMP-104 PACKAGED TESTS -> JUNIT/RUNTIME EVIDENCE"
+
+## IMP-104 PACKAGED SECURITY ACCEPTANCE PASS — 2026-10-17 13:02 +07
+
+- [x] Lockfile supply-chain/license/integrity audit; isolated dependency install.
+- [x] Verified official Electron 44.7.0 Windows x64 asset checksum; installed pinned runtime.
+- [x] Built packaged Windows x64 target to `.tmp/imp104/package/win-unpacked`; hashes recorded in evidence.
+- [x] Added permanent packaged-ASAR negative acceptance test covering package exclusions, hardened BrowserWindow flags, CSP, narrow preload API, URL/path/navigation/popup/webview denial, strict IPC/sender checks and redacted errors.
+- [x] Packaged safeStorage synthetic round-trip and no-vault-write proof; native Windows DPAPI key unwrap proof; JUnit 2/2 PASS.
+- [x] Added sanitized evidence `evidence/tests/IMP-104_ELECTRON_SECURITY_ACCEPTANCE_EVIDENCE.md`.
+- [ ] Review/stage intended files only; exclude all `.tmp/imp104` artifacts.
+- [ ] Commit and push implementation/evidence/state; verify PR exists before creating one.
+- [ ] Wait for exact-head CI and review; merge only after required gates.
+- [ ] Verify main merge SHA and main push CI; then claim next valid queued task.
+- NEXT_EXACT_ACTION = "DIFF REVIEW -> DIFF/SYNTAX CHECK -> COMMIT/PUSH INTENDED FILES -> PR CI/REVIEW -> MERGE AFTER GATES -> VERIFY MAIN -> NEXT QUEUE TASK"

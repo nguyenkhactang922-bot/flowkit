@@ -6964,3 +6964,14 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - security_gap = existing evidence covers static/mock boundary behavior, but frozen Master §85 explicitly requires packaged Windows safeStorage proof. IMP-104 will add a safe diagnostic mode that verifies actual `safeStorage` availability/backend/round-trip in packaged Electron without exposing secrets, starting Renderer/Utility, or writing credential vault; add permanent packaged ASAR negative acceptance tests for API/IPC/navigation/CSP/packaging exclusions.
 - prior_pass_stages = IMP-070..073 targeted suites and frozen Master guard; do not rerun unchanged.
 - NEXT_EXACT_ACTION = "IMPLEMENT SAFE PACKAGED MAIN SELF-TEST MODE + PERMANENT ASAR NEGATIVE ACCEPTANCE TEST; RUN SYNTAX ON CHANGED FILES; REPACKAGE BECAUSE SOURCE CHANGED; RUN ONLY NEW IMP-104 PACKAGED TESTS AND CAPTURE JUNIT/RUNTIME EVIDENCE"
+
+## IMP-104 PACKAGED SECURITY ACCEPTANCE PASS — 2026-10-17 13:02 +07
+
+- imp104_local_acceptance=PASS; overall task RUNNING until PR/merge/main CI lifecycle verified.
+- Packaged target: `.tmp/imp104/package/win-unpacked`; build exit 0. app.asar SHA-256 `E89D20B29C8C83982557034B0D00993B9EEB118716C22F5CF0434ADD67FCFA36`; executable SHA-256 `B35DD2EFC36F8DF71940F56FFBFAA5D177568B963B128F179D71FBF28F928C27`.
+- Acceptance JUnit `.tmp/imp104/packaged-security-test-dpapi.xml`: exit 0; tests=2, failures=0, errors=0, skipped=0. Covers ASAR inventory/exclusions, BrowserWindow flags, CSP, narrow renderer API, URL/path/navigation/popup/webview, strict IPC/sender validation and redaction.
+- Packaged safeStorage available; synthetic in-memory roundtrip PASS; no vault file before/after; no canary in report. Electron 44 backend selection API is Linux-only; Windows DPAPI proof uses Local State `os_crypt.encrypted_key` DPAPI prefix plus successful native `ProtectedData.Unprotect` to a 32-byte key. Temporary blob removed.
+- Code adds a Main-only safeStorage diagnostic mode with no window/Utility/IPC/broker startup and no vault write; test-only tooling `@electron/asar@3.4.1` pinned as direct MIT dev dependency. Evidence at `evidence/tests/IMP-104_ELECTRON_SECURITY_ACCEPTANCE_EVIDENCE.md`.
+- Two early test attempts failed due wrong packaging assumptions; corrected and final exact package acceptance passed 2/2. Failed artifacts retained under `.tmp/imp104`, which is local-only and must never be staged. Prior IMP-070..073 PASS suites and Frozen Master guard not rerun.
+- Base main SHA `1f234046f739e21d6963ef5307025793190f8cfd`; branch `chatgpt/IMP-104-electron-security-acceptance`; last pushed checkpoint `ed47953`; no PR yet.
+- NEXT_EXACT_ACTION = "REVIEW DIFF -> GIT DIFF --CHECK + NODE --CHECK CHANGED JS -> COMMIT/PUSH ONLY INTENDED SOURCE/TEST/EVIDENCE/STATE FILES (NEVER .tmp) -> PR/EXACT-HEAD CI/REVIEW -> MERGE AFTER GATES -> VERIFY MAIN -> NEXT QUEUE TASK"
