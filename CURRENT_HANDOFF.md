@@ -6826,3 +6826,23 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - Package rebuild attempt did not produce a durable exit marker; runtime process check found no active builder. Existing packaged smoke evidence predates the preload repair and is not accepted for the repaired source. No active FlowKit test/build process remains.
 - IMP-105 remains RUNNING; exact-head CI = FAIL pending repair commit; packaged first-run/restart smoke for repaired source = pending; schema negative gate remains PASS and is not rerun.
 - NEXT_EXACT_ACTION = "SYNC FAILED-CI/REPAIR STATE -> VERIFY NODE SYNTAX + DIFF -> STAGE ONLY desktop/preload.cjs, evidence/tests/IMP-105_PACKAGED_CLEAN_INSTALL_SMOKE_EVIDENCE.md, CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md -> COMMIT/PUSH REPAIR ONCE -> VERIFY NEW EXACT-HEAD CI -> REBUILD PACKAGE + RUN ONLY CLEAN-INSTALL FIRST-RUN/RESTART SMOKE AGAINST NEW SOURCE IDENTITY (DO NOT RERUN UNCHANGED SCHEMA GATE) -> REVIEW/MERGE ONLY AFTER REQUIRED GATES -> VERIFY MAIN SHA + MAIN PUSH CI -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-105 preload repair pushed / new exact-head CI running — 2026-10-17
+
+- Repair commit = 00d93ebe6743106917fba9a0ce192acb0645be1e; push verified to origin branch chatgpt/IMP-105-packaged-clean-install-smoke.
+- Existing PR #98 remains OPEN at exact head 00d93ebe6743106917fba9a0ce192acb0645be1e: https://github.com/nguyenkhactang922-bot/flowkit/pull/98.
+- New exact-head CI run 39044322325 is IN_PROGRESS; Python 3.10 and 3.13 jobs were both observed running. Do not merge or mark MAIN VERIFIED until exact-head CI and required review/gates pass.
+- Staged/committed file set was exactly desktop/preload.cjs, evidence/tests/IMP-105_PACKAGED_CLEAN_INSTALL_SMOKE_EVIDENCE.md, CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md. Local .tmp/ and desktop/.tmp/ remain untracked and excluded.
+- Fresh package build for repaired preload still lacks a durable result; existing smoke evidence predates repair. After CI resolves, continue only the affected package build and first-run/restart smoke, not the unchanged schema-negative gate.
+- NEXT_EXACT_ACTION = "MONITOR EXACT-HEAD CI RUN 39044322325; IF PASS, REBUILD PACKAGED APP WITH REPAIRED PRELOAD AND VERIFY NEW ASAR/SOURCE IDENTITY, THEN RUN ONLY THE CLEAN-INSTALL FIRST-RUN/RESTART SMOKE; IF CI FAILS, FETCH FAILED LOG AND REPAIR ONLY THAT STAGE; AFTER CI + PACKAGE SMOKE PASS, REVIEW PR #98 AND MERGE ONLY AFTER REQUIRED GATES; VERIFY MERGE SHA + MAIN PUSH CI; THEN CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-105 repaired-source package PASS / exact-head CI PASS — 2026-10-17
+
+- Repair commit 00d93ebe6743106917fba9a0ce192acb0645be1e is pushed to PR #98. Exact-head CI run 39044322325 completed SUCCESS for Python 3.10 and 3.13.
+- Rebuilt repaired preload package: exit 0; app.asar SHA-256 AB94F72E5131CB6EAF299368B5580B18B6D4084145EE2473512A3FE34E127E5F; executable SHA-256 75A4C2ED24CEF05886A71A4B25E77C7AAC804BAFF3BD0BCEFE0D5249113F7994. Build used signAndEditExecutable=false; do not claim signed release package.
+- Packaged preload source identity PASS; source and extracted package preload SHA-256 7326915809ba728f8a4d2f4fc225c9b123a72c51344587208742b1622755c837.
+- Repaired-source first-run/restart smoke PASS: exit 0, tests=1/pass=1/fail=0/skipped=0, 72-file / 385486593-byte package/fresh-copy inventories equal, both app runs exit 0, Utility ready, canonical read model fail-closed, no credential vault created. Unchanged schema-negative gate was not rerun.
+- PR #98 remains OPEN and mergeable; submitted review list was empty at last check. Complete manual review of exact PR diff and confirm whether repository policy requires any independent review before merge. No merge has occurred.
+- NEXT_EXACT_ACTION = "REVIEW FULL PR #98 DIFF AND BRANCH/RULESET GATES -> SYNC CI + REPAIRED PACKAGE EVIDENCE TO HANDOFF/STATE/QUEUE/EVIDENCE -> STAGE ONLY THESE FOUR GOVERNANCE/EVIDENCE FILES, CHECK CACHED DIFF -> COMMIT/PUSH ONCE -> VERIFY NEW EXACT-HEAD CI -> MERGE ONLY AFTER REQUIRED GATES -> VERIFY MERGE SHA + MAIN PUSH CI -> CLAIM NEXT DEPENDENCY-READY TASK"

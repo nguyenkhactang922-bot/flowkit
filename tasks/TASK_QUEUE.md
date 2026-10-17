@@ -6137,3 +6137,28 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - [ ] Review exact final PR head; merge only after required gates; verify main SHA and main push CI.
 - Note: package rebuild attempt produced no durable exit marker; no builder process remains. Previous packaged smoke evidence predates the preload repair and is not accepted for repaired-source verification. Never stage .tmp/imp105.
 - NEXT_EXACT_ACTION = "APPEND CI REPAIR CHECKPOINT -> STAGE ONLY preload + evidence + three state files -> COMMIT/PUSH ONCE -> VERIFY NEW EXACT-HEAD CI -> REBUILD PACKAGE + RUN ONLY CLEAN-INSTALL FIRST-RUN/RESTART SMOKE -> REVIEW/MERGE AFTER GATES -> VERIFY MAIN -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-105 repair pushed / exact-head CI running - 2026-10-17
+
+- [x] Commit bounded preload IPC repair: 00d93ebe6743106917fba9a0ce192acb0645be1e.
+- [x] Push verified; PR #98 exact head updated; no duplicate PR created.
+- [x] Exact staged set contained only preload, evidence, handoff, state, and queue files; .tmp/ artifacts excluded.
+- [ ] Exact-head CI run 39044322325 (Python 3.10/3.13) must finish PASS.
+- [ ] Rebuild packaged app from repaired preload; verify fresh ASAR/source identity.
+- [ ] Run only clean-install first-run/restart smoke against repaired package; leave prior PASS schema-negative gate untouched.
+- [ ] Review PR #98 exact head; merge only after required gates; verify main merge SHA and main push CI.
+- NEXT_EXACT_ACTION = "MONITOR RUN 39044322325 -> REPAIR ONLY FAILED CI STAGE IF NEEDED -> IF CI PASS, REBUILD PACKAGE + VERIFY ASAR/SOURCE IDENTITY + RUN ONLY FIRST-RUN/RESTART SMOKE -> REVIEW/MERGE AFTER GATES -> VERIFY MAIN -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-105 repaired-source package + exact-head CI PASS - 2026-10-17
+
+- [x] Repair bounded preload invoke adapter; commit 00d93ebe6743106917fba9a0ce192acb0645be1e pushed to PR #98.
+- [x] Exact-head CI run 39044322325 PASS for Python 3.10 and 3.13.
+- [x] Rebuild Windows x64 package after repair; exit 0; ASAR/source preload identity PASS.
+- [x] Run only repaired-source first-run/restart smoke: 1/1 PASS, both app runs exit 0, Utility ready, fail-closed read-model, no credential vault.
+- [x] Preserve prior schema-negative PASS without rerunning unchanged gate.
+- [ ] Complete exact PR diff/security review and check any required branch/ruleset gates.
+- [ ] Commit/push state/evidence sync and verify new exact-head CI.
+- [ ] Merge only after required gates; verify merge SHA and main push CI.
+- NEXT_EXACT_ACTION = "REVIEW PR #98 EXACT DIFF/GATES -> COMMIT/PUSH STATE+EVIDENCE SYNC -> VERIFY NEW EXACT-HEAD CI -> MERGE AFTER REQUIRED GATES -> VERIFY MAIN -> CLAIM NEXT DEPENDENCY-READY TASK"
