@@ -6088,3 +6088,17 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - [ ] Merge PR #97 only after the new head CI succeeds.
 - [ ] Verify main merge SHA and main push CI, then claim the next valid queued task.
 - NEXT_EXACT_ACTION = "STATE/EVIDENCE SYNC COMMIT -> NEW-HEAD CI -> MERGE AFTER GATES -> VERIFY MAIN -> NEXT QUEUE TASK"
+
+
+
+## IMP-104 PR HEAD CI PASS / STATE SYNC REQUIRED — 2026-10-17 13:54 +07
+
+- [x] Packaged Windows security acceptance evidence PASS: JUnit 2/2, safeStorage synthetic round-trip, no credential vault write, native DPAPI key-envelope proof; unsigned local package only.
+- [x] PR #97 head `ac07e401297b1c47541de5bb170aff781e21dd39` exact-head CI run `39009194107` SUCCESS; Python 3.10/3.13 jobs and Frozen Master guard PASS.
+- [x] Local source review of Main self-test, pinned ASAR dependency and packaged negative acceptance test; GitHub review list is empty and no required external review protection was found.
+- [ ] Commit/push state + sanitized CI evidence update only; never stage `.tmp/`.
+- [ ] Verify the resulting new PR head has successful exact-head CI.
+- [ ] Merge PR #97 with expected head SHA only after CI success.
+- [ ] Verify merge SHA and main push CI; mark IMP-104 MAIN VERIFIED.
+- [ ] Claim next dependency-ready queued task and continue.
+- NEXT_EXACT_ACTION = "STATE/EVIDENCE SYNC -> CHECK DIFF/STAGED FILES -> COMMIT/PUSH -> NEW-HEAD CI -> MERGE WITH EXPECTED SHA AFTER PASS -> VERIFY MAIN PUSH CI -> CLAIM NEXT QUEUED TASK"

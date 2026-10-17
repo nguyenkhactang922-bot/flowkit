@@ -6790,3 +6790,14 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - PR #97 remains OPEN, mergeable; no GitHub review submissions/threads and no branch protection/rulesets. Local source review completed; do not submit self-approval.
 - A state/evidence sync commit is next; it will change PR head and start a new CI run. Do not merge based on the previous head's green status; wait for the new exact-head run.
 - NEXT_EXACT_ACTION = "COMMIT/PUSH THE CURRENT PR-STATUS STATE + CI EVIDENCE UPDATE ONLY; RECORD THE NEW HEAD; MONITOR ITS NEW CI RUN TO SUCCESS; THEN MERGE PR #97 (NO REVIEW GATE EXISTS, LOCAL REVIEW COMPLETE) AND VERIFY MAIN PUSH CI"
+
+
+
+## IMP-104 STATE SYNC — NEW PR HEAD CI PASS — 2026-10-17 13:54 +07
+
+- Bootstrap revalidated: Git root `E:/FlowKit-Studio-Upgrade`; branch `chatgpt/IMP-104-electron-security-acceptance`; HEAD `ac07e401297b1c47541de5bb170aff781e21dd39`; tracking branch matches origin. Git status contains only untracked `.tmp/` artifacts; no tracked source changes. Preserve all `.tmp/` artifacts locally and never stage them.
+- Runtime recovery: no FlowKit IMP-104/npm/electron-builder/pytest task process was found. Long-lived Codex/VS Code processes and an unrelated Electron-builder process belong to other workspaces; left untouched. Existing package/JUnit/runtime evidence remains present under `.tmp/imp104`; no PASS stage was rerun.
+- Exact-head CI run `39009194107` completed SUCCESS on `ac07e401297b1c47541de5bb170aff781e21dd39`; both `unit (3.10)` and `unit (3.13)` passed, including Frozen Master verification and unit tests. Run: https://github.com/nguyenkhactang922-bot/flowkit/actions/runs/39009194107.
+- PR #97 remains OPEN and mergeable; head exactly matches `ac07e401297b1c47541de5bb170aff781e21dd39`. Changed files are the intended eight tracked source/test/evidence/state files; no `.tmp/imp104` files are committed. GitHub review list is empty; local review inspected the Main self-test, package pin, and packaged-ASAR acceptance test. Repository has no branch protection/rulesets and no mandatory external review gate was found; do not invent a review approval.
+- Current tracked tree is clean before this sync; `git diff --check` passes. Record CI result in this governance/evidence-only sync, then commit/push once. The resulting new PR head must receive its own exact-head CI before merge.
+- NEXT_EXACT_ACTION = "APPEND THIS CI CHECKPOINT TO CURRENT_HANDOFF/PROJECT_STATE/TASK_QUEUE/EVIDENCE -> VERIFY DIFF/CACHED DIFF AND STAGE ONLY THOSE FOUR FILES -> COMMIT/PUSH ONCE -> VERIFY PR #97 NEW HEAD + EXACT-HEAD CI -> IF PASS, MERGE USING EXPECTED HEAD SHA -> VERIFY MERGE SHA AND MAIN PUSH CI -> CLAIM NEXT DEPENDENCY-READY QUEUED TASK; IF CI FAILS, REPAIR ONLY FAILED STAGE"

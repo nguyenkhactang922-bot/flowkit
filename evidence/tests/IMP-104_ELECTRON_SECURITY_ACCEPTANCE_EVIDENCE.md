@@ -88,3 +88,14 @@ This proves the packaged Windows Electron security boundary and native DPAPI-pro
 - Both jobs `unit (3.10)` and `unit (3.13)` completed `success`; each passed setup, dependency installation, Frozen Master baseline verification and unit tests. The unit-test step took about 5m38s / 6m16s respectively but completed successfully; no cancellation/restart was performed.
 - The run emitted a non-blocking GitHub Actions notice that `actions/checkout@v4` and `actions/setup-python@v5` still target Node.js 20 while the runner forces Node.js 24. This warning did not fail either job.
 - This green run applies to head `39cd33d5421b5ee922cec7880b1bb80f9c713b74`. A subsequent state/evidence sync commit will produce a new head; that head must receive its own successful CI before merge.
+
+
+
+## Exact-head GitHub CI checkpoint
+
+- PR #97: https://github.com/nguyenkhactang922-bot/flowkit/pull/97
+- Exact PR head: `ac07e401297b1c47541de5bb170aff781e21dd39`.
+- GitHub Actions run `39009194107`: conclusion `success`; both `unit (3.10)` and `unit (3.13)` passed all steps, including Frozen Master baseline verification and unit tests.
+- Run URL: https://github.com/nguyenkhactang922-bot/flowkit/actions/runs/39009194107.
+- PR remains open and mergeable at this checkpoint. The green run applies only to the exact head above; a state/evidence sync commit creates a new head which must receive its own successful CI before merge.
+- No GitHub review submission exists. Local source review was performed; no branch protection/rulesets or mandatory external review gate was found. Authenticode signing and a release installer are not claimed.
