@@ -6044,3 +6044,14 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - [ ] Package unpacked Windows x64 target to local `.tmp/imp104/package` with cache isolated from other projects.
 - [ ] Inspect packaged file/ASAR/runtime markers, then run only new packaged security negative tests.
 - NEXT_EXACT_ACTION = "BUILD CONFIG/LOG UNDER .tmp/imp104 -> PACKAGE --dir --win --x64 WITH ELECTRON_BUILDER_CACHE ISOLATED + PUBLISH NEVER -> MONITOR EXISTING PROCESS WITHOUT RESTART -> VERIFY PACKAGE -> NEW PACKAGED SECURITY NEGATIVE TESTS"
+
+
+## IMP-104 PACKAGED WINDOWS TARGET BUILD PASS — 2026-10-17 12:44 +07
+
+- [x] Packaged target build exit 0, output `.tmp/imp104/package/win-unpacked`, 72 files / 385480975 bytes.
+- [x] app.asar SHA-256 `66449745396A1C7B803AD102A413D06F805BA4AFAC41F8449D4D82F58C6F50CC`; executable SHA-256 `A0C095AEEA05E5DE3F465C9806575AED2BFEDCCEE42DC7000EB2477AEAB7BB52`; Electron version 44.7.0 / app version 0.1.0.0.
+- [x] Packaged ASAR includes expected main/preload/IPC/broker/utility/renderer modules and excludes test files and node_modules; output and caches isolated under .tmp/imp104.
+- [ ] Add safe packaged Main self-test for Windows DPAPI/safeStorage synthetic round-trip with no secret disclosure and no vault write.
+- [ ] Add permanent negative acceptance test against exact packaged ASAR modules for API/IPC/navigation/path/CSP/package exclusion boundaries.
+- [ ] Repackage only after source change; run only new IMP-104 acceptance gates; do not rerun IMP-070..073 PASS suites or Frozen Master guard.
+- NEXT_EXACT_ACTION = "IMPLEMENT SELF-TEST + PACKAGED ASAR NEGATIVE ACCEPTANCE TEST -> SYNTAX CHECK CHANGED JS -> REPACKAGE -> RUN ONLY NEW IMP-104 PACKAGED TESTS -> JUNIT/RUNTIME EVIDENCE"

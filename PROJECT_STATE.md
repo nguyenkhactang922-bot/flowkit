@@ -6953,3 +6953,14 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - builder = `26.15.3`; builder source confirms support for `ELECTRON_BUILDER_CACHE`. An unrelated project has an active builder process, so avoid global cache and use `.tmp/imp104/electron-builder-cache`; package output isolated at `.tmp/imp104/package`.
 - disk_free = approx 8.56 GB on E:. npm ci was not rerun. Existing IMP-070..073 PASS stages were not rerun.
 - NEXT_EXACT_ACTION = "PREPARE AND VERIFY DEDICATED BUILD CONFIG/LOG -> PACKAGE UNPACKED WINDOWS x64 TARGET ONCE WITH ISOLATED ELECTRON_BUILDER_CACHE AND PUBLISH=NEVER -> MONITOR EXISTING PID/LOG/OUTPUT -> VERIFY PACKAGE CONTENT/VERSION/ASAR -> ADD ONLY NEW PACKAGED SECURITY NEGATIVE TESTS"
+
+
+## IMP-104 PACKAGED WINDOWS TARGET BUILD PASS — 2026-10-17 12:44 +07
+
+- package_status = PASS; command exit 0; marker `.tmp/imp104/package.exitcode`; log `.tmp/imp104/package.log`.
+- package = unpacked Windows x64 target, Electron 44.7.0, electron-builder 26.15.3, `--dir --win --x64 --publish never`; output `.tmp/imp104/package/win-unpacked`.
+- package_cache_isolation = `ELECTRON_BUILDER_CACHE` and `ELECTRON_CACHE` pointed under `.tmp/imp104`; unrelated project global cache/process left untouched. CSC identity auto-discovery disabled; Authenticode NotSigned is expected for this test build, not a release/signing claim.
+- package_inventory = 72 files / 385480975 bytes; app.asar 76996 bytes SHA-256 `66449745396A1C7B803AD102A413D06F805BA4AFAC41F8449D4D82F58C6F50CC`; packaged executable SHA-256 `A0C095AEEA05E5DE3F465C9806575AED2BFEDCCEE42DC7000EB2477AEAB7BB52`, version 0.1.0.0. ASAR contains expected security/main/utility/renderer files and excludes tests/node_modules.
+- security_gap = existing evidence covers static/mock boundary behavior, but frozen Master §85 explicitly requires packaged Windows safeStorage proof. IMP-104 will add a safe diagnostic mode that verifies actual `safeStorage` availability/backend/round-trip in packaged Electron without exposing secrets, starting Renderer/Utility, or writing credential vault; add permanent packaged ASAR negative acceptance tests for API/IPC/navigation/CSP/packaging exclusions.
+- prior_pass_stages = IMP-070..073 targeted suites and frozen Master guard; do not rerun unchanged.
+- NEXT_EXACT_ACTION = "IMPLEMENT SAFE PACKAGED MAIN SELF-TEST MODE + PERMANENT ASAR NEGATIVE ACCEPTANCE TEST; RUN SYNTAX ON CHANGED FILES; REPACKAGE BECAUSE SOURCE CHANGED; RUN ONLY NEW IMP-104 PACKAGED TESTS AND CAPTURE JUNIT/RUNTIME EVIDENCE"
