@@ -6122,3 +6122,18 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - [ ] Claim the next dependency-ready queue task after MAIN VERIFIED.
 - Task state = RUNNING (local acceptance PASS; remote lifecycle pending). Do not mark DONE or MAIN VERIFIED prematurely.
 - NEXT_EXACT_ACTION = "REVIEW EXACT DIFF -> NODE --CHECK + git diff --check -> STAGE ONLY desktop/preload.cjs, desktop/tests/packaged-clean-install-smoke.test.cjs, evidence/tests/IMP-105_PACKAGED_CLEAN_INSTALL_SMOKE_EVIDENCE.md, CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md -> VERIFY STAGED LIST + git diff --cached --check -> COMMIT/PUSH ONCE -> RECHECK PR DUPLICATE GUARD -> EXACT-HEAD CI + REVIEW -> MERGE ONLY AFTER REQUIRED GATES -> VERIFY MAIN SHA + MAIN PUSH CI -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-105 Exact-head CI failure / bounded preload repair - 2026-10-17
+
+- [x] Inspect exact-head CI run 39040021903; both Python 3.10 and 3.13 failed the same existing bounded-preload assertion.
+- [x] Identify root cause: desktop/preload.cjs lacked explicit invoke(channel, request) allowlisted adapter.
+- [x] Repair adapter with strict allowlist for GET_BRIDGE_STATUS and GET_STUDIO_APPLICATION_READ_MODEL only.
+- [x] node --check desktop/preload.cjs PASS; git diff --check PASS; direct static assertions PASS.
+- [ ] Local pytest test execution (default local Python has no pytest module; exact-head CI must verify after push).
+- [ ] Commit/push repair and verify new exact-head CI.
+- [ ] Rebuild package after preload repair and verify fresh package/source ASAR identity.
+- [ ] Rerun only the clean-install first-run/restart smoke against repaired package; do not rerun the unchanged schema-negative gate.
+- [ ] Review exact final PR head; merge only after required gates; verify main SHA and main push CI.
+- Note: package rebuild attempt produced no durable exit marker; no builder process remains. Previous packaged smoke evidence predates the preload repair and is not accepted for repaired-source verification. Never stage .tmp/imp105.
+- NEXT_EXACT_ACTION = "APPEND CI REPAIR CHECKPOINT -> STAGE ONLY preload + evidence + three state files -> COMMIT/PUSH ONCE -> VERIFY NEW EXACT-HEAD CI -> REBUILD PACKAGE + RUN ONLY CLEAN-INSTALL FIRST-RUN/RESTART SMOKE -> REVIEW/MERGE AFTER GATES -> VERIFY MAIN -> CLAIM NEXT DEPENDENCY-READY TASK"

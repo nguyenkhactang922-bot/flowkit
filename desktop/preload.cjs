@@ -21,6 +21,16 @@ function createRequestId() {
   return 'req-' + Date.now().toString(36) + '-' + requestSequence.toString(36);
 }
 
+function invoke(channel, request) {
+  if (
+    channel !== CHANNELS.GET_BRIDGE_STATUS &&
+    channel !== CHANNELS.GET_STUDIO_APPLICATION_READ_MODEL
+  ) {
+    throw new Error('Unsupported IPC channel.');
+  }
+  return ipcRenderer.invoke(channel, request);
+}
+
 function validateResponseEnvelope(response, requestId) {
   if (
     response === null ||
@@ -54,7 +64,7 @@ function validateResponseEnvelope(response, requestId) {
 const productionUtility = Object.freeze({
   async getBridgeStatus() {
     const requestId = createRequestId();
-    const response = await ipcRenderer.invoke(CHANNELS.GET_BRIDGE_STATUS, {
+    const response = await invoke(CHANNELS.GET_BRIDGE_STATUS, {
       apiVersion: IPC_PROTOCOL_VERSION,
       requestId,
     });
@@ -65,7 +75,7 @@ const productionUtility = Object.freeze({
 const studio = Object.freeze({
   async getApplicationReadModel(projectId) {
     const requestId = createRequestId();
-    const response = await ipcRenderer.invoke(CHANNELS.GET_STUDIO_APPLICATION_READ_MODEL, {
+    const response = await invoke(CHANNELS.GET_STUDIO_APPLICATION_READ_MODEL, {
       apiVersion: IPC_PROTOCOL_VERSION,
       requestId,
       projectId,

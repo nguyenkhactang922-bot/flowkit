@@ -7028,3 +7028,18 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - remote_duplicate_guard = PASS before commit/push: no remote IMP-105 branch and no PR. No IMP-105 commit/push/PR yet.
 - blocker = none for local implementation/verification; remote lifecycle remains pending.
 - NEXT_EXACT_ACTION = "REVIEW EXACT DIFF; VERIFY git diff --check AND NODE --CHECK; STAGE ONLY desktop/preload.cjs, desktop/tests/packaged-clean-install-smoke.test.cjs, evidence/tests/IMP-105_PACKAGED_CLEAN_INSTALL_SMOKE_EVIDENCE.md, CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md; VERIFY STAGED FILE LIST + git diff --cached --check; COMMIT/PUSH ONCE; RECHECK PR DUPLICATE GUARD BEFORE CREATING PR; VERIFY EXACT-HEAD CI + REVIEW; MERGE ONLY AFTER REQUIRED GATES; VERIFY MERGE SHA + MAIN PUSH CI; THEN CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-105 CI failure / preload repair checkpoint - 2026-10-17
+
+- branch = chatgpt/IMP-105-packaged-clean-install-smoke
+- PR = #98 OPEN; current remote head before repair = 6747cd54d0978971de062adfaf5a953b2bcc944d
+- exact_head_ci_run = 39040021903 FAILURE; Python 3.10 and 3.13 both failed tests/unit/test_electron_host_security.py::test_preload_exposes_only_bounded_typed_ipc_capability because preload lacked ipcRenderer.invoke(channel, request).
+- root_cause = sandbox preload had named-channel direct invokes but lacked explicit bounded invoke adapter asserted by existing security test.
+- repair = desktop/preload.cjs now allows only GET_BRIDGE_STATUS and GET_STUDIO_APPLICATION_READ_MODEL and routes the two existing calls through invoke(channel, request).
+- local_checks = node --check PASS; git diff --check PASS; direct static assertions PASS; local pytest unavailable (pytest module absent), so no local pytest PASS claim.
+- package_rebuild_after_repair = INTERRUPTED/NO DURABLE RESULT; no active build process and no exit marker. Existing packaged smoke evidence predates repair and must not be used to claim repaired-source package PASS.
+- previous_schema_negative_gate = PASS; unchanged schema gate must not be rerun.
+- task_state = FAIL at exact-head CI, repair implemented locally; remote lifecycle pending; MAIN NOT VERIFIED.
+- blocker = local execution bridge did not yield a durable package-rebuild result; retry only package stage after repair commit/CI, with process/log/exit-marker tracking.
+- NEXT_EXACT_ACTION = "SYNC FAILED-CI/REPAIR STATE -> VERIFY NODE SYNTAX + DIFF -> STAGE ONLY desktop/preload.cjs, evidence/tests/IMP-105_PACKAGED_CLEAN_INSTALL_SMOKE_EVIDENCE.md, CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md -> COMMIT/PUSH REPAIR ONCE -> VERIFY NEW EXACT-HEAD CI -> REBUILD PACKAGE + RUN ONLY CLEAN-INSTALL FIRST-RUN/RESTART SMOKE AGAINST NEW SOURCE IDENTITY; DO NOT RERUN UNCHANGED SCHEMA GATE -> MERGE ONLY AFTER REQUIRED GATES/REVIEW -> VERIFY MAIN SHA + MAIN PUSH CI -> CLAIM NEXT DEPENDENCY-READY TASK"

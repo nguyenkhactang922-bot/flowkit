@@ -6816,3 +6816,13 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - Durable evidence: evidence/tests/IMP-105_PACKAGED_CLEAN_INSTALL_SMOKE_EVIDENCE.md. Remote duplicate guard rechecked before commit/push: git ls-remote showed no IMP-105 branch; gh pr list --head returned []. No IMP-105 commit, push, or PR creation has occurred.
 - Task state = RUNNING; latest local acceptance checkpoint = PASS; remote lifecycle pending; MAIN NOT VERIFIED for IMP-105.
 - NEXT_EXACT_ACTION = "REVIEW EXACT DIFF; VERIFY git diff --check AND NODE --CHECK; STAGE ONLY desktop/preload.cjs, desktop/tests/packaged-clean-install-smoke.test.cjs, evidence/tests/IMP-105_PACKAGED_CLEAN_INSTALL_SMOKE_EVIDENCE.md, CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md; VERIFY STAGED FILE LIST + git diff --cached --check; COMMIT/PUSH ONCE; RECHECK PR DUPLICATE GUARD BEFORE CREATING PR; VERIFY EXACT-HEAD CI + REVIEW; MERGE ONLY AFTER REQUIRED GATES; VERIFY MERGE SHA + MAIN PUSH CI; THEN CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-105 CI failure / preload repair checkpoint — 2026-10-17
+
+- Exact-head PR #98 run 39040021903 = FAILURE on 6747cd54d0978971de062adfaf5a953b2bcc944d; Python 3.10 and 3.13 failed the same bounded-preload static security assertion.
+- Root cause isolated to desktop/preload.cjs missing explicit invoke(channel, request) allowlisted adapter expected by tests/unit/test_electron_host_security.py. Local repair adds a strict two-channel allowlist and routes only existing bridge-status/read-model calls through it.
+- node --check desktop/preload.cjs = PASS; git diff --check = PASS; direct static assertion = PASS. Local Python environment has no pytest, so no local pytest PASS is claimed.
+- Package rebuild attempt did not produce a durable exit marker; runtime process check found no active builder. Existing packaged smoke evidence predates the preload repair and is not accepted for the repaired source. No active FlowKit test/build process remains.
+- IMP-105 remains RUNNING; exact-head CI = FAIL pending repair commit; packaged first-run/restart smoke for repaired source = pending; schema negative gate remains PASS and is not rerun.
+- NEXT_EXACT_ACTION = "SYNC FAILED-CI/REPAIR STATE -> VERIFY NODE SYNTAX + DIFF -> STAGE ONLY desktop/preload.cjs, evidence/tests/IMP-105_PACKAGED_CLEAN_INSTALL_SMOKE_EVIDENCE.md, CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md -> COMMIT/PUSH REPAIR ONCE -> VERIFY NEW EXACT-HEAD CI -> REBUILD PACKAGE + RUN ONLY CLEAN-INSTALL FIRST-RUN/RESTART SMOKE AGAINST NEW SOURCE IDENTITY (DO NOT RERUN UNCHANGED SCHEMA GATE) -> REVIEW/MERGE ONLY AFTER REQUIRED GATES -> VERIFY MAIN SHA + MAIN PUSH CI -> CLAIM NEXT DEPENDENCY-READY TASK"
