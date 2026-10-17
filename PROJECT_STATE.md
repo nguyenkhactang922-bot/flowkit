@@ -6893,3 +6893,18 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - I am not merging without the project CI gate and will not broaden the workflow trigger or bypass CI as an unrelated change. Local benchmark PASS and frozen guard PASS remain valid; no test stage was rerun.
 - Status = LOCAL VERIFIED / PR OPEN / MAIN NOT VERIFIED. `.tmp/` remains local-only.
 - NEXT_EXACT_ACTION = "EXTERNAL BLOCKER: GITHUB ACTIONS HAS NOT CREATED A PR CHECK/RUN FOR PR #95 DESPITE THE ACTIVE pull_request WORKFLOW; REPOSITORY OWNER/MAINTAINER MUST RESOLVE OR AUTHORIZE A SUPPORTED TRIGGER -> KEEP PR #95 OPEN AND DO NOT MERGE -> AFTER A RUN APPEARS, VERIFY ALL CHECKS AGAINST THE LATEST PR HEAD, COMPLETE REVIEW/MERGE, THEN VERIFY MAIN/PUSH CI AND CLAIM THE NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-103 MAIN VERIFIED / STATE RECONCILIATION — 2026-10-17 12:04 +07
+
+- project_root = `E:\\FlowKit-Studio-Upgrade`; git_root = `E:/FlowKit-Studio-Upgrade`.
+- local_branch = `chatgpt/IMP-103-main-verified-state`; main_sha = `ed3b870a2b96b4509dc97ec9b0569cbed72dd70f`; origin/main exact match after fetch and local fast-forward.
+- pr_95 = MERGED; merge_commit = `ed3b870a2b96b4509dc97ec9b0569cbed72dd70f`; PR URL https://github.com/nguyenkhactang922-bot/flowkit/pull/95.
+- main_push_ci = run `38934508616` SUCCESS on exact merge SHA; workflow `tests`; jobs `unit (3.10)` and `unit (3.13)` SUCCESS; Frozen Master guard + unit-test steps SUCCESS. Run URL https://github.com/nguyenkhactang922-bot/flowkit/actions/runs/38934508616.
+- imp103_status = MAIN VERIFIED; benchmark local evidence remains PASS (1/1, exit 0, 300 unique shots/jobs, 300 claims, zero starvation, queue cap 32, admission cap 4, no remaining active leases). Do not rerun any PASS stage.
+- runtime = no matching FlowKit/pytest/benchmark process; FileMCP PTY list empty.
+- git_worktree = tracked files clean at merge SHA; local `.tmp/` remains untracked and must stay excluded.
+- stale_state = prior entries describing PR #95 as OPEN/external CI blocker are historical and superseded by actual merged PR + successful main push CI. PR-specific checks/reviews were empty; no PR review is claimed.
+- next_dependency_ready_task = IMP-104 Electron Security Acceptance; hard dependencies IMP-070, IMP-071, IMP-072, IMP-073, IMP-100 are recorded MAIN VERIFIED in the prior durable handoff. Duplicate guard found no existing IMP-104 local/remote branch or PR.
+- current_stage = governance-only state reconciliation; no code changes and no tests rerun.
+- NEXT_EXACT_ACTION = "VERIFY GOVERNANCE DIFF + git diff --check -> STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md -> VERIFY STAGED FILE LIST AND git diff --cached --check -> COMMIT/PUSH GOVERNANCE BRANCH ONCE -> CREATE PR ONLY IF ABSENT -> VERIFY EXACT-HEAD REVIEW/CHECKS WITHOUT BYPASS -> AFTER GOVERNANCE SYNC IS ACCEPTED, VERIFY MAIN CI AND CLAIM IMP-104 FROM EXACT MAIN SHA; AUDIT FROZEN ELECTRON SECURITY AUTHORITY + PACKAGED TARGET TOPOLOGY BEFORE CODE"
