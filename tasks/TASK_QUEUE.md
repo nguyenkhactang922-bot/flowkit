@@ -6024,3 +6024,13 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - [ ] Implement only missing IMP-104 acceptance gates; do not rerun unchanged PASS suites from IMP-070..073.
 - Procedure note: frozen_master_guard was inadvertently rerun despite prior PASS; it returned PASS with unchanged semantic SHA. Do not repeat unless the frozen artifact changes.
 - NEXT_EXACT_ACTION = "READ FROZEN SECURITY §84/§85 + SEC-001..011 -> AUDIT PACKAGED TARGET AND EXISTING TEST COVERAGE -> DEFINE THREAT MATRIX/NEGATIVE CASES -> VERIFY LOCKFILE SOURCES, INTEGRITY, LICENSES, VERSIONS, DISK/OUTPUT AND PROCESS SAFETY BEFORE INSTALL/PACK -> IMPLEMENT MISSING IMP-104 GATES -> RUN ONLY NEW/CHANGED TESTS AND PACKAGE-RUNTIME PROOF -> EVIDENCE, EXACT-HEAD REVIEW, PR/CI, MERGE AND MAIN VERIFICATION"
+
+
+## IMP-104 DEPENDENCY PREFLIGHT PASS — 2026-10-17 12:35 +07
+
+- [x] Lockfile source/version/license/integrity audit: 284/284 packages from registry.npmjs.org; no missing integrity hashes or license metadata; direct Electron/electron-builder pins match current registry metadata.
+- [x] Official Electron v44.7.0 Windows x64 ZIP verified from GitHub release metadata: 158293649 bytes; SHA-256 `eee30dc8fa1f5ea95490e59f44e46ea68dd24c6e93d22facf70fe5c2d4c2665c`; exact match in the pinned package checksum manifest; HEAD 200/content length matched.
+- [x] `npm ci --ignore-scripts --no-audit --no-fund` dependency tree installed completely; npm debug log reports exit 0/info ok, all lockfile package paths present. PowerShell wrapper exit 1 was due to elevating a deprecation warning; do not rerun npm ci.
+- [ ] Install Electron runtime binary using only the inspected pinned installer/checksum path; capture log and exit marker.
+- [ ] Package target into dedicated local `.tmp/imp104` path after builder cache/output preflight; then execute only new packaged security gates.
+- NEXT_EXACT_ACTION = "RUN PINNED ELECTRON INSTALLER ONCE -> MONITOR EXISTING PID/LOG/OUTPUT WITHOUT RESTART -> VERIFY VERSION/CHECKSUM -> PACKAGE UNDER .tmp/imp104 -> RUN ONLY NEW PACKAGED SECURITY NEGATIVE TESTS AND RETAIN JUNIT/RUNTIME EVIDENCE"

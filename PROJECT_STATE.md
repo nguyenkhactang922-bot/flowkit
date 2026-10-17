@@ -6927,3 +6927,18 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - runtime = no active FlowKit/pytest/benchmark process; PTY registry empty. Unrelated Electron-builder process under `D:\\TangKeyYouTube-C02` observed and left untouched. `.tmp/` remains untracked/local-only.
 - procedure_deviation = frozen_master_guard was inadvertently rerun despite prior PASS; result PASS and frozen SHA unchanged. Do not rerun unless the frozen artifact changes.
 - NEXT_EXACT_ACTION = "AUDIT FROZEN SECURITY §84/§85 + SEC-001..011 AND IMP-104 ACCEPTANCE -> MAP CURRENT PACKAGED TARGET SECURITY BOUNDARIES AND TEST GAPS WITHOUT RERUNNING IMP-070..073 PASS -> DESIGN THREAT MATRIX/NEGATIVE CASES -> CHECK LOCKFILE SOURCE/INTEGRITY/LICENSE/VERSION/DISK/OUTPUT/PROCESS SAFETY BEFORE DEPENDENCY INSTALL OR PACKAGE -> IMPLEMENT ONLY MISSING IMP-104 SECURITY ACCEPTANCE -> RUN ONLY NEW/CHANGED GATES AND RETAIN JUNIT + PACKAGED RUNTIME EVIDENCE -> EXACT-HEAD REVIEW/PR/MAIN VERIFICATION"
+
+
+## IMP-104 DEPENDENCY PREFLIGHT PASS — 2026-10-17 12:35 +07
+
+- lockfile_audit = v3; 285 entries including root / 284 dependency packages; 284/284 resolved from registry.npmjs.org; 0 missing integrity hashes; 0 missing license fields; 0 alternate resolved sources.
+- electron = 44.7.0, MIT, Node >=22.12.0; lockfile registry tarball/integrity matched current registry metadata.
+- electron_builder = 26.15.3, MIT, Node >=14.0.0; lockfile registry tarball/integrity matched current registry metadata.
+- official_electron_release = v44.7.0 Windows x64 ZIP, 158293649 bytes; official GitHub release API SHA-256 `eee30dc8fa1f5ea95490e59f44e46ea68dd24c6e93d22facf70fe5c2d4c2665c`; exact match in pinned package checksums.json; HTTP HEAD 200 and Content-Length matched.
+- disk_free_before_binary = approx 8.95 GB on E:.
+- dependency_install = PASS; `npm ci --ignore-scripts --no-audit --no-fund` installed full lockfile tree. npm debug log ends `verbose exit 0` / `info ok`; 284 installed package entries, zero missing paths, direct versions match. PowerShell wrapper marked the PTY exit 1 because a deprecation warning was elevated by ErrorActionPreference=Stop; this was wrapper-only. Do not rerun npm ci.
+- install_scripts = skipped intentionally; Electron binary absent until next dedicated install stage. `electron/install.js` inspected and passes package-pinned checksums to `@electron/get` before extraction.
+- active_task = IMP-104 / ANALYZE+PREFLIGHT PASS; next stage = install only pinned Electron runtime and capture durable log/exit marker.
+- runtime = no active FlowKit/npm/Electron process for this task; unrelated electron-builder process in `D:\\TangKeyYouTube-C02` left untouched. Local health endpoint unavailable, but no FlowKit generation/API workflow is required for this task; do not start unrelated service.
+- procedure_deviation = frozen_master_guard was inadvertently rerun earlier; PASS and SHA unchanged; never rerun again unless frozen artifact changes.
+- NEXT_EXACT_ACTION = "RUN node_modules/electron/install.js ONCE WITH LOG/EXIT MARKER -> MONITOR PID/LOG/ARTIFACTS, DO NOT RESTART -> VERIFY BINARY VERSION AND CHECKSUM SOURCE -> AUDIT PACKAGING CACHE/OUTPUT REQUIREMENTS -> PACKAGE UNDER .tmp/imp104 -> RUN ONLY NEW PACKAGED SECURITY NEGATIVE TESTS"
