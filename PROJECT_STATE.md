@@ -6908,3 +6908,96 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - next_dependency_ready_task = IMP-104 Electron Security Acceptance; hard dependencies IMP-070, IMP-071, IMP-072, IMP-073, IMP-100 are recorded MAIN VERIFIED in the prior durable handoff. Duplicate guard found no existing IMP-104 local/remote branch or PR.
 - current_stage = governance-only state reconciliation; no code changes and no tests rerun.
 - NEXT_EXACT_ACTION = "VERIFY GOVERNANCE DIFF + git diff --check -> STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md -> VERIFY STAGED FILE LIST AND git diff --cached --check -> COMMIT/PUSH GOVERNANCE BRANCH ONCE -> CREATE PR ONLY IF ABSENT -> VERIFY EXACT-HEAD REVIEW/CHECKS WITHOUT BYPASS -> AFTER GOVERNANCE SYNC IS ACCEPTED, VERIFY MAIN CI AND CLAIM IMP-104 FROM EXACT MAIN SHA; AUDIT FROZEN ELECTRON SECURITY AUTHORITY + PACKAGED TARGET TOPOLOGY BEFORE CODE"
+
+
+## IMP-104 CLAIMED / ANALYZE — 2026-10-17 12:30 +07
+
+- project_root = `E:\\FlowKit-Studio-Upgrade`; git_root = `E:/FlowKit-Studio-Upgrade`.
+- main_verified_sha = `1f234046f739e21d6963ef5307025793190f8cfd`; local main fast-forwarded to origin/main. Governance PR #96 merged at this SHA.
+- pr96_exact_head_ci = run `39005603559` SUCCESS on head `4ec95b7e051f6e0a587b2bfc876b1f5965184ad7`; both Python 3.10/3.13 jobs and frozen baseline guard passed.
+- main_push_ci = run `39006071976` SUCCESS on exact main SHA `1f234046f739e21d6963ef5307025793190f8cfd`; both Python 3.10/3.13 jobs and frozen baseline guard passed.
+- completed_task = IMP-103 MAIN VERIFIED; benchmark existing evidence remains PASS and was not rerun.
+- active_task = IMP-104 Electron Security Acceptance; status = CLAIMED / ANALYZE.
+- claim_branch = `chatgpt/IMP-104-electron-security-acceptance`; claim_base_sha = `1f234046f739e21d6963ef5307025793190f8cfd`.
+- hard_dependencies = IMP-070 + IMP-071 + IMP-072 + IMP-073 + IMP-100 MAIN VERIFIED per durable history/decomposition.
+- duplicate_guard = PASS; no local branch, remote branch or PR for IMP-104 branch existed before claim.
+- authority = Frozen Master semantic SHA `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`; Security §84, Credential Broker §85, SEC-001..011. Packaged target-Windows security enforcement remains distinct from static/local contract evidence.
+- existing_security_gates = IMP-070..073 targeted suites/evidence already PASS; do not rerun unchanged PASS stages. Task goal is negative security tests on packaged target topology, acceptance no secret/privilege boundary break.
+- package = Electron `44.7.0`, electron-builder `26.15.3`, ASAR, NSIS target; lockfile present, desktop/node_modules and desktop/dist absent. Node `v24.15.0`, npm `11.12.1`.
+- runtime = no active FlowKit/pytest/benchmark process; PTY registry empty. Unrelated Electron-builder process under `D:\\TangKeyYouTube-C02` observed and left untouched. `.tmp/` remains untracked/local-only.
+- procedure_deviation = frozen_master_guard was inadvertently rerun despite prior PASS; result PASS and frozen SHA unchanged. Do not rerun unless the frozen artifact changes.
+- NEXT_EXACT_ACTION = "AUDIT FROZEN SECURITY §84/§85 + SEC-001..011 AND IMP-104 ACCEPTANCE -> MAP CURRENT PACKAGED TARGET SECURITY BOUNDARIES AND TEST GAPS WITHOUT RERUNNING IMP-070..073 PASS -> DESIGN THREAT MATRIX/NEGATIVE CASES -> CHECK LOCKFILE SOURCE/INTEGRITY/LICENSE/VERSION/DISK/OUTPUT/PROCESS SAFETY BEFORE DEPENDENCY INSTALL OR PACKAGE -> IMPLEMENT ONLY MISSING IMP-104 SECURITY ACCEPTANCE -> RUN ONLY NEW/CHANGED GATES AND RETAIN JUNIT + PACKAGED RUNTIME EVIDENCE -> EXACT-HEAD REVIEW/PR/MAIN VERIFICATION"
+
+
+## IMP-104 DEPENDENCY PREFLIGHT PASS — 2026-10-17 12:35 +07
+
+- lockfile_audit = v3; 285 entries including root / 284 dependency packages; 284/284 resolved from registry.npmjs.org; 0 missing integrity hashes; 0 missing license fields; 0 alternate resolved sources.
+- electron = 44.7.0, MIT, Node >=22.12.0; lockfile registry tarball/integrity matched current registry metadata.
+- electron_builder = 26.15.3, MIT, Node >=14.0.0; lockfile registry tarball/integrity matched current registry metadata.
+- official_electron_release = v44.7.0 Windows x64 ZIP, 158293649 bytes; official GitHub release API SHA-256 `eee30dc8fa1f5ea95490e59f44e46ea68dd24c6e93d22facf70fe5c2d4c2665c`; exact match in pinned package checksums.json; HTTP HEAD 200 and Content-Length matched.
+- disk_free_before_binary = approx 8.95 GB on E:.
+- dependency_install = PASS; `npm ci --ignore-scripts --no-audit --no-fund` installed full lockfile tree. npm debug log ends `verbose exit 0` / `info ok`; 284 installed package entries, zero missing paths, direct versions match. PowerShell wrapper marked the PTY exit 1 because a deprecation warning was elevated by ErrorActionPreference=Stop; this was wrapper-only. Do not rerun npm ci.
+- install_scripts = skipped intentionally; Electron binary absent until next dedicated install stage. `electron/install.js` inspected and passes package-pinned checksums to `@electron/get` before extraction.
+- active_task = IMP-104 / ANALYZE+PREFLIGHT PASS; next stage = install only pinned Electron runtime and capture durable log/exit marker.
+- runtime = no active FlowKit/npm/Electron process for this task; unrelated electron-builder process in `D:\\TangKeyYouTube-C02` left untouched. Local health endpoint unavailable, but no FlowKit generation/API workflow is required for this task; do not start unrelated service.
+- procedure_deviation = frozen_master_guard was inadvertently rerun earlier; PASS and SHA unchanged; never rerun again unless frozen artifact changes.
+- NEXT_EXACT_ACTION = "RUN node_modules/electron/install.js ONCE WITH LOG/EXIT MARKER -> MONITOR PID/LOG/ARTIFACTS, DO NOT RESTART -> VERIFY BINARY VERSION AND CHECKSUM SOURCE -> AUDIT PACKAGING CACHE/OUTPUT REQUIREMENTS -> PACKAGE UNDER .tmp/imp104 -> RUN ONLY NEW PACKAGED SECURITY NEGATIVE TESTS"
+
+
+## IMP-104 PINNED ELECTRON RUNTIME INSTALL PASS — 2026-10-17 12:42 +07
+
+- electron_install = PASS; command ran once, exit marker `0` at `.tmp/imp104/electron-install.exitcode`.
+- installed_version = `44.7.0`; dist version marker `44.7.0`; path marker `electron.exe`; Windows FileVersion/ProductVersion `44.7.0`.
+- electron_exe = `desktop/node_modules/electron/dist/electron.exe`, 246302208 bytes, SHA-256 `2529B494F4123F152BCE346051F7BD855EF95006424A561953CF17C49A3D1BA8`.
+- installer_source = pinned `electron/install.js` uses package `checksums.json`; Windows x64 ZIP SHA-256 verified against official GitHub release metadata and package checksum before install. No installer process remains.
+- builder = `26.15.3`; builder source confirms support for `ELECTRON_BUILDER_CACHE`. An unrelated project has an active builder process, so avoid global cache and use `.tmp/imp104/electron-builder-cache`; package output isolated at `.tmp/imp104/package`.
+- disk_free = approx 8.56 GB on E:. npm ci was not rerun. Existing IMP-070..073 PASS stages were not rerun.
+- NEXT_EXACT_ACTION = "PREPARE AND VERIFY DEDICATED BUILD CONFIG/LOG -> PACKAGE UNPACKED WINDOWS x64 TARGET ONCE WITH ISOLATED ELECTRON_BUILDER_CACHE AND PUBLISH=NEVER -> MONITOR EXISTING PID/LOG/OUTPUT -> VERIFY PACKAGE CONTENT/VERSION/ASAR -> ADD ONLY NEW PACKAGED SECURITY NEGATIVE TESTS"
+
+
+## IMP-104 PACKAGED WINDOWS TARGET BUILD PASS — 2026-10-17 12:44 +07
+
+- package_status = PASS; command exit 0; marker `.tmp/imp104/package.exitcode`; log `.tmp/imp104/package.log`.
+- package = unpacked Windows x64 target, Electron 44.7.0, electron-builder 26.15.3, `--dir --win --x64 --publish never`; output `.tmp/imp104/package/win-unpacked`.
+- package_cache_isolation = `ELECTRON_BUILDER_CACHE` and `ELECTRON_CACHE` pointed under `.tmp/imp104`; unrelated project global cache/process left untouched. CSC identity auto-discovery disabled; Authenticode NotSigned is expected for this test build, not a release/signing claim.
+- package_inventory = 72 files / 385480975 bytes; app.asar 76996 bytes SHA-256 `66449745396A1C7B803AD102A413D06F805BA4AFAC41F8449D4D82F58C6F50CC`; packaged executable SHA-256 `A0C095AEEA05E5DE3F465C9806575AED2BFEDCCEE42DC7000EB2477AEAB7BB52`, version 0.1.0.0. ASAR contains expected security/main/utility/renderer files and excludes tests/node_modules.
+- security_gap = existing evidence covers static/mock boundary behavior, but frozen Master §85 explicitly requires packaged Windows safeStorage proof. IMP-104 will add a safe diagnostic mode that verifies actual `safeStorage` availability/backend/round-trip in packaged Electron without exposing secrets, starting Renderer/Utility, or writing credential vault; add permanent packaged ASAR negative acceptance tests for API/IPC/navigation/CSP/packaging exclusions.
+- prior_pass_stages = IMP-070..073 targeted suites and frozen Master guard; do not rerun unchanged.
+- NEXT_EXACT_ACTION = "IMPLEMENT SAFE PACKAGED MAIN SELF-TEST MODE + PERMANENT ASAR NEGATIVE ACCEPTANCE TEST; RUN SYNTAX ON CHANGED FILES; REPACKAGE BECAUSE SOURCE CHANGED; RUN ONLY NEW IMP-104 PACKAGED TESTS AND CAPTURE JUNIT/RUNTIME EVIDENCE"
+
+## IMP-104 PACKAGED SECURITY ACCEPTANCE PASS — 2026-10-17 13:02 +07
+
+- imp104_local_acceptance=PASS; overall task RUNNING until PR/merge/main CI lifecycle verified.
+- Packaged target: `.tmp/imp104/package/win-unpacked`; build exit 0. app.asar SHA-256 `E89D20B29C8C83982557034B0D00993B9EEB118716C22F5CF0434ADD67FCFA36`; executable SHA-256 `B35DD2EFC36F8DF71940F56FFBFAA5D177568B963B128F179D71FBF28F928C27`.
+- Acceptance JUnit `.tmp/imp104/packaged-security-test-dpapi.xml`: exit 0; tests=2, failures=0, errors=0, skipped=0. Covers ASAR inventory/exclusions, BrowserWindow flags, CSP, narrow renderer API, URL/path/navigation/popup/webview, strict IPC/sender validation and redaction.
+- Packaged safeStorage available; synthetic in-memory roundtrip PASS; no vault file before/after; no canary in report. Electron 44 backend selection API is Linux-only; Windows DPAPI proof uses Local State `os_crypt.encrypted_key` DPAPI prefix plus successful native `ProtectedData.Unprotect` to a 32-byte key. Temporary blob removed.
+- Code adds a Main-only safeStorage diagnostic mode with no window/Utility/IPC/broker startup and no vault write; test-only tooling `@electron/asar@3.4.1` pinned as direct MIT dev dependency. Evidence at `evidence/tests/IMP-104_ELECTRON_SECURITY_ACCEPTANCE_EVIDENCE.md`.
+- Two early test attempts failed due wrong packaging assumptions; corrected and final exact package acceptance passed 2/2. Failed artifacts retained under `.tmp/imp104`, which is local-only and must never be staged. Prior IMP-070..073 PASS suites and Frozen Master guard not rerun.
+- Base main SHA `1f234046f739e21d6963ef5307025793190f8cfd`; branch `chatgpt/IMP-104-electron-security-acceptance`; last pushed checkpoint `ed47953`; no PR yet.
+- NEXT_EXACT_ACTION = "REVIEW DIFF -> GIT DIFF --CHECK + NODE --CHECK CHANGED JS -> COMMIT/PUSH ONLY INTENDED SOURCE/TEST/EVIDENCE/STATE FILES (NEVER .tmp) -> PR/EXACT-HEAD CI/REVIEW -> MERGE AFTER GATES -> VERIFY MAIN -> NEXT QUEUE TASK"
+
+## IMP-104 PR OPEN / EXACT-HEAD CI RUNNING — 2026-10-17 13:08 +07
+
+- PR #97 OPEN: https://github.com/nguyenkhactang922-bot/flowkit/pull/97; head `39cd33d5421b5ee922cec7880b1bb80f9c713b74`, base/main `1f234046f739e21d6963ef5307025793190f8cfd`; PR head matches local/remote branch.
+- Review: local diff review done; no GitHub review submissions or threads; repository main has no branch protection and no rulesets. Do not submit an author self-approval.
+- CI run `39008584808` IN_PROGRESS. Both Python 3.10/3.13 jobs passed setup/dependency/Frozen Master steps and are stuck in the unit-test step beyond normal duration. Logs unavailable until job finishes. Do not cancel/restart; monitor until completion/timeout.
+- Local IMP-104 package acceptance remains PASS (2/2); no previous IMP-070..073 tests or Frozen Master guard rerun locally.
+- NEXT_EXACT_ACTION = "WAIT/MONITOR EXACT-HEAD RUN 39008584808; AFTER COMPLETION RECORD RESULT AND SYNC STATE, THEN ENSURE LATEST HEAD CI PASSES BEFORE MERGE; IF TIMEOUT/FAIL, FETCH LOGS AND REPAIR ONLY FAILING TEST STAGE"
+
+## IMP-104 PR CI PASS ON PRE-SYNC HEAD — 2026-10-17 13:12 +07
+
+- PR #97 CI run `39008584808` completed success on head `39cd33d5421b5ee922cec7880b1bb80f9c713b74`; jobs Python 3.10 and 3.13 passed all steps, including Frozen Master and unit tests. ~6-minute run monitored to completion.
+- PR #97 OPEN and mergeable; no review submissions/threads, no branch protection/rulesets; local code review completed.
+- This checkpoint will be committed as state/evidence sync, producing a new head and new CI run. Previous green run does not certify the new head; wait for its exact-head CI.
+- NEXT_EXACT_ACTION = "PUSH STATE/EVIDENCE SYNC -> CAPTURE NEW HEAD -> WAIT FOR ITS CI SUCCESS -> MERGE PR #97 AFTER GATES -> VERIFY MAIN PUSH CI"
+
+
+
+## IMP-104 PR HEAD CI PASS / STATE SYNC REQUIRED — 2026-10-17 13:54 +07
+
+- active_task = IMP-104 Electron Security Acceptance; local packaged acceptance PASS (JUnit 2/2), Windows safeStorage synthetic round-trip PASS, native DPAPI key-envelope proof PASS; no prior IMP-070..073 suite or Frozen Master guard rerun during this acceptance.
+- git_root = `E:/FlowKit-Studio-Upgrade`; branch = `chatgpt/IMP-104-electron-security-acceptance`; current HEAD = `ac07e401297b1c47541de5bb170aff781e21dd39`; origin branch aligned. Tracked worktree clean; only untracked local `.tmp/` artifacts remain and must not be staged.
+- Runtime = no active FlowKit IMP-104/npm/electron-builder/pytest task process. Unrelated workspace processes untouched.
+- PR #97 OPEN/mergeable, exact head `ac07e401297b1c47541de5bb170aff781e21dd39`, base main `1f234046f739e21d6963ef5307025793190f8cfd`. Exact-head run `39009194107` SUCCESS; both Python 3.10 and 3.13 jobs passed unit tests and Frozen Master verification. URL https://github.com/nguyenkhactang922-bot/flowkit/actions/runs/39009194107.
+- Review evidence: local review of exact PR source/test diff performed; GitHub submitted reviews list empty. No branch protection/rulesets or mandatory external review gate found. No self-approval submitted.
+- NEXT_EXACT_ACTION = "SYNC THIS CI PASS INTO STATE/EVIDENCE -> STAGE ONLY THE FOUR STATE/EVIDENCE FILES, CHECK STAGED FILE LIST AND git diff --cached --check -> COMMIT/PUSH ONCE -> VERIFY NEW PR HEAD'S CI -> MERGE ONLY WITH GREEN EXACT-HEAD CI AND EXPECTED HEAD SHA -> VERIFY MAIN MERGE SHA + MAIN PUSH CI -> CLAIM NEXT VALID QUEUED TASK"
