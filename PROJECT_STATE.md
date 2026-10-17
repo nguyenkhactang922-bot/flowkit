@@ -6908,3 +6908,22 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - next_dependency_ready_task = IMP-104 Electron Security Acceptance; hard dependencies IMP-070, IMP-071, IMP-072, IMP-073, IMP-100 are recorded MAIN VERIFIED in the prior durable handoff. Duplicate guard found no existing IMP-104 local/remote branch or PR.
 - current_stage = governance-only state reconciliation; no code changes and no tests rerun.
 - NEXT_EXACT_ACTION = "VERIFY GOVERNANCE DIFF + git diff --check -> STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md -> VERIFY STAGED FILE LIST AND git diff --cached --check -> COMMIT/PUSH GOVERNANCE BRANCH ONCE -> CREATE PR ONLY IF ABSENT -> VERIFY EXACT-HEAD REVIEW/CHECKS WITHOUT BYPASS -> AFTER GOVERNANCE SYNC IS ACCEPTED, VERIFY MAIN CI AND CLAIM IMP-104 FROM EXACT MAIN SHA; AUDIT FROZEN ELECTRON SECURITY AUTHORITY + PACKAGED TARGET TOPOLOGY BEFORE CODE"
+
+
+## IMP-104 CLAIMED / ANALYZE — 2026-10-17 12:30 +07
+
+- project_root = `E:\\FlowKit-Studio-Upgrade`; git_root = `E:/FlowKit-Studio-Upgrade`.
+- main_verified_sha = `1f234046f739e21d6963ef5307025793190f8cfd`; local main fast-forwarded to origin/main. Governance PR #96 merged at this SHA.
+- pr96_exact_head_ci = run `39005603559` SUCCESS on head `4ec95b7e051f6e0a587b2bfc876b1f5965184ad7`; both Python 3.10/3.13 jobs and frozen baseline guard passed.
+- main_push_ci = run `39006071976` SUCCESS on exact main SHA `1f234046f739e21d6963ef5307025793190f8cfd`; both Python 3.10/3.13 jobs and frozen baseline guard passed.
+- completed_task = IMP-103 MAIN VERIFIED; benchmark existing evidence remains PASS and was not rerun.
+- active_task = IMP-104 Electron Security Acceptance; status = CLAIMED / ANALYZE.
+- claim_branch = `chatgpt/IMP-104-electron-security-acceptance`; claim_base_sha = `1f234046f739e21d6963ef5307025793190f8cfd`.
+- hard_dependencies = IMP-070 + IMP-071 + IMP-072 + IMP-073 + IMP-100 MAIN VERIFIED per durable history/decomposition.
+- duplicate_guard = PASS; no local branch, remote branch or PR for IMP-104 branch existed before claim.
+- authority = Frozen Master semantic SHA `1ff9383d713dfaab309d3f36cc83cf05e8932c1bc07f68682e2e12a488c77287`; Security §84, Credential Broker §85, SEC-001..011. Packaged target-Windows security enforcement remains distinct from static/local contract evidence.
+- existing_security_gates = IMP-070..073 targeted suites/evidence already PASS; do not rerun unchanged PASS stages. Task goal is negative security tests on packaged target topology, acceptance no secret/privilege boundary break.
+- package = Electron `44.7.0`, electron-builder `26.15.3`, ASAR, NSIS target; lockfile present, desktop/node_modules and desktop/dist absent. Node `v24.15.0`, npm `11.12.1`.
+- runtime = no active FlowKit/pytest/benchmark process; PTY registry empty. Unrelated Electron-builder process under `D:\\TangKeyYouTube-C02` observed and left untouched. `.tmp/` remains untracked/local-only.
+- procedure_deviation = frozen_master_guard was inadvertently rerun despite prior PASS; result PASS and frozen SHA unchanged. Do not rerun unless the frozen artifact changes.
+- NEXT_EXACT_ACTION = "AUDIT FROZEN SECURITY §84/§85 + SEC-001..011 AND IMP-104 ACCEPTANCE -> MAP CURRENT PACKAGED TARGET SECURITY BOUNDARIES AND TEST GAPS WITHOUT RERUNNING IMP-070..073 PASS -> DESIGN THREAT MATRIX/NEGATIVE CASES -> CHECK LOCKFILE SOURCE/INTEGRITY/LICENSE/VERSION/DISK/OUTPUT/PROCESS SAFETY BEFORE DEPENDENCY INSTALL OR PACKAGE -> IMPLEMENT ONLY MISSING IMP-104 SECURITY ACCEPTANCE -> RUN ONLY NEW/CHANGED GATES AND RETAIN JUNIT + PACKAGED RUNTIME EVIDENCE -> EXACT-HEAD REVIEW/PR/MAIN VERIFICATION"

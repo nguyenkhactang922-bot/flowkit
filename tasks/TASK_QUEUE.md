@@ -6009,3 +6009,18 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - [ ] Governance-only reconciliation of CURRENT_HANDOFF.md, PROJECT_STATE.md, and this queue remains to be committed/pushed through the normal PR workflow.
 - [ ] Next task after accepted governance sync: `IMP-104 — Electron Security Acceptance`; authoritative decomposition dependencies: IMP-070, IMP-071, IMP-072, IMP-073, IMP-100, all recorded MAIN VERIFIED. Duplicate guard: no local/remote IMP-104 branch or PR found.
 - NEXT_EXACT_ACTION = "VERIFY THREE-FILE GOVERNANCE DIFF AND git diff --check -> STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md -> VERIFY STAGED FILE LIST AND git diff --cached --check -> COMMIT/PUSH GOVERNANCE-ONLY BRANCH ONCE -> CREATE PR ONLY IF ABSENT -> INSPECT EXACT-HEAD CHECKS/REVIEW WITHOUT BYPASS -> AFTER GOVERNANCE SYNC IS ACCEPTED, VERIFY MAIN PUSH CI AND CLAIM IMP-104 FROM EXACT UPDATED MAIN SHA; AUDIT FROZEN ELECTRON SECURITY AUTHORITY AND PACKAGED TARGET TOPOLOGY BEFORE CODING"
+
+
+## IMP-104 CLAIMED — 2026-10-17 12:30 +07
+
+- [x] Governance state reconciliation merged as PR #96 at main SHA `1f234046f739e21d6963ef5307025793190f8cfd`.
+- [x] PR #96 exact-head CI run `39005603559` SUCCESS (Python 3.10 + 3.13; Frozen Master guard PASS).
+- [x] Post-merge main push CI run `39006071976` SUCCESS on exact merge SHA `1f234046f739e21d6963ef5307025793190f8cfd` (Python 3.10 + 3.13; Frozen Master guard PASS).
+- [x] IMP-103 MAIN VERIFIED; benchmark evidence retained, not rerun.
+- [x] Duplicate guard passed for `chatgpt/IMP-104-electron-security-acceptance`: no local/remote branch or PR existed before claim.
+- [x] IMP-104 claimed from exact verified main SHA `1f234046f739e21d6963ef5307025793190f8cfd`; hard dependencies IMP-070, IMP-071, IMP-072, IMP-073, IMP-100 are recorded MAIN VERIFIED.
+- [ ] Analyze Frozen Master §84/§85 and SEC-001..011; map current packaged Electron target topology to negative-test coverage.
+- [ ] Preflight pinned dependency install and packaging safely; no Electron dependencies installed and no package artifact exists yet.
+- [ ] Implement only missing IMP-104 acceptance gates; do not rerun unchanged PASS suites from IMP-070..073.
+- Procedure note: frozen_master_guard was inadvertently rerun despite prior PASS; it returned PASS with unchanged semantic SHA. Do not repeat unless the frozen artifact changes.
+- NEXT_EXACT_ACTION = "READ FROZEN SECURITY §84/§85 + SEC-001..011 -> AUDIT PACKAGED TARGET AND EXISTING TEST COVERAGE -> DEFINE THREAT MATRIX/NEGATIVE CASES -> VERIFY LOCKFILE SOURCES, INTEGRITY, LICENSES, VERSIONS, DISK/OUTPUT AND PROCESS SAFETY BEFORE INSTALL/PACK -> IMPLEMENT MISSING IMP-104 GATES -> RUN ONLY NEW/CHANGED TESTS AND PACKAGE-RUNTIME PROOF -> EVIDENCE, EXACT-HEAD REVIEW, PR/CI, MERGE AND MAIN VERIFICATION"
