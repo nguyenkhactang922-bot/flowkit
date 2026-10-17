@@ -6102,3 +6102,63 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - [ ] Verify merge SHA and main push CI; mark IMP-104 MAIN VERIFIED.
 - [ ] Claim next dependency-ready queued task and continue.
 - NEXT_EXACT_ACTION = "STATE/EVIDENCE SYNC -> CHECK DIFF/STAGED FILES -> COMMIT/PUSH -> NEW-HEAD CI -> MERGE WITH EXPECTED SHA AFTER PASS -> VERIFY MAIN PUSH CI -> CLAIM NEXT QUEUED TASK"
+
+
+## IMP-105 LOCAL ACCEPTANCE PASS / REMOTE LIFECYCLE PENDING - 2026-10-17
+
+- [x] IMP-105 claimed from verified main SHA aeae12684dd1e8355d822c556b5fbcc3b52930bc; dependencies IMP-104 + IMP-082 MAIN VERIFIED.
+- [x] Bootstrap verified correct project/Git root, branch, HEAD, AGENTS.md, global execution law, handoff, state, and queue.
+- [x] Built isolated Windows x64 / Electron 44.7.0 package; package exit code 0.
+- [x] Verified ASAR source identity and exact package/fresh-copy inventory (72 files / 385486360 bytes); no resources/app or top-level node_modules.
+- [x] Packaged clean-install smoke: first run + restart PASS, exit 0, JUnit 1/1 PASS; isolated Chromium/app-data roots and no credential vault.
+- [x] Packaged unsupported credential-vault schema negative gate PASS, JUnit 1/1 PASS; original vault bytes unchanged.
+- [x] Source syntax checks and git diff --check PASS; task processes exited.
+- [x] Durable evidence saved to evidence/tests/IMP-105_PACKAGED_CLEAN_INSTALL_SMOKE_EVIDENCE.md.
+- [x] Rechecked remote duplicate guard: no IMP-105 remote branch and no PR.
+- [ ] Review exact diff and stage only desktop/preload.cjs, desktop/tests/packaged-clean-install-smoke.test.cjs, evidence/tests/IMP-105_PACKAGED_CLEAN_INSTALL_SMOKE_EVIDENCE.md, CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md; exclude .tmp/.
+- [ ] Verify staged file list and cached diff; commit/push once.
+- [ ] Create PR only after rechecking absence; verify exact-head CI and review.
+- [ ] Merge only after required gates pass; verify merge SHA and main push CI.
+- [ ] Claim the next dependency-ready queue task after MAIN VERIFIED.
+- Task state = RUNNING (local acceptance PASS; remote lifecycle pending). Do not mark DONE or MAIN VERIFIED prematurely.
+- NEXT_EXACT_ACTION = "REVIEW EXACT DIFF -> NODE --CHECK + git diff --check -> STAGE ONLY desktop/preload.cjs, desktop/tests/packaged-clean-install-smoke.test.cjs, evidence/tests/IMP-105_PACKAGED_CLEAN_INSTALL_SMOKE_EVIDENCE.md, CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md -> VERIFY STAGED LIST + git diff --cached --check -> COMMIT/PUSH ONCE -> RECHECK PR DUPLICATE GUARD -> EXACT-HEAD CI + REVIEW -> MERGE ONLY AFTER REQUIRED GATES -> VERIFY MAIN SHA + MAIN PUSH CI -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-105 Exact-head CI failure / bounded preload repair - 2026-10-17
+
+- [x] Inspect exact-head CI run 39040021903; both Python 3.10 and 3.13 failed the same existing bounded-preload assertion.
+- [x] Identify root cause: desktop/preload.cjs lacked explicit invoke(channel, request) allowlisted adapter.
+- [x] Repair adapter with strict allowlist for GET_BRIDGE_STATUS and GET_STUDIO_APPLICATION_READ_MODEL only.
+- [x] node --check desktop/preload.cjs PASS; git diff --check PASS; direct static assertions PASS.
+- [ ] Local pytest test execution (default local Python has no pytest module; exact-head CI must verify after push).
+- [ ] Commit/push repair and verify new exact-head CI.
+- [ ] Rebuild package after preload repair and verify fresh package/source ASAR identity.
+- [ ] Rerun only the clean-install first-run/restart smoke against repaired package; do not rerun the unchanged schema-negative gate.
+- [ ] Review exact final PR head; merge only after required gates; verify main SHA and main push CI.
+- Note: package rebuild attempt produced no durable exit marker; no builder process remains. Previous packaged smoke evidence predates the preload repair and is not accepted for repaired-source verification. Never stage .tmp/imp105.
+- NEXT_EXACT_ACTION = "APPEND CI REPAIR CHECKPOINT -> STAGE ONLY preload + evidence + three state files -> COMMIT/PUSH ONCE -> VERIFY NEW EXACT-HEAD CI -> REBUILD PACKAGE + RUN ONLY CLEAN-INSTALL FIRST-RUN/RESTART SMOKE -> REVIEW/MERGE AFTER GATES -> VERIFY MAIN -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-105 repair pushed / exact-head CI running - 2026-10-17
+
+- [x] Commit bounded preload IPC repair: 00d93ebe6743106917fba9a0ce192acb0645be1e.
+- [x] Push verified; PR #98 exact head updated; no duplicate PR created.
+- [x] Exact staged set contained only preload, evidence, handoff, state, and queue files; .tmp/ artifacts excluded.
+- [ ] Exact-head CI run 39044322325 (Python 3.10/3.13) must finish PASS.
+- [ ] Rebuild packaged app from repaired preload; verify fresh ASAR/source identity.
+- [ ] Run only clean-install first-run/restart smoke against repaired package; leave prior PASS schema-negative gate untouched.
+- [ ] Review PR #98 exact head; merge only after required gates; verify main merge SHA and main push CI.
+- NEXT_EXACT_ACTION = "MONITOR RUN 39044322325 -> REPAIR ONLY FAILED CI STAGE IF NEEDED -> IF CI PASS, REBUILD PACKAGE + VERIFY ASAR/SOURCE IDENTITY + RUN ONLY FIRST-RUN/RESTART SMOKE -> REVIEW/MERGE AFTER GATES -> VERIFY MAIN -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-105 repaired-source package + exact-head CI PASS - 2026-10-17
+
+- [x] Repair bounded preload invoke adapter; commit 00d93ebe6743106917fba9a0ce192acb0645be1e pushed to PR #98.
+- [x] Exact-head CI run 39044322325 PASS for Python 3.10 and 3.13.
+- [x] Rebuild Windows x64 package after repair; exit 0; ASAR/source preload identity PASS.
+- [x] Run only repaired-source first-run/restart smoke: 1/1 PASS, both app runs exit 0, Utility ready, fail-closed read-model, no credential vault.
+- [x] Preserve prior schema-negative PASS without rerunning unchanged gate.
+- [ ] Complete exact PR diff/security review and check any required branch/ruleset gates.
+- [ ] Commit/push state/evidence sync and verify new exact-head CI.
+- [ ] Merge only after required gates; verify merge SHA and main push CI.
+- NEXT_EXACT_ACTION = "REVIEW PR #98 EXACT DIFF/GATES -> COMMIT/PUSH STATE+EVIDENCE SYNC -> VERIFY NEW EXACT-HEAD CI -> MERGE AFTER REQUIRED GATES -> VERIFY MAIN -> CLAIM NEXT DEPENDENCY-READY TASK"

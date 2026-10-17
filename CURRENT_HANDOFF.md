@@ -6801,3 +6801,48 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - PR #97 remains OPEN and mergeable; head exactly matches `ac07e401297b1c47541de5bb170aff781e21dd39`. Changed files are the intended eight tracked source/test/evidence/state files; no `.tmp/imp104` files are committed. GitHub review list is empty; local review inspected the Main self-test, package pin, and packaged-ASAR acceptance test. Repository has no branch protection/rulesets and no mandatory external review gate was found; do not invent a review approval.
 - Current tracked tree is clean before this sync; `git diff --check` passes. Record CI result in this governance/evidence-only sync, then commit/push once. The resulting new PR head must receive its own exact-head CI before merge.
 - NEXT_EXACT_ACTION = "APPEND THIS CI CHECKPOINT TO CURRENT_HANDOFF/PROJECT_STATE/TASK_QUEUE/EVIDENCE -> VERIFY DIFF/CACHED DIFF AND STAGE ONLY THOSE FOUR FILES -> COMMIT/PUSH ONCE -> VERIFY PR #97 NEW HEAD + EXACT-HEAD CI -> IF PASS, MERGE USING EXPECTED HEAD SHA -> VERIFY MERGE SHA AND MAIN PUSH CI -> CLAIM NEXT DEPENDENCY-READY QUEUED TASK; IF CI FAILS, REPAIR ONLY FAILED STAGE"
+
+
+## IMP-104 MAIN VERIFIED / IMP-105 LOCAL ACCEPTANCE PASS - 2026-10-17
+
+- IMP-104 = MAIN VERIFIED. PR #97 merged at aeae12684dd1e8355d822c556b5fbcc3b52930bc; exact-head PR CI run 39011826278 passed on 8ed54cde5ea307244c357ee7a55327641780c8ba (Python 3.10 and 3.13); the merge SHA is the current verified main base.
+- IMP-105 Packaged Clean-Install Smoke was claimed from main SHA aeae12684dd1e8355d822c556b5fbcc3b52930bc on branch chatgpt/IMP-105-packaged-clean-install-smoke. Dependencies IMP-104 + IMP-082 were MAIN VERIFIED. Duplicate guard found no remote branch or PR before commit/push.
+- Correct project root and Git root = E:/FlowKit-Studio-Upgrade. AGENTS.md and docs/CHATCODE_GLOBAL_MULTI_PROJECT_EXECUTION_LAW.md are present. Current HEAD remains aeae12684dd1e8355d822c556b5fbcc3b52930bc; feature changes are not yet committed.
+- Local package build PASS: .tmp/imp105/package.exitcode = 0; Windows x64 / Electron 44.7.0. app.asar SHA-256 E0A3B4CAD2FCED38809B59A586A14F897C6AA3775DE2400932698472C4E29ECF; executable SHA-256 A651C18D2C9E4DC477D56D5C990D8FA1BE71AFDCF2E106922646F809A14273B7. Package/fresh-copy inventories match exactly: 72 files / 385486360 bytes. ASAR source identity passes for main, preload, security policy, credential broker, IPC contract/main, utility bridge/entry, and renderer HTML/JS/CSS. No resources/app or top-level node_modules in package.
+- Packaged first-run + restart smoke PASS: .tmp/imp105/packaged-clean-install-smoke-final2.xml; exit 0; tests=1 failures=0 errors=0 skipped=0. First-run PID 108084 and restart PID 147900 each exited 0. Renderer and narrow window.flowkitHost surface loaded; Renderer-to-IPC-to-Utility health returned ready; absent canonical read model failed closed with APPLICATION_READ_MODEL_UNAVAILABLE.
+- Isolated Chromium user-data plus isolated APPDATA/LOCALAPPDATA/TEMP/TMP were used. Recursive check found no credential-vault-v1.json in isolated data on first run or restart.
+- Packaged unsupported-schema negative gate PASS: .tmp/imp105/packaged-clean-install-schema-gate.xml; exit 0; tests=1 failures=0 errors=0 skipped=0. Unsupported vault schema returned VAULT_CORRUPT without rewriting original bytes.
+- Source identity, node --check desktop/preload.cjs, node --check desktop/tests/packaged-clean-install-smoke.test.cjs, and git diff --check PASS. No FlowKit app/test/electron-builder task process remains. Earlier failed diagnostics remain preserved under .tmp/imp105 and are not treated as PASS; never stage .tmp/.
+- Durable evidence: evidence/tests/IMP-105_PACKAGED_CLEAN_INSTALL_SMOKE_EVIDENCE.md. Remote duplicate guard rechecked before commit/push: git ls-remote showed no IMP-105 branch; gh pr list --head returned []. No IMP-105 commit, push, or PR creation has occurred.
+- Task state = RUNNING; latest local acceptance checkpoint = PASS; remote lifecycle pending; MAIN NOT VERIFIED for IMP-105.
+- NEXT_EXACT_ACTION = "REVIEW EXACT DIFF; VERIFY git diff --check AND NODE --CHECK; STAGE ONLY desktop/preload.cjs, desktop/tests/packaged-clean-install-smoke.test.cjs, evidence/tests/IMP-105_PACKAGED_CLEAN_INSTALL_SMOKE_EVIDENCE.md, CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md; VERIFY STAGED FILE LIST + git diff --cached --check; COMMIT/PUSH ONCE; RECHECK PR DUPLICATE GUARD BEFORE CREATING PR; VERIFY EXACT-HEAD CI + REVIEW; MERGE ONLY AFTER REQUIRED GATES; VERIFY MERGE SHA + MAIN PUSH CI; THEN CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-105 CI failure / preload repair checkpoint — 2026-10-17
+
+- Exact-head PR #98 run 39040021903 = FAILURE on 6747cd54d0978971de062adfaf5a953b2bcc944d; Python 3.10 and 3.13 failed the same bounded-preload static security assertion.
+- Root cause isolated to desktop/preload.cjs missing explicit invoke(channel, request) allowlisted adapter expected by tests/unit/test_electron_host_security.py. Local repair adds a strict two-channel allowlist and routes only existing bridge-status/read-model calls through it.
+- node --check desktop/preload.cjs = PASS; git diff --check = PASS; direct static assertion = PASS. Local Python environment has no pytest, so no local pytest PASS is claimed.
+- Package rebuild attempt did not produce a durable exit marker; runtime process check found no active builder. Existing packaged smoke evidence predates the preload repair and is not accepted for the repaired source. No active FlowKit test/build process remains.
+- IMP-105 remains RUNNING; exact-head CI = FAIL pending repair commit; packaged first-run/restart smoke for repaired source = pending; schema negative gate remains PASS and is not rerun.
+- NEXT_EXACT_ACTION = "SYNC FAILED-CI/REPAIR STATE -> VERIFY NODE SYNTAX + DIFF -> STAGE ONLY desktop/preload.cjs, evidence/tests/IMP-105_PACKAGED_CLEAN_INSTALL_SMOKE_EVIDENCE.md, CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md -> COMMIT/PUSH REPAIR ONCE -> VERIFY NEW EXACT-HEAD CI -> REBUILD PACKAGE + RUN ONLY CLEAN-INSTALL FIRST-RUN/RESTART SMOKE AGAINST NEW SOURCE IDENTITY (DO NOT RERUN UNCHANGED SCHEMA GATE) -> REVIEW/MERGE ONLY AFTER REQUIRED GATES -> VERIFY MAIN SHA + MAIN PUSH CI -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-105 preload repair pushed / new exact-head CI running — 2026-10-17
+
+- Repair commit = 00d93ebe6743106917fba9a0ce192acb0645be1e; push verified to origin branch chatgpt/IMP-105-packaged-clean-install-smoke.
+- Existing PR #98 remains OPEN at exact head 00d93ebe6743106917fba9a0ce192acb0645be1e: https://github.com/nguyenkhactang922-bot/flowkit/pull/98.
+- New exact-head CI run 39044322325 is IN_PROGRESS; Python 3.10 and 3.13 jobs were both observed running. Do not merge or mark MAIN VERIFIED until exact-head CI and required review/gates pass.
+- Staged/committed file set was exactly desktop/preload.cjs, evidence/tests/IMP-105_PACKAGED_CLEAN_INSTALL_SMOKE_EVIDENCE.md, CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md. Local .tmp/ and desktop/.tmp/ remain untracked and excluded.
+- Fresh package build for repaired preload still lacks a durable result; existing smoke evidence predates repair. After CI resolves, continue only the affected package build and first-run/restart smoke, not the unchanged schema-negative gate.
+- NEXT_EXACT_ACTION = "MONITOR EXACT-HEAD CI RUN 39044322325; IF PASS, REBUILD PACKAGED APP WITH REPAIRED PRELOAD AND VERIFY NEW ASAR/SOURCE IDENTITY, THEN RUN ONLY THE CLEAN-INSTALL FIRST-RUN/RESTART SMOKE; IF CI FAILS, FETCH FAILED LOG AND REPAIR ONLY THAT STAGE; AFTER CI + PACKAGE SMOKE PASS, REVIEW PR #98 AND MERGE ONLY AFTER REQUIRED GATES; VERIFY MERGE SHA + MAIN PUSH CI; THEN CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-105 repaired-source package PASS / exact-head CI PASS — 2026-10-17
+
+- Repair commit 00d93ebe6743106917fba9a0ce192acb0645be1e is pushed to PR #98. Exact-head CI run 39044322325 completed SUCCESS for Python 3.10 and 3.13.
+- Rebuilt repaired preload package: exit 0; app.asar SHA-256 AB94F72E5131CB6EAF299368B5580B18B6D4084145EE2473512A3FE34E127E5F; executable SHA-256 75A4C2ED24CEF05886A71A4B25E77C7AAC804BAFF3BD0BCEFE0D5249113F7994. Build used signAndEditExecutable=false; do not claim signed release package.
+- Packaged preload source identity PASS; source and extracted package preload SHA-256 7326915809ba728f8a4d2f4fc225c9b123a72c51344587208742b1622755c837.
+- Repaired-source first-run/restart smoke PASS: exit 0, tests=1/pass=1/fail=0/skipped=0, 72-file / 385486593-byte package/fresh-copy inventories equal, both app runs exit 0, Utility ready, canonical read model fail-closed, no credential vault created. Unchanged schema-negative gate was not rerun.
+- PR #98 remains OPEN and mergeable; submitted review list was empty at last check. Complete manual review of exact PR diff and confirm whether repository policy requires any independent review before merge. No merge has occurred.
+- NEXT_EXACT_ACTION = "REVIEW FULL PR #98 DIFF AND BRANCH/RULESET GATES -> SYNC CI + REPAIRED PACKAGE EVIDENCE TO HANDOFF/STATE/QUEUE/EVIDENCE -> STAGE ONLY THESE FOUR GOVERNANCE/EVIDENCE FILES, CHECK CACHED DIFF -> COMMIT/PUSH ONCE -> VERIFY NEW EXACT-HEAD CI -> MERGE ONLY AFTER REQUIRED GATES -> VERIFY MERGE SHA + MAIN PUSH CI -> CLAIM NEXT DEPENDENCY-READY TASK"
