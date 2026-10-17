@@ -7071,3 +7071,24 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - release_artifact_note = package build skipped executable signing/resource editing; this is runtime acceptance only, not signed release evidence.
 - task_state = RUNNING; local repaired-source acceptance PASS; exact-head CI PASS; PR review/merge/main verification pending; MAIN NOT VERIFIED.
 - NEXT_EXACT_ACTION = "REVIEW FULL PR #98 DIFF + REQUIRED BRANCH/RULESET GATES -> SYNC EVIDENCE/STATE -> COMMIT/PUSH STATE SYNC -> VERIFY NEW EXACT-HEAD CI -> MERGE ONLY AFTER REQUIRED GATES -> VERIFY MAIN SHA + MAIN PUSH CI -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-105 MAIN VERIFIED / IMP-106 PREFLIGHT NEXT — 2026-10-17
+
+previous_task = IMP-105 Packaged Clean-Install Smoke
+status = MAIN VERIFIED
+pr = #98 MERGED
+pr_head = 7763e741213d6134e0d11eeb823f0a66a102809d
+merge_sha = 70027edb296ac205e37da3856c020adf6c49c153
+pr_ci = run 39045499127 SUCCESS; Python 3.10 + 3.13
+main_push_ci = run 39048887308 SUCCESS; Python 3.10 + 3.13 + frozen Master baseline PASS
+package_rebuild = PASS; app.asar SHA-256 AB94F72E5131CB6EAF299368B5580B18B6D4084145EE2473512A3FE34E127E5F; executable SHA-256 75A4C2ED24CEF05886A71A4B25E77C7AAC804BAFF3BD0BCEFE0D5249113F7994
+repaired_preload_source_package_identity = PASS; SHA-256 7326915809ba728f8a4d2f4fc225c9b123a72c51344587208742b1622755c837
+clean_install_first_run_restart = PASS; 1/1; both app runs exit 0; Utility ready; read-model fail-closed; no credential vault
+schema_negative_gate = prior PASS retained; not rerun
+release_note = package runtime verification only; signAndEditExecutable=false, no signed release claim
+active_task = IMP-106 Controlled Live Provider E2E — PREFLIGHT NOT YET CLAIMED
+hard_dependencies = IMP-055 + IMP-064 + IMP-105; historical queue evidence indicates IMP-055/064 MAIN VERIFIED, must re-confirm from current local state during bootstrap
+process = no IMP-105 package/test process remains per prior runtime check; FileMCP-E tunnel currently not responding to requests, so current local process/worktree status must be rechecked after bridge recovery
+blocker = FileMCP-E tunnel client did not poll queued requests; local worktree bootstrap/state verification unavailable via FileMCP at this checkpoint
+NEXT_EXACT_ACTION = "RECONNECT FILEMCP-E TUNNEL -> VERIFY LOCAL MAIN HEAD MATCHES 70027edb296ac205e37da3856c020adf6c49c153 AND CHECK STATUS/PROCESSES -> RECONFIRM IMP-055/064 MAIN VERIFIED -> AUDIT IMP-106 LIVE-PROVIDER AUTHORITY + HEALTH + SECRET PRESENCE (NEVER PRINT SECRET VALUES) + COST LIMIT + SUBMISSION IDEMPOTENCY/AMBIGUITY + ARTIFACT/QA/APPROVAL EVIDENCE -> CLAIM IMP-106 AND RUN ONE BOUNDED LIVE LANE ONLY AFTER ALL GUARDS PASS"

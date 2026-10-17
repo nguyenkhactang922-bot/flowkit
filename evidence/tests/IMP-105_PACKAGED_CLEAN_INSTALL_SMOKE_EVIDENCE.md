@@ -88,3 +88,13 @@ NEXT_EXACT_ACTION = "SYNC THIS FAILED-CI/REPAIR CHECKPOINT; VERIFY NODE SYNTAX +
 - Exact-head CI run 39044322325 passed both unit (3.10) and unit (3.13) on repair commit 00d93ebe6743106917fba9a0ce192acb0645be1e. PR #98 remains OPEN pending final state/evidence sync and exact-head verification of the sync commit.
 
 NEXT_EXACT_ACTION = "SYNC THESE REPAIRED-PACKAGE/CI PASS RESULTS INTO CURRENT_HANDOFF, PROJECT_STATE, TASK_QUEUE AND EVIDENCE; REVIEW FULL PR #98 DIFF + REQUIRED REMOTE GATES; STAGE ONLY STATE/EVIDENCE FILES; COMMIT/PUSH ONCE; VERIFY NEW EXACT-HEAD CI; MERGE ONLY AFTER REQUIRED GATES; VERIFY MAIN MERGE SHA + MAIN PUSH CI; THEN CLAIM NEXT DEPENDENCY-READY TASK."
+
+
+## Post-merge verification — 2026-10-17
+
+- PR #98 exact head: 7763e741213d6134e0d11eeb823f0a66a102809d.
+- PR CI run 39045499127: SUCCESS on Python 3.10 and 3.13.
+- Merge commit / remote main SHA: 70027edb296ac205e37da3856c020adf6c49c153.
+- Main push workflow run 39048887308: SUCCESS on Python 3.10 and 3.13; frozen Master baseline step PASS.
+- Repaired package/runtime acceptance evidence remains as documented above; no signed installer claim; unchanged schema-negative gate was not rerun.
+- State-sync checkpoint: FileMCP-E tunnel was unavailable after merge (requests were enqueued but tunnel client did not poll). Remote GitHub main/CI verification is complete; local worktree/state bootstrap remains the next exact action after tunnel recovery.
