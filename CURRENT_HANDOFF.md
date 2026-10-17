@@ -6846,3 +6846,17 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - Repaired-source first-run/restart smoke PASS: exit 0, tests=1/pass=1/fail=0/skipped=0, 72-file / 385486593-byte package/fresh-copy inventories equal, both app runs exit 0, Utility ready, canonical read model fail-closed, no credential vault created. Unchanged schema-negative gate was not rerun.
 - PR #98 remains OPEN and mergeable; submitted review list was empty at last check. Complete manual review of exact PR diff and confirm whether repository policy requires any independent review before merge. No merge has occurred.
 - NEXT_EXACT_ACTION = "REVIEW FULL PR #98 DIFF AND BRANCH/RULESET GATES -> SYNC CI + REPAIRED PACKAGE EVIDENCE TO HANDOFF/STATE/QUEUE/EVIDENCE -> STAGE ONLY THESE FOUR GOVERNANCE/EVIDENCE FILES, CHECK CACHED DIFF -> COMMIT/PUSH ONCE -> VERIFY NEW EXACT-HEAD CI -> MERGE ONLY AFTER REQUIRED GATES -> VERIFY MERGE SHA + MAIN PUSH CI -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-105 MAIN VERIFIED — 2026-10-17
+
+- PR #98 merged: https://github.com/nguyenkhactang922-bot/flowkit/pull/98.
+- Exact PR head: 7763e741213d6134e0d11eeb823f0a66a102809d; PR CI run 39045499127 = SUCCESS for Python 3.10 and 3.13.
+- Merge commit and remote main SHA: 70027edb296ac205e37da3856c020adf6c49c153.
+- Main push workflow run 39048887308 = SUCCESS for Python 3.10 and 3.13; frozen Master baseline step also PASS in both jobs.
+- Repaired-source Windows x64 package build exit 0; app.asar SHA-256 AB94F72E5131CB6EAF299368B5580B18B6D4084145EE2473512A3FE34E127E5F; executable SHA-256 75A4C2ED24CEF05886A71A4B25E77C7AAC804BAFF3BD0BCEFE0D5249113F7994. Package used signAndEditExecutable=false; this is runtime acceptance, not signed release evidence.
+- Extracted packaged preload SHA-256 matches source: 7326915809ba728f8a4d2f4fc225c9b123a72c51344587208742b1622755c837.
+- Repaired-source clean-install first-run/restart smoke = 1/1 PASS; both app runs exit 0; Utility ready; canonical read model fails closed; no credential vault created. Earlier schema-negative gate remains PASS and was not rerun.
+- PR review diff manually inspected; no branch protection or branch rulesets were returned by GitHub; merge used expected head SHA. No independent review submission existed.
+- FileMCP-E local tunnel subsequently stopped polling requests, so local checkout/state-sync verification cannot currently run through that bridge. Remote main SHA and both CI workflows were verified through GitHub.
+- NEXT_EXACT_ACTION = "RESTORE/RECONNECT FILEMCP-E TUNNEL WITHOUT RESTARTING ANY PROJECT TASK -> BOOTSTRAP LOCAL WORKTREE AGAINST MAIN 70027edb296ac205e37da3856c020adf6c49c153 -> VERIFY IMP-055 + IMP-064 MAIN VERIFIED IN CURRENT STATE/QUEUE -> AUDIT IMP-106 FROZEN LIVE-PROVIDER AUTHORITY, LOCAL HEALTH, CREDENTIAL AVAILABILITY WITHOUT REVEALING SECRETS, BUDGET/COST LIMIT, IDEMPOTENCY/AMBIGUITY GUARD AND APPROVAL LINEAGE -> CLAIM IMP-106 ONLY AFTER PREFLIGHT IS SAFE; NO LIVE SUBMISSION UNTIL PREFLIGHT PASSES"
