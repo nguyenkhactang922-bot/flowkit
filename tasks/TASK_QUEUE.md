@@ -6162,3 +6162,16 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - [ ] Commit/push state/evidence sync and verify new exact-head CI.
 - [ ] Merge only after required gates; verify merge SHA and main push CI.
 - NEXT_EXACT_ACTION = "REVIEW PR #98 EXACT DIFF/GATES -> COMMIT/PUSH STATE+EVIDENCE SYNC -> VERIFY NEW EXACT-HEAD CI -> MERGE AFTER REQUIRED GATES -> VERIFY MAIN -> CLAIM NEXT DEPENDENCY-READY TASK"
+
+
+## IMP-105 MAIN VERIFIED / IMP-106 ADMISSION CHECKPOINT — 2026-10-17
+
+- [x] IMP-105 exact PR head 7763e741213d6134e0d11eeb823f0a66a102809d passed PR CI run 39045499127 (Python 3.10 + 3.13).
+- [x] PR #98 merged to main at 70027edb296ac205e37da3856c020adf6c49c153.
+- [x] Main push CI run 39048887308 PASS (Python 3.10 + 3.13; frozen Master baseline PASS).
+- [x] Repaired-source package and first-run/restart smoke PASS; source/preload SHA identity verified; unchanged schema-negative PASS preserved without rerun.
+- [x] IMP-106 is explicitly defined in tasks/IMPLEMENTATION_TASK_DECOMPOSITION_V1.md and depends on IMP-055 + IMP-064 + IMP-105.
+- [ ] After FileMCP-E tunnel recovery, verify current local main/worktree/runtime and reconfirm IMP-055 + IMP-064 MAIN VERIFIED; inspect IMP-106 frozen authority and live side-effect/cost/ambiguity guards.
+- [ ] Claim IMP-106 Controlled Live Provider E2E only after bootstrap and safe preflight; run exactly one bounded real provider lane only when provider health, required credentials, cost limit, submission idempotency, and approval lineage are verified. Never print secret values; never blindly retry an ambiguous provider submission.
+- Blocker at checkpoint: FileMCP-E tunnel client stopped polling queued requests; local repo/process verification and state sync through the required bridge are temporarily unavailable. Remote GitHub main and CI were verified.
+- NEXT_EXACT_ACTION = "RECONNECT FILEMCP-E TUNNEL -> VERIFY LOCAL MAIN SHA/STATUS/PROCESSES -> RECONFIRM IMP-055 + IMP-064 MAIN VERIFIED -> READ IMP-106 FROZEN LIVE-PROVIDER AUTHORITY + AUDIT HEALTH/CREDENTIAL PRESENCE/COST/IDEMPOTENCY/AMBIGUITY/QA-APPROVAL LINEAGE -> CLAIM AND EXECUTE ONE BOUNDED LIVE LANE ONLY IF PREFLIGHT PASSES"
