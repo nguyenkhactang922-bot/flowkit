@@ -6102,3 +6102,23 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - [ ] Verify merge SHA and main push CI; mark IMP-104 MAIN VERIFIED.
 - [ ] Claim next dependency-ready queued task and continue.
 - NEXT_EXACT_ACTION = "STATE/EVIDENCE SYNC -> CHECK DIFF/STAGED FILES -> COMMIT/PUSH -> NEW-HEAD CI -> MERGE WITH EXPECTED SHA AFTER PASS -> VERIFY MAIN PUSH CI -> CLAIM NEXT QUEUED TASK"
+
+
+## IMP-105 LOCAL ACCEPTANCE PASS / REMOTE LIFECYCLE PENDING - 2026-10-17
+
+- [x] IMP-105 claimed from verified main SHA aeae12684dd1e8355d822c556b5fbcc3b52930bc; dependencies IMP-104 + IMP-082 MAIN VERIFIED.
+- [x] Bootstrap verified correct project/Git root, branch, HEAD, AGENTS.md, global execution law, handoff, state, and queue.
+- [x] Built isolated Windows x64 / Electron 44.7.0 package; package exit code 0.
+- [x] Verified ASAR source identity and exact package/fresh-copy inventory (72 files / 385486360 bytes); no resources/app or top-level node_modules.
+- [x] Packaged clean-install smoke: first run + restart PASS, exit 0, JUnit 1/1 PASS; isolated Chromium/app-data roots and no credential vault.
+- [x] Packaged unsupported credential-vault schema negative gate PASS, JUnit 1/1 PASS; original vault bytes unchanged.
+- [x] Source syntax checks and git diff --check PASS; task processes exited.
+- [x] Durable evidence saved to evidence/tests/IMP-105_PACKAGED_CLEAN_INSTALL_SMOKE_EVIDENCE.md.
+- [x] Rechecked remote duplicate guard: no IMP-105 remote branch and no PR.
+- [ ] Review exact diff and stage only desktop/preload.cjs, desktop/tests/packaged-clean-install-smoke.test.cjs, evidence/tests/IMP-105_PACKAGED_CLEAN_INSTALL_SMOKE_EVIDENCE.md, CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md; exclude .tmp/.
+- [ ] Verify staged file list and cached diff; commit/push once.
+- [ ] Create PR only after rechecking absence; verify exact-head CI and review.
+- [ ] Merge only after required gates pass; verify merge SHA and main push CI.
+- [ ] Claim the next dependency-ready queue task after MAIN VERIFIED.
+- Task state = RUNNING (local acceptance PASS; remote lifecycle pending). Do not mark DONE or MAIN VERIFIED prematurely.
+- NEXT_EXACT_ACTION = "REVIEW EXACT DIFF -> NODE --CHECK + git diff --check -> STAGE ONLY desktop/preload.cjs, desktop/tests/packaged-clean-install-smoke.test.cjs, evidence/tests/IMP-105_PACKAGED_CLEAN_INSTALL_SMOKE_EVIDENCE.md, CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md -> VERIFY STAGED LIST + git diff --cached --check -> COMMIT/PUSH ONCE -> RECHECK PR DUPLICATE GUARD -> EXACT-HEAD CI + REVIEW -> MERGE ONLY AFTER REQUIRED GATES -> VERIFY MAIN SHA + MAIN PUSH CI -> CLAIM NEXT DEPENDENCY-READY TASK"
