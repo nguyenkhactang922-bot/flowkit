@@ -6776,3 +6776,17 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - Syntax checks on changed JS PASS; last `git diff --check` PASS before adding evidence/state (repeat before commit). No FlowKit task process remains; unrelated builder process/cache untouched. Do not stage `.tmp/imp104`, rerun IMP-070..073 PASS suites, or rerun Frozen Master guard.
 - Base main SHA `1f234046f739e21d6963ef5307025793190f8cfd`; branch `chatgpt/IMP-104-electron-security-acceptance`; last pushed state checkpoint `ed47953`; no IMP-104 PR yet.
 - NEXT_EXACT_ACTION = "REVIEW EXACT DIFF; RUN GIT DIFF --CHECK AND NODE --CHECK ON CHANGED JS; STAGE ONLY desktop/main.cjs, desktop/package.json, desktop/package-lock.json, desktop/tests/packaged-security-acceptance.test.cjs, evidence/tests/IMP-104_ELECTRON_SECURITY_ACCEPTANCE_EVIDENCE.md, CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK_QUEUE.md (NEVER .tmp/); COMMIT/PUSH; CHECK PR EXISTS BEFORE CREATING; WAIT FOR EXACT-HEAD CI + REVIEW; MERGE ONLY AFTER REQUIRED GATES; VERIFY MAIN PUSH CI/SHA; CLAIM NEXT QUEUED TASK"
+
+## IMP-104 PR OPEN / EXACT-HEAD CI RUNNING — 2026-10-17 13:08 +07
+
+- Implementation/evidence commit pushed: `39cd33d5421b5ee922cec7880b1bb80f9c713b74`; PR #97 https://github.com/nguyenkhactang922-bot/flowkit/pull/97, base main `1f234046f739e21d6963ef5307025793190f8cfd`, head SHA matches commit.
+- PR changed-file list matches the eight intended tracked files; no `.tmp/imp104` artifacts are staged or committed. PR state OPEN, mergeable true, no review submissions/threads, no branch protection/rulesets found. Local code review completed; no self-review was submitted as a GitHub review.
+- Exact-head workflow run `39008584808` is IN_PROGRESS. Both jobs (Python 3.10 and 3.13) passed setup, ffmpeg, dependency install and Frozen Master verification; both remain in `Run unit tests` longer than normal. Job start times 06:05:36Z and 06:05:35Z. Logs are not yet available from the workflow-log endpoint. Do not cancel/restart or push a new commit while this exact-head CI run is still running.
+- NEXT_EXACT_ACTION = "MONITOR RUN 39008584808 AND BOTH JOBS; IF COMPLETED PASS, CAPTURE FINAL CONCLUSION AND THEN COMMIT/PUSH THE PR-STATE SYNC (THIS WILL TRIGGER A NEW EXACT-HEAD CI RUN); IF FAIL/TIMEOUT, FETCH COMPLETED JOB LOGS AND FIX ONLY THE FAILED STAGE; NEVER MERGE WITHOUT PASSING EXACT-HEAD CI"
+
+## IMP-104 PR CI PASS ON PRE-SYNC HEAD — 2026-10-17 13:12 +07
+
+- Run `39008584808` completed `success` on exact head `39cd33d5421b5ee922cec7880b1bb80f9c713b74`; both `unit (3.10)` and `unit (3.13)` passed, including Frozen Master verification and unit tests. Runtime was ~6m; run was monitored to completion, not cancelled.
+- PR #97 remains OPEN, mergeable; no GitHub review submissions/threads and no branch protection/rulesets. Local source review completed; do not submit self-approval.
+- A state/evidence sync commit is next; it will change PR head and start a new CI run. Do not merge based on the previous head's green status; wait for the new exact-head run.
+- NEXT_EXACT_ACTION = "COMMIT/PUSH THE CURRENT PR-STATUS STATE + CI EVIDENCE UPDATE ONLY; RECORD THE NEW HEAD; MONITOR ITS NEW CI RUN TO SUCCESS; THEN MERGE PR #97 (NO REVIEW GATE EXISTS, LOCAL REVIEW COMPLETE) AND VERIFY MAIN PUSH CI"

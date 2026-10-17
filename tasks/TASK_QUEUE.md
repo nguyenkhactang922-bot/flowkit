@@ -6069,3 +6069,22 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - [ ] Wait for exact-head CI and review; merge only after required gates.
 - [ ] Verify main merge SHA and main push CI; then claim next valid queued task.
 - NEXT_EXACT_ACTION = "DIFF REVIEW -> DIFF/SYNTAX CHECK -> COMMIT/PUSH INTENDED FILES -> PR CI/REVIEW -> MERGE AFTER GATES -> VERIFY MAIN -> NEXT QUEUE TASK"
+
+## IMP-104 PR OPEN / EXACT-HEAD CI RUNNING — 2026-10-17 13:08 +07
+
+- [x] Implementation/evidence commit `39cd33d5421b5ee922cec7880b1bb80f9c713b74` pushed.
+- [x] PR #97 open, base main SHA `1f234046f739e21d6963ef5307025793190f8cfd`, head matches pushed commit.
+- [x] Local code review and changed-file inventory completed; no branch protection/rulesets, no submitted GitHub review.
+- [ ] Exact-head CI run `39008584808` complete: both jobs have passed setup, dependencies and Frozen Master, but are still in `Run unit tests`; do not cancel/restart.
+- [ ] After the current run finishes, sync PR status and let any state-only follow-up commit receive its own exact-head CI before merge.
+- [ ] Merge only after current/final exact-head CI passes; then verify merge SHA and main push CI.
+- NEXT_EXACT_ACTION = "MONITOR 39008584808 -> IF PASS, SYNC STATE AND VERIFY NEW HEAD CI -> MERGE AFTER GATES -> VERIFY MAIN PUSH CI -> CLAIM NEXT QUEUE TASK; IF FAIL/TIMEOUT, FETCH LOGS AND FIX ONLY THE FAILED STAGE"
+
+## IMP-104 PR CI PASS ON PRE-SYNC HEAD — 2026-10-17 13:12 +07
+
+- [x] Run `39008584808` passed on `39cd33d5421b5ee922cec7880b1bb80f9c713b74`; both Python 3.10/3.13 jobs, Frozen Master verification and unit tests succeeded.
+- [x] Local source review complete; PR #97 OPEN and mergeable; no review submissions or branch protection/rulesets.
+- [ ] Commit/push state/evidence sync; capture the new head and await its exact-head CI success.
+- [ ] Merge PR #97 only after the new head CI succeeds.
+- [ ] Verify main merge SHA and main push CI, then claim the next valid queued task.
+- NEXT_EXACT_ACTION = "STATE/EVIDENCE SYNC COMMIT -> NEW-HEAD CI -> MERGE AFTER GATES -> VERIFY MAIN -> NEXT QUEUE TASK"

@@ -80,3 +80,11 @@ Electron 44's `getSelectedStorageBackend()` API is Linux-only and is not exposed
 This proves the packaged Windows Electron security boundary and native DPAPI-protected safeStorage key path for a synthetic canary. It does not prove code signing, an NSIS installer, live-provider workflows, or a production credential's lifecycle. Keep all `.tmp/imp104` runtime/package artifacts local-only; commit only the reusable test, minimal Main self-test mode, lockfile/package metadata and this sanitized evidence document.
 
 **NEXT_EXACT_ACTION:** review the exact source/test/evidence diff, run only `node --check` on changed JS plus `git diff --check`, then commit/push IMP-104 changes, create PR if absent, wait for exact-head CI, review, merge only after required gates, and verify main push CI.
+
+## GitHub PR CI
+
+- PR #97: https://github.com/nguyenkhactang922-bot/flowkit/pull/97
+- Run `39008584808` completed `success` on exact PR head `39cd33d5421b5ee922cec7880b1bb80f9c713b74` at 2026-10-17 06:11:51Z.
+- Both jobs `unit (3.10)` and `unit (3.13)` completed `success`; each passed setup, dependency installation, Frozen Master baseline verification and unit tests. The unit-test step took about 5m38s / 6m16s respectively but completed successfully; no cancellation/restart was performed.
+- The run emitted a non-blocking GitHub Actions notice that `actions/checkout@v4` and `actions/setup-python@v5` still target Node.js 20 while the runner forces Node.js 24. This warning did not fail either job.
+- This green run applies to head `39cd33d5421b5ee922cec7880b1bb80f9c713b74`. A subsequent state/evidence sync commit will produce a new head; that head must receive its own successful CI before merge.
