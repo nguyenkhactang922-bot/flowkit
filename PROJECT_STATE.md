@@ -6942,3 +6942,14 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - runtime = no active FlowKit/npm/Electron process for this task; unrelated electron-builder process in `D:\\TangKeyYouTube-C02` left untouched. Local health endpoint unavailable, but no FlowKit generation/API workflow is required for this task; do not start unrelated service.
 - procedure_deviation = frozen_master_guard was inadvertently rerun earlier; PASS and SHA unchanged; never rerun again unless frozen artifact changes.
 - NEXT_EXACT_ACTION = "RUN node_modules/electron/install.js ONCE WITH LOG/EXIT MARKER -> MONITOR PID/LOG/ARTIFACTS, DO NOT RESTART -> VERIFY BINARY VERSION AND CHECKSUM SOURCE -> AUDIT PACKAGING CACHE/OUTPUT REQUIREMENTS -> PACKAGE UNDER .tmp/imp104 -> RUN ONLY NEW PACKAGED SECURITY NEGATIVE TESTS"
+
+
+## IMP-104 PINNED ELECTRON RUNTIME INSTALL PASS — 2026-10-17 12:42 +07
+
+- electron_install = PASS; command ran once, exit marker `0` at `.tmp/imp104/electron-install.exitcode`.
+- installed_version = `44.7.0`; dist version marker `44.7.0`; path marker `electron.exe`; Windows FileVersion/ProductVersion `44.7.0`.
+- electron_exe = `desktop/node_modules/electron/dist/electron.exe`, 246302208 bytes, SHA-256 `2529B494F4123F152BCE346051F7BD855EF95006424A561953CF17C49A3D1BA8`.
+- installer_source = pinned `electron/install.js` uses package `checksums.json`; Windows x64 ZIP SHA-256 verified against official GitHub release metadata and package checksum before install. No installer process remains.
+- builder = `26.15.3`; builder source confirms support for `ELECTRON_BUILDER_CACHE`. An unrelated project has an active builder process, so avoid global cache and use `.tmp/imp104/electron-builder-cache`; package output isolated at `.tmp/imp104/package`.
+- disk_free = approx 8.56 GB on E:. npm ci was not rerun. Existing IMP-070..073 PASS stages were not rerun.
+- NEXT_EXACT_ACTION = "PREPARE AND VERIFY DEDICATED BUILD CONFIG/LOG -> PACKAGE UNPACKED WINDOWS x64 TARGET ONCE WITH ISOLATED ELECTRON_BUILDER_CACHE AND PUBLISH=NEVER -> MONITOR EXISTING PID/LOG/OUTPUT -> VERIFY PACKAGE CONTENT/VERSION/ASAR -> ADD ONLY NEW PACKAGED SECURITY NEGATIVE TESTS"

@@ -6034,3 +6034,13 @@ NEXT_EXACT_ACTION = "STAGE ONLY CURRENT_HANDOFF.md, PROJECT_STATE.md, tasks/TASK
 - [ ] Install Electron runtime binary using only the inspected pinned installer/checksum path; capture log and exit marker.
 - [ ] Package target into dedicated local `.tmp/imp104` path after builder cache/output preflight; then execute only new packaged security gates.
 - NEXT_EXACT_ACTION = "RUN PINNED ELECTRON INSTALLER ONCE -> MONITOR EXISTING PID/LOG/OUTPUT WITHOUT RESTART -> VERIFY VERSION/CHECKSUM -> PACKAGE UNDER .tmp/imp104 -> RUN ONLY NEW PACKAGED SECURITY NEGATIVE TESTS AND RETAIN JUNIT/RUNTIME EVIDENCE"
+
+
+## IMP-104 PINNED ELECTRON RUNTIME INSTALL PASS — 2026-10-17 12:42 +07
+
+- [x] Pinned Electron installer ran once and exited 0; version marker and Windows file/product versions all `44.7.0`.
+- [x] Installed executable exists: 246302208 bytes, SHA-256 `2529B494F4123F152BCE346051F7BD855EF95006424A561953CF17C49A3D1BA8`; upstream ZIP hash matched official release metadata and package checksum manifest.
+- [x] Electron-builder CLI version verified `26.15.3`; isolated cache env support confirmed in package source.
+- [ ] Package unpacked Windows x64 target to local `.tmp/imp104/package` with cache isolated from other projects.
+- [ ] Inspect packaged file/ASAR/runtime markers, then run only new packaged security negative tests.
+- NEXT_EXACT_ACTION = "BUILD CONFIG/LOG UNDER .tmp/imp104 -> PACKAGE --dir --win --x64 WITH ELECTRON_BUILDER_CACHE ISOLATED + PUBLISH NEVER -> MONITOR EXISTING PROCESS WITHOUT RESTART -> VERIFY PACKAGE -> NEW PACKAGED SECURITY NEGATIVE TESTS"
